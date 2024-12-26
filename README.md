@@ -1,0 +1,2 @@
+# 35-APPJAM-ANDROID-GONGGANG
+35기 AND SOPT APPJAM 공강팅 안드로이드 파트 레포지토리입니다.

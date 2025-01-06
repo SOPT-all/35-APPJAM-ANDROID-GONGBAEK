@@ -17,7 +17,7 @@ fun Modifier.roundedBackgroundWithBorder(
     cornerRadius: Dp,
     backgroundColor: Color,
     borderColor: Color = Color.Transparent,
-    borderWidth: Dp = 0.dp,
+    borderWidth: Dp = 0.dp
 ): Modifier {
     return this
         .background(backgroundColor, shape = RoundedCornerShape(cornerRadius))
@@ -30,7 +30,7 @@ fun Modifier.roundedBackgroundWithBorder(
 
 fun Modifier.clickableWithoutRipple(
     enabled: Boolean = true,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ): Modifier = composed {
     this.clickable(
         indication = null,

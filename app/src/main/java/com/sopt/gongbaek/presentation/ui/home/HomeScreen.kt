@@ -11,7 +11,6 @@ fun HomeRoute() {
 
 @Composable
 fun HomeScreen() {
-
 }
 
 @Preview(showBackground = true)

@@ -13,7 +13,6 @@ class ExampleRemoteDataSourceImpl @Inject constructor(
     override suspend fun getExampleData(): ApiResponse<ExampleResponseDto> =
         exampleService.getExampleData()
 
-
     override suspend fun postExampleData(exampleRequestDto: ExampleRequestDto): ApiResponse<Unit> =
         exampleService.postExampleData(exampleRequestDto = exampleRequestDto)
 }

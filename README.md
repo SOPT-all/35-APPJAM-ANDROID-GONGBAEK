@@ -20,7 +20,7 @@
 <br>
 
 ## 📗 *****Convention*****
-[📕 Code , Package , Git , GitHub Convention ](https://noble-nephew-f49.notion.site/13b76e79e164809ebeb6cb83b8a00f7d?pvs=4) 
+[📕 Code , Package , Git , GitHub Convention ](https://sumptuous-viscose-f29.notion.site/168a055a68d581f59cfdee8691a8c73f?pvs=4) 
 <br>
 <br>
 

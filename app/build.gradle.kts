@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-val properties = Properties().apply {
+val localProperties = Properties().apply {
     load(project.rootProject.file("local.properties").inputStream())
 }
 
@@ -25,7 +25,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", properties["base.url"].toString())
+        buildConfigField("String", "GONGBAEK_BASE_URL", localProperties["gongbaek.base.url"].toString())
+        buildConfigField("String", "ANOTHER_BASE_URL", localProperties["another.base.url"].toString())
     }
 
     buildTypes {
@@ -70,6 +71,7 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.appcompat)
     ksp(libs.hilt.compiler)
 
     // Network

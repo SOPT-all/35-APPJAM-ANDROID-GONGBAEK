@@ -6,15 +6,12 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.sopt.gongbaek.BuildConfig
 import com.sopt.gongbaek.BuildConfig.DEBUG
 import com.sopt.gongbaek.data.remote.util.NetworkUtil
-import com.sopt.gongbaek.di.qualifier.Auth
-import com.sopt.gongbaek.di.qualifier.GongBaek
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,20 +24,6 @@ import javax.inject.Singleton
 object NetworkModule {
     @Provides
     @Singleton
-    fun providesOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
-        @Auth authInterceptor: Interceptor
-    ): OkHttpClient =
-        OkHttpClient.Builder().apply {
-            connectTimeout(10, TimeUnit.SECONDS)
-            writeTimeout(10, TimeUnit.SECONDS)
-            readTimeout(10, TimeUnit.SECONDS)
-            addInterceptor(authInterceptor)
-            if (DEBUG) addInterceptor(loggingInterceptor)
-        }.build()
-
-    @Provides
-    @Singleton
     fun providesJson(): Json =
         Json {
             isLenient = true
@@ -51,46 +34,39 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun providesOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+    ): OkHttpClient =
+        OkHttpClient.Builder().apply {
+            connectTimeout(10, TimeUnit.SECONDS)
+            writeTimeout(10, TimeUnit.SECONDS)
+            readTimeout(10, TimeUnit.SECONDS)
+            if (DEBUG) addInterceptor(loggingInterceptor)
+        }.build()
+
+    @Provides
+    @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
     @Provides
     @Singleton
-    @Auth
-    fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
-        val request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer <Your_Token_Here>")
-            .build()
-        chain.proceed(request)
-    }
-
-    @Provides
-    @Singleton
-    @GongBaek
     fun provideGongBaekBaseUrl(): String = BuildConfig.GONGBAEK_BASE_URL
 
     @Provides
     @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        baseUrl: String
+        json: Json,
+        baseUrl: String,
     ): Retrofit {
-        val json = Json { ignoreUnknownKeys = true }
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
-
-    @Provides
-    @Singleton
-    @GongBaek
-    fun provideGongBaekRetrofit(
-        @GongBaek okHttpClient: OkHttpClient,
-        @GongBaek baseUrl: String
-    ): Retrofit = provideRetrofit(okHttpClient, baseUrl)
 
     @Provides
     @Singleton

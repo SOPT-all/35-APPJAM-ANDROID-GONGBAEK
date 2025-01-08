@@ -1,7 +1,6 @@
 package com.sopt.gongbaek.di
 
 import com.sopt.gongbaek.data.remote.service.ExampleService
-import com.sopt.gongbaek.di.qualifier.GongBaek
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +13,6 @@ import javax.inject.Singleton
 object ServiceModule {
     @Provides
     @Singleton
-    fun provideExampleService(@GongBaek retrofit: Retrofit): ExampleService =
+    fun provideExampleService(retrofit: Retrofit): ExampleService =
         retrofit.create(ExampleService::class.java)
 }

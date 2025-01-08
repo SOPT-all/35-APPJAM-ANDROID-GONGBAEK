@@ -2,7 +2,6 @@ package com.sopt.gongbaek.presentation.util.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event : UiEvent>() :
+abstract class BaseViewModel<State : UiState, Event : UiEvent, SideEffect : UiSideEffect>() :
     ViewModel() {
     private val initialState: State by lazy { createInitialState() }
     abstract fun createInitialState(): State
@@ -27,7 +26,7 @@ abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event :
         get() = _event.asSharedFlow()
 
     private val _sideEffect: MutableSharedFlow<SideEffect> = MutableSharedFlow()
-    val sideEffect: Flow<SideEffect>
+    val sideEffect: SharedFlow<SideEffect>
         get() = _sideEffect.asSharedFlow()
 
     protected fun setState(reduce: State.() -> State) {

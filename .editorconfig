@@ -1,5 +1,5 @@
 [*]
 max_line_length = off
 
-[*.{kt, kts}]
-disabled_rules = import-ordering, no-wildcard-imports
+[*.{kt,kts}]
+ktlint_disabled_rules = import-ordering, no-wildcard-imports

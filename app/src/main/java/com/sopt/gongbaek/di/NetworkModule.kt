@@ -15,6 +15,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -34,6 +35,17 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideConverterFactory(json: Json): Converter.Factory =
+        json.asConverterFactory("application/json".toMediaType())
+
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    @Provides
+    @Singleton
     fun providesOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient =
@@ -46,25 +58,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    @Provides
-    @Singleton
     fun provideGongBaekBaseUrl(): String = BuildConfig.GONGBAEK_BASE_URL
 
     @Provides
     @Singleton
     fun provideRetrofit(
+        converterFactory: Converter.Factory,
         okHttpClient: OkHttpClient,
-        json: Json,
         baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(converterFactory)
             .build()
     }
 

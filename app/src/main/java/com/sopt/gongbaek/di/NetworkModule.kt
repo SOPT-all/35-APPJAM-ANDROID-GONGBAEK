@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.gongbaek.BuildConfig
 import com.sopt.gongbaek.BuildConfig.DEBUG
-import com.sopt.gongbaek.data.remote.util.NetworkUtil
+import com.sopt.gongbaek.data.remote.util.NetworkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -70,8 +70,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideNetworkUtil(@ApplicationContext context: Context): NetworkUtil {
+    fun provideNetworkManager(@ApplicationContext context: Context): NetworkManager {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return NetworkUtil(connectivityManager)
+        return NetworkManager(connectivityManager)
     }
 }

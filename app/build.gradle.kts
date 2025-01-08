@@ -27,7 +27,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "GONGBAEK_BASE_URL", localProperties["gongbaek.base.url"].toString())
-        buildConfigField("String", "ANOTHER_BASE_URL", localProperties["another.base.url"].toString())
     }
 
     buildTypes {

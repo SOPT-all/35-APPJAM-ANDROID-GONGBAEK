@@ -13,7 +13,6 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GapTimeTableRoute() {
-
 }
 
 @Composable
@@ -37,4 +36,3 @@ fun ShowGapTimeTableScreen() {
         GapTimeTableScreen()
     }
 }
-

@@ -13,7 +13,6 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun UnivSearchRoute() {
-
 }
 
 @Composable
@@ -28,7 +27,6 @@ fun UnivSearchScreen() {
             text = "학교 검색 화면"
         )
     }
-
 }
 
 @Preview(showBackground = true)

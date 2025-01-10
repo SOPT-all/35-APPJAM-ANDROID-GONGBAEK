@@ -15,7 +15,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun SplashScreen(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     Box(
         modifier = Modifier

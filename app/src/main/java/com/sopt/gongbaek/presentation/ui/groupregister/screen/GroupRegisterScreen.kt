@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun GroupRegisterRoute() {
-
 }
 
 @Composable
@@ -32,5 +31,4 @@ fun GroupRegisterScreen() {
 @Preview(showBackground = true)
 @Composable
 fun ShowGroupRegisterScreen() {
-
 }

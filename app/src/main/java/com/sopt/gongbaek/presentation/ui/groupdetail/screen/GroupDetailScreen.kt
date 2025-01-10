@@ -14,7 +14,6 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GroupDetailRoute() {
-
 }
 
 @Composable

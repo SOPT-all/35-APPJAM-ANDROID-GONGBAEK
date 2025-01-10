@@ -27,7 +27,6 @@ fun GroupTimeRoute() {
 
 @Composable
 fun GroupTimeScreen() {
-
 }
 
 @Preview(showBackground = true)

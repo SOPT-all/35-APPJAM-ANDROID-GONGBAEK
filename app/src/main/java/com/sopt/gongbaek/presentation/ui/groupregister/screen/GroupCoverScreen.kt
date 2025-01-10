@@ -12,7 +12,6 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GroupCoverRoute() {
-
 }
 
 @Composable

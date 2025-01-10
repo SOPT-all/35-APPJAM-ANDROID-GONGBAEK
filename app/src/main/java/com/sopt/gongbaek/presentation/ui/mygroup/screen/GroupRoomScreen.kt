@@ -12,7 +12,6 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GroupRoomRoute() {
-
 }
 
 @Composable
@@ -33,6 +32,5 @@ fun GroupRoomScreen() {
 @Composable
 fun ShowGroupRoomScreen() {
     GONGBAEKTheme {
-
     }
 }

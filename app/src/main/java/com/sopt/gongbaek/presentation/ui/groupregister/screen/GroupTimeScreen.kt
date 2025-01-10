@@ -13,6 +13,11 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GroupTimeRoute() {
+    GroupTimeScreen()
+}
+
+@Composable
+fun GroupTimeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -23,10 +28,6 @@ fun GroupTimeRoute() {
             text = "모임등록 > 시간선택 화면"
         )
     }
-}
-
-@Composable
-fun GroupTimeScreen() {
 }
 
 @Preview(showBackground = true)

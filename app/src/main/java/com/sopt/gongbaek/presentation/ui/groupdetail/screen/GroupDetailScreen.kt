@@ -14,6 +14,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GroupDetailRoute() {
+    GroupDetailScreen()
 }
 
 @Composable

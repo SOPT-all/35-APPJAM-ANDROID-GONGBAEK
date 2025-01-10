@@ -13,6 +13,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun MyGroupRoute() {
+    MyGroupScreen()
 }
 
 @Composable

@@ -9,12 +9,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.GroupDetailNavGraph
-import com.sopt.gongbaek.presentation.ui.grouplist.navigation.GroupListNavGraph
-import com.sopt.gongbaek.presentation.ui.groupregister.navigation.GroupRegisterNavGraph
-import com.sopt.gongbaek.presentation.ui.home.navigation.HomeNavGraph
-import com.sopt.gongbaek.presentation.ui.mygroup.navigation.MyGroupNavGraph
-import com.sopt.gongbaek.presentation.ui.onboarding.navigation.OnboardingNavGraph
+import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.groupDetailNavGraph
+import com.sopt.gongbaek.presentation.ui.grouplist.navigation.groupListNavGraph
+import com.sopt.gongbaek.presentation.ui.groupregister.navigation.groupRegisterNavGraph
+import com.sopt.gongbaek.presentation.ui.home.navigation.homeNavGraph
+import com.sopt.gongbaek.presentation.ui.mygroup.navigation.myGroupNavGraph
+import com.sopt.gongbaek.presentation.ui.onboarding.navigation.onboardingNavGraph
 import com.sopt.gongbaek.presentation.ui.splash.SplashScreen
 
 @Composable
@@ -29,15 +29,15 @@ fun MainNavHost(
     ) {
         NavHost(
             navController = navController,
-            startDestination = "splash"
+            startDestination = "home_route"
         ) {
             composable(route = "splash") { SplashScreen(navController = navController) }
-            OnboardingNavGraph(navController)
-            GroupListNavGraph(navController)
-            GroupRegisterNavGraph(navController)
-            GroupDetailNavGraph(navController)
-            MyGroupNavGraph(navController)
-            HomeNavGraph(navController)
+            onboardingNavGraph(navController)
+            groupListNavGraph(navController)
+            groupRegisterNavGraph(navController)
+            groupDetailNavGraph(navController)
+            myGroupNavGraph(navController)
+            homeNavGraph(navController)
         }
     }
 }

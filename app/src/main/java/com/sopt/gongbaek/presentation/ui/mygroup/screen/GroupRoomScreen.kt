@@ -12,6 +12,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GroupRoomRoute() {
+    GroupRoomScreen()
 }
 
 @Composable

@@ -4,8 +4,5 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 
 fun NavController.navigateHome(navOptions: NavOptions) {
-    navigate(
-        route = "home",
-        navOptions = navOptions
-    )
+    navigate(route = "home")
 }

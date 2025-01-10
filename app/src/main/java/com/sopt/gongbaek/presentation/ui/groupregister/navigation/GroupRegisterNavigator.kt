@@ -1,67 +1,39 @@
 package com.sopt.gongbaek.presentation.ui.groupregister.navigation
 
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 
-fun NavController.navigateGroupCycle(navOptions: NavOptions) {
-    navigate(
-        route = "group_cycle",
-        navOptions = navOptions
-    )
+fun NavController.navigateGroupCycle() {
+    navigate(route = "group_cycle")
 }
 
-fun NavController.navigateSelectDay(navOptions: NavOptions) {
-    navigate(
-        route = "select_day",
-        navOptions = navOptions
-    )
+fun NavController.navigateSelectDay() {
+    navigate(route = "select_day")
 }
 
-fun NavController.navigateSelectDayOfWeek(navOptions: NavOptions) {
-    navigate(
-        route = "select_day_of_week",
-        navOptions = navOptions
-    )
+fun NavController.navigateSelectDayOfWeek() {
+    navigate(route = "select_day_of_week")
 }
 
-fun NavController.navigateGroupTime(navOptions: NavOptions) {
-    navigate(
-        route = "group_time",
-        navOptions = navOptions
-    )
+fun NavController.navigateGroupTime() {
+    navigate(route = "group_time")
 }
 
-fun NavController.navigateGroupCategory(navOptions: NavOptions) {
-    navigate(
-        route = "group_category",
-        navOptions = navOptions
-    )
+fun NavController.navigateGroupCategory() {
+    navigate(route = "group_category")
 }
 
-fun NavController.navigateGroupCover(navOptions: NavOptions) {
-    navigate(
-        route = "group_cover",
-        navOptions = navOptions
-    )
+fun NavController.navigateGroupCover() {
+    navigate(route = "group_cover")
 }
 
-fun NavController.navigateGroupPlacePeople(navOptions: NavOptions) {
-    navigate(
-        route = "group_place_people",
-        navOptions = navOptions
-    )
+fun NavController.navigateGroupPlacePeople() {
+    navigate(route = "group_place_people")
 }
 
-fun NavController.navigateGroupIntroduction(navOptions: NavOptions) {
-    navigate(
-        route = "group_introduction",
-        navOptions = navOptions
-    )
+fun NavController.navigateGroupIntroduction() {
+    navigate(route = "group_introduction")
 }
 
-fun NavController.navigateGroupRegister(navOptions: NavOptions) {
-    navigate(
-        route = "group_register",
-        navOptions = navOptions
-    )
+fun NavController.navigateGroupRegister() {
+    navigate(route = "group_register")
 }

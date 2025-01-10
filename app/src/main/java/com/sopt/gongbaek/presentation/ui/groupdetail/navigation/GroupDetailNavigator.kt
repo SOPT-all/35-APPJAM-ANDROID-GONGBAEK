@@ -4,8 +4,5 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 
 fun NavController.navigateGroupDetail(navOptions: NavOptions) {
-    navigate(
-        route = "group_detail",
-        navOptions = navOptions
-    )
+    navigate(route = "group_detail")
 }

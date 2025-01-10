@@ -14,7 +14,7 @@ import com.sopt.gongbaek.presentation.ui.groupregister.screen.GroupTimeRoute
 import com.sopt.gongbaek.presentation.ui.groupregister.screen.SelectDayOfWeekRoute
 import com.sopt.gongbaek.presentation.ui.groupregister.screen.SelectDayRoute
 
-fun NavGraphBuilder.GroupRegisterNavGraph(
+fun NavGraphBuilder.groupRegisterNavGraph(
     navController: NavHostController
 ) {
     navigation(

@@ -17,7 +17,7 @@ import com.sopt.gongbaek.presentation.ui.onboarding.screen.SelfIntroductionRoute
 import com.sopt.gongbaek.presentation.ui.onboarding.screen.UnivMajorRoute
 import com.sopt.gongbaek.presentation.ui.onboarding.screen.UnivSearchRoute
 
-fun NavGraphBuilder.OnboardingNavGraph(
+fun NavGraphBuilder.onboardingNavGraph(
     navController: NavHostController
 ) {
     navigation(
@@ -27,7 +27,9 @@ fun NavGraphBuilder.OnboardingNavGraph(
         composable(
             route = "select_profile"
         ) {
-            SelectProfileRoute()
+            SelectProfileRoute(
+                navigateNickname = { navController.navigateNickname() }
+            )
         }
 
         composable(

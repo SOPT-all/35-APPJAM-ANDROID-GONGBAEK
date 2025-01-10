@@ -4,9 +4,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.sopt.gongbaek.presentation.ui.grouplist.navigation.navigateGroupList
 import com.sopt.gongbaek.presentation.ui.home.screen.HomeRoute
 
-fun NavGraphBuilder.HomeNavGraph(
+fun NavGraphBuilder.homeNavGraph(
     navController: NavHostController
 ) {
     navigation(
@@ -16,7 +17,9 @@ fun NavGraphBuilder.HomeNavGraph(
         composable(
             route = "home"
         ) {
-            HomeRoute()
+            HomeRoute(
+                navigateGroupList = { navController.navigateGroupList() }
+            )
         }
     }
 }

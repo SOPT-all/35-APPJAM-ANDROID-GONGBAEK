@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.ui.grouplist.screen.GroupListRoute
 
-fun NavGraphBuilder.GroupListNavGraph(
+fun NavGraphBuilder.groupListNavGraph(
     navController: NavHostController
 ) {
     navigation(

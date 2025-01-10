@@ -2,6 +2,10 @@ package com.sopt.gongbaek.presentation.ui.groupregister.navigation
 
 import androidx.navigation.NavController
 
+fun NavController.navigateGroupRegisterRoute() {
+    navigate(route = "group_register_route")
+}
+
 fun NavController.navigateGroupCycle() {
     navigate(route = "group_cycle")
 }

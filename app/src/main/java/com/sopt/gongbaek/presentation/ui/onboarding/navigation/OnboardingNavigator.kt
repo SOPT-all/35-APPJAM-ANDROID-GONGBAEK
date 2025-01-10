@@ -1,7 +1,10 @@
 package com.sopt.gongbaek.presentation.ui.onboarding.navigation
 
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
+
+fun NavController.navigateOnboardingRoute() {
+    navigate(route = "onboarding_route")
+}
 
 fun NavController.navigateSelectProfile() {
     navigate(route = "select_profile")

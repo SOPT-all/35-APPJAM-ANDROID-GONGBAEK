@@ -21,7 +21,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun SelectProfileRoute(
-    navigateNickname: () -> Unit,
+    navigateNickname: () -> Unit
 ) {
     SelectProfileScreen(
         navigateNickname = navigateNickname
@@ -30,7 +30,7 @@ fun SelectProfileRoute(
 
 @Composable
 fun SelectProfileScreen(
-    navigateNickname: () -> Unit,
+    navigateNickname: () -> Unit
 ) {
     Box(
         modifier = Modifier

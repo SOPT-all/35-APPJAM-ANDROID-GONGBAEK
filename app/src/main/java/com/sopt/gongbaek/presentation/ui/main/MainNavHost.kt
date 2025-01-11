@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +15,7 @@ import com.sopt.gongbaek.presentation.ui.home.navigation.homeNavGraph
 import com.sopt.gongbaek.presentation.ui.mygroup.navigation.myGroupNavGraph
 import com.sopt.gongbaek.presentation.ui.onboarding.navigation.onboardingNavGraph
 import com.sopt.gongbaek.presentation.ui.splash.SplashScreen
+import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun MainNavHost(
@@ -25,7 +25,7 @@ fun MainNavHost(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(GongBaekTheme.colors.white)
     ) {
         NavHost(
             navController = navController,

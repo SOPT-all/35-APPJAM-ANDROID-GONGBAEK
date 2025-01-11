@@ -21,7 +21,6 @@
             android:name=".presentation.ui.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.GONGBAEK">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

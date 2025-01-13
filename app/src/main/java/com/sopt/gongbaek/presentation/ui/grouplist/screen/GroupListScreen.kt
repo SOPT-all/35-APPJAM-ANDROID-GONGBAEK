@@ -25,7 +25,7 @@ fun GroupListScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "나의채움 화면"
+            text = "채우기 화면"
         )
     }
 }

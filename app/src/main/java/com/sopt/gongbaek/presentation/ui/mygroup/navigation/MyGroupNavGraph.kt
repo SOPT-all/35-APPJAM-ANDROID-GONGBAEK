@@ -6,7 +6,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.navigateGroupDetailNavGraph
-import com.sopt.gongbaek.presentation.ui.mygroup.screen.GroupRoomRoute
+import com.sopt.gongbaek.presentation.ui.grouproom.navigation.navigateGroupRoomNavGraph
+import com.sopt.gongbaek.presentation.ui.grouproom.screen.GroupRoomRoute
 import com.sopt.gongbaek.presentation.ui.mygroup.screen.MyGroupRoute
 
 fun NavGraphBuilder.myGroupNavGraph(
@@ -21,14 +22,8 @@ fun NavGraphBuilder.myGroupNavGraph(
         ) {
             MyGroupRoute(
                 navigateGroupDetail = { navController.navigateGroupDetailNavGraph() },
-                navigateGroupRoom = { navController.navigateGroupRoom() }
+                navigateGroupRoom = { navController.navigateGroupRoomNavGraph() }
             )
-        }
-
-        composable(
-            route = NavigationRoute.MyGroupNavGraphRoute.GROUP_ROOM
-        ) {
-            GroupRoomRoute()
         }
     }
 }

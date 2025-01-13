@@ -1,6 +1,22 @@
 package com.sopt.gongbaek.presentation.model
 
 object NavigationRoute {
+    object OnboardingNavGraphRoute {
+        const val ONBOARDING_NAV_GRAPH = "onboarding_route"
+        const val SELECT_PROFILE = "select_profile"
+        const val NICKNAME = "nickname"
+        const val UNIV_MAJOR = "univ_major"
+        const val UNIV_SEARCH = "univ_search"
+        const val MAJOR_SEARCH = "major_search"
+        const val GRADE = "grade"
+        const val MBTI = "mbti"
+        const val GENDER = "gender"
+        const val SELF_INTRODUCTION = "self_introduction"
+        const val ENTER_TIMETABLE = "enter_timetable"
+        const val GAP_TIMETABLE = "gap_timetable"
+        const val COMPLETE_ONBOARDING = "complete_onboarding"
+    }
+
     object MainBottomNavBarTabRoute {
         const val GROUP_LIST_TAB = "group_list_route"
         const val MY_GROUP_TAB = "my_group_route"
@@ -37,23 +53,12 @@ object NavigationRoute {
 
     object MyGroupNavGraphRoute {
         const val MY_GROUP = "my_group"
-        const val GROUP_ROOM = "group_room"
+
     }
 
-    object OnboardingNavGraphRoute {
-        const val ONBOARDING_NAV_GRAPH = "onboarding_route"
-        const val SELECT_PROFILE = "select_profile"
-        const val NICKNAME = "nickname"
-        const val UNIV_MAJOR = "univ_major"
-        const val UNIV_SEARCH = "univ_search"
-        const val MAJOR_SEARCH = "major_search"
-        const val GRADE = "grade"
-        const val MBTI = "mbti"
-        const val GENDER = "gender"
-        const val SELF_INTRODUCTION = "self_introduction"
-        const val ENTER_TIMETABLE = "enter_timetable"
-        const val GAP_TIMETABLE = "gap_timetable"
-        const val COMPLETE_ONBOARDING = "complete_onboarding"
+    object GroupRoomNavGraphRoute {
+        const val GROUP_ROOM_NAV_GRAPH = "group_room_route"
+        const val GROUP_ROOM = "group_room"
     }
 
     object SplashRoute {

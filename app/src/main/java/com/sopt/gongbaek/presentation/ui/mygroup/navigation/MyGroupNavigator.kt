@@ -14,7 +14,3 @@ fun NavController.navigateMyGroupNavGraph(navOptions: NavOptions) {
 fun NavController.navigateMyGroup() {
     navigate(route = NavigationRoute.MyGroupNavGraphRoute.MY_GROUP)
 }
-
-fun NavController.navigateGroupRoom() {
-    navigate(route = NavigationRoute.MyGroupNavGraphRoute.GROUP_ROOM)
-}

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.gongbaek.presentation.ui.mygroup.screen.GroupRoomScreen
+import com.sopt.gongbaek.presentation.ui.grouproom.screen.GroupRoomScreen
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme

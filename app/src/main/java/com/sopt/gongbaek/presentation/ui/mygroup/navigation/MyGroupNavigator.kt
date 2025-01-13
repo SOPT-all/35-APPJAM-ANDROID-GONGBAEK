@@ -2,19 +2,19 @@ package com.sopt.gongbaek.presentation.ui.mygroup.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import com.sopt.gongbaek.presentation.model.MainBottomNavBarTabRoute
+import com.sopt.gongbaek.presentation.model.NavigationRoute
 
-fun NavController.navigateMyGroupRoute() {
-    navigate(route = "my_group_route")
-}
-
-fun NavController.navigateMyGroup(navOptions: NavOptions) {
+fun NavController.navigateMyGroupNavGraph(navOptions: NavOptions) {
     navigate(
-        route = MainBottomNavBarTabRoute.MyGroup::class.simpleName.orEmpty(),
+        route = NavigationRoute.MainBottomNavBarTabRoute.MY_GROUP_TAB,
         navOptions = navOptions
     )
 }
 
+fun NavController.navigateMyGroup() {
+    navigate(route = NavigationRoute.MyGroupNavGraphRoute.MY_GROUP)
+}
+
 fun NavController.navigateGroupRoom() {
-    navigate(route = "group_room")
+    navigate(route = NavigationRoute.MyGroupNavGraphRoute.GROUP_ROOM)
 }

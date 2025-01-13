@@ -4,10 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.groupDetailNavGraph
 import com.sopt.gongbaek.presentation.ui.grouplist.navigation.groupListNavGraph
 import com.sopt.gongbaek.presentation.ui.groupregister.navigation.groupRegisterNavGraph
@@ -20,19 +22,20 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun MainNavHost(
     navigator: MainNavigator,
-    padding: PaddingValues,
+    paddingValues: PaddingValues,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(GongBaekTheme.colors.white)
+            .padding(paddingValues)
     ) {
         NavHost(
             navController = navigator.navController,
-            startDestination = navigator.startDestination::class.simpleName.orEmpty()
+            startDestination = navigator.startDestination
         ) {
-            composable(route = "splash") { SplashScreen(navController = navigator.navController) }
+            composable(route = NavigationRoute.SplashRoute.SPLASH) { SplashScreen(navController = navigator.navController) }
             onboardingNavGraph(navigator.navController)
             groupListNavGraph(navigator.navController)
             groupRegisterNavGraph(navigator.navController)

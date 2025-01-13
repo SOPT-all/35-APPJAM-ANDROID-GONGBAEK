@@ -20,18 +20,12 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun HomeRoute(
-    navigateGroupList: () -> Unit
-) {
-    HomeScreen(
-        navigateGroupList = navigateGroupList
-    )
+fun HomeRoute() {
+    HomeScreen()
 }
 
 @Composable
-fun HomeScreen(
-    navigateGroupList: () -> Unit
-) {
+fun HomeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +48,7 @@ fun HomeScreen(
                         borderColor = GongBaekTheme.colors.mainOrange
                     )
                     .clickableWithoutRipple(
-                        onClick = navigateGroupList
+                        onClick = {}
                     )
             ) {
                 Text(
@@ -70,8 +64,6 @@ fun HomeScreen(
 @Composable
 fun ShowHomeScreen() {
     GONGBAEKTheme {
-        HomeScreen(
-            navigateGroupList = {}
-        )
+        HomeScreen()
     }
 }

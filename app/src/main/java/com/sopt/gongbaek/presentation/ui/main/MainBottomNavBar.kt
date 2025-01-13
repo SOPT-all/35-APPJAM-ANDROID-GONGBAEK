@@ -24,6 +24,7 @@ import com.sopt.gongbaek.presentation.type.MainBottomNavBarTabType
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
+import timber.log.Timber
 
 @Composable
 fun MainBottomNavBar(
@@ -38,7 +39,7 @@ fun MainBottomNavBar(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .background(GongBaekTheme.colors.white),
+                .background(GongBaekTheme.colors.mainOrange),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -65,7 +66,7 @@ fun MainBottomNavBarItem(
 ) {
     Column(
         modifier = modifier
-            .background(if (isSelected) GongBaekTheme.colors.white else Color.Transparent)
+            .background(if (isSelected) GongBaekTheme.colors.subOrange else Color.Transparent)
             .clickableWithoutRipple(onClick = onClick)
             .padding(vertical = 14.dp),
         verticalArrangement = Arrangement.Center,

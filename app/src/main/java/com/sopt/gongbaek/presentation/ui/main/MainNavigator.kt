@@ -8,24 +8,25 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.sopt.gongbaek.presentation.model.Route
+import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.type.MainBottomNavBarTabType
-import com.sopt.gongbaek.presentation.ui.grouplist.navigation.navigateGroupList
-import com.sopt.gongbaek.presentation.ui.home.navigation.navigateHome
-import com.sopt.gongbaek.presentation.ui.mygroup.navigation.navigateMyGroup
+import com.sopt.gongbaek.presentation.ui.grouplist.navigation.navigateGroupListNavGraph
+import com.sopt.gongbaek.presentation.ui.home.navigation.navigateHomeNavGraph
+import com.sopt.gongbaek.presentation.ui.mygroup.navigation.navigateMyGroupNavGraph
+import timber.log.Timber
 
 class MainNavigator(
     val navController: NavHostController
 ) {
-    val startDestination = MainBottomNavBarTabType.HOME.route
+    val startDestination = NavigationRoute.MainBottomNavBarTabRoute.HOME_TAB
 
     private val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
     val currentMainBottomNavBarTab: MainBottomNavBarTabType?
-        @Composable get() = MainBottomNavBarTabType.find { mainBottomNavigationTabRoute ->
-            currentDestination?.route == mainBottomNavigationTabRoute::class.simpleName
-        }
+        @Composable get() = currentDestination
+            ?.route
+            ?.let(MainBottomNavBarTabType.Companion::find)
 
     fun navigate(mainBottomNavBarTabType: MainBottomNavBarTabType) {
         val navOptions = navOptions {
@@ -36,11 +37,11 @@ class MainNavigator(
             restoreState = true
         }
         when (mainBottomNavBarTabType) {
-            MainBottomNavBarTabType.GROUP_LIST -> navController.navigateGroupList(navOptions)
+            MainBottomNavBarTabType.GROUP_LIST -> navController.navigateGroupListNavGraph(navOptions)
 
-            MainBottomNavBarTabType.MY_GROUP -> navController.navigateMyGroup(navOptions)
+            MainBottomNavBarTabType.MY_GROUP -> navController.navigateMyGroupNavGraph(navOptions)
 
-            MainBottomNavBarTabType.HOME -> navController.navigateHome(navOptions)
+            MainBottomNavBarTabType.HOME -> navController.navigateHomeNavGraph(navOptions)
 
             MainBottomNavBarTabType.TIMETABLE -> {}
 
@@ -52,12 +53,17 @@ class MainNavigator(
         navController.popBackStack()
     }
 
-    private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =
-        navController.currentDestination?.route == T::class.simpleName
-
     @Composable
-    fun showBottomBar(): Boolean = MainBottomNavBarTabType.contains {
-        currentDestination?.route == it::class.simpleName
+    fun showBottomBar(): Boolean {
+        val currentRoute = currentDestination?.route ?: return false
+        val bottomBarRoutes = listOf(
+            NavigationRoute.MainBottomNavBarTabRoute.GROUP_LIST_TAB,
+            NavigationRoute.MainBottomNavBarTabRoute.MY_GROUP_TAB,
+            NavigationRoute.MainBottomNavBarTabRoute.HOME_TAB,
+            NavigationRoute.MainBottomNavBarTabRoute.TIMETABLE_TAB,
+            NavigationRoute.MainBottomNavBarTabRoute.MY_PAGE_TAB
+        )
+        return bottomBarRoutes.contains(currentRoute + "_route")
     }
 }
 

@@ -53,7 +53,6 @@ object NavigationRoute {
 
     object MyGroupNavGraphRoute {
         const val MY_GROUP = "my_group"
-
     }
 
     object GroupRoomNavGraphRoute {

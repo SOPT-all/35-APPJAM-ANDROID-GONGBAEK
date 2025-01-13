@@ -7,7 +7,6 @@ import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.navigateGroupDetailNavGraph
 import com.sopt.gongbaek.presentation.ui.grouproom.navigation.navigateGroupRoomNavGraph
-import com.sopt.gongbaek.presentation.ui.grouproom.screen.GroupRoomRoute
 import com.sopt.gongbaek.presentation.ui.mygroup.screen.MyGroupRoute
 
 fun NavGraphBuilder.myGroupNavGraph(

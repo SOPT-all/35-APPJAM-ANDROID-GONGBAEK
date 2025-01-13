@@ -13,7 +13,6 @@ import com.sopt.gongbaek.presentation.type.MainBottomNavBarTabType
 import com.sopt.gongbaek.presentation.ui.grouplist.navigation.navigateGroupListNavGraph
 import com.sopt.gongbaek.presentation.ui.home.navigation.navigateHomeNavGraph
 import com.sopt.gongbaek.presentation.ui.mygroup.navigation.navigateMyGroupNavGraph
-import timber.log.Timber
 
 class MainNavigator(
     val navController: NavHostController

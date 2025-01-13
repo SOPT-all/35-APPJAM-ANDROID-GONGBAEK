@@ -5,6 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
+import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.navigateGroupDetail
+import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.navigateGroupDetailNavGraph
 import com.sopt.gongbaek.presentation.ui.grouplist.screen.GroupListRoute
 
 fun NavGraphBuilder.groupListNavGraph(
@@ -17,7 +19,9 @@ fun NavGraphBuilder.groupListNavGraph(
         composable(
             route = NavigationRoute.GroupListNavGraphRoute.GROUP_LIST
         ) {
-            GroupListRoute()
+            GroupListRoute(
+                navigateGroupDetail = { navController.navigateGroupDetailNavGraph() }
+            )
         }
     }
 }

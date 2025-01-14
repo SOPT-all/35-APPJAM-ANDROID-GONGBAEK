@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.mygroup.screen
+package com.sopt.gongbaek.presentation.ui.grouproom.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

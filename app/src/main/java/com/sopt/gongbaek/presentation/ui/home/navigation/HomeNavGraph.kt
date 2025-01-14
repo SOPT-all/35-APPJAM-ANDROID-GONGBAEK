@@ -4,23 +4,20 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.sopt.gongbaek.presentation.ui.grouplist.navigation.navigateGroupList
-import com.sopt.gongbaek.presentation.ui.grouplist.navigation.navigateGroupListRoute
+import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.home.screen.HomeRoute
 
 fun NavGraphBuilder.homeNavGraph(
     navController: NavHostController
 ) {
     navigation(
-        startDestination = "home",
-        route = "home_route"
+        startDestination = NavigationRoute.HomeNavGraphNavGraphRoute.HOME,
+        route = NavigationRoute.MainBottomNavBarTabRoute.HOME_TAB
     ) {
         composable(
-            route = "home"
+            route = NavigationRoute.HomeNavGraphNavGraphRoute.HOME
         ) {
-            HomeRoute(
-                navigateGroupList = { navController.navigateGroupListRoute() }
-            )
+            HomeRoute()
         }
     }
 }

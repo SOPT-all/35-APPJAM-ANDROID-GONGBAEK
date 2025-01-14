@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.onboarding.screen.CompleteOnboardingRoute
 import com.sopt.gongbaek.presentation.ui.onboarding.screen.EnterTimeTableRoute
 import com.sopt.gongbaek.presentation.ui.onboarding.screen.GapTimeTableRoute
@@ -21,11 +22,11 @@ fun NavGraphBuilder.onboardingNavGraph(
     navController: NavHostController
 ) {
     navigation(
-        startDestination = "select_profile",
-        route = "onboarding_route"
+        startDestination = NavigationRoute.OnboardingNavGraphRoute.SELECT_PROFILE,
+        route = NavigationRoute.OnboardingNavGraphRoute.ONBOARDING_NAV_GRAPH
     ) {
         composable(
-            route = "select_profile"
+            route = NavigationRoute.OnboardingNavGraphRoute.SELECT_PROFILE
         ) {
             SelectProfileRoute(
                 navigateNickname = { navController.navigateNickname() }
@@ -33,67 +34,67 @@ fun NavGraphBuilder.onboardingNavGraph(
         }
 
         composable(
-            route = "nickname"
+            route = NavigationRoute.OnboardingNavGraphRoute.NICKNAME
         ) {
             NicknameRoute()
         }
 
         composable(
-            route = "univ_major"
+            route = NavigationRoute.OnboardingNavGraphRoute.UNIV_MAJOR
         ) {
             UnivMajorRoute()
         }
 
         composable(
-            route = "univ_search"
+            route = NavigationRoute.OnboardingNavGraphRoute.UNIV_SEARCH
         ) {
             UnivSearchRoute()
         }
 
         composable(
-            route = "major_search"
+            route = NavigationRoute.OnboardingNavGraphRoute.MAJOR_SEARCH
         ) {
             MajorSearchRoute()
         }
 
         composable(
-            route = "grade"
+            route = NavigationRoute.OnboardingNavGraphRoute.GRADE
         ) {
             GradeRoute()
         }
 
         composable(
-            route = "mbti"
+            route = NavigationRoute.OnboardingNavGraphRoute.MBTI
         ) {
             MbtiRoute()
         }
 
         composable(
-            route = "gender"
+            route = NavigationRoute.OnboardingNavGraphRoute.GENDER
         ) {
             GenderRoute()
         }
 
         composable(
-            route = "self_introduction"
+            route = NavigationRoute.OnboardingNavGraphRoute.SELF_INTRODUCTION
         ) {
             SelfIntroductionRoute()
         }
 
         composable(
-            route = "enter_timetable"
+            route = NavigationRoute.OnboardingNavGraphRoute.ENTER_TIMETABLE
         ) {
             EnterTimeTableRoute()
         }
 
         composable(
-            route = "gap_timetable"
+            route = NavigationRoute.OnboardingNavGraphRoute.GAP_TIMETABLE
         ) {
             GapTimeTableRoute()
         }
 
         composable(
-            route = "complete_onboarding"
+            route = NavigationRoute.OnboardingNavGraphRoute.COMPLETE_ONBOARDING
         ) {
             CompleteOnboardingRoute()
         }

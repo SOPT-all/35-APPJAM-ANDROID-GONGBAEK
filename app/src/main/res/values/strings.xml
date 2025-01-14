@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GONGBAEK</string>
+
+    <string name="main_bottom_navbar_group_list">채우기</string>
+    <string name="main_bottom_navbar_my_group">나의 채움</string>
+    <string name="main_bottom_navbar_home">홈</string>
+    <string name="main_bottom_navbar_timetable">시간표</string>
+    <string name="main_bottom_navbar_my_page">마이</string>
 </resources>

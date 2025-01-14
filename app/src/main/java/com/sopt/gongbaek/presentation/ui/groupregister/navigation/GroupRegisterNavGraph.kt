@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.groupregister.screen.GroupCategoryRoute
 import com.sopt.gongbaek.presentation.ui.groupregister.screen.GroupCoverRoute
 import com.sopt.gongbaek.presentation.ui.groupregister.screen.GroupCycleRoute
@@ -18,59 +19,59 @@ fun NavGraphBuilder.groupRegisterNavGraph(
     navController: NavHostController
 ) {
     navigation(
-        startDestination = "group_cycle",
-        route = "group_register_route"
+        startDestination = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_CYCLE,
+        route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_REGISTER_NAV_GRAPH
     ) {
         composable(
-            route = "group_cycle"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_CYCLE
         ) {
             GroupCycleRoute()
         }
 
         composable(
-            route = "select_day"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.SELECT_DAY
         ) {
             SelectDayRoute()
         }
 
         composable(
-            route = "select_day_of_week"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.SELECT_DAY_OF_WEEK
         ) {
             SelectDayOfWeekRoute()
         }
 
         composable(
-            route = "group_time"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_TIME
         ) {
             GroupTimeRoute()
         }
 
         composable(
-            route = "group_category"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_CATEGORY
         ) {
             GroupCategoryRoute()
         }
 
         composable(
-            route = "group_cover"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_COVER
         ) {
             GroupCoverRoute()
         }
 
         composable(
-            route = "group_place_people"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_PLACE_PEOPLE
         ) {
             GroupPlacePeopleRoute()
         }
 
         composable(
-            route = "group_introduction"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_INTRODUCTION
         ) {
             GroupIntroductionRoute()
         }
 
         composable(
-            route = "group_register"
+            route = NavigationRoute.GroupRegisterNavGraphRoute.GROUP_REGISTER
         ) {
             GroupRegisterRoute()
         }

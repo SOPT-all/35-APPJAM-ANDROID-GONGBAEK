@@ -23,7 +23,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun StartTitleTopBar(
     modifier: Modifier = Modifier,
     @StringRes startTitleResId: Int? = null,
-    isLeftIconIncluded: Boolean = true,
+    isLeadingIconIncluded: Boolean = true,
     onClick: () -> Unit = {}
 ) {
     Row(
@@ -32,7 +32,7 @@ fun StartTitleTopBar(
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (isLeftIconIncluded) {
+        if (isLeadingIconIncluded) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_left_48),
                 contentDescription = null,
@@ -61,7 +61,7 @@ private fun PreviewStartTitleTopBar() {
             .background(color = GongBaekTheme.colors.white)
     ) {
         StartTitleTopBar()
-        StartTitleTopBar(isLeftIconIncluded = false)
+        StartTitleTopBar(isLeadingIconIncluded = false)
         StartTitleTopBar(startTitleResId = R.string.topbar_group)
         StartTitleTopBar(startTitleResId = R.string.topbar_my_group)
     }

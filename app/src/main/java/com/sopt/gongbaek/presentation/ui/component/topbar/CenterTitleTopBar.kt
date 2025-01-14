@@ -23,7 +23,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun CenterTitleTopBar(
     @StringRes centerTitleResId: Int,
     modifier: Modifier = Modifier,
-    isRightIconIncluded: Boolean = false,
+    isTrailingIconIncluded: Boolean = false,
     onClick: () -> Unit = {},
     textColor: androidx.compose.ui.graphics.Color = GongBaekTheme.colors.gray08,
     textStyle: androidx.compose.ui.text.TextStyle = GongBaekTheme.typography.title2.m18
@@ -40,7 +40,7 @@ fun CenterTitleTopBar(
             modifier = Modifier.align(Alignment.Center)
         )
 
-        if (isRightIconIncluded) {
+        if (isTrailingIconIncluded) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_x_48),
                 contentDescription = null,
@@ -64,7 +64,7 @@ private fun PreviewCenterTitleTopBar() {
     ) {
         CenterTitleTopBar(
             centerTitleResId = R.string.topbar_search,
-            isRightIconIncluded = true,
+            isTrailingIconIncluded = true,
             textColor = GongBaekTheme.colors.gray10,
             textStyle = GongBaekTheme.typography.body1.sb16
         )

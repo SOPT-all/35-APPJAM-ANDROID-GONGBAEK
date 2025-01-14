@@ -89,8 +89,6 @@ private fun CustomTextField(
 ) {
     var isFocused by remember { mutableStateOf(false) }
 
-    val borderColor = getTextFieldBorderColor(isError, isFocused)
-
     val textStyle = gongBaekBasicTextFieldType.textFieldTextStyle.copy(
         color = gongBaekBasicTextFieldType.textFieldFontColor
     )
@@ -108,7 +106,7 @@ private fun CustomTextField(
             .roundedBackgroundWithBorder(
                 cornerRadius = 6.dp,
                 backgroundColor = GongBaekTheme.colors.gray01,
-                borderColor = borderColor,
+                borderColor = getTextFieldBorderColor(isError, isFocused),
                 borderWidth = 1.dp
             )
             .padding(

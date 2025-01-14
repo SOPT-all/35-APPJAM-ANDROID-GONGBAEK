@@ -48,10 +48,6 @@ class MainNavigator(
         }
     }
 
-    private fun popBackStack() {
-        navController.popBackStack()
-    }
-
     @Composable
     fun showBottomBar(): Boolean {
         val currentRoute = currentDestination?.route ?: return false

@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -23,7 +23,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,7 +42,7 @@ fun SelectImageButton(
     val chunkedImages =
         selectImageButtonType.imageButtonResIdList.chunked(selectImageButtonType.chunkedCount)
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         chunkedImages.forEachIndexed { rowIndex, imageRow ->
             Row(
@@ -55,8 +54,7 @@ fun SelectImageButton(
                 imageRow.forEachIndexed { columnIndex, imageResId ->
                     val imageIndex = rowIndex * selectImageButtonType.chunkedCount + columnIndex
                     Box(
-                        modifier = Modifier
-                            .height(LocalConfiguration.current.screenHeightDp.dp * (selectImageButtonType.imageHeight / 780f))
+                        modifier = modifier
                             .weight(1f)
                             .clickableWithoutRipple { onIndexSelected(imageIndex) }
                             .clip(RoundedCornerShape(4.dp))
@@ -108,11 +106,15 @@ private fun PreviewSelectImageButton(
     ) {
         SelectImageButton(
             selectImageButtonType = SelectImageButtonType.Profile,
+            modifier = Modifier
+                .aspectRatio(1f / 1f),
             selectedIndex = selectedProfileIndex,
             onIndexSelected = { selectedProfileIndex = it }
         )
         SelectImageButton(
             selectImageButtonType = SelectImageButtonType.Cover,
+            modifier = Modifier
+                .aspectRatio(16f / 13f),
             selectedIndex = selectedCoverIndex,
             onIndexSelected = { selectedCoverIndex = it }
         )

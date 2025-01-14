@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
@@ -34,31 +35,25 @@ fun CenterTitleTopBar(
             .aspectRatio(7.5f)
             .fillMaxWidth()
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = stringResource(centerTitleResId),
-                color = textColor,
-                style = textStyle
-            )
-        }
+        Text(
+            text = stringResource(centerTitleResId),
+            color = textColor,
+            style = textStyle,
+            modifier = Modifier.align(Alignment.Center)
+        )
 
         if (isRightIconIncluded == true) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.CenterEnd
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_x_48),
-                    contentDescription = null,
-                    tint = GongBaekTheme.colors.gray04,
-                    modifier = Modifier.clickableWithoutRipple {
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_x_48),
+                contentDescription = null,
+                tint = GongBaekTheme.colors.gray04,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .clickableWithoutRipple {
                         onClick()
                     }
-                )
-            }
+            )
+
         }
     }
 }

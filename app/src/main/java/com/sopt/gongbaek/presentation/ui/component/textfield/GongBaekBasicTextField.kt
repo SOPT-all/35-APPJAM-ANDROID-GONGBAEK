@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.component.textfield
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,8 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.unit.dp
+import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.GongBaekBasicTextFieldType
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -32,7 +36,7 @@ fun GongBaekBasicTextField(
     gongBaekBasicTextFieldType: GongBaekBasicTextFieldType,
     modifier: Modifier = Modifier,
     isError: Boolean = false,
-    errorMessage: String? = null,
+    errorMessage: String = "",
     onErrorChange: (Boolean) -> Unit = {}
 ) {
     Column {
@@ -53,14 +57,14 @@ fun GongBaekBasicTextField(
             characterCount = value.length,
             maxCount = gongBaekBasicTextFieldType.maxLength,
             isError = isError,
-            errorMessage = errorMessage ?: ""
+            errorMessage = errorMessage
         )
     }
 }
 
 @Composable
 private fun TextFieldTitle(
-    title: String
+    @StringRes title: Int,
 ) {
     Row(
         modifier = Modifier
@@ -69,7 +73,7 @@ private fun TextFieldTitle(
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            text = title,
+            text = stringResource(title),
             color = GongBaekTheme.colors.gray08,
             style = GongBaekTheme.typography.body2.sb14
         )
@@ -124,7 +128,7 @@ private fun CustomTextField(
         ) {
             if (value.isEmpty()) {
                 Text(
-                    text = gongBaekBasicTextFieldType.placeholder,
+                    text = stringResource(gongBaekBasicTextFieldType.placeholder),
                     color = gongBaekBasicTextFieldType.placeholderFontColor,
                     style = gongBaekBasicTextFieldType.textFieldTextStyle
                 )
@@ -190,7 +194,7 @@ private fun PreviewExTextField() {
 private fun PreviewExTextField2() {
     var value by remember { mutableStateOf("공백만") }
     var isError by remember { mutableStateOf(true) }
-    val errorMessage by remember { mutableStateOf<String?>("중복된 닉네임입니다. 다시 입력해주세요.") }
+    val errorMessage by remember { mutableStateOf("중복된 닉네임입니다. 다시 입력해주세요.") }
 
     GongBaekBasicTextField(
         value = value,

@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.component
+package com.sopt.gongbaek.presentation.ui.component.button
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,7 +33,7 @@ import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun SelectImageButton(
+fun ImageSelector(
     selectImageButtonType: SelectImageButtonType,
     modifier: Modifier = Modifier,
     selectedIndex: Int? = null,
@@ -92,7 +92,7 @@ fun SelectImageButton(
 
 @Preview
 @Composable
-private fun PreviewSelectImageButton(
+private fun PreviewSImageSelectorButton(
     modifier: Modifier = Modifier
 ) {
     var selectedProfileIndex by remember { mutableStateOf<Int?>(null) }
@@ -104,14 +104,14 @@ private fun PreviewSelectImageButton(
             .background(color = Color.White)
             .padding(horizontal = 20.dp)
     ) {
-        SelectImageButton(
+        ImageSelector(
             selectImageButtonType = SelectImageButtonType.Profile,
             modifier = Modifier
                 .aspectRatio(1f / 1f),
             selectedIndex = selectedProfileIndex,
             onIndexSelected = { selectedProfileIndex = it }
         )
-        SelectImageButton(
+        ImageSelector(
             selectImageButtonType = SelectImageButtonType.Cover,
             modifier = Modifier
                 .aspectRatio(16f / 13f),

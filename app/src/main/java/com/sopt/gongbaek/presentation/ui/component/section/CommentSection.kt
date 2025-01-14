@@ -41,7 +41,7 @@ fun CommentSection(
     onValueChanged: (String) -> Unit,
     onRefreshClicked: () -> Unit = {},
     onDeleteClicked: () -> Unit = {},
-    onSendClicked: () -> Unit = {},
+    onSendClicked: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -72,7 +72,6 @@ fun CommentSection(
     }
 }
 
-
 @Composable
 private fun CommentSectionHeader(
     commentCount: Int,
@@ -102,7 +101,7 @@ private fun CommentSectionHeader(
 @Composable
 private fun CommentSectionItem(
     comment: Comment,
-    onDeleteClicked: () -> Unit,
+    onDeleteClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -125,7 +124,7 @@ private fun CommentSectionItem(
                         .padding(start = 6.dp)
                         .roundedBackgroundWithBorder(
                             cornerRadius = 4.dp,
-                            backgroundColor = GongBaekTheme.colors.gray01,
+                            backgroundColor = GongBaekTheme.colors.gray01
                         ),
                     contentAlignment = Alignment.Center
                 ) {
@@ -150,7 +149,7 @@ private fun CommentSectionItem(
         Text(
             text = comment.commentContent,
             color = GongBaekTheme.colors.gray08,
-            style = GongBaekTheme.typography.body2.r14,
+            style = GongBaekTheme.typography.body2.r14
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
@@ -181,7 +180,7 @@ private fun CommentTextField(
             .padding(horizontal = 16.dp, vertical = 10.dp)
             .roundedBackgroundWithBorder(
                 cornerRadius = 6.dp,
-                backgroundColor = GongBaekTheme.colors.gray01,
+                backgroundColor = GongBaekTheme.colors.gray01
             ),
         maxLines = 3
     ) { innerTextField ->

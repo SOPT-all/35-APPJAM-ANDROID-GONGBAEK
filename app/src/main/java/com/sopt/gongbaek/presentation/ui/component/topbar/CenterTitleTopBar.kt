@@ -26,7 +26,8 @@ fun CenterTitleTopBar(
     modifier: Modifier = Modifier,
     @DrawableRes leadingIconResId: Int? = null,
     @DrawableRes trailingIconResId: Int? = null,
-    onClick: () -> Unit = {},
+    onLeadingIconClick: () -> Unit = {},
+    onTrailingIconClick: () -> Unit = {},
     textColor: androidx.compose.ui.graphics.Color = GongBaekTheme.colors.gray08,
     textStyle: androidx.compose.ui.text.TextStyle = GongBaekTheme.typography.title2.m18
 ) {
@@ -50,7 +51,7 @@ fun CenterTitleTopBar(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .clickableWithoutRipple {
-                        onClick()
+                        onLeadingIconClick()
                     }
             )
         }
@@ -63,7 +64,7 @@ fun CenterTitleTopBar(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .clickableWithoutRipple {
-                        onClick()
+                        onTrailingIconClick()
                     }
             )
         }

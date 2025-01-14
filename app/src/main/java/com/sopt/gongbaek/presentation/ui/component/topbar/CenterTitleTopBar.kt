@@ -25,7 +25,9 @@ fun CenterTitleTopBar(
     @StringRes centerTitleResId: Int,
     modifier: Modifier = Modifier,
     isRightIconIncluded: Boolean? = false,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    textColor: androidx.compose.ui.graphics.Color = GongBaekTheme.colors.gray08,
+    textStyle: androidx.compose.ui.text.TextStyle = GongBaekTheme.typography.title2.m18
 ) {
     Box(
         modifier = modifier
@@ -38,8 +40,8 @@ fun CenterTitleTopBar(
         ) {
             Text(
                 text = stringResource(centerTitleResId),
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.title2.m18
+                color = textColor,
+                style = textStyle
             )
         }
 
@@ -67,7 +69,12 @@ private fun PreviewCenterTitleTopBar() {
     Column(
         modifier = Modifier.background(color = GongBaekTheme.colors.white)
     ) {
-        CenterTitleTopBar(centerTitleResId = R.string.topbar_search, isRightIconIncluded = true)
+        CenterTitleTopBar(
+            centerTitleResId = R.string.topbar_search,
+            isRightIconIncluded = true,
+            textColor = GongBaekTheme.colors.gray10,
+            textStyle = GongBaekTheme.typography.body1.sb16
+        )
         CenterTitleTopBar(centerTitleResId = R.string.topbar_group)
         CenterTitleTopBar(centerTitleResId = R.string.topbar_my_group)
     }

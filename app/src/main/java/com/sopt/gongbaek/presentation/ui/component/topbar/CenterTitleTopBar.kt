@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.component.topbar
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +24,8 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun CenterTitleTopBar(
     @StringRes centerTitleResId: Int,
     modifier: Modifier = Modifier,
-    isTrailingIconIncluded: Boolean = false,
+    @DrawableRes leadingIconResId: Int? = null,
+    @DrawableRes trailingIconResId: Int? = null,
     onClick: () -> Unit = {},
     textColor: androidx.compose.ui.graphics.Color = GongBaekTheme.colors.gray08,
     textStyle: androidx.compose.ui.text.TextStyle = GongBaekTheme.typography.title2.m18
@@ -40,9 +42,22 @@ fun CenterTitleTopBar(
             modifier = Modifier.align(Alignment.Center)
         )
 
-        if (isTrailingIconIncluded) {
+        if (leadingIconResId != null) {
             Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_x_48),
+                imageVector = ImageVector.vectorResource(leadingIconResId),
+                contentDescription = null,
+                tint = GongBaekTheme.colors.gray04,
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .clickableWithoutRipple {
+                        onClick()
+                    }
+            )
+        }
+
+        if (trailingIconResId != null) {
+            Icon(
+                imageVector = ImageVector.vectorResource(trailingIconResId),
                 contentDescription = null,
                 tint = GongBaekTheme.colors.gray04,
                 modifier = Modifier
@@ -51,7 +66,6 @@ fun CenterTitleTopBar(
                         onClick()
                     }
             )
-
         }
     }
 }
@@ -64,7 +78,7 @@ private fun PreviewCenterTitleTopBar() {
     ) {
         CenterTitleTopBar(
             centerTitleResId = R.string.topbar_search,
-            isTrailingIconIncluded = true,
+            trailingIconResId = R.drawable.ic_x_48,
             textColor = GongBaekTheme.colors.gray10,
             textStyle = GongBaekTheme.typography.body1.sb16
         )

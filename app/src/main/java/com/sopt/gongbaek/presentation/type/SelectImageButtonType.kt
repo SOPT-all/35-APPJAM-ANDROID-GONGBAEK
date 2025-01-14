@@ -5,8 +5,7 @@ import com.sopt.gongbaek.R
 
 enum class SelectImageButtonType(
     @DrawableRes val imageButtonResIdList: List<Int>,
-    val chunkedCount: Int,
-    val imageHeight: Int
+    val chunkedCount: Int
 ) {
     Profile(
         imageButtonResIdList = listOf(
@@ -17,8 +16,7 @@ enum class SelectImageButtonType(
             R.drawable.img_image_button_sample,
             R.drawable.img_image_button_sample
         ),
-        chunkedCount = 3,
-        imageHeight = 104
+        chunkedCount = 3
     ),
     Cover(
         imageButtonResIdList = listOf(
@@ -29,7 +27,6 @@ enum class SelectImageButtonType(
             R.drawable.img_image_button_sample,
             R.drawable.img_image_button_sample
         ),
-        chunkedCount = 2,
-        imageHeight = 133
+        chunkedCount = 2
     )
 }

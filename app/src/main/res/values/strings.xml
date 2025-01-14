@@ -6,4 +6,10 @@
     <string name="main_bottom_navbar_home">홈</string>
     <string name="main_bottom_navbar_timetable">시간표</string>
     <string name="main_bottom_navbar_my_page">마이</string>
+
+    <!--topbar-->
+    <string name="topbar_search">검색하기</string>
+    <string name="topbar_group">채우기</string>
+    <string name="topbar_my_group">나의 채움</string>
+
 </resources>

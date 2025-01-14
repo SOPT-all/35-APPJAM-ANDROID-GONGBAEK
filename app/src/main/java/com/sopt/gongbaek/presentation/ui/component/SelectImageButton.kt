@@ -94,7 +94,7 @@ fun SelectImageButton(
 
 @Preview
 @Composable
-fun PreviewSelectImageButton(
+private fun PreviewSelectImageButton(
     modifier: Modifier = Modifier
 ) {
     var selectedProfileIndex by remember { mutableStateOf<Int?>(null) }

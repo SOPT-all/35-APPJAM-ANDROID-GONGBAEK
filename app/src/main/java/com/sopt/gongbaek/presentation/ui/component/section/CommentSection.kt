@@ -64,7 +64,7 @@ fun CommentSection(
             }
         }
 
-        CommentTextField(
+        CommentSectionTextField(
             value = value,
             onValueChanged = onValueChanged,
             onSendClicked = onSendClicked
@@ -167,7 +167,7 @@ private fun CommentSectionItem(
 }
 
 @Composable
-private fun CommentTextField(
+private fun CommentSectionTextField(
     value: String,
     onValueChanged: (String) -> Unit,
     onSendClicked: () -> Unit
@@ -295,7 +295,7 @@ private fun CommentTextFieldPreview() {
     GONGBAEKTheme {
         var value by remember { mutableStateOf("") }
         val onValueChanged: (String) -> Unit = { newValue -> value = newValue }
-        CommentTextField(
+        CommentSectionTextField(
             value = value,
             onValueChanged = onValueChanged,
             onSendClicked = {}

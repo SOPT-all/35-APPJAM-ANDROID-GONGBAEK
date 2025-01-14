@@ -71,7 +71,7 @@ fun ImageSelector(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .background(
-                                        color = Color.Black.copy(alpha = 0.25f),
+                                        color = GongBaekTheme.colors.black.copy(alpha = 0.25f),
                                         shape = RoundedCornerShape(4.dp)
                                     ),
                                 contentAlignment = Alignment.Center

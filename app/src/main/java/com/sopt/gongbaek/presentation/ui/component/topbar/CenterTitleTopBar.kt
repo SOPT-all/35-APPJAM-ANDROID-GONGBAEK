@@ -25,7 +25,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun CenterTitleTopBar(
     @StringRes centerTitleResId: Int,
     modifier: Modifier = Modifier,
-    isRightIconIncluded: Boolean? = false,
+    isRightIconIncluded: Boolean = false,
     onClick: () -> Unit = {},
     textColor: androidx.compose.ui.graphics.Color = GongBaekTheme.colors.gray08,
     textStyle: androidx.compose.ui.text.TextStyle = GongBaekTheme.typography.title2.m18
@@ -42,7 +42,7 @@ fun CenterTitleTopBar(
             modifier = Modifier.align(Alignment.Center)
         )
 
-        if (isRightIconIncluded == true) {
+        if (isRightIconIncluded) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_x_48),
                 contentDescription = null,

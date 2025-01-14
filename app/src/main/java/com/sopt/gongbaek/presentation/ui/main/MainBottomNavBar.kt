@@ -56,7 +56,7 @@ fun MainBottomNavBar(
 }
 
 @Composable
-fun MainBottomNavBarItem(
+private fun MainBottomNavBarItem(
     context: Context,
     bottomNavBarTabType: MainBottomNavBarTabType,
     isSelected: Boolean,

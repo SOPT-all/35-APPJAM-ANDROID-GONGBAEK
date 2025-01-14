@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,11 +33,11 @@ private fun CommentSectionHeader(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 8.dp)
-            .padding(vertical = 10.dp),
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "댓글 ${commentCount}개",
+            text = stringResource(R.string.comment_section_header, commentCount),
             color = GongBaekTheme.colors.gray09,
             style = GongBaekTheme.typography.body1.sb16
         )

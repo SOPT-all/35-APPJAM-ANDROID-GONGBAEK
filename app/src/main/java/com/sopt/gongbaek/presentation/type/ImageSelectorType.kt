@@ -3,7 +3,7 @@ package com.sopt.gongbaek.presentation.type
 import androidx.annotation.DrawableRes
 import com.sopt.gongbaek.R
 
-enum class SelectImageButtonType(
+enum class ImageSelectorType(
     @DrawableRes val imageButtonResIdList: List<Int>,
     val chunkedCount: Int
 ) {

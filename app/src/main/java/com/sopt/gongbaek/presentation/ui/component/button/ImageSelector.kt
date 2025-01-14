@@ -28,19 +28,19 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.presentation.type.SelectImageButtonType
+import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun ImageSelector(
-    selectImageButtonType: SelectImageButtonType,
+    imageSelectorType: ImageSelectorType,
     modifier: Modifier = Modifier,
     selectedIndex: Int? = null,
     onIndexSelected: (Int) -> Unit = {}
 ) {
     val chunkedImages =
-        selectImageButtonType.imageButtonResIdList.chunked(selectImageButtonType.chunkedCount)
+        imageSelectorType.imageButtonResIdList.chunked(imageSelectorType.chunkedCount)
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -52,7 +52,7 @@ fun ImageSelector(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 imageRow.forEachIndexed { columnIndex, imageResId ->
-                    val imageIndex = rowIndex * selectImageButtonType.chunkedCount + columnIndex
+                    val imageIndex = rowIndex * imageSelectorType.chunkedCount + columnIndex
                     Box(
                         modifier = modifier
                             .weight(1f)
@@ -105,14 +105,14 @@ private fun PreviewSImageSelectorButton(
             .padding(horizontal = 20.dp)
     ) {
         ImageSelector(
-            selectImageButtonType = SelectImageButtonType.Profile,
+            imageSelectorType = ImageSelectorType.Profile,
             modifier = Modifier
                 .aspectRatio(1f / 1f),
             selectedIndex = selectedProfileIndex,
             onIndexSelected = { selectedProfileIndex = it }
         )
         ImageSelector(
-            selectImageButtonType = SelectImageButtonType.Cover,
+            imageSelectorType = ImageSelectorType.Cover,
             modifier = Modifier
                 .aspectRatio(16f / 13f),
             selectedIndex = selectedCoverIndex,

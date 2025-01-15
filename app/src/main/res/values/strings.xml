@@ -23,9 +23,9 @@
     <string name="topbar_search">검색하기</string>
     <string name="topbar_group">채우기</string>
     <string name="topbar_my_group">나의 채움</string>
-    <string name="comment_section_header">댓글 %1$s개</string>
 
     <!--CommentSection -->
+    <string name="comment_section_header">댓글 %1$s개</string>
     <string name="comment_section_comment_writer_chip">모집자</string>
     <string name="comment_section_text_field_placeholder">댓글을 작성해주세요.</string>
 

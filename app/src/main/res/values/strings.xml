@@ -30,16 +30,16 @@
     <string name="comment_section_text_field_placeholder">댓글을 작성해주세요.</string>
 
     <!--chip-->
-    <string name="chip_status_recruiting">모집중</string>
-    <string name="chip_status_recruited">인원마감</string>
-    <string name="chip_status_closed">종료</string>
-    <string name="chip_category_study">스터디</string>
-    <string name="chip_category_dining">식사</string>
-    <string name="chip_category_exercise">운동/산책</string>
-    <string name="chip_category_playing">취미/오락</string>
-    <string name="chip_category_networking">네트워킹</string>
-    <string name="chip_category_others">기타</string>
-    <string name="chip_grouptype_weekly">매주 봐요</string>
-    <string name="chip_grouptype_once">한번만 봐요</string>
+    <string name="group_info_chip_status_recruiting">모집중</string>
+    <string name="group_info_chip_status_recruited">인원마감</string>
+    <string name="group_info_chip_status_closed">종료</string>
+    <string name="group_info_chip_category_study">스터디</string>
+    <string name="group_info_chip_category_dining">식사</string>
+    <string name="group_info_chip_category_exercise">운동/산책</string>
+    <string name="group_info_chip_category_playing">취미/오락</string>
+    <string name="group_info_chip_category_networking">네트워킹</string>
+    <string name="group_info_chip_category_others">기타</string>
+    <string name="group_info_chip_grouptype_weekly">매주 봐요</string>
+    <string name="group_info_chip_grouptype_once">한번만 봐요</string>
 
 </resources>

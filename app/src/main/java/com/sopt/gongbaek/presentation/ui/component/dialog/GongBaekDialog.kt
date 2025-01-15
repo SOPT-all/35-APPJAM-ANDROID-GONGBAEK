@@ -84,6 +84,7 @@ fun GongBaekDialog(
                         onClick = {
                             onDismissButtonClick()
                         },
+                        verticalPadding = 12,
                         modifier = Modifier.weight(1f),
                         enableButtonColor = GongBaekTheme.colors.gray09
                     )
@@ -92,6 +93,7 @@ fun GongBaekDialog(
                         onClick = {
                             onConfirmButtonClick()
                         },
+                        verticalPadding = 12,
                         modifier = Modifier.weight(2f)
                     )
                 }

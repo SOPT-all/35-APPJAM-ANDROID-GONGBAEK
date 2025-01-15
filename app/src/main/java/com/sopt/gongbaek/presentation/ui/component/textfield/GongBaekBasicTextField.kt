@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -117,7 +118,8 @@ private fun CustomTextField(
                 isFocused = focusState.isFocused
             },
         textStyle = textStyle,
-        singleLine = gongBaekBasicTextFieldType.singLine
+        singleLine = gongBaekBasicTextFieldType.singLine,
+        cursorBrush = SolidColor(GongBaekTheme.colors.gray05)
     ) { innerTextField ->
         Box(
             contentAlignment = Alignment.TopStart

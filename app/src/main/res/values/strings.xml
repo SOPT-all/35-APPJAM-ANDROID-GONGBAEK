@@ -53,4 +53,8 @@
     <string name="dialog_button_close">닫기</string>
     <string name="dialog_button_group_room">모임방 바로가기</string>
 
+    <!--GroupPlacePeopleScreen-->
+    <string name="group_place_people_title">인원을 선택해주세요.</string>
+    <string name="group_place_people_count">%d명</string>
+
 </resources>

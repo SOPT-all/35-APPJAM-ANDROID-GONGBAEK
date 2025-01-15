@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.component.section
 
+import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -191,7 +192,8 @@ private fun CommentSectionTextField(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.CenterStart
             ) {
                 if (value.isEmpty()) {
                     Text(
@@ -206,7 +208,9 @@ private fun CommentSectionTextField(
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_send_24),
                 contentDescription = null,
-                modifier = Modifier.clickableWithoutRipple(onClick = onSendClicked)
+                modifier = Modifier
+                    .align(Alignment.Bottom)
+                    .clickableWithoutRipple(onClick = onSendClicked)
             )
         }
     }

@@ -11,11 +11,11 @@ enum class GongBaekDialogType(
 ) {
     REGISTER_SUCCESS(
         titleResId = R.string.dialog_title_register_success,
-        imageResId = R.drawable.img_image_button_sample,
+        imageResId = R.drawable.img_image_button_sample
     ),
     REGISTER_FAIL(
         titleResId = R.string.dialog_title_register_fail,
-        imageResId = R.drawable.img_image_button_sample,
+        imageResId = R.drawable.img_image_button_sample
     ),
     ENTER_SUCCESS(
         titleResId = R.string.dialog_title_enter_success,
@@ -25,5 +25,5 @@ enum class GongBaekDialogType(
         titleResId = R.string.dialog_title_enter_fail,
         imageResId = R.drawable.img_image_button_sample,
         descriptionResId = R.string.dialog_description_enter_fail
-    ),
+    )
 }

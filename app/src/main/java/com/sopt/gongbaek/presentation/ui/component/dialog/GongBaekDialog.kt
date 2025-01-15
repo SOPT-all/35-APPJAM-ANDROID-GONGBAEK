@@ -144,5 +144,4 @@ private fun PreviewGongBaekDialog2() {
             )
         }
     }
-
 }

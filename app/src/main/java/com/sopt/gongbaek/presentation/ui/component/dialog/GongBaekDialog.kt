@@ -54,24 +54,15 @@ fun GongBaekDialog(
             style = GongBaekTheme.typography.title2.sb18
         )
 
-        when (gongBaekDialogType) {
-            GongBaekDialogType.ENTER_SUCCESS ->
-                Text(
-                    text = stringResource(gongBaekDialogType.descriptionResId),
-                    color = GongBaekTheme.colors.gray07,
-                    style = GongBaekTheme.typography.body2.m14,
-                    modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
-                )
-
-            GongBaekDialogType.ENTER_FAIL ->
-                Text(
-                    text = stringResource(gongBaekDialogType.descriptionResId),
-                    color = GongBaekTheme.colors.gray07,
-                    style = GongBaekTheme.typography.body2.m14,
-                    modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
-                )
-
-            else -> Spacer(Modifier.height(20.dp))
+        if (gongBaekDialogType.descriptionResId != null) {
+            Text(
+                text = stringResource(gongBaekDialogType.descriptionResId),
+                color = GongBaekTheme.colors.gray07,
+                style = GongBaekTheme.typography.body2.m14,
+                modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
+            )
+        } else {
+            Spacer(Modifier.height(20.dp))
         }
 
         when (gongBaekDialogType) {

@@ -43,23 +43,23 @@ fun CommentSection(
     onDeleteClicked: () -> Unit = {},
     onSendClicked: () -> Unit = {}
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
+    Column {
         CommentSectionHeader(
             commentCount = groupComment.commentCount,
-            onRefreshClicked = onRefreshClicked
+            onRefreshClicked = onRefreshClicked,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 10.dp)
+                .padding(vertical = 16.dp),
         )
 
         LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+            modifier = Modifier.weight(1f)
         ) {
             items(items = groupComment.commentList) { comment ->
                 CommentSectionItem(
                     comment = comment,
-                    onDeleteClicked = onDeleteClicked
+                    onDeleteClicked = onDeleteClicked,
                 )
             }
         }
@@ -67,7 +67,10 @@ fun CommentSection(
         CommentSectionTextField(
             value = value,
             onValueChanged = onValueChanged,
-            onSendClicked = onSendClicked
+            onSendClicked = onSendClicked,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 10.dp)
         )
     }
 }
@@ -75,13 +78,11 @@ fun CommentSection(
 @Composable
 private fun CommentSectionHeader(
     commentCount: Int,
-    onRefreshClicked: () -> Unit
+    onRefreshClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 10.dp)
-            .padding(vertical = 16.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -101,16 +102,16 @@ private fun CommentSectionHeader(
 @Composable
 private fun CommentSectionItem(
     comment: Comment,
-    onDeleteClicked: () -> Unit
+    onDeleteClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 14.dp)
-            .padding(horizontal = 16.dp)
+    Column(modifier = modifier
+        .padding(top = 14.dp)
+        .padding(horizontal = 16.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -139,7 +140,7 @@ private fun CommentSectionItem(
             if (comment.isWriter) {
                 Spacer(modifier = Modifier.weight(1f))
                 Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic__comment_x_20),
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_comment_x_20),
                     contentDescription = null,
                     modifier = Modifier.clickableWithoutRipple(onClick = onDeleteClicked)
                 )
@@ -170,14 +171,13 @@ private fun CommentSectionItem(
 private fun CommentSectionTextField(
     value: String,
     onValueChanged: (String) -> Unit,
-    onSendClicked: () -> Unit
+    onSendClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     BasicTextField(
         value = value,
         onValueChange = onValueChanged,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp)
+        modifier = modifier
             .roundedBackgroundWithBorder(
                 cornerRadius = 6.dp,
                 backgroundColor = GongBaekTheme.colors.gray01

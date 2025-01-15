@@ -39,7 +39,7 @@
     <string name="group_info_chip_category_playing">취미/오락</string>
     <string name="group_info_chip_category_networking">네트워킹</string>
     <string name="group_info_chip_category_others">기타</string>
-    <string name="group_info_chip_grouptype_weekly">매주 봐요</string>
-    <string name="group_info_chip_grouptype_once">한번만 봐요</string>
+    <string name="group_info_chip_group_cycle_weekly">매주 봐요</string>
+    <string name="group_info_chip_group_cycle_once">한번만 봐요</string>
 
 </resources>

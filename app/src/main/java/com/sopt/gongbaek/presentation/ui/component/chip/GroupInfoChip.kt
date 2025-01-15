@@ -48,7 +48,7 @@ private fun PreviewGroupInfoChip() {
             "CLOSED" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.CLOSED)
             else -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.CLOSED)
         }
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(4.dp))
 
         when (category) {
             "STUDY" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.STUDY)
@@ -59,7 +59,7 @@ private fun PreviewGroupInfoChip() {
             "OTHERS" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS)
             else -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS)
         }
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(4.dp))
 
         when (groupType) {
             "WEEKLY" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.WEEKLY)

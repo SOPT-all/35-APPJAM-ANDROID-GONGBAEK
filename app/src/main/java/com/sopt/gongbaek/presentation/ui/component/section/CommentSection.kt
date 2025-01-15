@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -182,7 +183,8 @@ private fun CommentSectionTextField(
                 cornerRadius = 6.dp,
                 backgroundColor = GongBaekTheme.colors.gray01
             ),
-        maxLines = 3
+        maxLines = 3,
+        cursorBrush = SolidColor(GongBaekTheme.colors.gray05),
     ) { innerTextField ->
         Row(
             modifier = Modifier.padding(12.dp),

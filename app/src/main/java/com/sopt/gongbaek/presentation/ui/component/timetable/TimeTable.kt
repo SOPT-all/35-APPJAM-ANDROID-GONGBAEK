@@ -20,11 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeColumn
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun TimeTable(
+    timeLabels: List<String>,
     selectedIndicesByDay: Map<String, List<Int>>,
     onSelectionChange: (String, List<Int>) -> Unit
 ) {
@@ -40,6 +42,7 @@ fun TimeTable(
             )
     ) {
         TimeColumn(
+            timeLabels = timeLabels,
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp * 0.07f)
         )
 
@@ -120,83 +123,10 @@ fun DayColumn(
     }
 }
 
-@Composable
-fun TimeColumn(
-    modifier: Modifier = Modifier
-) {
-    val timeLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
-
-    Column(
-        modifier = modifier
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(LocalConfiguration.current.screenHeightDp.dp * 0.03f)
-                .background(
-                    color = GongBaekTheme.colors.white,
-                    shape = RoundedCornerShape(topStart = 8.dp)
-                )
-                .border(
-                    width = 0.5.dp,
-                    color = GongBaekTheme.colors.gray02,
-                    shape = RoundedCornerShape(topStart = 8.dp)
-                )
-        )
-
-        timeLabels.forEachIndexed { index, timeLabel ->
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .background(color = GongBaekTheme.colors.white)
-                    .border(
-                        width = 0.5.dp,
-                        color = GongBaekTheme.colors.gray02,
-                    ),
-                contentAlignment = Alignment.TopEnd
-            ) {
-                Text(
-                    text = timeLabel,
-                    color = GongBaekTheme.colors.gray06,
-                    style = GongBaekTheme.typography.caption2.r12
-                )
-            }
-
-            if (index < timeLabels.size - 1) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .background(color = GongBaekTheme.colors.white)
-                        .border(
-                            width = 0.5.dp,
-                            color = GongBaekTheme.colors.gray02,
-                        )
-                )
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .background(
-                    color = GongBaekTheme.colors.white,
-                    shape = RoundedCornerShape(bottomStart = 8.dp)
-                )
-                .border(
-                    width = 0.5.dp,
-                    color = GongBaekTheme.colors.gray03,
-                    shape = RoundedCornerShape(bottomStart = 8.dp)
-                )
-        )
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun PreviewTimeTable() {
+    val timeLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
     val selectedIndicesByDay = remember {
         mutableStateOf(
             listOf("월", "화", "수", "목", "금").associateWith { emptyList<Int>() }
@@ -207,6 +137,7 @@ private fun PreviewTimeTable() {
         modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
     ) {
         TimeTable(
+            timeLabels = timeLabels,
             selectedIndicesByDay = selectedIndicesByDay.value,
             onSelectionChange = { day, updatedIndices ->
                 selectedIndicesByDay.value = selectedIndicesByDay.value.toMutableMap().apply {

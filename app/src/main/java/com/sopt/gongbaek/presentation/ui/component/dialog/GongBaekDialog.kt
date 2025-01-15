@@ -45,7 +45,7 @@ fun GongBaekDialog(
             modifier = Modifier
                 .padding(top = 14.dp, bottom = 20.dp)
                 .padding(horizontal = 36.dp)
-                .aspectRatio(178f / 178f)
+                .aspectRatio(1f / 1f)
         )
 
         Text(
@@ -72,18 +72,14 @@ fun GongBaekDialog(
                 ) {
                     GongBaekBasicButton(
                         title = stringResource(R.string.dialog_button_close),
-                        onClick = {
-                            onDismissButtonClick()
-                        },
+                        onClick = onDismissButtonClick,
                         verticalPadding = 12,
                         modifier = Modifier.weight(1f),
                         enableButtonColor = GongBaekTheme.colors.gray09
                     )
                     GongBaekBasicButton(
                         title = stringResource(R.string.dialog_button_group_room),
-                        onClick = {
-                            onConfirmButtonClick()
-                        },
+                        onClick = onConfirmButtonClick,
                         verticalPadding = 12,
                         modifier = Modifier.weight(2f)
                     )
@@ -92,9 +88,7 @@ fun GongBaekDialog(
             else ->
                 GongBaekBasicButton(
                     title = stringResource(R.string.dialog_button_confirm),
-                    onClick = {
-                        onConfirmButtonClick()
-                    }
+                    onClick = onConfirmButtonClick
                 )
         }
     }

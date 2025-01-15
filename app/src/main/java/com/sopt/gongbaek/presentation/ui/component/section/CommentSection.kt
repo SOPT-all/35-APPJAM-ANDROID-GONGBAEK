@@ -197,7 +197,7 @@ private fun CommentSectionTextField(
             ) {
                 if (value.isEmpty()) {
                     Text(
-                        text = "댓글을 작성해주세요.",
+                        text = stringResource(R.string.comment_section_text_field_placeholder),
                         color = GongBaekTheme.colors.gray04,
                         style = GongBaekTheme.typography.body1.m16
                     )

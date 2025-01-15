@@ -15,5 +15,6 @@
 
     <!--CommentSection -->
     <string name="comment_section_comment_writer_chip">모집자</string>
+    <string name="comment_section_text_field_placeholder">댓글을 작성해주세요.</string>
 
 </resources>

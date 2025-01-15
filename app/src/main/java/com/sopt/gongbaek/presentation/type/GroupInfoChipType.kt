@@ -9,6 +9,7 @@ import com.sopt.gongbaek.ui.theme.gray02
 import com.sopt.gongbaek.ui.theme.gray06
 import com.sopt.gongbaek.ui.theme.gray07
 import com.sopt.gongbaek.ui.theme.gray08
+import com.sopt.gongbaek.ui.theme.gray09
 import com.sopt.gongbaek.ui.theme.mainOrange
 import com.sopt.gongbaek.ui.theme.subBlue
 import com.sopt.gongbaek.ui.theme.subGreen
@@ -62,6 +63,42 @@ enum class GroupInfoChipType(
     OTHERS(
         chipContents = GroupInfoChipContents.CATEGORY,
         label = R.string.chip_category_others
+    ),
+    STUDY_HOME(
+        chipContents = GroupInfoChipContents.CATEGORY,
+        label = R.string.chip_category_study,
+        backgroundColor = gray09,
+        fontColor = white
+    ),
+    DINING_HOME(
+        chipContents = GroupInfoChipContents.CATEGORY,
+        label = R.string.chip_category_dining,
+        backgroundColor = gray09,
+        fontColor = white
+    ),
+    EXERCISE_HOME(
+        chipContents = GroupInfoChipContents.CATEGORY,
+        label = R.string.chip_category_exercise,
+        backgroundColor = gray09,
+        fontColor = white
+    ),
+    PLAYING_HOME(
+        chipContents = GroupInfoChipContents.CATEGORY,
+        label = R.string.chip_category_playing,
+        backgroundColor = gray09,
+        fontColor = white
+    ),
+    NETWORKING_HOME(
+        chipContents = GroupInfoChipContents.CATEGORY,
+        label = R.string.chip_category_networking,
+        backgroundColor = gray09,
+        fontColor = white
+    ),
+    OTHERS_HOME(
+        chipContents = GroupInfoChipContents.CATEGORY,
+        label = R.string.chip_category_others,
+        backgroundColor = gray09,
+        fontColor = white
     ),
     WEEKLY(
         chipContents = GroupInfoChipContents.GROUPTYPE,

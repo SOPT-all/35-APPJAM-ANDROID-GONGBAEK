@@ -24,7 +24,7 @@ fun GroupInfoChip(
     Text(
         text = stringResource(groupInfoChipType.label),
         color = groupInfoChipType.fontColor,
-        modifier = Modifier
+        modifier = modifier
             .clip(RoundedCornerShape(2.dp))
             .background(color = groupInfoChipType.backgroundColor)
             .padding(horizontal = 4.dp, vertical = 1.dp)
@@ -50,6 +50,14 @@ private fun PreviewGroupInfoChip() {
         GroupInfoChip(groupInfoChipType = GroupInfoChipType.PLAYING)
         GroupInfoChip(groupInfoChipType = GroupInfoChipType.NETWORKING)
         GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS)
+        Spacer(modifier = Modifier.height(10.dp))
+
+        GroupInfoChip(groupInfoChipType = GroupInfoChipType.STUDY_HOME)
+        GroupInfoChip(groupInfoChipType = GroupInfoChipType.DINING_HOME)
+        GroupInfoChip(groupInfoChipType = GroupInfoChipType.EXERCISE_HOME)
+        GroupInfoChip(groupInfoChipType = GroupInfoChipType.PLAYING_HOME)
+        GroupInfoChip(groupInfoChipType = GroupInfoChipType.NETWORKING_HOME)
+        GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS_HOME)
         Spacer(modifier = Modifier.height(10.dp))
 
         GroupInfoChip(groupInfoChipType = GroupInfoChipType.WEEKLY)

@@ -23,8 +23,10 @@ fun GongBaekBasicButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    verticalPadding: Int = 16,
     enableButtonColor: Color = GongBaekTheme.colors.mainOrange,
-    disableButtonColor: Color = GongBaekTheme.colors.gray03
+    disableButtonColor: Color = GongBaekTheme.colors.gray03,
+    textColor: Color = GongBaekTheme.colors.white
 ) {
     Box(
         modifier = modifier
@@ -33,13 +35,13 @@ fun GongBaekBasicButton(
                 color = if (enabled) enableButtonColor else disableButtonColor,
                 shape = RoundedCornerShape(6.dp)
             )
-            .padding(vertical = 16.dp)
+            .padding(vertical = verticalPadding.dp)
             .clickableWithoutRipple { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = title,
-            color = GongBaekTheme.colors.white,
+            color = textColor,
             style = GongBaekTheme.typography.title2.sb18
         )
     }

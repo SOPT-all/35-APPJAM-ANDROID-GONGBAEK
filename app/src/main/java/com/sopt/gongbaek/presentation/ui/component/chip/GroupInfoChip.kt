@@ -28,7 +28,8 @@ fun GroupInfoChip(
                 color = groupInfoChipType.backgroundColor,
                 shape = RoundedCornerShape(2.dp)
             )
-            .padding(horizontal = 4.dp, vertical = 1.dp)
+            .padding(horizontal = 4.dp, vertical = 1.dp),
+        style = GongBaekTheme.typography.caption2.r12
     )
 }
 

@@ -25,7 +25,8 @@ fun GongBaekBasicButton(
     enabled: Boolean = true,
     verticalPadding: Int = 16,
     enableButtonColor: Color = GongBaekTheme.colors.mainOrange,
-    disableButtonColor: Color = GongBaekTheme.colors.gray03
+    disableButtonColor: Color = GongBaekTheme.colors.gray03,
+    textColor: Color = GongBaekTheme.colors.white
 ) {
     Box(
         modifier = modifier
@@ -40,7 +41,7 @@ fun GongBaekBasicButton(
     ) {
         Text(
             text = title,
-            color = GongBaekTheme.colors.white,
+            color = textColor,
             style = GongBaekTheme.typography.title2.sb18
         )
     }

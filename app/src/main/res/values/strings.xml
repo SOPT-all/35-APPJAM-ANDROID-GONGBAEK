@@ -55,5 +55,6 @@
 
     <!--GroupPlacePeopleScreen-->
     <string name="group_place_people_title">인원을 선택해주세요.</string>
+    <string name="group_place_people_count">%d명</string>
 
 </resources>

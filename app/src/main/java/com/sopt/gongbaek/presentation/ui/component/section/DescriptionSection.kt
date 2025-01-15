@@ -12,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
@@ -23,7 +22,7 @@ fun DescriptionSection(
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
-    ){
+    ) {
         Text(
             text = stringResource(titleResId),
             color = GongBaekTheme.colors.gray10,

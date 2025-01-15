@@ -12,4 +12,17 @@
     <string name="topbar_group">채우기</string>
     <string name="topbar_my_group">나의 채움</string>
 
+    <!--chip-->
+    <string name="chip_status_recruiting">모집중</string>
+    <string name="chip_status_recruited">인원마감</string>
+    <string name="chip_status_closed">종료</string>
+    <string name="chip_category_study">스터디</string>
+    <string name="chip_category_dining">식사</string>
+    <string name="chip_category_exercise">운동/산책</string>
+    <string name="chip_category_playing">취미/오락</string>
+    <string name="chip_category_networking">네트워킹</string>
+    <string name="chip_category_others">기타</string>
+    <string name="chip_grouptype_weekly">매주 봐요</string>
+    <string name="chip_grouptype_once">한번만 봐요</string>
+
 </resources>

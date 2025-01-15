@@ -2,11 +2,13 @@ package com.sopt.gongbaek.presentation.ui.groupregister.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -19,64 +21,65 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
+import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun MaxPeopleCount(
+fun GroupPeopleCounter(
     peopleCount: Int,
-    onPeopleCountChange: (Int) -> Unit,
+    onMinusButtonClicked: () -> Unit,
+    onPlusButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(LocalConfiguration.current.screenHeightDp.dp * 0.06f),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        MaxPeopleCountButton(
-            iconResId = R.drawable.ic_minus_gray_18,
-            onClick = {
-                if (peopleCount > 2) {
-                    onPeopleCountChange(peopleCount - 1)
-                }
-            }
+        GroupPeopleCounterButton(
+            iconResId = R.drawable.ic_minus_main_orange_18,
+            onClick = onMinusButtonClicked
         )
         Box(
             modifier = Modifier
                 .padding(horizontal = 10.dp)
-                .border(
-                    width = 1.dp,
-                    color = GongBaekTheme.colors.gray03,
-                    shape = RoundedCornerShape(6.dp)
-                )
-                .weight(1f),
+                .fillMaxHeight()
+                .weight(1f)
+                .roundedBackgroundWithBorder(
+                    cornerRadius = 6.dp,
+                    backgroundColor = GongBaekTheme.colors.white,
+                    borderColor = GongBaekTheme.colors.gray03,
+                    borderWidth = 1.dp
+                ),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = stringResource(R.string.group_place_people_count, peopleCount),
                 color = GongBaekTheme.colors.gray10,
                 style = GongBaekTheme.typography.title1.b20,
-                modifier = Modifier.padding(vertical = 14.dp)
+                modifier = Modifier
+                    .padding(vertical = 14.dp)
+                    .fillMaxHeight()
             )
         }
-        MaxPeopleCountButton(
-            iconResId = R.drawable.ic_plus_gray_18,
-            onClick = {
-                if (peopleCount < 10) {
-                    onPeopleCountChange(peopleCount + 1)
-                }
-            }
+        GroupPeopleCounterButton(
+            iconResId = R.drawable.ic_plus_main_orange_18,
+            onClick = onPlusButtonClicked
         )
     }
 }
 
 @Composable
-private fun MaxPeopleCountButton(
+private fun GroupPeopleCounterButton(
     @DrawableRes iconResId: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -86,18 +89,20 @@ private fun MaxPeopleCountButton(
         contentDescription = null,
         tint = GongBaekTheme.colors.mainOrange,
         modifier = modifier
+            .aspectRatio(1f / 1f)
             .background(
                 color = GongBaekTheme.colors.subOrange,
                 shape = RoundedCornerShape(6.dp)
             )
             .padding(15.dp)
+            .fillMaxHeight()
             .clickableWithoutRipple(onClick = onClick)
     )
 }
 
 @Preview
 @Composable
-private fun PreviewMaxPeopleCount() {
+private fun PreviewGroupPeopleCounter() {
     var peopleCount by remember { mutableIntStateOf(2) }
     Box(
         modifier = Modifier
@@ -105,9 +110,10 @@ private fun PreviewMaxPeopleCount() {
             .padding(20.dp)
             .fillMaxWidth()
     ) {
-        MaxPeopleCount(
+        GroupPeopleCounter(
             peopleCount = peopleCount,
-            onPeopleCountChange = { peopleCount = it }
+            onMinusButtonClicked = { peopleCount -= 1 },
+            onPlusButtonClicked = { peopleCount += 1 }
         )
     }
 }

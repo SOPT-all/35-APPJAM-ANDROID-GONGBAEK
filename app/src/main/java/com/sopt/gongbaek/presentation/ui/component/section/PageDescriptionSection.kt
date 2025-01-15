@@ -15,7 +15,7 @@ import com.sopt.gongbaek.R
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun DescriptionSection(
+fun PageDescriptionSection(
     titleResId: Int,
     modifier: Modifier = Modifier,
     descriptionResId: Int? = null
@@ -49,7 +49,7 @@ private fun PreviewDescriptionSection1() {
             .padding(20.dp)
             .fillMaxSize()
     ) {
-        DescriptionSection(
+        PageDescriptionSection(
             titleResId = R.string.group_place_people_title,
             descriptionResId = R.string.dialog_description_enter_fail
         )
@@ -65,7 +65,7 @@ private fun PreviewDescriptionSection2() {
             .padding(20.dp)
             .fillMaxSize()
     ) {
-        DescriptionSection(
+        PageDescriptionSection(
             titleResId = R.string.group_place_people_title
         )
     }

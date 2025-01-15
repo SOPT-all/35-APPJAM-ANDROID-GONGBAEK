@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.component.section
 
-import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,7 +51,7 @@ fun CommentSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 10.dp)
-                .padding(vertical = 16.dp),
+                .padding(vertical = 16.dp)
         )
 
         LazyColumn(
@@ -61,7 +60,7 @@ fun CommentSection(
             items(items = groupComment.commentList) { comment ->
                 CommentSectionItem(
                     comment = comment,
-                    onDeleteClicked = onDeleteClicked,
+                    onDeleteClicked = onDeleteClicked
                 )
             }
         }
@@ -81,7 +80,7 @@ fun CommentSection(
 private fun CommentSectionHeader(
     commentCount: Int,
     onRefreshClicked: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier,
@@ -107,9 +106,10 @@ private fun CommentSectionItem(
     onDeleteClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier
-        .padding(top = 14.dp)
-        .padding(horizontal = 16.dp)
+    Column(
+        modifier = modifier
+            .padding(top = 14.dp)
+            .padding(horizontal = 16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -185,7 +185,7 @@ private fun CommentSectionTextField(
                 backgroundColor = GongBaekTheme.colors.gray01
             ),
         maxLines = 3,
-        cursorBrush = SolidColor(GongBaekTheme.colors.gray05),
+        cursorBrush = SolidColor(GongBaekTheme.colors.gray05)
     ) { innerTextField ->
         Row(
             modifier = Modifier.padding(12.dp),

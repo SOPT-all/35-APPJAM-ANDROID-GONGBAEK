@@ -1,10 +1,10 @@
 package com.sopt.gongbaek.presentation.ui.component.chip
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,33 +34,53 @@ fun GroupInfoChip(
 @Preview
 @Composable
 private fun PreviewGroupInfoChip() {
-    Column(
+    val status = "RECRUITING"
+    val category = "PLAYING"
+    val groupType = "ONCE"
+    Row(
         modifier = Modifier
             .background(color = GongBaekTheme.colors.white)
             .padding(10.dp)
     ) {
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.RECRUITING)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.RECRUITED)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.CLOSED)
-        Spacer(modifier = Modifier.height(10.dp))
+        when (status) {
+            "RECRUITING" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.RECRUITING)
+            "RECRUITED" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.RECRUITED)
+            "CLOSED" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.CLOSED)
+            else -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.CLOSED)
+        }
+        Spacer(modifier = Modifier.width(10.dp))
 
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.STUDY)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.DINING)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.EXERCISE)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.PLAYING)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.NETWORKING)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS)
-        Spacer(modifier = Modifier.height(10.dp))
+        when (category) {
+            "STUDY" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.STUDY)
+            "DINING" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.DINING)
+            "EXERCISE" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.EXERCISE)
+            "PLAYING" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.PLAYING)
+            "NETWORKING" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.NETWORKING)
+            "OTHERS" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS)
+            else -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS)
+        }
+        Spacer(modifier = Modifier.width(10.dp))
 
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.STUDY_HOME)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.DINING_HOME)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.EXERCISE_HOME)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.PLAYING_HOME)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.NETWORKING_HOME)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS_HOME)
-        Spacer(modifier = Modifier.height(10.dp))
+        when (groupType) {
+            "WEEKLY" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.WEEKLY)
+            "ONCE" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.ONCE)
+            else -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.WEEKLY)
+        }
+    }
+}
 
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.WEEKLY)
-        GroupInfoChip(groupInfoChipType = GroupInfoChipType.ONCE)
+@Preview
+@Composable
+private fun PreviewHomeGroupInfoChip() {
+    val category = "STUDY"
+
+    when (category) {
+        "STUDY" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.STUDY_HOME)
+        "DINING" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.DINING_HOME)
+        "EXERCISE" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.EXERCISE_HOME)
+        "PLAYING" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.PLAYING_HOME)
+        "NETWORKING" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.NETWORKING_HOME)
+        "OTHERS" -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS_HOME)
+        else -> GroupInfoChip(groupInfoChipType = GroupInfoChipType.OTHERS_HOME)
     }
 }

@@ -41,27 +41,27 @@ enum class GroupInfoChipType(
     ),
     STUDY(
         chipContents = GroupInfoChipContents.CATEGORY,
-        label = R.string.chip_category_study,
+        label = R.string.chip_category_study
     ),
     DINING(
         chipContents = GroupInfoChipContents.CATEGORY,
-        label = R.string.chip_category_dining,
+        label = R.string.chip_category_dining
     ),
     EXERCISE(
         chipContents = GroupInfoChipContents.CATEGORY,
-        label = R.string.chip_category_exercise,
+        label = R.string.chip_category_exercise
     ),
     PLAYING(
         chipContents = GroupInfoChipContents.CATEGORY,
-        label = R.string.chip_category_playing,
+        label = R.string.chip_category_playing
     ),
     NETWORKING(
         chipContents = GroupInfoChipContents.CATEGORY,
-        label = R.string.chip_category_networking,
+        label = R.string.chip_category_networking
     ),
     OTHERS(
         chipContents = GroupInfoChipContents.CATEGORY,
-        label = R.string.chip_category_others,
+        label = R.string.chip_category_others
     ),
     WEEKLY(
         chipContents = GroupInfoChipContents.GROUPTYPE,
@@ -75,5 +75,5 @@ enum class GroupInfoChipType(
         label = R.string.chip_grouptype_once,
         backgroundColor = gray01,
         fontColor = subBlue
-    ),
+    )
 }

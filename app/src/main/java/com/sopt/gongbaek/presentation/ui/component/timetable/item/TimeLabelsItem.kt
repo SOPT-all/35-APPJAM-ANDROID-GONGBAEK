@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun TimeLabelsColumn(
+fun TimeLabelsItem(
     timeSlotLabels: List<String>,
     modifier: Modifier = Modifier
 ) {
@@ -94,7 +94,7 @@ private fun PreviewTimeItem() {
     Column(
         Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
     ) {
-        TimeLabelsColumn(
+        TimeLabelsItem(
             timeSlotLabels = timeLabels
         )
     }

@@ -16,12 +16,12 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.presentation.ui.component.timetable.item.DayHeaderItem
-import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsColumn
+import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsItem
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun GongBaekTimeTable(
-    classTime: Map<String, List<Int>>,
+    lectureTime: Map<String, List<Int>>,
     timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
     daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금"),
 ) {
@@ -34,14 +34,14 @@ fun GongBaekTimeTable(
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
-        TimeLabelsColumn(
+        TimeLabelsItem(
             timeSlotLabels = timeSlotLabels,
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp * 0.07f)
         )
         daysOfWeek.forEach { day ->
             GongBaekDayTimeSlotColumn(
                 dayName = day,
-                classTime = classTime[day] ?: emptyList(),
+                lectureTime = lectureTime[day] ?: emptyList(),
                 modifier = Modifier.weight(1f)
             )
         }
@@ -51,7 +51,7 @@ fun GongBaekTimeTable(
 @Composable
 private fun GongBaekDayTimeSlotColumn(
     dayName: String,
-    classTime: List<Int>,
+    lectureTime: List<Int>,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -62,16 +62,16 @@ private fun GongBaekDayTimeSlotColumn(
             isSelected = false
         )
 
-        GongBaekTimeSlotGrid(
+        GongBaekTimeSlot(
             dayName = dayName,
-            classTime = classTime,
+            classTime = lectureTime,
             modifier = Modifier.weight(1f),
         )
     }
 }
 
 @Composable
-private fun GongBaekTimeSlotGrid(
+private fun GongBaekTimeSlot(
     dayName: String,
     classTime: List<Int>,
     modifier: Modifier = Modifier,
@@ -99,11 +99,10 @@ private fun GongBaekTimeSlotGrid(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewGongBaekTimeTable() {
-    val classTime = mapOf(
+    val lectureTime = mapOf(
         "월" to listOf(0, 1, 2, 3, 4, 5, 6),
         "화" to listOf(7, 8, 9, 10),
         "수" to listOf(0, 1, 2, 3, 4, 5, 6),
@@ -112,6 +111,6 @@ private fun PreviewGongBaekTimeTable() {
     )
 
     GongBaekTimeTable(
-        classTime = classTime
+        lectureTime = lectureTime
     )
 }

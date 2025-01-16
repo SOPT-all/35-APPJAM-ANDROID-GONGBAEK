@@ -18,8 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsColumn
+import com.sopt.gongbaek.presentation.ui.component.timetable.item.DayHeaderItem
+import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsItem
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
+import com.sopt.gongbaek.presentation.util.timetable.updateSelectedTimeSlots
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
@@ -41,7 +43,7 @@ fun LectureTimeSelectionTable(
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
-        TimeLabelsColumn(
+        TimeLabelsItem(
             timeSlotLabels = timeSlotLabels,
             modifier = Modifier.width(screenWidth * 0.07f)
         )
@@ -53,7 +55,7 @@ fun LectureTimeSelectionTable(
                 modifier = Modifier.weight(1f),
                 selectedTimeSlots = selectedTimeSlots,
                 onTimeSlotClick = { index ->
-                    val updatedSlots = updateSelectedTimeIndices(selectedTimeSlots, index)
+                    val updatedSlots = updateSelectedTimeSlots(selectedTimeSlots, index)
                     onTimeSlotSelectionChange(day, updatedSlots)
                 }
             )
@@ -71,12 +73,12 @@ private fun LectureDayTimeSlotColumn(
     Column(
         modifier = modifier.fillMaxHeight()
     ) {
-        DayHeader(
-            dayLabel = dayName,
+        DayHeaderItem(
+            label = dayName,
             isSelected = false
         )
 
-        LectureTimeSlotGrid(
+        LectureDayTimeSelector(
             dayName = dayName,
             selectedTimeSlots = selectedTimeSlots,
             onTimeSlotClick = onTimeSlotClick,
@@ -86,7 +88,7 @@ private fun LectureDayTimeSlotColumn(
 }
 
 @Composable
-private fun LectureTimeSlotGrid(
+private fun LectureDayTimeSelector(
     dayName: String,
     selectedTimeSlots: List<Int>,
     onTimeSlotClick: (Int) -> Unit,
@@ -116,23 +118,11 @@ private fun LectureTimeSlotGrid(
     }
 }
 
-private fun updateSelectedTimeIndices(
-    currentIndices: List<Int>,
-    clickedIndex: Int
-): List<Int> =
-    currentIndices.toMutableSet().apply {
-        if (contains(clickedIndex)) remove(clickedIndex) else add(clickedIndex)
-    }.toList()
-
 @Preview
 @Composable
 private fun PreviewSelectableLectureTimeTable() {
     val timeSlotLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
-    val selectedTimeSlotsByDay = remember {
-        mutableStateOf(
-            listOf("월", "화", "수", "목", "금").associateWith { emptyList<Int>() }
-        )
-    }
+    val selectedTimeSlotsByDay = remember { mutableStateOf(mapOf<String, List<Int>>()) }
 
     Column(
         modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp)

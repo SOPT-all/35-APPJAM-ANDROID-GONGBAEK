@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.presentation.ui.component.timetable.item.DayHeaderItem
-import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeItem
+import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsColumn
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
@@ -34,8 +34,8 @@ fun GongBaekTimeTable(
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
-        TimeItem(
-            timeLabels = timeLabels,
+        TimeLabelsColumn(
+            timeSlotLabels = timeLabels,
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp * 0.07f)
         )
         weekdays.forEach { day ->

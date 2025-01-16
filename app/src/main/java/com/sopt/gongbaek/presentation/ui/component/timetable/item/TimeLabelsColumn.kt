@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun TimeItem(
-    timeLabels: List<String>,
+fun TimeLabelsColumn(
+    timeSlotLabels: List<String>,
     modifier: Modifier = Modifier
 ) {
     val commonModifier = Modifier
@@ -49,7 +49,7 @@ fun TimeItem(
                 )
         )
 
-        timeLabels.forEachIndexed { index, timeLabel ->
+        timeSlotLabels.forEachIndexed { index, timeLabel ->
             Box(
                 modifier = commonModifier.weight(1f),
                 contentAlignment = Alignment.TopEnd
@@ -61,7 +61,7 @@ fun TimeItem(
                 )
             }
 
-            if (index < timeLabels.size - 1) {
+            if (index < timeSlotLabels.size - 1) {
                 Box(
                     modifier = commonModifier.weight(1f)
                 )
@@ -94,8 +94,8 @@ private fun PreviewTimeItem() {
     Column(
         Modifier.padding(vertical = 16.dp, horizontal = 16.dp)
     ) {
-        TimeItem(
-            timeLabels = timeLabels
+        TimeLabelsColumn(
+            timeSlotLabels = timeLabels
         )
     }
 }

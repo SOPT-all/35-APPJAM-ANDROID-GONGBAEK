@@ -41,6 +41,7 @@
     <string name="group_info_chip_category_others">기타</string>
     <string name="group_info_chip_group_cycle_weekly">매주 봐요</string>
     <string name="group_info_chip_group_cycle_once">한번만 봐요</string>
+    <string name="group_info_chip_error">오류</string>
 
     <!--Dialog-->
     <string name="dialog_title_register_success">모임 등록이 완료됐어요!</string>
@@ -56,5 +57,9 @@
     <!--GroupPlacePeopleScreen-->
     <string name="group_place_people_title">인원을 선택해주세요.</string>
     <string name="group_place_people_count">%d명</string>
+
+    <!-- GroupRoomScreen-->
+    <string name="grouproom_people_count">멤버 (%1$s/%2$s명)</string>
+    <string name="grouproom_people_chip_host">모집자</string>
 
 </resources>

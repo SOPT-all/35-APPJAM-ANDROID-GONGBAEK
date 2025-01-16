@@ -59,7 +59,7 @@ private fun TimeSlot(
         modifier = modifier.fillMaxHeight()
     ) {
         DayHeaderItem(
-            dayLabel = dayLabel,
+            label = dayLabel,
             isSelected = false
         )
 

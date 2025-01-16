@@ -17,10 +17,10 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun DayHeaderItem(
-    dayLabel: String,
+    label: String,
     isSelected: Boolean,
 ) {
-    val topCornerShape = RoundedCornerShape(topEnd = if (dayLabel == "금") 8.dp else 0.dp)
+    val topCornerShape = RoundedCornerShape(topEnd = if (label == "금") 8.dp else 0.dp)
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,7 +37,7 @@ fun DayHeaderItem(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = dayLabel,
+            text = label,
             color = if (isSelected) GongBaekTheme.colors.white else GongBaekTheme.colors.gray06,
             style = GongBaekTheme.typography.caption2.r12
         )
@@ -48,7 +48,7 @@ fun DayHeaderItem(
 @Composable
 private fun PreviewDayHeaderItem() {
     DayHeaderItem(
-        dayLabel = "월",
+        label = "월",
         isSelected = false
     )
 }
@@ -57,7 +57,7 @@ private fun PreviewDayHeaderItem() {
 @Composable
 private fun PreviewDayHeaderItem2() {
     DayHeaderItem(
-        dayLabel = "월",
+        label = "월",
         isSelected = true
     )
 }

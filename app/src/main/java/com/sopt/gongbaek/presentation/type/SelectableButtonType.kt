@@ -1,8 +1,11 @@
 package com.sopt.gongbaek.presentation.type
 
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.sopt.gongbaek.R
+import com.sopt.gongbaek.domain.type.CategoryType
 import com.sopt.gongbaek.domain.type.DayOfWeekType
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GradeType
@@ -21,7 +24,8 @@ enum class SelectableButtonType(
     @ColorRes val selectedButtonColor: Color = defaultGongBaekColors.subOrange,
     @ColorRes val selectedTextColor: Color = defaultGongBaekColors.mainOrange,
     @ColorRes val unSelectedButtonColor: Color = defaultGongBaekColors.gray01,
-    @ColorRes val unSelectedTextColor: Color = defaultGongBaekColors.gray07
+    @ColorRes val unSelectedTextColor: Color = defaultGongBaekColors.gray07,
+    @DrawableRes val categoryImgResIds: List<Int> = emptyList()
 ) {
     GRADE(
         options = listOf(
@@ -76,5 +80,25 @@ enum class SelectableButtonType(
             DayOfWeekType.FRI.description
         ),
         chunkedCount = 1
+    ),
+    CATEGORY(
+        options = listOf(
+            CategoryType.STUDY.description,
+            CategoryType.DINING.description,
+            CategoryType.EXERCISE.description,
+            CategoryType.NETWORKING.description,
+            CategoryType.PLAYING.description,
+            CategoryType.OTHERS.description,
+        ),
+        selectedTextColor = defaultGongBaekColors.gray08,
+        unSelectedTextColor = defaultGongBaekColors.gray08,
+        categoryImgResIds = listOf(
+            R.drawable.img_image_button_sample,
+            R.drawable.img_image_button_sample,
+            R.drawable.img_fill_list,
+            R.drawable.img_image_button_sample,
+            R.drawable.img_image_button_sample,
+            R.drawable.img_fill_list
+        )
     )
 }

@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.groupregister.screen
+package com.sopt.gongbaek.presentation.ui.onboarding.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,17 +17,17 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun GroupRegisterRoute(
-    navigateGroupList: () -> Unit
+fun OnboardingRoute(
+    navigateHome: () -> Unit
 ) {
-    GroupRegisterScreen(
-        navigateGroupList = navigateGroupList
+    OnboardingScreen(
+        navigateHome = navigateHome
     )
 }
 
 @Composable
-fun GroupRegisterScreen(
-    navigateGroupList: () -> Unit
+fun OnboardingScreen(
+    navigateHome: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -36,12 +36,12 @@ fun GroupRegisterScreen(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "모임 등록 화면" +
-                "\n채우기로 이동",
+            text = "온보딩 화면" +
+                "\n홈으로 이동",
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .background(color = GongBaekTheme.colors.gray04)
-                .clickableWithoutRipple(onClick = navigateGroupList)
+                .clickableWithoutRipple(onClick = navigateHome)
                 .padding(10.dp)
         )
     }
@@ -49,10 +49,10 @@ fun GroupRegisterScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ShowGroupRegisterScreen() {
+private fun OnboardingScreenPreview() {
     GONGBAEKTheme {
-        GroupRegisterScreen(
-            navigateGroupList = {}
+        OnboardingScreen(
+            navigateHome = {}
         )
     }
 }

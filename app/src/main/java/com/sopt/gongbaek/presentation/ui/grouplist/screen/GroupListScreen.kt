@@ -21,16 +21,19 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun GroupListRoute(
-    navigateGroupDetail: () -> Unit
+    navigateGroupDetail: () -> Unit,
+    navigateGroupRegister: () -> Unit
 ) {
     GroupListScreen(
-        navigateGroupDetail = navigateGroupDetail
+        navigateGroupDetail = navigateGroupDetail,
+        navigateGroupRegister = navigateGroupRegister
     )
 }
 
 @Composable
 fun GroupListScreen(
-    navigateGroupDetail: () -> Unit
+    navigateGroupDetail: () -> Unit,
+    navigateGroupRegister: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -62,6 +65,24 @@ fun GroupListScreen(
                     modifier = Modifier.padding(10.dp)
                 )
             }
+            Spacer(modifier = Modifier.height(10.dp))
+            Box(
+                modifier = Modifier
+                    .roundedBackgroundWithBorder(
+                        cornerRadius = 8.dp,
+                        backgroundColor = GongBaekTheme.colors.subOrange,
+                        borderWidth = 1.dp,
+                        borderColor = GongBaekTheme.colors.mainOrange
+                    )
+                    .clickableWithoutRipple(
+                        onClick = navigateGroupRegister
+                    )
+            ) {
+                Text(
+                    text = "모임 등록으로 이동",
+                    modifier = Modifier.padding(10.dp)
+                )
+            }
         }
     }
 }
@@ -71,7 +92,8 @@ fun GroupListScreen(
 fun ShowGroupListScreen() {
     GONGBAEKTheme {
         GroupListScreen(
-            navigateGroupDetail = {}
+            navigateGroupDetail = {},
+            navigateGroupRegister = {}
         )
     }
 }

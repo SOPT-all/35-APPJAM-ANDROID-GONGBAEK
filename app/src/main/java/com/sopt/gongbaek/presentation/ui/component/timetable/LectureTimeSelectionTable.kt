@@ -68,7 +68,7 @@ private fun LectureDayTimeSlotColumn(
     dayName: String,
     selectedTimeSlots: List<Int>,
     onTimeSlotClick: (Int) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.fillMaxHeight()
@@ -82,7 +82,7 @@ private fun LectureDayTimeSlotColumn(
             dayName = dayName,
             selectedTimeSlots = selectedTimeSlots,
             onTimeSlotClick = onTimeSlotClick,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f)
         )
     }
 }

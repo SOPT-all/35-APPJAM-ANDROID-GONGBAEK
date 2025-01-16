@@ -18,7 +18,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun DayHeaderItem(
     label: String,
-    isSelected: Boolean,
+    isSelected: Boolean
 ) {
     val topCornerShape = RoundedCornerShape(topEnd = if (label == "금") 8.dp else 0.dp)
     Box(

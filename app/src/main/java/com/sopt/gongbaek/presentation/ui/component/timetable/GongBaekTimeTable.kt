@@ -23,7 +23,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun GongBaekTimeTable(
     lectureTime: Map<String, List<Int>>,
     timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
-    daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금"),
+    daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금")
 ) {
     Row(
         modifier = Modifier
@@ -52,7 +52,7 @@ fun GongBaekTimeTable(
 private fun GongBaekDayTimeSlotColumn(
     dayName: String,
     lectureTime: List<Int>,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.fillMaxHeight()
@@ -65,7 +65,7 @@ private fun GongBaekDayTimeSlotColumn(
         GongBaekTimeSlot(
             dayName = dayName,
             classTime = lectureTime,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f)
         )
     }
 }

@@ -100,14 +100,13 @@ private fun SelectedGroupRegisterTime(
                     borderColor = GongBaekTheme.colors.gray02,
                     borderWidth = 1.dp
                 ),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             Text(
                 text = selectedTimeSlots.minOrNull()?.let { timeLabels[it] } ?: "00:00",
                 style = GongBaekTheme.typography.title2.b18,
                 color = GongBaekTheme.colors.gray09
             )
-
         }
 
         HorizontalDivider(
@@ -128,14 +127,13 @@ private fun SelectedGroupRegisterTime(
                     borderColor = GongBaekTheme.colors.gray02,
                     borderWidth = 1.dp
                 ),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             Text(
                 text = selectedTimeSlots.maxOrNull()?.let { timeLabels[it + 1] } ?: "00:00",
                 style = GongBaekTheme.typography.title2.b18,
                 color = GongBaekTheme.colors.gray09
             )
-
         }
     }
 }
@@ -243,7 +241,7 @@ fun GroupRegisterDayTimeSlotColumn(
     ) {
         DayHeaderItem(
             label = dayName,
-            isSelected = selectedDay == dayName,
+            isSelected = selectedDay == dayName
         )
 
         repeat(timeSlotCount) { index ->

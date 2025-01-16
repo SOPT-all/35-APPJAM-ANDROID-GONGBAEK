@@ -22,8 +22,8 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun GongBaekTimeTable(
     classTime: Map<String, List<Int>>,
-    timeLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
-    weekdays: List<String> = listOf("월", "화", "수", "목", "금"),
+    timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
+    daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금"),
 ) {
     Row(
         modifier = Modifier
@@ -35,12 +35,12 @@ fun GongBaekTimeTable(
             )
     ) {
         TimeLabelsColumn(
-            timeSlotLabels = timeLabels,
+            timeSlotLabels = timeSlotLabels,
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp * 0.07f)
         )
-        weekdays.forEach { day ->
-            TimeSlot(
-                dayLabel = day,
+        daysOfWeek.forEach { day ->
+            GongBaekDayTimeSlotColumn(
+                dayName = day,
                 classTime = classTime[day] ?: emptyList(),
                 modifier = Modifier.weight(1f)
             )
@@ -49,43 +49,56 @@ fun GongBaekTimeTable(
 }
 
 @Composable
-private fun TimeSlot(
-    dayLabel: String,
+private fun GongBaekDayTimeSlotColumn(
+    dayName: String,
     classTime: List<Int>,
     modifier: Modifier = Modifier,
-    timeSlotCount: Int = 18
 ) {
     Column(
         modifier = modifier.fillMaxHeight()
     ) {
         DayHeaderItem(
-            label = dayLabel,
+            label = dayName,
             isSelected = false
         )
 
-        repeat(timeSlotCount) { index ->
-            val isClassTime = classTime.contains(index)
-            val bottomCornerShape = RoundedCornerShape(
-                bottomEnd = if (dayLabel == "금" && index == timeSlotCount - 1) 8.dp else 0.dp
-            )
-
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .border(
-                        width = 0.5.dp,
-                        color = if (isClassTime) GongBaekTheme.colors.gray02 else GongBaekTheme.colors.subOrange,
-                        shape = bottomCornerShape
-                    )
-                    .background(
-                        color = if (isClassTime) GongBaekTheme.colors.white else GongBaekTheme.colors.subOrange,
-                        shape = bottomCornerShape
-                    )
-            )
-        }
+        GongBaekTimeSlotGrid(
+            dayName = dayName,
+            classTime = classTime,
+            modifier = Modifier.weight(1f),
+        )
     }
 }
+
+@Composable
+private fun GongBaekTimeSlotGrid(
+    dayName: String,
+    classTime: List<Int>,
+    modifier: Modifier = Modifier,
+    timeSlotCount: Int = 18
+) {
+    repeat(timeSlotCount) { index ->
+        val isClassTime = classTime.contains(index)
+        val bottomCornerShape = RoundedCornerShape(
+            bottomEnd = if (dayName == "금" && index == timeSlotCount - 1) 8.dp else 0.dp
+        )
+
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .border(
+                    width = 0.5.dp,
+                    color = if (isClassTime) GongBaekTheme.colors.gray02 else GongBaekTheme.colors.subOrange,
+                    shape = bottomCornerShape
+                )
+                .background(
+                    color = if (isClassTime) GongBaekTheme.colors.white else GongBaekTheme.colors.subOrange,
+                    shape = bottomCornerShape
+                )
+        )
+    }
+}
+
 
 @Preview
 @Composable

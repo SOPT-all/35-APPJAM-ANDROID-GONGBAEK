@@ -1,7 +1,7 @@
 package com.sopt.gongbaek.presentation.ui.main
 
 import android.content.Context
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,14 +10,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.presentation.type.MainBottomNavBarTabType
@@ -34,11 +33,11 @@ fun MainBottomNavBar(
     modifier: Modifier = Modifier,
     context: Context = LocalContext.current
 ) {
-    AnimatedVisibility(visible = isVisible) {
+    if (isVisible) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .background(GongBaekTheme.colors.mainOrange),
+                .background(color = GongBaekTheme.colors.white),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -65,22 +64,26 @@ private fun MainBottomNavBarItem(
 ) {
     Column(
         modifier = modifier
-            .background(if (isSelected) GongBaekTheme.colors.subOrange else Color.Transparent)
             .clickableWithoutRipple(onClick = onClick)
             .padding(vertical = 14.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Icon(
-            painter = painterResource(id = bottomNavBarTabType.iconRes),
-            tint = if (isSelected) GongBaekTheme.colors.black else GongBaekTheme.colors.gray02,
-            contentDescription = context.getString(bottomNavBarTabType.label)
+        Image(
+            imageVector = ImageVector.vectorResource(
+                id = if (isSelected) {
+                    bottomNavBarTabType.selectedIconRes
+                } else {
+                    bottomNavBarTabType.unselectedIconRes
+                }
+            ),
+            contentDescription = null
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = context.getString(bottomNavBarTabType.label),
             style = GongBaekTheme.typography.body2.m14,
-            color = if (isSelected) GongBaekTheme.colors.black else GongBaekTheme.colors.gray03
+            color = if (isSelected) GongBaekTheme.colors.gray10 else GongBaekTheme.colors.gray05
         )
     }
 }

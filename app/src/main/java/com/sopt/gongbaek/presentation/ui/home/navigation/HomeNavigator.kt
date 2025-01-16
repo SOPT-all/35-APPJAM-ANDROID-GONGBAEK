@@ -11,6 +11,6 @@ fun NavController.navigateHomeNavGraph(navOptions: NavOptions) {
     )
 }
 
-fun NavController.navigateHomeRoute() {
+fun NavController.navigateHome() {
     navigate(route = NavigationRoute.HomeNavGraphNavGraphRoute.HOME)
 }

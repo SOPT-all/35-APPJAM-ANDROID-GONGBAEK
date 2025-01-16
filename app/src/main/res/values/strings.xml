@@ -62,4 +62,14 @@
     <string name="grouproom_people_count">멤버 (%1$s/%2$s명)</string>
     <string name="grouproom_people_chip_host">모집자</string>
 
+    <!--SelectDayCalendar-->
+    <string name="select_day_calendar_year_month">%d년 %d월</string>
+    <string name="select_day_calendar_mon">월</string>
+    <string name="select_day_calendar_tue">화</string>
+    <string name="select_day_calendar_wed">수</string>
+    <string name="select_day_calendar_thu">목</string>
+    <string name="select_day_calendar_fri">금</string>
+    <string name="select_day_calendar_sat">토</string>
+    <string name="select_day_calendar_sun">일</string>
+
 </resources>

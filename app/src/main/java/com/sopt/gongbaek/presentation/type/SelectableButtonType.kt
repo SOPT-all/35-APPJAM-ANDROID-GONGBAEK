@@ -88,7 +88,7 @@ enum class SelectableButtonType(
             CategoryType.EXERCISE.description,
             CategoryType.NETWORKING.description,
             CategoryType.PLAYING.description,
-            CategoryType.OTHERS.description,
+            CategoryType.OTHERS.description
         ),
         selectedTextColor = defaultGongBaekColors.gray08,
         unSelectedTextColor = defaultGongBaekColors.gray08,

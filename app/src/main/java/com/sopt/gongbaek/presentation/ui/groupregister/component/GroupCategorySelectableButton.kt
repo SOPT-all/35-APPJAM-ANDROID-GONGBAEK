@@ -103,6 +103,5 @@ private fun PreviewGroupCategorySelectableButton() {
             onOptionSelected = { option -> selectedOption = option },
             selectedOption = selectedOption
         )
-
     }
 }

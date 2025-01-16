@@ -47,8 +47,8 @@ fun GroupCategorySelectableButtons(
                         textOption = option,
                         onClick = { onOptionSelected(option) },
                         isSelected = option == selectedOption,
+                        imageOption = selectableButtonType.categoryImgResIds[rowIndex * selectableButtonType.chunkedCount + optionIndex],
                         modifier = Modifier.weight(1f),
-                        imageOption = selectableButtonType.categoryImgResIds[rowIndex * selectableButtonType.chunkedCount + optionIndex]
                     )
                 }
             }
@@ -62,8 +62,8 @@ fun GroupCategorySelectableButton(
     textOption: String,
     onClick: () -> Unit,
     isSelected: Boolean,
+    imageOption: Int,
     modifier: Modifier = Modifier,
-    imageOption: Int
 ) {
     val selectableButtonType = SelectableButtonType.CATEGORY
 

@@ -28,7 +28,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.domain.model.Comment
 import com.sopt.gongbaek.domain.model.GroupComment
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
@@ -102,7 +101,7 @@ private fun CommentSectionHeader(
 
 @Composable
 private fun CommentSectionItem(
-    comment: Comment,
+    comment: GroupComment.Comment,
     onDeleteClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -226,7 +225,7 @@ private fun CommentSectionPreview() {
             groupComment = GroupComment(
                 commentCount = 6,
                 commentList = listOf(
-                    Comment(
+                    GroupComment.Comment(
                         groupId = 1,
                         groupType = "ONCE",
                         commentId = 1,
@@ -236,7 +235,7 @@ private fun CommentSectionPreview() {
                         isGroupHost = false,
                         isWriter = false
                     ),
-                    Comment(
+                    GroupComment.Comment(
                         groupId = 1,
                         groupType = "ONCE",
                         commentId = 1,
@@ -246,7 +245,7 @@ private fun CommentSectionPreview() {
                         isGroupHost = true,
                         isWriter = true
                     ),
-                    Comment(
+                    GroupComment.Comment(
                         groupId = 1,
                         groupType = "ONCE",
                         commentId = 1,
@@ -280,7 +279,7 @@ private fun CommentSectionHeaderPreview() {
 private fun CommentSectionItemPreview() {
     GONGBAEKTheme {
         CommentSectionItem(
-            comment = Comment(
+            comment = GroupComment.Comment(
                 groupId = 1,
                 groupType = "ONCE",
                 commentId = 1,

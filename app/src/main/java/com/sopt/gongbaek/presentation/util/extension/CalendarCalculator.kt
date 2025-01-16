@@ -2,20 +2,7 @@ package com.sopt.gongbaek.presentation.util.extension
 
 import java.time.LocalDate
 
-object CalendarUtils {
-    fun calculateTotalCells(firstDayOfMonth: LocalDate, daysInMonth: Int): Int {
-        val startDayOfWeek = firstDayOfMonth.dayOfWeek.value % 7
-        return (startDayOfWeek + daysInMonth + 6) / 7 * 7
-    }
-
-    fun isWeekend(date: LocalDate): Boolean {
-        return date.dayOfWeek.value in listOf(6, 7)
-    }
-
-    fun isOtherMonth(date: LocalDate, visibleMonth: LocalDate): Boolean {
-        return date.monthValue != visibleMonth.monthValue || date.year != visibleMonth.year
-    }
-
+object CalendarCalculator {
     fun calculateDateForCell(
         cellIndex: Int,
         startDayOfWeek: Int,

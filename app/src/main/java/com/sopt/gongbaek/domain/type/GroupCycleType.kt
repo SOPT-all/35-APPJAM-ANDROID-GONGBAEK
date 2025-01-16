@@ -7,6 +7,6 @@ enum class GroupCycleType(
         description = "한번만 볼래요"
     ),
     WEEKLY(
-        description = "매주 볼래요",
+        description = "매주 볼래요"
     );
 }

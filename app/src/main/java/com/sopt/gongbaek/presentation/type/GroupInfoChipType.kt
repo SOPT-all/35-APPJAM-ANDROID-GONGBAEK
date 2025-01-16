@@ -102,7 +102,6 @@ enum class GroupInfoChipType(
                 else -> ERROR
             }
 
-
         fun getChipTypeFromCategory(category: String): GroupInfoChipType =
             when (GroupCategoryType.entries.find { it.name == category }) {
                 GroupCategoryType.STUDY -> STUDY

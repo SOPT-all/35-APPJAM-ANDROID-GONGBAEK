@@ -14,8 +14,8 @@ fun createGroupTimeDescription(groupInfo: GroupInfo): String {
     val endHour = groupInfo.endTime.toInt()
     val endMinute = ((groupInfo.endTime - endHour) * 60).toInt()
 
-    val startTimeString = "${startHour}시" + if(startMinute!=0) " ${startMinute}분" else ""
-    val endTimeString = "${endHour}시" + if(endMinute!=0) " ${endMinute}분" else ""
+    val startTimeString = "${startHour}시" + if (startMinute != 0) " ${startMinute}분" else ""
+    val endTimeString = "${endHour}시" + if (endMinute != 0) " ${endMinute}분" else ""
 
     return when (groupCycle) {
         GroupCycleType.ONCE -> {

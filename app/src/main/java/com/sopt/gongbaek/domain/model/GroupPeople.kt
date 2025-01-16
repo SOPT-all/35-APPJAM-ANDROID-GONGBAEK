@@ -11,4 +11,3 @@ data class GroupPeople(
         val isHost: Boolean
     )
 }
-

@@ -20,5 +20,5 @@ enum class GroupCategoryType(
     ),
     OTHERS(
         description = "기타"
-    ),
+    )
 }

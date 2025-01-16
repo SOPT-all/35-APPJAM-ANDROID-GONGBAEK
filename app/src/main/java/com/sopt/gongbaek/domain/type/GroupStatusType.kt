@@ -1,15 +1,15 @@
 package com.sopt.gongbaek.domain.type
 
 enum class GroupStatusType(
-    val description: String,
+    val description: String
 ) {
     RECRUITING(
-        description = "모집중",
+        description = "모집중"
     ),
     RECRUITED(
-        description = "인원마감",
+        description = "인원마감"
     ),
     CLOSED(
-        description = "종료",
+        description = "종료"
     )
 }

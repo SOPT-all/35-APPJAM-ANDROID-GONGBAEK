@@ -273,6 +273,9 @@ fun GroupListScreen(
                         groupPlace = groupList.place,
                         modifier = Modifier
                             .padding(vertical = 12.dp, horizontal = 16.dp)
+                            .clickableWithoutRipple {
+                                navigateGroupDetail()
+                            }
                     )
 
                     HorizontalDivider(

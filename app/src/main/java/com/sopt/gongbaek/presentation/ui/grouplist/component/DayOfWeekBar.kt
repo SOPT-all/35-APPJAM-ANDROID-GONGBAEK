@@ -68,7 +68,7 @@ fun DayOfWeekBar(
                         vertical = 8.dp
                     )
                     .clickableWithoutRipple {
-                        onIndexSelected(index)
+//                        onIndexSelected(index)
                     },
                 contentAlignment = Alignment.Center
             ) {

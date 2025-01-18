@@ -13,10 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.gongbaek.R
+import com.sopt.gongbaek.domain.type.DayOfWeekType
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -28,13 +27,14 @@ fun DayOfWeekBar(
     onIndexSelected: (Int) -> Unit = {}
 ) {
     val contentLists = listOf(
-        R.string.grouplist_dayofweek_all,
-        R.string.grouplist_dayofweek_mon,
-        R.string.grouplist_dayofweek_tue,
-        R.string.grouplist_dayofweek_wed,
-        R.string.grouplist_dayofweek_thu,
-        R.string.grouplist_dayofweek_fri
+        DayOfWeekType.ALL.description,
+        DayOfWeekType.MON.description,
+        DayOfWeekType.TUE.description,
+        DayOfWeekType.WED.description,
+        DayOfWeekType.THU.description,
+        DayOfWeekType.FRI.description,
     )
+
     Row(
         modifier = modifier
             .padding(horizontal = 16.dp)
@@ -73,7 +73,7 @@ fun DayOfWeekBar(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = stringResource(content),
+                    text = content,
                     color = if (selectedIndex == index) {
                         GongBaekTheme.colors.mainOrange
                     } else {

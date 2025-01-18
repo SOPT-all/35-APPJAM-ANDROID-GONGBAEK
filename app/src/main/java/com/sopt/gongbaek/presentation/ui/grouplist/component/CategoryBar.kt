@@ -15,10 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.gongbaek.R
+import com.sopt.gongbaek.domain.type.GroupCategoryType
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -30,13 +29,13 @@ fun CategoryBar(
     onIndexSelected: (Int) -> Unit = {}
 ) {
     val contentLists = listOf(
-        R.string.grouplist_dayofweek_all,
-        R.string.group_info_chip_category_study,
-        R.string.group_info_chip_category_dining,
-        R.string.group_info_chip_category_exercise,
-        R.string.group_info_chip_category_playing,
-        R.string.group_info_chip_category_networking,
-        R.string.group_info_chip_category_others
+        GroupCategoryType.ALL.description,
+        GroupCategoryType.STUDY.description,
+        GroupCategoryType.DINING.description,
+        GroupCategoryType.EXERCISE.description,
+        GroupCategoryType.PLAYING.description,
+        GroupCategoryType.NETWORKING.description,
+        GroupCategoryType.OTHERS.description,
     )
 
     LazyRow(
@@ -79,7 +78,7 @@ fun CategoryBar(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = stringResource(contentLists[index]),
+                    text = contentLists[index],
                     style = GongBaekTheme.typography.caption1.m13,
                     color = if (selectedIndex == index) {
                         GongBaekTheme.colors.white

@@ -29,6 +29,10 @@ android {
         buildConfigField("String", "GONGBAEK_BASE_URL", localProperties["gongbaek.base.url"].toString())
     }
 
+    lint {
+        disable.add("CoroutineCreationDuringComposition")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false

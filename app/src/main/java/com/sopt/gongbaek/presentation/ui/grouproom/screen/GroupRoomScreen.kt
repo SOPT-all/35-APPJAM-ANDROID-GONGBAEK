@@ -323,6 +323,16 @@ private fun GroupRoomScreenPreview1() {
                         createdAt = "2023-12-27-02-24",
                         isGroupHost = false,
                         isWriter = false
+                    ),
+                    GroupComment.Comment(
+                        groupId = 1,
+                        groupType = "ONCE",
+                        commentId = 1,
+                        commentWriter = "훈발놈",
+                        commentContent = "저도 아싸라서 친구가 없어요...",
+                        createdAt = "2023-12-27-02-24",
+                        isGroupHost = false,
+                        isWriter = false
                     )
                 )
             ),

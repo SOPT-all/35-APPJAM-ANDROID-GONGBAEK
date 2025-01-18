@@ -20,5 +20,8 @@ enum class GroupCategoryType(
     ),
     OTHERS(
         description = "기타"
+    ),
+    ALL(
+        description = "전체"
     )
 }

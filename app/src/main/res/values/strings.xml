@@ -77,4 +77,21 @@
     <string name="auth_select_profile_description">제공된 프로필 중 하나를 선택할 수 있어요.</string>
     <string name="auth_nickname_title">닉네임을 설정해주세요.</string>
     <string name="auth_nickname_description">프로필에 표시되는 이름으로, 언제든 변경할 수 있어요.</string>
+
+    <!--MyGroupScreen-->
+    <string name="my_group_top_bar_title">나의 채움</string>
+    <string name="my_group_active_group_title">현재 활동중인 모임</string>
+    <string name="my_group_closed_group_title">종료된 모임</string>
+
+    <!--GroupListScreen-->
+    <string name="grouplist_dayofweek_all">전체</string>
+    <string name="grouplist_dayofweek_mon">월요일</string>
+    <string name="grouplist_dayofweek_tue">화요일</string>
+    <string name="grouplist_dayofweek_wed">수요일</string>
+    <string name="grouplist_dayofweek_thu">목요일</string>
+    <string name="grouplist_dayofweek_fri">금요일</string>
+    <string name="grouplist_cycle_all">모든 주기</string>
+    <string name="grouplist_gongbaek_all">모든 공백</string>
+    <string name="grouplist_gongbaek_duplicate">겹치는 공백</string>
+
 </resources>

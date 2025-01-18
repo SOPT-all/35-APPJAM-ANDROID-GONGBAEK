@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.onboarding.screen
+package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,12 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun EnterTimeTableRoute() {
-    EnterTimeTableScreen()
+fun GapTimeTableRoute() {
+    GapTimeTableScreen()
 }
 
 @Composable
-fun EnterTimeTableScreen() {
+fun GapTimeTableScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -25,15 +25,15 @@ fun EnterTimeTableScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "시간표 입력 화면"
+            text = "공강 시간표 화면"
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ShowEnterTimeTableScreen() {
+fun ShowGapTimeTableScreen() {
     GONGBAEKTheme {
-        EnterTimeTableScreen()
+        GapTimeTableScreen()
     }
 }

@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.onboarding.screen
+package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,16 +17,16 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun OnboardingRoute(
+fun AuthRoute(
     navigateHome: () -> Unit
 ) {
-    OnboardingScreen(
+    AuthScreen(
         navigateHome = navigateHome
     )
 }
 
 @Composable
-fun OnboardingScreen(
+fun AuthScreen(
     navigateHome: () -> Unit
 ) {
     Box(
@@ -49,9 +49,9 @@ fun OnboardingScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun OnboardingScreenPreview() {
+private fun PreviewAuthScreen() {
     GONGBAEKTheme {
-        OnboardingScreen(
+        AuthScreen(
             navigateHome = {}
         )
     }

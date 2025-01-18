@@ -10,7 +10,7 @@ import com.sopt.gongbaek.presentation.ui.auth.screen.NicknameRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.AuthViewModel
 import com.sopt.gongbaek.presentation.ui.auth.screen.SelectProfileRoute
 
-fun NavGraphBuilder.AuthNavGraph(
+fun NavGraphBuilder.authNavGraph(
     navController: NavHostController,
 ) {
     navigation(

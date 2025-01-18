@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.sopt.gongbaek.presentation.model.NavigationRoute
@@ -16,6 +17,7 @@ import com.sopt.gongbaek.presentation.ui.grouproom.navigation.groupRoomNavGraph
 import com.sopt.gongbaek.presentation.ui.home.navigation.homeNavGraph
 import com.sopt.gongbaek.presentation.ui.mygroup.navigation.myGroupNavGraph
 import com.sopt.gongbaek.presentation.ui.auth.navigation.authNavGraph
+import com.sopt.gongbaek.presentation.ui.auth.screen.AuthViewModel
 import com.sopt.gongbaek.presentation.ui.splash.SplashScreen
 
 @Composable
@@ -24,6 +26,8 @@ fun MainNavHost(
     paddingValues: PaddingValues,
     modifier: Modifier = Modifier
 ) {
+    val authViewModel: AuthViewModel = hiltViewModel()
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -34,7 +38,10 @@ fun MainNavHost(
             startDestination = navigator.startDestination
         ) {
             composable(route = NavigationRoute.SplashRoute.SPLASH) { SplashScreen(navController = navigator.navController) }
-            authNavGraph(navigator.navController)
+            authNavGraph(
+                navController = navigator.navController,
+                viewModel = authViewModel
+            )
             groupListNavGraph(navigator.navController)
             groupRegisterNavGraph(navigator.navController)
             groupDetailNavGraph(navigator.navController)

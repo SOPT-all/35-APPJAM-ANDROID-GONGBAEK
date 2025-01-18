@@ -82,6 +82,9 @@ private fun SelectedGroupRegisterTime(
     selectedTimeSlots: List<Int>,
     timeLabels: List<String> = generateTimeLabels()
 ) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -92,8 +95,8 @@ private fun SelectedGroupRegisterTime(
         Box(
             modifier = Modifier
                 .padding(vertical = 10.dp)
-                .width((LocalConfiguration.current.screenWidthDp * 0.38f).dp)
-                .height((LocalConfiguration.current.screenHeightDp * 0.05f).dp)
+                .width(screenWidth * 0.38f)
+                .height(screenHeight * 0.05f)
                 .roundedBackgroundWithBorder(
                     cornerRadius = 8.dp,
                     backgroundColor = Color.Transparent,
@@ -112,15 +115,14 @@ private fun SelectedGroupRegisterTime(
         HorizontalDivider(
             color = GongBaekTheme.colors.gray04,
             thickness = 2.dp,
-            modifier = Modifier
-                .width((LocalConfiguration.current.screenWidthDp * 0.04f).dp)
+            modifier = Modifier.width(screenWidth * 0.04f)
         )
 
         Box(
             modifier = Modifier
                 .padding(vertical = 10.dp)
-                .width((LocalConfiguration.current.screenWidthDp * 0.38f).dp)
-                .height((LocalConfiguration.current.screenHeightDp * 0.05f).dp)
+                .width(screenWidth * 0.38f)
+                .height(screenHeight * 0.05f)
                 .roundedBackgroundWithBorder(
                     cornerRadius = 8.dp,
                     backgroundColor = Color.Transparent,

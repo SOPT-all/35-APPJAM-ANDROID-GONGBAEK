@@ -11,7 +11,7 @@ import com.sopt.gongbaek.presentation.ui.auth.screen.AuthViewModel
 import com.sopt.gongbaek.presentation.ui.auth.screen.SelectProfileRoute
 
 fun NavGraphBuilder.authNavGraph(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     navigation(
         startDestination = NavigationRoute.AuthNavGraphRoute.SELECT_PROFILE,

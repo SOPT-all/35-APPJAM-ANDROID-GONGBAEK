@@ -36,5 +36,4 @@ class AuthContract {
         data object NavigateToBack : SideEffect
         data object NavigateToNickname : SideEffect
     }
-
 }

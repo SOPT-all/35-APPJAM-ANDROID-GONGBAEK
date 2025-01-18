@@ -31,7 +31,6 @@ fun SelectProfileRoute(
     viewModel: AuthViewModel,
     navigateNickname: () -> Unit
 ) {
-
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -103,7 +102,7 @@ private fun ImageSelectorSection(
 
             PageDescriptionSection(
                 titleResId = R.string.auth_select_profile_title,
-                descriptionResId = R.string.auth_select_profile_description,
+                descriptionResId = R.string.auth_select_profile_description
             )
 
             Spacer(modifier = Modifier.height(42.dp))
@@ -123,7 +122,7 @@ private fun ImageSelectorSection(
 private fun PreviewSelectProfileScreen() {
     GONGBAEKTheme {
         SelectProfileScreen(
-            selectedProfile = null,
+            selectedProfile = null
         )
     }
 }

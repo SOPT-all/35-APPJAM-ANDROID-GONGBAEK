@@ -6,9 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
-
-) : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
+class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
 
     override fun createInitialState(): AuthContract.State = AuthContract.State()
 
@@ -24,5 +22,4 @@ class AuthViewModel @Inject constructor(
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }
-
 }

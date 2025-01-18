@@ -31,7 +31,6 @@ fun NicknameRoute(
     navigateUnivMajor: () -> Unit,
     naviToBack: () -> Unit
 ) {
-
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -87,7 +86,6 @@ private fun NicknameScreen(
     }
 }
 
-
 @Composable
 private fun NickNameInputSection(
     nickname: String,
@@ -107,7 +105,7 @@ private fun NickNameInputSection(
 
             PageDescriptionSection(
                 titleResId = R.string.auth_nickname_title,
-                descriptionResId = R.string.auth_select_profile_description,
+                descriptionResId = R.string.auth_select_profile_description
             )
 
             Spacer(modifier = Modifier.height(42.dp))
@@ -115,12 +113,11 @@ private fun NickNameInputSection(
             GongBaekBasicTextField(
                 value = nickname,
                 onValueChange = onNicknameChanged,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.NICKNAME,
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.NICKNAME
             )
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

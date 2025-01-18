@@ -1,6 +1,7 @@
 package com.sopt.gongbaek.presentation.ui.component.section
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,7 +44,9 @@ fun CommentSection(
     onDeleteClicked: () -> Unit = {},
     onSendClicked: () -> Unit = {}
 ) {
-    Column {
+    Column(
+        modifier = Modifier.background(color = GongBaekTheme.colors.white)
+    ) {
         CommentSectionHeader(
             commentCount = groupComment.commentCount,
             onRefreshClicked = onRefreshClicked,

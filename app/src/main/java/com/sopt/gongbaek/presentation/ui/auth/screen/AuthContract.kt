@@ -13,12 +13,12 @@ class AuthContract {
             profileImage = null,
             nickname = "",
             mbti = "",
-            schoolName = "",
-            schoolMajor = "",
-            schoolGrade = null,
+            school = "",
+            major = "",
+            grade = null,
             enterYear = null,
             introduction = "",
-            sex = "",
+            gender = "",
             timeTable = TimeTable(
                 weekDay = "",
                 startTime = 0f,
@@ -28,12 +28,12 @@ class AuthContract {
     ) : UiState
 
     sealed class Event : UiEvent {
-        data class OnProfileImageChanged(val profileImage: Int?) : Event()
+        data class OnProfileImageSelected(val profileImage: Int?) : Event()
         data class OnNicknameChanged(val nickname: String) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
-        data object NavigateToBack : SideEffect
-        data object NavigateToNickname : SideEffect
+        data object NavigateBack : SideEffect
+        data object NavigateNickname : SideEffect
     }
 }

@@ -38,7 +38,7 @@ fun SelectProfileRoute(
         viewModel.sideEffect
             .flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
-                if (sideEffect is AuthContract.SideEffect.NavigateToNickname) {
+                if (sideEffect is AuthContract.SideEffect.NavigateNickname) {
                     navigateNickname()
                 }
             }
@@ -48,11 +48,11 @@ fun SelectProfileRoute(
         selectedProfile = uiState.userInfo.profileImage,
         onSelectedProfile = { selectedProfileIndex ->
             viewModel.setEvent(
-                AuthContract.Event.OnProfileImageChanged(selectedProfileIndex)
+                AuthContract.Event.OnProfileImageSelected(selectedProfileIndex)
             )
         },
         onNextButtonClicked = {
-            viewModel.sendSideEffect(AuthContract.SideEffect.NavigateToNickname)
+            viewModel.sendSideEffect(AuthContract.SideEffect.NavigateNickname)
         }
     )
 }

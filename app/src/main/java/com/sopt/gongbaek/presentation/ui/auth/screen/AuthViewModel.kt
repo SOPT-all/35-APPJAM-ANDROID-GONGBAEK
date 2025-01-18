@@ -12,7 +12,7 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
 
     override suspend fun handleEvent(event: AuthContract.Event) {
         when (event) {
-            is AuthContract.Event.OnProfileImageChanged -> updateUserInfo { copy(profileImage = event.profileImage) }
+            is AuthContract.Event.OnProfileImageSelected -> updateUserInfo { copy(profileImage = event.profileImage) }
             is AuthContract.Event.OnNicknameChanged -> updateUserInfo { copy(nickname = event.nickname) }
         }
     }

@@ -41,7 +41,7 @@ fun NavGraphBuilder.authNavGraph(
             NicknameRoute(
                 viewModel = viewModel,
                 navigateUnivMajor = navController::navigateUnivMajor,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
     }

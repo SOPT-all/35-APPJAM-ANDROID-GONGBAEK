@@ -4,11 +4,11 @@ data class UserInfo(
     val profileImage: Int?,
     val nickname: String,
     val mbti: String,
-    val schoolName: String,
-    val schoolMajor: String,
-    val schoolGrade: Int?,
+    val school: String,
+    val major: String,
+    val grade: Int?,
     val enterYear: Int?,
     val introduction: String,
-    val sex: String,
+    val gender: String,
     val timeTable: TimeTable
 )

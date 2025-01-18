@@ -29,7 +29,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 fun NicknameRoute(
     viewModel: AuthViewModel,
     navigateUnivMajor: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -38,8 +38,8 @@ fun NicknameRoute(
         viewModel.sideEffect
             .flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
-                if (sideEffect is AuthContract.SideEffect.NavigateToBack) {
-                    naviToBack()
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
                 }
             }
     }
@@ -51,7 +51,7 @@ fun NicknameRoute(
             viewModel.setEvent(AuthContract.Event.OnNicknameChanged(nickname))
         },
         onBackClick = {
-            viewModel.sendSideEffect(AuthContract.SideEffect.NavigateToBack)
+            viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack)
         }
     )
 }

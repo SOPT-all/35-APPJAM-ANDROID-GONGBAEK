@@ -29,7 +29,6 @@ fun NavGraphBuilder.authNavGraph(
             )
         }
 
-
         composable(
             route = NavigationRoute.AuthNavGraphRoute.NICKNAME
         ) {

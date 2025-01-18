@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.sopt.gongbaek.presentation.ui.component.tabpager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -16,6 +14,7 @@ import androidx.compose.ui.Modifier
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BasicTabPager(tabs: List<String>, pagerState: PagerState) {
     val coroutineScope = rememberCoroutineScope()

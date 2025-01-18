@@ -79,6 +79,8 @@
     <string name="grouplist_dayofweek_wed">수요일</string>
     <string name="grouplist_dayofweek_thu">목요일</string>
     <string name="grouplist_dayofweek_fri">금요일</string>
-
+    <string name="grouplist_cycle_all">모든 주기</string>
+    <string name="grouplist_gongbaek_all">모든 공백</string>
+    <string name="grouplist_gongbaek_duplicate">겹치는 공백</string>
 
 </resources>

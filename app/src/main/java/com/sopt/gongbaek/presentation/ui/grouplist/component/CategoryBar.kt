@@ -35,7 +35,7 @@ fun CategoryBar(
         GroupCategoryType.EXERCISE.description,
         GroupCategoryType.PLAYING.description,
         GroupCategoryType.NETWORKING.description,
-        GroupCategoryType.OTHERS.description,
+        GroupCategoryType.OTHERS.description
     )
 
     LazyRow(

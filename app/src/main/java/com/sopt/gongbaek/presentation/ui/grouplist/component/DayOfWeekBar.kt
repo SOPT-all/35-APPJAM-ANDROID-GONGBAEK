@@ -32,7 +32,7 @@ fun DayOfWeekBar(
         DayOfWeekType.TUE.description,
         DayOfWeekType.WED.description,
         DayOfWeekType.THU.description,
-        DayOfWeekType.FRI.description,
+        DayOfWeekType.FRI.description
     )
 
     Row(

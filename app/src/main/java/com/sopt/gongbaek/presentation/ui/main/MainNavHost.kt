@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +17,6 @@ import com.sopt.gongbaek.presentation.ui.home.navigation.homeNavGraph
 import com.sopt.gongbaek.presentation.ui.mygroup.navigation.myGroupNavGraph
 import com.sopt.gongbaek.presentation.ui.onboarding.navigation.onboardingNavGraph
 import com.sopt.gongbaek.presentation.ui.splash.SplashScreen
-import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun MainNavHost(
@@ -29,7 +27,6 @@ fun MainNavHost(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(GongBaekTheme.colors.white)
             .padding(paddingValues)
     ) {
         NavHost(

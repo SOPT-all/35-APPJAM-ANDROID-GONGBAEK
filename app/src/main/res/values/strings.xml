@@ -72,6 +72,11 @@
     <string name="select_day_calendar_sat">토</string>
     <string name="select_day_calendar_sun">일</string>
 
+    <!--MyGroupScreen-->
+    <string name="my_group_top_bar_title">나의 채움</string>
+    <string name="my_group_active_group_title">현재 활동중인 모임</string>
+    <string name="my_group_closed_group_title">종료된 모임</string>
+
     <!--GroupListScreen-->
     <string name="grouplist_dayofweek_all">전체</string>
     <string name="grouplist_dayofweek_mon">월요일</string>

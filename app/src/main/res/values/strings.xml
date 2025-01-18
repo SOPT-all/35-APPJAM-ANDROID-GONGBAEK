@@ -72,4 +72,13 @@
     <string name="select_day_calendar_sat">토</string>
     <string name="select_day_calendar_sun">일</string>
 
+    <!--GroupListScreen-->
+    <string name="grouplist_dayofweek_all">전체</string>
+    <string name="grouplist_dayofweek_mon">월요일</string>
+    <string name="grouplist_dayofweek_tue">화요일</string>
+    <string name="grouplist_dayofweek_wed">수요일</string>
+    <string name="grouplist_dayofweek_thu">목요일</string>
+    <string name="grouplist_dayofweek_fri">금요일</string>
+
+
 </resources>

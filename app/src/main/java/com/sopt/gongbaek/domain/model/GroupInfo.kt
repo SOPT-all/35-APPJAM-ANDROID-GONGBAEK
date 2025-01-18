@@ -16,11 +16,11 @@ data class GroupInfo(
     val startTime: Double,
     val endTime: Double,
     val place: String,
-    val introduction: String,
-    val maxPeopleCount: Int,
-    val currentPeopleCount: Int,
-    val isHost: Boolean,
-    val isApply: Boolean
+    val introduction: String? = null,
+    val maxPeopleCount: Int? = null,
+    val currentPeopleCount: Int? = null,
+    val isHost: Boolean? = null,
+    val isApply: Boolean? = null
 ) {
     fun getGroupStatusType() = GroupStatusType.entries.find { it.name == this.status }
     fun getGroupCategoryType() = GroupCategoryType.entries.find { it.name == this.category }

@@ -92,7 +92,9 @@ private fun ImageSelectorSection(
     modifier: Modifier = Modifier
 ) {
     Column {
+
         StartTitleTopBar(isLeadingIconIncluded = false)
+
         GongBaekProgressBar(progressPercent = 0.125f)
 
         Column(

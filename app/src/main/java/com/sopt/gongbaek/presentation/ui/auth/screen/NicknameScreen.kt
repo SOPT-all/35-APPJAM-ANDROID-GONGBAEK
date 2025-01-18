@@ -94,6 +94,7 @@ private fun NickNameInputSection(
     onBackClick: () -> Unit = {}
 ) {
     Column {
+
         StartTitleTopBar(onClick = onBackClick)
 
         GongBaekProgressBar(progressPercent = 0.25f)

@@ -44,7 +44,7 @@ fun GroupRegisterTimeTable(
     selectedTimeSlotsByDay: Map<String, List<Int>>,
     onTimeSlotSelectionChange: (String, List<Int>) -> Unit,
     selectedDay: String = "",
-    classTime: Map<String, List<Int>> = emptyMap(),
+    lectureTime: Map<String, List<Int>> = emptyMap(),
     timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
     daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금")
 ) {
@@ -69,7 +69,7 @@ fun GroupRegisterTimeTable(
         daysOfWeek = daysOfWeek,
         selectedDay = selectedDay,
         selectedTimeSlotsByDay = selectedTimeSlotsByDay,
-        classTime = classTime,
+        lectureTime = lectureTime,
         resetState = resetState,
         onTimeSlotSelectionChange = onTimeSlotSelectionChange
     )
@@ -181,7 +181,7 @@ private fun TimeTableSection(
     daysOfWeek: List<String>,
     selectedDay: String,
     selectedTimeSlotsByDay: Map<String, List<Int>>,
-    classTime: Map<String, List<Int>>,
+    lectureTime: Map<String, List<Int>>,
     resetState: Boolean,
     onTimeSlotSelectionChange: (String, List<Int>) -> Unit
 ) {
@@ -208,7 +208,7 @@ private fun TimeTableSection(
                 selectedDay = selectedDay,
                 modifier = Modifier.weight(1f),
                 selectedTimeSlots = selectedTimeSlotsByDay[day] ?: emptyList(),
-                classTime = classTime,
+                lectureTime = lectureTime,
                 resetSelection = resetState,
                 onTimeSlotClick = { updatedIndices ->
                     onTimeSlotSelectionChange(day, updatedIndices)
@@ -224,7 +224,7 @@ private fun GroupRegisterDayTimeSlotColumn(
     selectedTimeSlots: List<Int>,
     modifier: Modifier = Modifier,
     selectedDay: String = "",
-    classTime: Map<String, List<Int>> = emptyMap(),
+    lectureTime: Map<String, List<Int>> = emptyMap(),
     onTimeSlotClick: (List<Int>) -> Unit,
     timeSlotCount: Int = 18,
     resetSelection: Boolean = false
@@ -235,7 +235,7 @@ private fun GroupRegisterDayTimeSlotColumn(
         selectionStart = null
     }
 
-    val validSelectionIndices = (0 until timeSlotCount).filter { it !in classTime[dayName].orEmpty() }
+    val validSelectionIndices = (0 until timeSlotCount).filter { it !in lectureTime[dayName].orEmpty() }
     val validGroups = groupConsecutiveIndices(validSelectionIndices)
 
     Column(
@@ -248,12 +248,12 @@ private fun GroupRegisterDayTimeSlotColumn(
 
         repeat(timeSlotCount) { index ->
             val isSelected = selectedTimeSlots.contains(index)
-            val isDisabled = selectedDay != dayName || classTime[dayName]?.contains(index) == true
-            val isClassTime = classTime[dayName]?.contains(index) == true
+            val isDisabled = selectedDay != dayName || lectureTime[dayName]?.contains(index) == true
+            val isLectureTime = lectureTime[dayName]?.contains(index) == true
             val bottomCornerShape = RoundedCornerShape(
                 bottomEnd = if (dayName == "금" && index == timeSlotCount - 1) 8.dp else 0.dp
             )
-            val disabledColor = if (isClassTime) GongBaekTheme.colors.gray02 else GongBaekTheme.colors.gray01
+            val disabledColor = if (isLectureTime) GongBaekTheme.colors.gray02 else GongBaekTheme.colors.gray01
 
             Box(
                 modifier = Modifier
@@ -291,7 +291,7 @@ private fun PreviewGroupRegisterTimeTable() {
     val selectedTimeSlotsByDay = remember { mutableStateOf(mapOf<String, List<Int>>()) }
     val selectedDay = "금"
 
-    val classTime = mapOf(
+    val lectureTime = mapOf(
         "월" to listOf(0, 1, 2, 3, 4, 5, 6),
         "화" to listOf(7, 8, 9, 10),
         "수" to listOf(0, 1, 2, 3, 4, 5, 6),
@@ -306,7 +306,7 @@ private fun PreviewGroupRegisterTimeTable() {
             timeSlotLabels = timeSlotLabels,
             selectedDay = selectedDay,
             selectedTimeSlotsByDay = selectedTimeSlotsByDay.value,
-            classTime = classTime,
+            lectureTime = lectureTime,
             onTimeSlotSelectionChange = { day, updatedIndices ->
                 selectedTimeSlotsByDay.value = selectedTimeSlotsByDay.value.toMutableMap().apply {
                     this[day] = updatedIndices

@@ -88,9 +88,6 @@ fun GroupDetailInfoScreen(
                         style = GongBaekTheme.typography.body2.r14
                     )
                 }
-            }
-
-            item {
                 Spacer(modifier = Modifier.height(30.dp))
             }
 
@@ -215,9 +212,6 @@ fun GroupDetailInfoScreen(
                         }
                     }
                 }
-            }
-
-            item {
                 Spacer(modifier = Modifier.height(10.dp))
             }
 

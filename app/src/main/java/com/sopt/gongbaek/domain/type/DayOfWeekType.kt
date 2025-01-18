@@ -23,6 +23,10 @@ enum class DayOfWeekType(
     FRI(
         description = "금요일",
         dayOfWeek = "FRI"
+    ),
+    ALL(
+        description = "전체",
+        dayOfWeek = "ALL"
     );
 
     companion object {

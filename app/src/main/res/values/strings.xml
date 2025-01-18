@@ -86,4 +86,16 @@
     <string name="group_detail_mbti_title">MBTI</string>
     <string name="group_detail_people_counter">%1$s/%2$s명</string>
     <string name="group_detail_button_apply">신청하기</string>
+
+    <!--GroupListScreen-->
+    <string name="grouplist_dayofweek_all">전체</string>
+    <string name="grouplist_dayofweek_mon">월요일</string>
+    <string name="grouplist_dayofweek_tue">화요일</string>
+    <string name="grouplist_dayofweek_wed">수요일</string>
+    <string name="grouplist_dayofweek_thu">목요일</string>
+    <string name="grouplist_dayofweek_fri">금요일</string>
+    <string name="grouplist_cycle_all">모든 주기</string>
+    <string name="grouplist_gongbaek_all">모든 공백</string>
+    <string name="grouplist_gongbaek_duplicate">겹치는 공백</string>
+
 </resources>

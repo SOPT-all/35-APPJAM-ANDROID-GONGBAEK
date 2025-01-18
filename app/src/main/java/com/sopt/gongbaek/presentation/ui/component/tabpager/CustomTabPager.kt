@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BasicTabPager(tabs: List<String>, pagerState: PagerState) {
+fun CustomTabPager(tabs: List<String>, pagerState: PagerState) {
     val coroutineScope = rememberCoroutineScope()
 
     TabRow(
@@ -28,7 +29,13 @@ fun BasicTabPager(tabs: List<String>, pagerState: PagerState) {
         modifier = Modifier.fillMaxWidth(),
         containerColor = GongBaekTheme.colors.white,
         contentColor = GongBaekTheme.colors.gray10,
-        divider = {},
+        divider = {
+            HorizontalDivider(
+                modifier = Modifier.fillMaxWidth(),
+                thickness = 1.dp,
+                color = GongBaekTheme.colors.gray02
+            )
+        },
         indicator = { tabPositions ->
             SecondaryIndicator(
                 Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),

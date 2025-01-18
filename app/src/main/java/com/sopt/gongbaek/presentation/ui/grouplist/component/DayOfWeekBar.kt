@@ -52,19 +52,11 @@ fun DayOfWeekBar(
                 modifier = modifier
                     .height((LocalConfiguration.current.screenHeightDp * 0.04f).dp)
                     .background(
-                        color = if (selectedIndex == index) {
-                            GongBaekTheme.colors.white
-                        } else {
-                            GongBaekTheme.colors.gray01
-                        },
+                        color = if (selectedIndex == index) GongBaekTheme.colors.white else GongBaekTheme.colors.gray01,
                         shape = RoundedCornerShape(2.dp)
                     )
                     .padding(
-                        horizontal = if (index == 0) {
-                            12.dp
-                        } else {
-                            9.dp
-                        },
+                        horizontal = if (index == 0) 12.dp else 9.dp,
                         vertical = 8.dp
                     )
                     .clickableWithoutRipple {
@@ -74,11 +66,7 @@ fun DayOfWeekBar(
             ) {
                 Text(
                     text = content,
-                    color = if (selectedIndex == index) {
-                        GongBaekTheme.colors.mainOrange
-                    } else {
-                        GongBaekTheme.colors.gray06
-                    },
+                    color = if (selectedIndex == index) GongBaekTheme.colors.mainOrange else GongBaekTheme.colors.gray06,
                     style = GongBaekTheme.typography.caption1.sb13
                 )
             }

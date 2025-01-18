@@ -63,11 +63,7 @@ fun GongBaekToggleButton(
                 .aspectRatio(42f / 24f)
                 .height((LocalConfiguration.current.screenHeightDp * 0.03f).dp)
                 .background(
-                    color = if (checkedState) {
-                        GongBaekTheme.colors.mainOrange
-                    } else {
-                        GongBaekTheme.colors.gray06
-                    },
+                    color = if (checkedState) GongBaekTheme.colors.mainOrange else GongBaekTheme.colors.gray06,
                     shape = RoundedCornerShape(20.dp)
                 )
                 .padding(3.5.dp)

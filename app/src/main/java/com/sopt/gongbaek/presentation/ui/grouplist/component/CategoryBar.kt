@@ -53,19 +53,11 @@ fun CategoryBar(
                 modifier = Modifier
                     .border(
                         width = 1.dp,
-                        color = if (selectedIndex == index) {
-                            Color.Transparent
-                        } else {
-                            GongBaekTheme.colors.gray02
-                        },
+                        color = if (selectedIndex == index) Color.Transparent else GongBaekTheme.colors.gray02,
                         shape = RoundedCornerShape(4.dp)
                     )
                     .background(
-                        color = if (selectedIndex == index) {
-                            GongBaekTheme.colors.gray09
-                        } else {
-                            GongBaekTheme.colors.white
-                        },
+                        color = if (selectedIndex == index) GongBaekTheme.colors.gray09 else GongBaekTheme.colors.white,
                         shape = RoundedCornerShape(4.dp)
                     )
                     .padding(
@@ -80,11 +72,7 @@ fun CategoryBar(
                 Text(
                     text = contentLists[index],
                     style = GongBaekTheme.typography.caption1.m13,
-                    color = if (selectedIndex == index) {
-                        GongBaekTheme.colors.white
-                    } else {
-                        GongBaekTheme.colors.gray06
-                    }
+                    color = if (selectedIndex == index) GongBaekTheme.colors.white else GongBaekTheme.colors.gray06
                 )
             }
 

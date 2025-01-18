@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.onboarding.screen
+package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,12 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun UnivSearchRoute() {
-    UnivSearchScreen()
+fun SelfIntroductionRoute() {
+    SelfIntroductionScreen()
 }
 
 @Composable
-fun UnivSearchScreen() {
+fun SelfIntroductionScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -25,15 +25,15 @@ fun UnivSearchScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "학교 검색 화면"
+            text = "자기소개 화면"
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ShowUnivSearchScreen() {
+fun ShowSelfIntroductionScreen() {
     GONGBAEKTheme {
-        UnivSearchScreen()
+        SelfIntroductionScreen()
     }
 }

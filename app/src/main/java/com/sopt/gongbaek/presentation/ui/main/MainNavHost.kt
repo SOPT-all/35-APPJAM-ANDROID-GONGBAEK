@@ -15,7 +15,7 @@ import com.sopt.gongbaek.presentation.ui.groupregister.navigation.groupRegisterN
 import com.sopt.gongbaek.presentation.ui.grouproom.navigation.groupRoomNavGraph
 import com.sopt.gongbaek.presentation.ui.home.navigation.homeNavGraph
 import com.sopt.gongbaek.presentation.ui.mygroup.navigation.myGroupNavGraph
-import com.sopt.gongbaek.presentation.ui.onboarding.navigation.onboardingNavGraph
+import com.sopt.gongbaek.presentation.ui.auth.navigation.AuthNavGraph
 import com.sopt.gongbaek.presentation.ui.splash.SplashScreen
 
 @Composable
@@ -34,7 +34,7 @@ fun MainNavHost(
             startDestination = navigator.startDestination
         ) {
             composable(route = NavigationRoute.SplashRoute.SPLASH) { SplashScreen(navController = navigator.navController) }
-            onboardingNavGraph(navigator.navController)
+            AuthNavGraph(navigator.navController)
             groupListNavGraph(navigator.navController)
             groupRegisterNavGraph(navigator.navController)
             groupDetailNavGraph(navigator.navController)

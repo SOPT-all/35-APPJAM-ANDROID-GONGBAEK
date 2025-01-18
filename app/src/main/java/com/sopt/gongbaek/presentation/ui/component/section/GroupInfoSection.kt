@@ -1,6 +1,7 @@
 package com.sopt.gongbaek.presentation.ui.component.section
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +38,7 @@ fun GroupInfoSection(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.background(color = GongBaekTheme.colors.white),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(

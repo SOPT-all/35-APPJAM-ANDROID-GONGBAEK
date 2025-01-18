@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FloatingActionButton
@@ -44,8 +45,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
+import com.sopt.gongbaek.domain.model.GroupInfo
+import com.sopt.gongbaek.presentation.type.GroupInfoChipType
+import com.sopt.gongbaek.presentation.ui.component.section.GroupInfoSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.CenterTitleTopBar
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
+import com.sopt.gongbaek.presentation.util.extension.createGroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 import kotlin.math.roundToInt
@@ -57,14 +62,134 @@ fun GroupListRoute(
 ) {
     GroupListScreen(
         navigateGroupDetail = navigateGroupDetail,
-        navigateGroupRegister = navigateGroupRegister
+        navigateGroupRegister = navigateGroupRegister,
+        groupList = listOf(
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "RECRUITING",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "RECRUITED",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "CLOSED",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "RECRUITING",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "CLOSED",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "CLOSED",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "CLOSED",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "CLOSED",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            ),
+            GroupInfo(
+                groupId = 1,
+                coverImg = 1,
+                status = "CLOSED",
+                category = "PLAYING",
+                cycle = "ONCE",
+                title = "화석의 튜스데이 점심 클럽",
+                date = "2025-04-06",
+                dayOfWeek = "THU",
+                startTime = 13.5,
+                endTime = 15.5,
+                place = "학교 피아노 앞"
+            )
+        )
     )
 }
 
 @Composable
 fun GroupListScreen(
     navigateGroupDetail: () -> Unit,
-    navigateGroupRegister: () -> Unit
+    navigateGroupRegister: () -> Unit,
+    groupList: List<GroupInfo>
 ) {
     var selectedDayOfWeekIndex by remember { mutableIntStateOf(0) }
     var selectedCategoryIndex by remember { mutableIntStateOf(0) }
@@ -78,7 +203,7 @@ fun GroupListScreen(
             FloatingActionButton(
                 onClick = { navigateGroupRegister() },
                 shape = CircleShape,
-                containerColor = GongBaekTheme.colors.mainOrange,
+                containerColor = GongBaekTheme.colors.mainOrange
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
@@ -97,8 +222,7 @@ fun GroupListScreen(
                 selectedIndex = selectedDayOfWeekIndex,
                 onIndexSelected = { index ->
                     selectedDayOfWeekIndex = index
-                },
-                modifier = Modifier.padding(horizontal = 16.dp)
+                }
             )
             Spacer(Modifier.height(8.dp))
 
@@ -137,6 +261,25 @@ fun GroupListScreen(
                             modifier = Modifier.align(Alignment.Top)
                         )
                     }
+                }
+
+                items(items = groupList) { groupList ->
+                    GroupInfoSection(
+                        groupStatus = GroupInfoChipType.getChipTypeFromStatus(groupList.status),
+                        groupCategory = GroupInfoChipType.getChipTypeFromCategory(groupList.category),
+                        groupCycle = GroupInfoChipType.getChipTypeFromCycle(groupList.cycle),
+                        groupTitle = groupList.title,
+                        groupTime = createGroupTimeDescription(groupList),
+                        groupPlace = groupList.place,
+                        modifier = Modifier
+                            .padding(vertical = 12.dp, horizontal = 16.dp)
+                    )
+
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        thickness = 1.dp,
+                        color = GongBaekTheme.colors.gray01
+                    )
                 }
             }
         }
@@ -257,15 +400,10 @@ private fun CategoryBar(
             if (index == 0) {
                 Spacer(Modifier.width(16.dp))
             }
-            Text(
-                text = stringResource(contentLists[index]),
-                style = GongBaekTheme.typography.caption1.sb13,
-                color = if (selectedIndex == index) {
-                    GongBaekTheme.colors.white
-                } else {
-                    GongBaekTheme.colors.gray06
-                },
+
+            Box(
                 modifier = Modifier
+                    .height((LocalConfiguration.current.screenHeightDp * 0.03f).dp)
                     .border(
                         width = 1.dp,
                         color = if (selectedIndex == index) {
@@ -283,11 +421,25 @@ private fun CategoryBar(
                         },
                         shape = RoundedCornerShape(4.dp)
                     )
-                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                    .padding(
+                        horizontal = 12.dp,
+                        vertical = 6.dp
+                    )
                     .clickableWithoutRipple {
                         onIndexSelected(index)
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(contentLists[index]),
+                    style = GongBaekTheme.typography.caption1.m13,
+                    color = if (selectedIndex == index) {
+                        GongBaekTheme.colors.white
+                    } else {
+                        GongBaekTheme.colors.gray06
                     }
-            )
+                )
+            }
 
             if (index == contentLists.size - 1) {
                 Spacer(Modifier.width(16.dp))
@@ -312,25 +464,20 @@ private fun DayOfWeekBar(
     )
     Row(
         modifier = modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
             .background(
                 color = GongBaekTheme.colors.gray01,
                 shape = RoundedCornerShape(4.dp)
             )
-            .padding(vertical = 2.dp, horizontal = 3.dp)
-            .fillMaxWidth(),
+            .padding(vertical = 2.dp, horizontal = 3.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         contentLists.forEachIndexed { index, content ->
-            Text(
-                text = stringResource(content),
-                color = if (selectedIndex == index) {
-                    GongBaekTheme.colors.mainOrange
-                } else {
-                    GongBaekTheme.colors.gray06
-                },
-                style = GongBaekTheme.typography.caption1.sb13,
-                modifier = Modifier
+            Box(
+                modifier = modifier
+                    .height((LocalConfiguration.current.screenHeightDp * 0.04f).dp)
                     .background(
                         color = if (selectedIndex == index) {
                             GongBaekTheme.colors.white
@@ -339,11 +486,29 @@ private fun DayOfWeekBar(
                         },
                         shape = RoundedCornerShape(2.dp)
                     )
-                    .padding(horizontal = 9.dp, vertical = 8.dp)
+                    .padding(
+                        horizontal = if (index == 0) {
+                            12.dp
+                        } else {
+                            9.dp
+                        },
+                        vertical = 8.dp
+                    )
                     .clickableWithoutRipple {
                         onIndexSelected(index)
-                    }
-            )
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(content),
+                    color = if (selectedIndex == index) {
+                        GongBaekTheme.colors.mainOrange
+                    } else {
+                        GongBaekTheme.colors.gray06
+                    },
+                    style = GongBaekTheme.typography.caption1.sb13
+                )
+            }
         }
     }
 }
@@ -370,7 +535,126 @@ fun ShowGroupListScreen() {
     GONGBAEKTheme {
         GroupListScreen(
             navigateGroupDetail = {},
-            navigateGroupRegister = {}
+            navigateGroupRegister = {},
+            groupList = listOf(
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                ),
+                GroupInfo(
+                    groupId = 1,
+                    coverImg = 1,
+                    status = "CLOSED",
+                    category = "PLAYING",
+                    cycle = "ONCE",
+                    title = "화석의 튜스데이 점심 클럽",
+                    date = "2025-04-06",
+                    dayOfWeek = "THU",
+                    startTime = 13.5,
+                    endTime = 15.5,
+                    place = "학교 피아노 앞"
+                )
+            )
         )
     }
 }

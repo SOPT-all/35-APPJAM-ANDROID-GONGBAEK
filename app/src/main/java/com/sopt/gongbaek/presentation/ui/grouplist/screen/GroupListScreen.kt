@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -72,6 +73,19 @@ fun GroupListScreen(
     Scaffold(
         topBar = {
             CenterTitleTopBar(R.string.topbar_group)
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navigateGroupRegister() },
+                shape = CircleShape,
+                containerColor = GongBaekTheme.colors.mainOrange,
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
+                    contentDescription = null,
+                    tint = GongBaekTheme.colors.white
+                )
+            }
         }
     ) { innerPadding ->
         Column(
@@ -107,7 +121,7 @@ fun GroupListScreen(
                 item {
                     Row(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 12.dp)
+                            .padding(start = 16.dp, end = 16.dp, top = 12.dp)
                             .fillMaxWidth()
                             .height(IntrinsicSize.Min),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -133,7 +147,7 @@ fun GroupListScreen(
 private fun GongBaekToggleButton(
     checkedState: Boolean,
     onCLick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current
     val minBound = with(density) { 0.dp.toPx() }

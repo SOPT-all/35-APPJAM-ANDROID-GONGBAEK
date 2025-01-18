@@ -33,25 +33,25 @@ import com.sopt.gongbaek.presentation.ui.component.timetable.item.DayHeaderItem
 import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsItem
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
+import com.sopt.gongbaek.presentation.util.timetable.expandSelection
+import com.sopt.gongbaek.presentation.util.timetable.generateTimeLabels
 import com.sopt.gongbaek.presentation.util.timetable.groupConsecutiveIndices
+import com.sopt.gongbaek.presentation.util.timetable.startSelection
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun GroupRegisterTimeTable(
     selectedTimeSlotsByDay: Map<String, List<Int>>,
-    selectedDay: String = "",
     onTimeSlotSelectionChange: (String, List<Int>) -> Unit,
+    selectedDay: String = "",
     classTime: Map<String, List<Int>> = emptyMap(),
     timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
     daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금")
 ) {
     var resetState by remember { mutableStateOf(false) }
-
-    val timeLabels = List(19) { index -> "${9 + index / 2}:${if (index % 2 == 0) "00" else "30"}" }
     val selectedTimeSlots = selectedTimeSlotsByDay[selectedDay] ?: emptyList()
 
     SelectedGroupRegisterTime(
-        timeLabels = timeLabels,
         selectedTimeSlots = selectedTimeSlots
     )
 
@@ -80,7 +80,7 @@ fun GroupRegisterTimeTable(
 @Composable
 private fun SelectedGroupRegisterTime(
     selectedTimeSlots: List<Int>,
-    timeLabels: List<String>
+    timeLabels: List<String> = generateTimeLabels()
 ) {
     Row(
         modifier = Modifier
@@ -217,7 +217,7 @@ private fun TimeTableSection(
 }
 
 @Composable
-fun GroupRegisterDayTimeSlotColumn(
+private fun GroupRegisterDayTimeSlotColumn(
     dayName: String,
     selectedTimeSlots: List<Int>,
     modifier: Modifier = Modifier,
@@ -258,34 +258,10 @@ fun GroupRegisterDayTimeSlotColumn(
                     .fillMaxWidth()
                     .weight(1f)
                     .clickableWithoutRipple(enabled = !isDisabled) {
-                        fun startSelection(index: Int, validGroups: List<List<Int>>) {
-                            val currentGroup = validGroups.find { it.contains(index) }
-                            if (currentGroup != null) {
-                                selectionStart = index
-                                onTimeSlotClick(listOf(index))
-                            }
-                        }
-
-                        fun expandSelection(index: Int, validGroups: List<List<Int>>, startIndex: Int) {
-                            val startGroup = validGroups.find { it.contains(startIndex) }
-                            val currentGroup = validGroups.find { it.contains(index) }
-
-                            if (startGroup == currentGroup && currentGroup != null) {
-                                val range = if (startIndex < index) startIndex..index else index..startIndex
-                                val validIndices = range.filter { it in currentGroup }
-                                val updatedSelection = (selectedTimeSlots + validIndices)
-                                    .distinct()
-                                    .sorted()
-                                onTimeSlotClick(updatedSelection)
-                            } else {
-                                startSelection(index, validGroups)
-                            }
-                        }
-
-                        if (selectionStart == null) {
-                            startSelection(index, validGroups)
+                        selectionStart = if (selectionStart == null) {
+                            startSelection(index, validGroups, onTimeSlotClick)
                         } else {
-                            expandSelection(index, validGroups, selectionStart!!)
+                            expandSelection(index, validGroups, selectionStart!!, selectedTimeSlots, onTimeSlotClick)
                         }
                     }
                     .border(

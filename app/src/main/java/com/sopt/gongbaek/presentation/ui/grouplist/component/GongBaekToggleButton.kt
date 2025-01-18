@@ -46,13 +46,7 @@ fun GongBaekToggleButton(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = stringResource(
-                if (checkedState) {
-                    R.string.grouplist_gongbaek_duplicate
-                } else {
-                    R.string.grouplist_gongbaek_all
-                }
-            ),
+            text = stringResource(if (checkedState) R.string.grouplist_gongbaek_duplicate else R.string.grouplist_gongbaek_all),
             color = GongBaekTheme.colors.gray06,
             style = GongBaekTheme.typography.caption2.r12
         )

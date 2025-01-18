@@ -77,4 +77,15 @@
     <string name="my_group_active_group_title">현재 활동중인 모임</string>
     <string name="my_group_closed_group_title">종료된 모임</string>
 
+    <!--GroupListScreen-->
+    <string name="grouplist_dayofweek_all">전체</string>
+    <string name="grouplist_dayofweek_mon">월요일</string>
+    <string name="grouplist_dayofweek_tue">화요일</string>
+    <string name="grouplist_dayofweek_wed">수요일</string>
+    <string name="grouplist_dayofweek_thu">목요일</string>
+    <string name="grouplist_dayofweek_fri">금요일</string>
+    <string name="grouplist_cycle_all">모든 주기</string>
+    <string name="grouplist_gongbaek_all">모든 공백</string>
+    <string name="grouplist_gongbaek_duplicate">겹치는 공백</string>
+
 </resources>

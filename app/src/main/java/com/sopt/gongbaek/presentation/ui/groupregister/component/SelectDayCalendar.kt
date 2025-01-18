@@ -43,7 +43,7 @@ fun SelectDayCalendar(
 ) {
     val currentDate = LocalDate.now()
 
-    var selectedDate by remember { mutableStateOf(currentDate) }
+    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
     var visibleYearAndMonth by remember { mutableStateOf(currentDate) }
 
     Column(
@@ -110,7 +110,7 @@ fun CalendarHeader(
 
 @Composable
 fun CalendarGrid(
-    selectedDate: LocalDate,
+    selectedDate: LocalDate?,
     visibleMonth: LocalDate,
     onDateSelected: (LocalDate) -> Unit,
     modifier: Modifier = Modifier

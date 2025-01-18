@@ -362,13 +362,15 @@ private fun CycleBottomSheet(
             .padding(horizontal = 12.dp, vertical = 6.dp)
             .clickableWithoutRipple {
                 onCLick()
-            }
+            },
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = stringResource(R.string.grouplist_cycle_all),
             color = GongBaekTheme.colors.gray10,
             style = GongBaekTheme.typography.caption1.m13
         )
+        Spacer(Modifier.width(6.dp))
 
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_bottom_18),
@@ -406,7 +408,6 @@ private fun CategoryBar(
 
             Box(
                 modifier = Modifier
-                    .height((LocalConfiguration.current.screenHeightDp * 0.03f).dp)
                     .border(
                         width = 1.dp,
                         color = if (selectedIndex == index) {

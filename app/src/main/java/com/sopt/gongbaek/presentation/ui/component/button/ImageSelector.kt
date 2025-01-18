@@ -36,6 +36,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun ImageSelector(
     imageSelectorType: ImageSelectorType,
     modifier: Modifier = Modifier,
+    selectedAlpha: Float = 0.65f,
     selectedIndex: Int? = null,
     onIndexSelected: (Int) -> Unit = {}
 ) {
@@ -71,7 +72,7 @@ fun ImageSelector(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .background(
-                                        color = GongBaekTheme.colors.black.copy(alpha = 0.25f),
+                                        color = GongBaekTheme.colors.black.copy(selectedAlpha),
                                         shape = RoundedCornerShape(4.dp)
                                     ),
                                 contentAlignment = Alignment.Center

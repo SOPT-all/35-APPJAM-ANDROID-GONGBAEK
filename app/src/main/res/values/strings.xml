@@ -72,4 +72,7 @@
     <string name="select_day_calendar_sat">토</string>
     <string name="select_day_calendar_sun">일</string>
 
+</resources>    <!-- AuthScreen-->
+    <string name="auth_select_profile_title">프로필 사진을 선택해주세요.</string>
+    <string name="auth_select_profile_description">제공된 프로필 중 하나를 선택할 수 있어요.</string>
 </resources>

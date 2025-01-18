@@ -54,7 +54,7 @@ fun SplashScreen(
             systemUiController.setSystemBarsColor(color = backgroundColor)
             delay(1000L)
             isContentVisible = true
-            delay(1000L)
+            delay(1500L)
             systemUiController.setSystemBarsColor(color = defaultBackgroundColor)
             navController.navigate(NavigationRoute.OnboardingNavGraph.ONBOARDING_NAV_GRAPH) {
                 popUpTo(NavigationRoute.SplashRoute.SPLASH) { inclusive = true }

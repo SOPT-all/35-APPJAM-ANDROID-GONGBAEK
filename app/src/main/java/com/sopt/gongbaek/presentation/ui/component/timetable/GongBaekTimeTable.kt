@@ -25,9 +25,12 @@ fun GongBaekTimeTable(
     timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
     daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금")
 ) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+
     Row(
         modifier = Modifier
-            .height(LocalConfiguration.current.screenHeightDp.dp * 0.67f)
+            .height(screenHeight * 0.677f)
             .border(
                 width = 1.dp,
                 color = GongBaekTheme.colors.gray02,
@@ -36,7 +39,7 @@ fun GongBaekTimeTable(
     ) {
         TimeLabelsItem(
             timeSlotLabels = timeSlotLabels,
-            modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp * 0.07f)
+            modifier = Modifier.width(screenWidth * 0.07f)
         )
         daysOfWeek.forEach { day ->
             GongBaekDayTimeSlotColumn(

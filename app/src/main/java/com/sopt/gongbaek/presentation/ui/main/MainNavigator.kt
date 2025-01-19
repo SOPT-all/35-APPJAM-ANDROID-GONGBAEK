@@ -17,7 +17,7 @@ import com.sopt.gongbaek.presentation.ui.mygroup.navigation.navigateMyGroupNavGr
 class MainNavigator(
     val navController: NavHostController
 ) {
-    val startDestination = NavigationRoute.MainBottomNavBarTabRoute.HOME_TAB
+    val startDestination = NavigationRoute.SplashRoute.SPLASH
 
     private val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination

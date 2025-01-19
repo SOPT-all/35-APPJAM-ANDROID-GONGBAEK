@@ -1,6 +1,10 @@
 package com.sopt.gongbaek.presentation.model
 
 object NavigationRoute {
+    object OnboardingNavGraph {
+        const val ONBOARDING_NAV_GRAPH = "onboarding_route"
+        const val ONBOARDING_MAIN = "onboarding"
+    }
     object AuthNavGraphRoute {
         const val AUTH_NAV_GRAPH = "auth_route"
         const val SELECT_PROFILE = "select_profile"

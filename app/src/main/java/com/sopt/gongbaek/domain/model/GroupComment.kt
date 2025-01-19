@@ -1,12 +1,13 @@
 package com.sopt.gongbaek.domain.model
 
 data class GroupComment(
+    val groupId: Int,
+    val groupStatus: String,
+    val groupCycle: String,
     val commentCount: Int,
     val commentList: List<Comment>
 ) {
     data class Comment(
-        val groupId: Int,
-        val groupType: String,
         val commentId: Int,
         val commentWriter: String,
         val commentContent: String,

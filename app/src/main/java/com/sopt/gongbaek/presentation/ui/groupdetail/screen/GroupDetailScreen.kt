@@ -21,7 +21,7 @@ import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.ui.component.section.GroupInfoSection
 import com.sopt.gongbaek.presentation.ui.component.tabpager.CustomTabPager
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
-import com.sopt.gongbaek.presentation.util.extension.createGroupTimeDescription
+import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
@@ -57,7 +57,7 @@ fun GroupDetailScreen(
             groupCategory = GroupInfoChipType.getChipTypeFromCategory(groupInfo.category),
             groupCycle = GroupInfoChipType.getChipTypeFromCycle(groupInfo.cycle),
             groupTitle = groupInfo.title,
-            groupTime = createGroupTimeDescription(groupInfo),
+            groupTime = formatGroupTimeDescription(groupInfo),
             groupPlace = groupInfo.place,
             modifier = Modifier
                 .background(color = GongBaekTheme.colors.white)
@@ -120,11 +120,12 @@ private fun GroupDetailScreenPreview() {
                 isApply = true
             ),
             groupComment = GroupComment(
+                groupId = 1,
+                groupStatus = "RECRUITED",
+                groupCycle = "ONCE",
                 commentCount = 6,
                 commentList = listOf(
                     GroupComment.Comment(
-                        groupId = 1,
-                        groupType = "ONCE",
                         commentId = 1,
                         commentWriter = "파이리",
                         commentContent = "어디서 만나는거임?",
@@ -133,8 +134,6 @@ private fun GroupDetailScreenPreview() {
                         isWriter = false
                     ),
                     GroupComment.Comment(
-                        groupId = 1,
-                        groupType = "ONCE",
                         commentId = 1,
                         commentWriter = "로이임탄",
                         commentContent = "음 아직 안정하긴 했는데 아마 학교 주변 1km 이내일 것 같아요!",
@@ -143,8 +142,6 @@ private fun GroupDetailScreenPreview() {
                         isWriter = true
                     ),
                     GroupComment.Comment(
-                        groupId = 1,
-                        groupType = "ONCE",
                         commentId = 1,
                         commentWriter = "훈발놈",
                         commentContent = "저도 아싸라서 친구가 없어요...",
@@ -153,8 +150,6 @@ private fun GroupDetailScreenPreview() {
                         isWriter = false
                     ),
                     GroupComment.Comment(
-                        groupId = 1,
-                        groupType = "ONCE",
                         commentId = 1,
                         commentWriter = "훈발놈",
                         commentContent = "저도 아싸라서 친구가 없어요...",

@@ -226,11 +226,12 @@ private fun CommentSectionPreview() {
         val onValueChanged: (String) -> Unit = { newValue -> value = newValue }
         CommentSection(
             groupComment = GroupComment(
+                groupId = 1,
+                groupStatus = "RECRUITING",
+                groupCycle = "ONCE",
                 commentCount = 6,
                 commentList = listOf(
                     GroupComment.Comment(
-                        groupId = 1,
-                        groupType = "ONCE",
                         commentId = 1,
                         commentWriter = "파이리",
                         commentContent = "어디서 만나는거임?",
@@ -239,8 +240,6 @@ private fun CommentSectionPreview() {
                         isWriter = false
                     ),
                     GroupComment.Comment(
-                        groupId = 1,
-                        groupType = "ONCE",
                         commentId = 1,
                         commentWriter = "로이임탄",
                         commentContent = "음 아직 안정하긴 했는데 아마 학교 주변 1km 이내일 것 같아요!",
@@ -249,8 +248,6 @@ private fun CommentSectionPreview() {
                         isWriter = true
                     ),
                     GroupComment.Comment(
-                        groupId = 1,
-                        groupType = "ONCE",
                         commentId = 1,
                         commentWriter = "훈발놈",
                         commentContent = "저도 아싸라서 친구가 없어요...",
@@ -283,8 +280,6 @@ private fun CommentSectionItemPreview() {
     GONGBAEKTheme {
         CommentSectionItem(
             comment = GroupComment.Comment(
-                groupId = 1,
-                groupType = "ONCE",
                 commentId = 1,
                 commentWriter = "로이임탄",
                 commentContent = "음 아직 안정하긴 했는데 아마 학교 주변 1km 이내일 것 같아요!",

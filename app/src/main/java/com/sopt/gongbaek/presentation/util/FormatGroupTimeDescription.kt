@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.util.extension
+package com.sopt.gongbaek.presentation.util
 
 import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.domain.type.GroupCycleType
@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-fun createGroupTimeDescription(groupInfo: GroupInfo): String {
+fun formatGroupTimeDescription(groupInfo: GroupInfo): String {
     val groupCycle = groupInfo.getGroupCycleType()
 
     val startHour = groupInfo.startTime.toInt()

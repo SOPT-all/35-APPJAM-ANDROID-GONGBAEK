@@ -77,7 +77,7 @@ fun OnboardingScreen1() {
             )
             Spacer(modifier = Modifier.height(54.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
+                painter = painterResource(id = R.drawable.img_onboard_illustration1),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -76,7 +76,7 @@ private fun UnivAndMajorSelectionSection(
                 descriptionResId = R.string.auth_univ_major_description
             )
 
-            Spacer(modifier = Modifier.height(42.dp))
+            Spacer(modifier = Modifier.height(44.dp))
 
             SearchButton(
                 buttonLabel = "학교",

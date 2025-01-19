@@ -5,6 +5,7 @@ object NavigationRoute {
         const val ONBOARDING_NAV_GRAPH = "onboarding_route"
         const val ONBOARDING_MAIN = "onboarding"
     }
+
     object AuthNavGraphRoute {
         const val AUTH_NAV_GRAPH = "auth_route"
         const val AUTH = "auth"
@@ -39,6 +40,14 @@ object NavigationRoute {
 
     object GroupRegisterNavGraphRoute {
         const val GROUP_REGISTER_NAV_GRAPH = "group_register_route"
+        const val GROUP_CYCLE = "group_cycle"
+        const val SELECT_DAY = "select_day"
+        const val SELECT_DAY_OF_WEEK = "select_day_of_week"
+        const val GROUP_TIME = "group_time"
+        const val GROUP_CATEGORY = "group_category"
+        const val GROUP_COVER = "group_cover"
+        const val GROUP_PLACE_PEOPLE = "group_place_people"
+        const val GROUP_INTRODUCTION = "group_introduction"
         const val GROUP_REGISTER = "group_register"
     }
 

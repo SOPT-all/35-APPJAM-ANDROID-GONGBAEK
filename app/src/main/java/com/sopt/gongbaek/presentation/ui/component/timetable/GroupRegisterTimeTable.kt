@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -152,7 +153,7 @@ private fun HeaderSection(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "나의 시간표",
+            text = stringResource(R.string.groupregister_time_my_timetable),
             color = GongBaekTheme.colors.gray08,
             style = GongBaekTheme.typography.body1.b16
         )
@@ -162,13 +163,13 @@ private fun HeaderSection(
             horizontalArrangement = Arrangement.spacedBy(1.dp)
         ) {
             Text(
-                text = "다시 선택",
+                text = stringResource(R.string.groupregister_time_retry),
                 color = GongBaekTheme.colors.mainOrange,
                 style = GongBaekTheme.typography.caption2.m12
             )
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_option_reset_18),
-                contentDescription = "다시 선택",
+                contentDescription = null,
                 tint = GongBaekTheme.colors.mainOrange
             )
         }

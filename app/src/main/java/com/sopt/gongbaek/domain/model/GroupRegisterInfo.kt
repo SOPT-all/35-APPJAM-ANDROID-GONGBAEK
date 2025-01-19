@@ -1,5 +1,7 @@
 package com.sopt.gongbaek.domain.model
 
+import com.sopt.gongbaek.domain.type.GroupCycleType
+
 data class GroupRegisterInfo(
     val groupType: String,
     val weekDate: String,
@@ -13,4 +15,6 @@ data class GroupRegisterInfo(
     val maxPeopleCount: Int,
     val groupTitle: String,
     val introduction: String
-)
+) {
+    fun getGroupType() = GroupCycleType.entries.find { it.name == this.groupType }
+}

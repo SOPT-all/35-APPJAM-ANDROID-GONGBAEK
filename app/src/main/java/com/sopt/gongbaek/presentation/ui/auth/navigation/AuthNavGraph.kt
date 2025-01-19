@@ -111,6 +111,7 @@ fun NavGraphBuilder.authNavGraph(
             GapTimeTableRoute(
                 viewModel = viewModel,
                 navigateCompleteAuth = navController::navigateCompleteAuth,
+                navigateEnterTimetable = navController::navigateEnterTimetable,
                 navigateBack = navController::popBackStack
             )
         }

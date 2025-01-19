@@ -121,9 +121,7 @@ private fun EnterTimeTableSection(
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        LazyColumn(
-            modifier = Modifier.verticalScroll(rememberScrollState())
-        ) {
+        LazyColumn {
             item {
                 val timeSlotLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
                 val selectedTimeSlotsByDay = remember { mutableStateOf(mapOf<String, List<Int>>()) }

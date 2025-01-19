@@ -26,18 +26,18 @@ import com.sopt.gongbaek.presentation.ui.groupregister.component.GroupCategorySe
 fun GroupCategoryRoute(
     viewModel: GroupRegisterViewModel,
     navigateGroupCover: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     GroupCategoryScreen(
         navigateGroupCover = navigateGroupCover,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
 @Composable
 fun GroupCategoryScreen(
     navigateGroupCover: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     var selectedOption by remember { mutableStateOf("") }
 
@@ -50,7 +50,7 @@ fun GroupCategoryScreen(
             onOptionSelected = {
                 selectedOption = it
             },
-            onBackClick = naviToBack
+            onBackClick = navigateBack
         )
 
         GongBaekBasicButton(
@@ -104,6 +104,6 @@ private fun GroupCategorySection(
 fun ShowGroupCategoryScreen() {
     GroupCategoryScreen(
         navigateGroupCover = {},
-        naviToBack = {}
+        navigateBack = {}
     )
 }

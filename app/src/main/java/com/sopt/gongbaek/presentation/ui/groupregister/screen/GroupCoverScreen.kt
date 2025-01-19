@@ -29,18 +29,18 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 fun GroupCoverRoute(
     viewModel: GroupRegisterViewModel,
     navigateGroupPlacePeople: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     GroupCoverScreen(
         navigateGroupPlacePeople = navigateGroupPlacePeople,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
 @Composable
 fun GroupCoverScreen(
     navigateGroupPlacePeople: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     var selectedCoverIndex by remember { mutableStateOf<Int?>(null) }
 
@@ -49,7 +49,7 @@ fun GroupCoverScreen(
             .fillMaxSize()
     ) {
         GroupCoverSection(
-            onBackClick = naviToBack,
+            onBackClick = navigateBack,
             onIndexSelected = {
                 selectedCoverIndex = it
             },
@@ -111,7 +111,7 @@ fun ShowGroupCoverScreen() {
     GONGBAEKTheme {
         GroupCoverScreen(
             navigateGroupPlacePeople = {},
-            naviToBack = {}
+            navigateBack = {}
         )
     }
 }

@@ -32,7 +32,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
                 viewModel = viewModel,
                 navigateDay = navController::navigateSelectDay,
                 navigateDayOfWeek = navController::navigateSelectDayOfWeek,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -42,7 +42,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             SelectDayRoute(
                 viewModel = viewModel,
                 navigateGroupTime = navController::navigateGroupTime,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -52,7 +52,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             SelectDayOfWeekRoute(
                 viewModel = viewModel,
                 navigateGroupTime = navController::navigateGroupTime,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -62,7 +62,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             GroupTimeRoute(
                 viewModel = viewModel,
                 navigateGroupCategory = navController::navigateGroupCategory,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -72,7 +72,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             GroupCategoryRoute(
                 viewModel = viewModel,
                 navigateGroupCover = navController::navigateGroupCover,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -82,7 +82,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             GroupCoverRoute(
                 viewModel = viewModel,
                 navigateGroupPlacePeople = navController::navigateGroupPlacePeople,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -92,7 +92,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             GroupPlacePeopleRoute(
                 viewModel = viewModel,
                 navigateGroupIntroduction = navController::navigateGroupIntroduction,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -102,7 +102,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             GroupIntroductionRoute(
                 viewModel = viewModel,
                 navigateRegister = navController::navigateGroupRegister,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
 
@@ -112,7 +112,7 @@ fun NavGraphBuilder.groupRegisterNavGraph(
             GroupRegisterRoute(
                 viewModel = viewModel,
                 navigateGroupList = navController::navigateGroupList,
-                naviToBack = navController::popBackStack
+                navigateBack = navController::popBackStack
             )
         }
     }

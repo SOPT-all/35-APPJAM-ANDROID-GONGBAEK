@@ -38,8 +38,8 @@ import java.time.YearMonth
 @Composable
 fun SelectDayCalendar(
     onDateSelected: (LocalDate) -> Unit,
+    selectedDate: LocalDate?,
     modifier: Modifier = Modifier,
-    selectedDate: LocalDate?
 ) {
     val currentDate = LocalDate.now()
     var visibleYearAndMonth by remember { mutableStateOf(currentDate) }

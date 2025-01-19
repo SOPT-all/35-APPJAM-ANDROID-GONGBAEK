@@ -38,18 +38,18 @@ import com.sopt.gongbaek.ui.theme.defaultGongBaekTypography
 fun GroupPlacePeopleRoute(
     viewModel: GroupRegisterViewModel,
     navigateGroupIntroduction: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     GroupPlacePeopleScreen(
         navigateGroupIntroduction = navigateGroupIntroduction,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
 @Composable
 fun GroupPlacePeopleScreen(
     navigateGroupIntroduction: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     var place by remember { mutableStateOf("") }
     var peopleCount by remember { mutableIntStateOf(2) }
@@ -64,7 +64,7 @@ fun GroupPlacePeopleScreen(
             peopleCount = peopleCount,
             onMinusButtonClicked = { peopleCount -= 1 },
             onPlusButtonClicked = { peopleCount += 1 },
-            onBackClick = naviToBack
+            onBackClick = navigateBack
         )
 
         GongBaekBasicButton(
@@ -173,7 +173,7 @@ fun ShowGroupPlacePeopleScreen() {
     GONGBAEKTheme {
         GroupPlacePeopleScreen(
             navigateGroupIntroduction = {},
-            naviToBack = {}
+            navigateBack = {}
         )
     }
 }

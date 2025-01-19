@@ -28,18 +28,18 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 fun SelectDayOfWeekRoute(
     viewModel: GroupRegisterViewModel,
     navigateGroupTime: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     SelectDayOfWeekScreen(
         navigateGroupTime = navigateGroupTime,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
 @Composable
 fun SelectDayOfWeekScreen(
     navigateGroupTime: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     var selectedOption by remember { mutableStateOf("") }
 
@@ -48,7 +48,7 @@ fun SelectDayOfWeekScreen(
             .fillMaxSize()
     ) {
         SelectDayOfWeekSection(
-            onBackClick = naviToBack,
+            onBackClick = navigateBack,
             selectedOption = selectedOption,
             onOptionSelected = {
                 selectedOption = it
@@ -108,7 +108,7 @@ fun ShowSelectDayOfWeekScreen() {
     GONGBAEKTheme {
         SelectDayOfWeekScreen(
             navigateGroupTime = {},
-            naviToBack = {}
+            navigateBack = {}
         )
     }
 }

@@ -28,18 +28,18 @@ import java.time.LocalDate
 fun SelectDayRoute(
     viewModel: GroupRegisterViewModel,
     navigateGroupTime: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     SelectDayScreen(
         navigateGroupTime = navigateGroupTime,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
 @Composable
 fun SelectDayScreen(
     navigateGroupTime: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
@@ -50,7 +50,7 @@ fun SelectDayScreen(
         SelectDaySection(
             selectedDate = selectedDate,
             onDateSelected = { date -> selectedDate = date },
-            onBackClick = naviToBack
+            onBackClick = navigateBack
         )
 
         GongBaekBasicButton(
@@ -104,7 +104,7 @@ fun ShowSelectDayScreen() {
     GONGBAEKTheme {
         SelectDayScreen(
             navigateGroupTime = {},
-            naviToBack = {}
+            navigateBack = {}
         )
     }
 }

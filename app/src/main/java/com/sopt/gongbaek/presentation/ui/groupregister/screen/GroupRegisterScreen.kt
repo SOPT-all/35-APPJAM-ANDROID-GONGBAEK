@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +29,7 @@ import com.sopt.gongbaek.presentation.ui.component.section.GroupPlaceDescription
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
-import com.sopt.gongbaek.presentation.util.extension.createGroupRegisterTimeDescription
+import com.sopt.gongbaek.presentation.util.createGroupRegisterTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
@@ -36,7 +37,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun GroupRegisterRoute(
     viewModel: GroupRegisterViewModel,
     navigateGroupList: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     val groupRegisterInfo =
         GroupRegisterInfo(
@@ -56,7 +57,7 @@ fun GroupRegisterRoute(
 
     GroupRegisterScreen(
         groupRegisterInfo = groupRegisterInfo,
-        naviToBack = naviToBack,
+        navigateBack = navigateBack,
         navigateGroupList = navigateGroupList
     )
 }
@@ -64,7 +65,7 @@ fun GroupRegisterRoute(
 @Composable
 fun GroupRegisterScreen(
     groupRegisterInfo: GroupRegisterInfo,
-    naviToBack: () -> Unit,
+    navigateBack: () -> Unit,
     navigateGroupList: () -> Unit
 ) {
     Box(
@@ -73,7 +74,7 @@ fun GroupRegisterScreen(
     ) {
         GroupRegisterSection(
             groupRegisterInfo = groupRegisterInfo,
-            onBackClick = naviToBack
+            onBackClick = navigateBack
         )
 
         GongBaekBasicButton(
@@ -131,21 +132,20 @@ private fun GroupRegisterSection(
                 modifier = Modifier
                     .background(color = GongBaekTheme.colors.gray01)
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 GroupTimeDescription(
                     description = createGroupRegisterTimeDescription(groupRegisterInfo),
                     textStyle = GongBaekTheme.typography.body1.m16,
                     textColor = GongBaekTheme.colors.gray08
                 )
-                Spacer(Modifier.height(10.dp))
 
                 GroupPlaceDescription(
                     description = groupRegisterInfo.location,
                     textStyle = GongBaekTheme.typography.body1.m16,
                     textColor = GongBaekTheme.colors.gray08
                 )
-                Spacer(Modifier.height(10.dp))
 
                 GroupPeopleDescription(
                     description = stringResource(R.string.groupregister_place_people_count, groupRegisterInfo.maxPeopleCount),
@@ -179,7 +179,7 @@ fun ShowGroupRegisterScreen() {
     GONGBAEKTheme {
         GroupRegisterScreen(
             groupRegisterInfo = groupRegisterInfo,
-            naviToBack = {},
+            navigateBack = {},
             navigateGroupList = {}
         )
     }

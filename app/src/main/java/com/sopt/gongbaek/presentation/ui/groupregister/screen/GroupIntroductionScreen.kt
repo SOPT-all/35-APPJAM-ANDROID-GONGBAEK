@@ -31,18 +31,18 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 fun GroupIntroductionRoute(
     viewModel: GroupRegisterViewModel,
     navigateRegister: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     GroupIntroductionScreen(
         navigateRegister = navigateRegister,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
 @Composable
 fun GroupIntroductionScreen(
     navigateRegister: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     var groupTitle by remember { mutableStateOf("") }
     var introduction by remember { mutableStateOf("") }
@@ -56,7 +56,7 @@ fun GroupIntroductionScreen(
             onGroupTitleChange = { groupTitle = it },
             introduction = introduction,
             onIntroductionChange = { introduction = it },
-            onBackClick = naviToBack
+            onBackClick = navigateBack
         )
 
         GongBaekBasicButton(
@@ -123,7 +123,7 @@ fun ShowGroupIntroductionScreen() {
     GONGBAEKTheme {
         GroupIntroductionScreen(
             navigateRegister = {},
-            naviToBack = {}
+            navigateBack = {}
         )
     }
 }

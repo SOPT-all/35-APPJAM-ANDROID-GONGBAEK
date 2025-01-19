@@ -26,7 +26,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 fun GroupTimeRoute(
     viewModel: GroupRegisterViewModel,
     navigateGroupCategory: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     val timeSlotLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
     val selectedDay = "금"
@@ -52,7 +52,7 @@ fun GroupTimeRoute(
             }
         },
         navigateGroupCategory = navigateGroupCategory,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
@@ -64,7 +64,7 @@ fun GroupTimeScreen(
     selectedTimeSlotsByDay: Map<String, List<Int>>,
     onTimeSlotSelectionChange: (String, List<Int>) -> Unit,
     navigateGroupCategory: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -81,7 +81,7 @@ fun GroupTimeScreen(
             modifier = Modifier.padding(innerpadding)
         ) {
             StartTitleTopBar(
-                onClick = naviToBack
+                onClick = navigateBack
             )
             GongBaekProgressBar(progressPercent = 0.125f * 3f)
 

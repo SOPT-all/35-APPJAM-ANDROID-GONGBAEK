@@ -41,7 +41,7 @@ fun GroupCycleRoute(
     viewModel: GroupRegisterViewModel,
     navigateDay: () -> Unit,
     navigateDayOfWeek: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -49,7 +49,7 @@ fun GroupCycleRoute(
     GroupCycleScreen(
         navigateDay = navigateDay,
         navigateDayOfWeek = navigateDayOfWeek,
-        naviToBack = naviToBack
+        navigateBack = navigateBack
     )
 }
 
@@ -57,7 +57,7 @@ fun GroupCycleRoute(
 fun GroupCycleScreen(
     navigateDay: () -> Unit,
     navigateDayOfWeek: () -> Unit,
-    naviToBack: () -> Unit
+    navigateBack: () -> Unit
 ) {
     var selectedOption by remember { mutableStateOf("") }
 
@@ -66,7 +66,7 @@ fun GroupCycleScreen(
             .fillMaxSize()
     ) {
         GroupCycleSection(
-            onBackClick = naviToBack,
+            onBackClick = navigateBack,
             selectedOption = selectedOption,
             onOptionSelected = {
                 selectedOption = it
@@ -156,7 +156,7 @@ fun ShowGroupCycleScreen() {
         GroupCycleScreen(
             navigateDay = {},
             navigateDayOfWeek = {},
-            naviToBack = {}
+            navigateBack = {}
         )
     }
 }

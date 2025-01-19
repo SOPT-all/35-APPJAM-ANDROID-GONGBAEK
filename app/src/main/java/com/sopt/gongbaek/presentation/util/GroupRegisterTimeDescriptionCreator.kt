@@ -1,7 +1,8 @@
-package com.sopt.gongbaek.presentation.util.extension
+package com.sopt.gongbaek.presentation.util
 
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.domain.type.GroupCycleType
+import com.sopt.gongbaek.presentation.util.extension.getKoreanDayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale

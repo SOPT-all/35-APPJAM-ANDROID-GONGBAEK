@@ -7,20 +7,7 @@ import com.sopt.gongbaek.presentation.util.base.UiState
 
 class GroupRegisterContract {
     data class State(
-        val groupRegisterInfo: GroupRegisterInfo = GroupRegisterInfo(
-            groupType = "",
-            weekDate = "",
-            weekDay = "",
-            startTime = 0.0,
-            endTime = 0.0,
-            dueDate = "",
-            category = "",
-            coverImg = 0,
-            location = "",
-            maxPeopleCount = 0,
-            groupTitle = "",
-            introduction = ""
-        )
+        val groupRegisterInfo: GroupRegisterInfo = GroupRegisterInfo()
     ) : UiState
 
     sealed class Event : UiEvent

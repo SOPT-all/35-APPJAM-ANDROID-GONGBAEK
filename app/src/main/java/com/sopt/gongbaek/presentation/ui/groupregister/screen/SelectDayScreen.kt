@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,12 +27,22 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import java.time.LocalDate
 
 @Composable
-fun SelectDayRoute() {
-    SelectDayScreen()
+fun SelectDayRoute(
+    viewModel: GroupRegisterViewModel,
+    navigateGroupTime: () -> Unit,
+    naviToBack: () -> Unit
+) {
+    SelectDayScreen(
+        navigateGroupTime = navigateGroupTime,
+        naviToBack = naviToBack
+    )
 }
 
 @Composable
-fun SelectDayScreen() {
+fun SelectDayScreen(
+    navigateGroupTime: () -> Unit,
+    naviToBack: () -> Unit
+) {
     var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
     Box(
@@ -43,12 +52,14 @@ fun SelectDayScreen() {
     ) {
         SelectDaySection(
             selectedDate = selectedDate,
-            onDateSelected = { date -> selectedDate = date }
+            onDateSelected = { date -> selectedDate = date },
+            onBackClick = naviToBack
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = {},
+            onClick = navigateGroupTime,
+            enabled = selectedDate != null,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -94,6 +105,9 @@ private fun SelectDaySection(
 @Composable
 fun ShowSelectDayScreen() {
     GONGBAEKTheme {
-        SelectDayScreen()
+        SelectDayScreen(
+            navigateGroupTime = {},
+            naviToBack = {}
+        )
     }
 }

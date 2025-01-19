@@ -17,7 +17,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 @Composable
 fun CompleteAuthRoute(
     viewModel: AuthViewModel,
-    navigateHome: () -> Unit,
+    navigateHome: () -> Unit
 ) {
     CompleteAuthScreen(
         navigateHome = navigateHome

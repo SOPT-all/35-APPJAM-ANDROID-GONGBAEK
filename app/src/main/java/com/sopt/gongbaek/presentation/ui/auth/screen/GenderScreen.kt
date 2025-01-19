@@ -45,7 +45,7 @@ private fun GenderScreen(
     navigateBack: () -> Unit
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         GenderScreenContent(
             onBackClick = navigateBack,

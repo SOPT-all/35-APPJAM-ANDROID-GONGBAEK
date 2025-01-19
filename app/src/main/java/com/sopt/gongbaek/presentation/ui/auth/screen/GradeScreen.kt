@@ -67,7 +67,7 @@ private fun GradeScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = { navigateMbti() },
+            onClick = navigateMbti,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -97,7 +97,9 @@ private fun GrandeScreenContent(
 private fun GradeTopBarSection(
     onBackClick: () -> Unit
 ) {
-    StartTitleTopBar(onClick = { onBackClick() })
+    StartTitleTopBar(
+        onClick = onBackClick
+    )
 
     GongBaekProgressBar(progressPercent = 0.5f)
 }
@@ -137,7 +139,6 @@ private fun GradeSelectionSection(
         Spacer(modifier = Modifier.height(24.dp))
 
         YearPickerDropdown()
-
     }
 }
 
@@ -168,7 +169,7 @@ fun YearPickerDropdown() {
                 .padding(
                     vertical = 12.dp,
                     horizontal = 16.dp
-                ),
+                )
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),

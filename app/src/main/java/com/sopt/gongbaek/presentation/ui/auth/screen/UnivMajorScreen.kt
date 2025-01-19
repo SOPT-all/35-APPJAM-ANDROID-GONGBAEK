@@ -48,7 +48,7 @@ private fun UnivMajorScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = { navigateGrade() },
+            onClick = navigateGrade,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -59,10 +59,12 @@ private fun UnivMajorScreen(
 @Composable
 private fun UnivAndMajorSelectionSection(
     onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column {
-        StartTitleTopBar(onClick = { onBackClick() })
+        StartTitleTopBar(
+            onClick = onBackClick
+        )
 
         GongBaekProgressBar(progressPercent = 0.375f)
 

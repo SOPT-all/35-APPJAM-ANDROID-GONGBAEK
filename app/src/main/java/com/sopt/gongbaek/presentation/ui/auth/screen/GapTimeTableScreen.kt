@@ -25,21 +25,18 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun GapTimeTableRoute(
     viewModel: AuthViewModel,
     navigateCompleteAuth: () -> Unit,
-    navigateEnterTimetable: () -> Unit,
-    navigateBack: () -> Unit
+    navigateEnterTimetable: () -> Unit
 ) {
     GapTimeTableScreen(
         navigateCompleteAuth = navigateCompleteAuth,
-        navigateEnterTimetable = navigateEnterTimetable,
-        navigateBack = navigateBack
+        navigateEnterTimetable = navigateEnterTimetable
     )
 }
 
 @Composable
 private fun GapTimeTableScreen(
     navigateCompleteAuth: () -> Unit,
-    navigateEnterTimetable: () -> Unit,
-    navigateBack: () -> Unit
+    navigateEnterTimetable: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -63,7 +60,6 @@ private fun GapTimeTableScreen(
         containerColor = GongBaekTheme.colors.white,
         content = { paddingValues ->
             GapTimeTableContent(
-                onBackClick = navigateBack,
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(horizontal = 16.dp)
@@ -74,11 +70,10 @@ private fun GapTimeTableScreen(
 
 @Composable
 private fun GapTimeTableContent(
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
-        GapTimeTableScreenTopBar(onBackClick = onBackClick)
+        GapTimeTableScreenTopBar()
 
         Spacer(modifier = Modifier.height(54.dp))
 
@@ -89,10 +84,8 @@ private fun GapTimeTableContent(
 }
 
 @Composable
-private fun GapTimeTableScreenTopBar(
-    onBackClick: () -> Unit
-) {
-    StartTitleTopBar(onClick = onBackClick)
+private fun GapTimeTableScreenTopBar() {
+    StartTitleTopBar(isLeadingIconIncluded = false)
 
     GongBaekProgressBar(progressPercent = 1f)
 }
@@ -135,8 +128,7 @@ private fun PreviewGapTimeTableScreen() {
     GONGBAEKTheme {
         GapTimeTableScreen(
             navigateCompleteAuth = {},
-            navigateEnterTimetable = {},
-            navigateBack = {}
+            navigateEnterTimetable = {}
         )
     }
 }

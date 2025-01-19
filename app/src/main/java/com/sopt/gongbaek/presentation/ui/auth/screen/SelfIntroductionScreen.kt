@@ -46,7 +46,7 @@ private fun SelfIntroductionScreen(
     navigateBack: () -> Unit
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         SelfIntroductionScreenContent(
             onBackClick = navigateBack,
@@ -100,7 +100,7 @@ private fun SelfIntroductionSection(
         modifier = modifier
     ) {
         PageDescriptionSection(
-            titleResId = R.string.auth_mbti_title,
+            titleResId = R.string.auth_mbti_title
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -111,7 +111,7 @@ private fun SelfIntroductionSection(
 
                 addStyle(
                     style = SpanStyle(
-                        color = GongBaekTheme.colors.mainOrange,
+                        color = GongBaekTheme.colors.mainOrange
                     ),
                     start = 17,
                     end = 27
@@ -133,7 +133,6 @@ private fun SelfIntroductionSection(
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

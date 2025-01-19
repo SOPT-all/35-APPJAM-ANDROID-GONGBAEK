@@ -54,12 +54,12 @@ fun SearchButton(
                 style = GongBaekTheme.typography.body1.m16,
                 modifier = Modifier
                     .padding(vertical = 14.dp)
-                    .padding(start = 16.dp),
+                    .padding(start = 16.dp)
             )
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_search_gray_48),
                 contentDescription = null,
-                tint = GongBaekTheme.colors.gray04,
+                tint = GongBaekTheme.colors.gray04
             )
         }
     }
@@ -71,6 +71,6 @@ private fun PreviewSearchButton() {
     SearchButton(
         buttonLabel = "학교",
         searchResult = "학교를 검색해주세요",
-        onSearchButtonClicked = {},
+        onSearchButtonClicked = {}
     )
 }

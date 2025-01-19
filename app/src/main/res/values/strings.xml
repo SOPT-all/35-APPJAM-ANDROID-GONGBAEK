@@ -92,6 +92,21 @@
     <string name="auth_select_profile_description">제공된 프로필 중 하나를 선택할 수 있어요.</string>
     <string name="auth_nickname_title">닉네임을 설정해주세요.</string>
     <string name="auth_nickname_description">프로필에 표시되는 이름으로, 언제든 변경할 수 있어요.</string>
+    <string name="auth_univ_major_title">학교와 학과를 입력해주세요.</string>
+    <string name="auth_univ_major_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
+    <string name="auth_grade_title">학년과 입학년도를 입력해주세요.</string>
+    <string name="auth_grade_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
+    <string name="auth_mbti_title">MBTI를 선택해주세요.</string>
+    <string name="auth_mbti_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
+    <string name="auth_gender_title">성별을 선택해주세요.</string>
+    <string name="auth_gender_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
+    <string name="auth_self_introduction_title">회원님을 자유롭게 설명해주세요.</string>
+    <string name="auth_self_introduction_description">연락처나 SNS 입력이 아닌,\n자신을 소개하는 글을 적어주세요.</string>
+    <string name="auth_enter_timetable_title">학교 시간표를 입력해주세요.</string>
+    <string name="auth_enter_timetable_description">학교 시간표를 입력하면, 공강 시간표로 바꿔드려요.</string>
+    <string name="auth_gap_timetable_title">공강시간표가 완성되었어요!</string>
+    <string name="auth_gap_timetable_description">잘못된 시간표가 있는지 확인해주세요.</string>
+    <string name="auth_complete_title">가입을 축하드려요!\n0을 100으로 채우러 가볼까요?</string>
 
     <!--MyGroupScreen-->
     <string name="my_group_top_bar_title">나의 채움</string>

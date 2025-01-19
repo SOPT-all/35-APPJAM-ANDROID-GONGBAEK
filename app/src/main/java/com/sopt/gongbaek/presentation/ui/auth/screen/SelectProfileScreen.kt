@@ -106,7 +106,7 @@ private fun ImageSelectorSection(
                 descriptionResId = R.string.auth_select_profile_description
             )
 
-            Spacer(modifier = Modifier.height(42.dp))
+            Spacer(modifier = Modifier.height(44.dp))
 
             ImageSelector(
                 imageSelectorType = ImageSelectorType.Profile,

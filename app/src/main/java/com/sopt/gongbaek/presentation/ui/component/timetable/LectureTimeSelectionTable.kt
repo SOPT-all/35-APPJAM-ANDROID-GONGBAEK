@@ -36,7 +36,7 @@ fun LectureTimeSelectionTable(
 
     Row(
         modifier = Modifier
-            .height(screenHeight * 0.67f)
+            .height(screenHeight * 0.677f)
             .border(
                 width = 1.dp,
                 color = GongBaekTheme.colors.gray02,

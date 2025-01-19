@@ -108,7 +108,7 @@ private fun NickNameInputSection(
                 descriptionResId = R.string.auth_select_profile_description
             )
 
-            Spacer(modifier = Modifier.height(42.dp))
+            Spacer(modifier = Modifier.height(44.dp))
 
             GongBaekBasicTextField(
                 value = nickname,

@@ -27,12 +27,22 @@ import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun SelectDayOfWeekRoute() {
-    SelectDayOfWeekScreen()
+fun SelectDayOfWeekRoute(
+    viewModel: GroupRegisterViewModel,
+    navigateGroupTime: () -> Unit,
+    naviToBack: () -> Unit
+) {
+    SelectDayOfWeekScreen(
+        navigateGroupTime = navigateGroupTime,
+        naviToBack = naviToBack
+    )
 }
 
 @Composable
-fun SelectDayOfWeekScreen() {
+fun SelectDayOfWeekScreen(
+    navigateGroupTime: () -> Unit,
+    naviToBack: () -> Unit
+) {
     var selectedOption by remember { mutableStateOf("") }
 
     Box(
@@ -41,6 +51,7 @@ fun SelectDayOfWeekScreen() {
             .background(color = Color.White)
     ) {
         SelectDayOfWeekSection(
+            onBackClick = naviToBack,
             selectedOption = selectedOption,
             onOptionSelected = {
                 selectedOption = it
@@ -49,7 +60,7 @@ fun SelectDayOfWeekScreen() {
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = {},
+            onClick = navigateGroupTime,
             enabled = selectedOption.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -61,10 +72,10 @@ fun SelectDayOfWeekScreen() {
 
 @Composable
 private fun SelectDayOfWeekSection(
+    onBackClick: () -> Unit,
     onOptionSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
-    selectedOption: String? = null,
-    onBackClick: () -> Unit = {}
+    selectedOption: String? = null
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -98,6 +109,9 @@ private fun SelectDayOfWeekSection(
 @Composable
 fun ShowSelectDayOfWeekScreen() {
     GONGBAEKTheme {
-        SelectDayOfWeekScreen()
+        SelectDayOfWeekScreen(
+            navigateGroupTime = {},
+            naviToBack = {}
+        )
     }
 }

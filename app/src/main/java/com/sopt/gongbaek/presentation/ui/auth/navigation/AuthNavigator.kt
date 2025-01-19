@@ -21,4 +21,6 @@ fun NavController.navigateEnterTimetable() = navigate(route = NavigationRoute.Au
 
 fun NavController.navigateGapTimetable() = navigate(route = NavigationRoute.AuthNavGraphRoute.GAP_TIMETABLE)
 
+fun NavController.navigateChangeTimetable() = navigate(route = NavigationRoute.AuthNavGraphRoute.CHANGE_TIMETABLE)
+
 fun NavController.navigateCompleteAuth() = navigate(route = NavigationRoute.AuthNavGraphRoute.COMPLETE_AUTH)

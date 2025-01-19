@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.AuthViewModel
+import com.sopt.gongbaek.presentation.ui.auth.screen.ChangeTimeTableRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.CompleteAuthRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.EnterTimeTableRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.GapTimeTableRoute
@@ -111,9 +112,14 @@ fun NavGraphBuilder.authNavGraph(
             GapTimeTableRoute(
                 viewModel = viewModel,
                 navigateCompleteAuth = navController::navigateCompleteAuth,
-                navigateEnterTimetable = navController::navigateEnterTimetable,
-                navigateBack = navController::popBackStack
+                navigateEnterTimetable = navController::navigateEnterTimetable
             )
+        }
+
+        composable(
+            route = NavigationRoute.AuthNavGraphRoute.CHANGE_TIMETABLE
+        ) {
+            ChangeTimeTableRoute()
         }
 
         composable(
@@ -121,9 +127,8 @@ fun NavGraphBuilder.authNavGraph(
         ) {
             CompleteAuthRoute(
                 viewModel = viewModel,
-                navigateHome = navController::navigateHome,
+                navigateHome = navController::navigateHome
             )
         }
-
     }
 }

@@ -34,7 +34,7 @@ fun PageDescriptionSection(
                 text = stringResource(descriptionResId),
                 color = GongBaekTheme.colors.gray07,
                 style = GongBaekTheme.typography.body1.m16,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(top = 10.dp)
             )
         }
     }

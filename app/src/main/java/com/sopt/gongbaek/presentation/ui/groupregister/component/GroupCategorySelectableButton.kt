@@ -32,8 +32,7 @@ fun GroupCategorySelectableButtons(
     selectedOption: String? = null
 ) {
     val selectableButtonType = SelectableButtonType.CATEGORY
-    val textOptions = selectableButtonType.options
-    val chunkedOptions = textOptions.chunked(size = selectableButtonType.chunkedCount)
+    val chunkedOptions = selectableButtonType.options.chunked(size = selectableButtonType.chunkedCount)
 
     Column {
         chunkedOptions.forEachIndexed { rowIndex, rowOptions ->

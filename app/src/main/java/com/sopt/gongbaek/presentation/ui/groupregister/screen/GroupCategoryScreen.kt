@@ -18,21 +18,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.presentation.type.SelectableButtonType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
-import com.sopt.gongbaek.presentation.ui.component.button.GongBaekSelectableButtons
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.GroupCategorySelectableButtons
 
 @Composable
-fun GroupCategoryRoute() {
-    GroupCategoryScreen()
+fun GroupCategoryRoute(
+    viewModel: GroupRegisterViewModel,
+    navigateGroupCover: () -> Unit,
+    naviToBack: () -> Unit
+) {
+    GroupCategoryScreen(
+        navigateGroupCover = navigateGroupCover,
+        naviToBack = naviToBack
+    )
 }
 
 @Composable
-fun GroupCategoryScreen() {
+fun GroupCategoryScreen(
+    navigateGroupCover: () -> Unit,
+    naviToBack: () -> Unit
+) {
     var selectedOption by remember { mutableStateOf("") }
 
     Box(
@@ -44,12 +52,13 @@ fun GroupCategoryScreen() {
             selectedOption = selectedOption,
             onOptionSelected = {
                 selectedOption = it
-            }
+            },
+            onBackClick = naviToBack
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = {},
+            onClick = navigateGroupCover,
             enabled = selectedOption.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -72,7 +81,7 @@ private fun GroupCategorySection(
         StartTitleTopBar(
             onClick = onBackClick
         )
-        GongBaekProgressBar(progressPercent = 0.125f * 2f)
+        GongBaekProgressBar(progressPercent = 0.125f * 4f)
 
         Column(
             modifier = Modifier
@@ -80,8 +89,9 @@ private fun GroupCategorySection(
                 .fillMaxWidth()
         ) {
             PageDescriptionSection(
-                titleResId = R.string.groupregister_selectdayofweek_title,
-                modifier = Modifier.padding(top = 40.dp, bottom = 60.dp)
+                titleResId = R.string.groupregister_category_title,
+                modifier = Modifier.padding(top = 40.dp, bottom = 24.dp),
+                descriptionResId = R.string.groupregister_category_description
             )
 
             GroupCategorySelectableButtons(
@@ -95,5 +105,8 @@ private fun GroupCategorySection(
 @Preview(showBackground = true)
 @Composable
 fun ShowGroupCategoryScreen() {
-    GroupCategoryScreen()
+    GroupCategoryScreen(
+        navigateGroupCover = {},
+        naviToBack = {}
+    )
 }

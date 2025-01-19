@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
+import com.sopt.gongbaek.presentation.type.GroupCategoryCoverType
 import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.button.ImageSelector
@@ -31,7 +32,10 @@ fun GroupCoverRoute(
     navigateGroupPlacePeople: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val category = "STUDY"
+
     GroupCoverScreen(
+        category = category,
         navigateGroupPlacePeople = navigateGroupPlacePeople,
         navigateBack = navigateBack
     )
@@ -39,16 +43,20 @@ fun GroupCoverRoute(
 
 @Composable
 fun GroupCoverScreen(
+    category: String,
     navigateGroupPlacePeople: () -> Unit,
     navigateBack: () -> Unit
 ) {
     var selectedCoverIndex by remember { mutableStateOf<Int?>(null) }
+
+    val imageList = GroupCategoryCoverType.valueOf(category).imageIds
 
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         GroupCoverSection(
+            imageList = imageList,
             onBackClick = navigateBack,
             onIndexSelected = {
                 selectedCoverIndex = it
@@ -63,13 +71,13 @@ fun GroupCoverScreen(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
-
         )
     }
 }
 
 @Composable
 private fun GroupCoverSection(
+    imageList: List<Int>,
     onBackClick: () -> Unit,
     onIndexSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -96,8 +104,10 @@ private fun GroupCoverSection(
 
             ImageSelector(
                 imageSelectorType = ImageSelectorType.Cover,
+                imageButtonResIdList = imageList,
                 modifier = Modifier
                     .aspectRatio(16f / 13f),
+                selectedAlpha = 0.6f,
                 selectedIndex = selectedCoverIndex,
                 onIndexSelected = onIndexSelected
             )
@@ -108,8 +118,10 @@ private fun GroupCoverSection(
 @Preview
 @Composable
 fun ShowGroupCoverScreen() {
+    val category = "OTHERS"
     GONGBAEKTheme {
         GroupCoverScreen(
+            category = category,
             navigateGroupPlacePeople = {},
             navigateBack = {}
         )

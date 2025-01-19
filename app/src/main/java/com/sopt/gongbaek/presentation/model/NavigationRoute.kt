@@ -3,7 +3,6 @@ package com.sopt.gongbaek.presentation.model
 object NavigationRoute {
     object AuthNavGraphRoute {
         const val AUTH_NAV_GRAPH = "auth_route"
-        const val AUTH = "auth"
         const val SELECT_PROFILE = "select_profile"
         const val NICKNAME = "nickname"
         const val UNIV_MAJOR = "univ_major"

@@ -106,6 +106,7 @@
     <string name="auth_enter_timetable_description">학교 시간표를 입력하면, 공강 시간표로 바꿔드려요.</string>
     <string name="auth_gap_timetable_title">공강시간표가 완성되었어요!</string>
     <string name="auth_gap_timetable_description">잘못된 시간표가 있는지 확인해주세요.</string>
+    <string name="auth_complete_title">가입을 축하드려요!\n0을 100으로 채우러 가볼까요?</string>
 
     <!--MyGroupScreen-->
     <string name="my_group_top_bar_title">나의 채움</string>

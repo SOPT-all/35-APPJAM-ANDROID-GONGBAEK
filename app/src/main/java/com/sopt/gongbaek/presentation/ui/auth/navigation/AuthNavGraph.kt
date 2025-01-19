@@ -122,7 +122,6 @@ fun NavGraphBuilder.authNavGraph(
             CompleteAuthRoute(
                 viewModel = viewModel,
                 navigateHome = navController::navigateHome,
-                navigateBack = navController::popBackStack,
             )
         }
 

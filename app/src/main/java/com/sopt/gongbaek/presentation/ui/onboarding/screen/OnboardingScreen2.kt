@@ -25,21 +25,14 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 import com.sopt.gongbaek.ui.theme.defaultGongBaekTypography
 
 @Composable
-fun OnboardingScreen2(
-    onBackClick: () -> Unit
-) {
+fun OnboardingScreen2() {
     val highlightedTextStyle = defaultGongBaekTypography.body1.sb16
     val basicTextStyle = defaultGongBaekTypography.body1.m16
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        StartTitleTopBar(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = onBackClick
-        )
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
         ) {
             Text(
                 text = stringResource(R.string.onboarding_2_title),
@@ -99,14 +92,12 @@ fun OnboardingScreen2(
             )
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable
 private fun OnboardingScreen2Preview() {
     GONGBAEKTheme {
-        OnboardingScreen2(
-            onBackClick = {}
-        )
+        OnboardingScreen2()
     }
 }

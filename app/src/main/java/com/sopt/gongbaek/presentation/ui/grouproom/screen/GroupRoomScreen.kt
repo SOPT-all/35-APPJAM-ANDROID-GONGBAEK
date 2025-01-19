@@ -43,13 +43,16 @@ import com.sopt.gongbaek.presentation.ui.component.section.CommentSection
 import com.sopt.gongbaek.presentation.ui.component.section.GroupPlaceDescription
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
-import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
+import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun GroupRoomRoute() {
+fun GroupRoomRoute(
+    groupId: Int,
+    groupCycle: String
+) {
 //    GroupRoomScreen()
 }
 
@@ -353,7 +356,6 @@ private fun GroupRoomScreenPreview2() {
                 category = "PLAYING",
                 cycle = "WEEKLY",
                 title = "화석의 튜스데이 점심 클럽",
-                date = null,
                 dayOfWeek = "THU",
                 startTime = 13.5,
                 endTime = 15.5,

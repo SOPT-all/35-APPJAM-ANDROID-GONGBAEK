@@ -2,7 +2,9 @@ package com.sopt.gongbaek.presentation.ui.grouproom.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.grouproom.screen.GroupRoomRoute
@@ -15,9 +17,18 @@ fun NavGraphBuilder.groupRoomNavGraph(
         route = NavigationRoute.GroupRoomNavGraphRoute.GROUP_ROOM_NAV_GRAPH
     ) {
         composable(
-            route = NavigationRoute.GroupRoomNavGraphRoute.GROUP_ROOM
-        ) {
-            GroupRoomRoute()
+            route = NavigationRoute.GroupRoomNavGraphRoute.GROUP_ROOM,
+            arguments = listOf(
+                navArgument("groupId") { type = NavType.IntType },
+                navArgument("groupCycle") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val groupId = backStackEntry.arguments?.getInt("groupId") ?: 0
+            val groupCycle = backStackEntry.arguments?.getString("groupCycle") ?: ""
+            GroupRoomRoute(
+                groupId = groupId,
+                groupCycle = groupCycle
+            )
         }
     }
 }

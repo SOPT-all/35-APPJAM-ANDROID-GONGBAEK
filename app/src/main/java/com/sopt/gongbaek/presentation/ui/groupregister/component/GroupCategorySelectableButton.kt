@@ -27,13 +27,12 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun GroupCategorySelectableButtons(
-    textOptions: List<String>,
     onOptionSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
     selectedOption: String? = null
 ) {
     val selectableButtonType = SelectableButtonType.CATEGORY
-    val chunkedOptions = textOptions.chunked(size = selectableButtonType.chunkedCount)
+    val chunkedOptions = selectableButtonType.options.chunked(size = selectableButtonType.chunkedCount)
 
     Column {
         chunkedOptions.forEachIndexed { rowIndex, rowOptions ->
@@ -99,7 +98,6 @@ private fun PreviewGroupCategorySelectableButton() {
     GONGBAEKTheme {
         var selectedOption by remember { mutableStateOf("") }
         GroupCategorySelectableButtons(
-            textOptions = SelectableButtonType.CATEGORY.options,
             onOptionSelected = { option -> selectedOption = option },
             selectedOption = selectedOption
         )

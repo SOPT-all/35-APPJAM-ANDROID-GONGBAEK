@@ -50,7 +50,7 @@ private fun PreviewDescriptionSection1() {
             .fillMaxSize()
     ) {
         PageDescriptionSection(
-            titleResId = R.string.group_place_people_title,
+            titleResId = R.string.groupregister_place_people_people_title,
             descriptionResId = R.string.dialog_description_enter_fail
         )
     }
@@ -66,7 +66,7 @@ private fun PreviewDescriptionSection2() {
             .fillMaxSize()
     ) {
         PageDescriptionSection(
-            titleResId = R.string.group_place_people_title
+            titleResId = R.string.groupregister_place_people_people_title
         )
     }
 }

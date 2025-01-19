@@ -57,7 +57,7 @@ fun GroupPeopleCounter(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = stringResource(R.string.group_place_people_count, peopleCount),
+                text = stringResource(R.string.groupregister_place_people_count, peopleCount),
                 color = GongBaekTheme.colors.gray10,
                 style = GongBaekTheme.typography.title1.b20,
                 modifier = Modifier.padding(vertical = 14.dp)

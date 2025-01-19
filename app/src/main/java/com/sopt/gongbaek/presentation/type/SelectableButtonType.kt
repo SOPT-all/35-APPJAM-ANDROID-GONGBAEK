@@ -93,12 +93,12 @@ enum class SelectableButtonType(
         selectedTextColor = defaultGongBaekColors.gray08,
         unSelectedTextColor = defaultGongBaekColors.gray08,
         categoryImgResIds = listOf(
-            R.drawable.img_image_button_sample,
-            R.drawable.img_image_button_sample,
-            R.drawable.img_fill_list,
-            R.drawable.img_image_button_sample,
-            R.drawable.img_image_button_sample,
-            R.drawable.img_fill_list
+            R.drawable.img_category_study,
+            R.drawable.img_category_dining,
+            R.drawable.img_category_exercise,
+            R.drawable.img_category_networking,
+            R.drawable.img_category_playing,
+            R.drawable.img_category_others
         )
     )
 }

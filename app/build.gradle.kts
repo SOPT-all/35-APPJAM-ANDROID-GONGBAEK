@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     ksp(libs.hilt.compiler)
 
     // Network

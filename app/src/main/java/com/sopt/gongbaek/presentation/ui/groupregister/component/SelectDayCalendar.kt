@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,7 +27,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.util.extension.calculateDateForCell
@@ -39,11 +37,11 @@ import java.time.YearMonth
 
 @Composable
 fun SelectDayCalendar(
+    onDateSelected: (LocalDate) -> Unit,
+    selectedDate: LocalDate?,
     modifier: Modifier = Modifier
 ) {
     val currentDate = LocalDate.now()
-
-    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
     var visibleYearAndMonth by remember { mutableStateOf(currentDate) }
 
     Column(
@@ -64,7 +62,7 @@ fun SelectDayCalendar(
             visibleMonth = visibleYearAndMonth,
             onDateSelected = { date ->
                 if (!date.isBefore(currentDate)) {
-                    selectedDate = date
+                    onDateSelected(date)
                 }
             }
         )
@@ -210,18 +208,5 @@ fun CalendarGrid(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewSelectDayCalendar() {
-    Column(
-        modifier = Modifier
-            .background(color = GongBaekTheme.colors.white)
-            .padding(20.dp)
-            .fillMaxSize()
-    ) {
-        SelectDayCalendar()
     }
 }

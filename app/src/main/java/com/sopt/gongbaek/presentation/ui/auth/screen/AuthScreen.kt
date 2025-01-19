@@ -17,16 +17,18 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun AuthRoute(
-    navigateHome: () -> Unit
+fun CompleteAuthRoute(
+    viewModel: AuthViewModel,
+    navigateHome: () -> Unit,
+    navigateBack: () -> Unit
 ) {
-    AuthScreen(
+    CompleteAuthRouteScreen(
         navigateHome = navigateHome
     )
 }
 
 @Composable
-fun AuthScreen(
+fun CompleteAuthRouteScreen(
     navigateHome: () -> Unit
 ) {
     Box(
@@ -49,9 +51,9 @@ fun AuthScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewAuthScreen() {
+private fun PreviewCompleteAuthRouteScreen() {
     GONGBAEKTheme {
-        AuthScreen(
+        CompleteAuthRouteScreen(
             navigateHome = {}
         )
     }

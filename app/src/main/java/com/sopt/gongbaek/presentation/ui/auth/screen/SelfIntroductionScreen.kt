@@ -12,7 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun SelfIntroductionRoute() {
+fun SelfIntroductionRoute(
+    viewModel: AuthViewModel,
+    navigateEnterTimetable: () -> Unit,
+    navigateBack: () -> Unit
+) {
     SelfIntroductionScreen()
 }
 

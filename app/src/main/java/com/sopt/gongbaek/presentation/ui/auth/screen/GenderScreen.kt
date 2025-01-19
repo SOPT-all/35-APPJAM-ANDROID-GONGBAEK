@@ -12,7 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun GenderRoute() {
+fun GenderRoute(
+    viewModel: AuthViewModel,
+    navigateSelfIntroduction: () -> Unit,
+    navigateBack: () -> Unit
+) {
     GenderScreen()
 }
 

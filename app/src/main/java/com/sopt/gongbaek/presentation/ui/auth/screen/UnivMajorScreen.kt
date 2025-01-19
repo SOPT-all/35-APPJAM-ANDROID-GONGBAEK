@@ -12,7 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun UnivMajorRoute() {
+fun UnivMajorRoute(
+    viewModel: AuthViewModel,
+    navigateGrade: () -> Unit,
+    navigateBack: () -> Unit
+) {
     UnivMajorScreen()
 }
 

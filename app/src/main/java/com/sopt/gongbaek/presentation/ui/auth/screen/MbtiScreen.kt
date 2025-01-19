@@ -12,7 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun MbtiRoute() {
+fun MbtiRoute(
+    viewModel: AuthViewModel,
+    navigateGender: () -> Unit,
+    navigateBack: () -> Unit
+) {
     MbtiScreen()
 }
 

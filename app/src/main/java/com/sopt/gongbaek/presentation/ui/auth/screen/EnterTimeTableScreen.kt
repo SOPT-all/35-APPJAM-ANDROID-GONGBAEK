@@ -12,7 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun EnterTimeTableRoute() {
+fun EnterTimeTableRoute(
+    viewModel: AuthViewModel,
+    navigateGapTimetable: () -> Unit,
+    navigateBack: () -> Unit
+) {
     EnterTimeTableScreen()
 }
 

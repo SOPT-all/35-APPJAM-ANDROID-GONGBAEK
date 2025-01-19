@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -101,7 +99,6 @@ private fun GroupCycleSection(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color.White)
     ) {
         StartTitleTopBar(onClick = onBackClick)
         GongBaekProgressBar(0.125f)

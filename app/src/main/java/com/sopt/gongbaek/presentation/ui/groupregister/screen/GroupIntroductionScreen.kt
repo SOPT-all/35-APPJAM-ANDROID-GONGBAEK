@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,7 +50,6 @@ fun GroupIntroductionScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
     ) {
         GroupIntroductionSection(
             groupTitle = groupTitle,

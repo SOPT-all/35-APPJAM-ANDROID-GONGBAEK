@@ -1,13 +1,13 @@
 package com.sopt.gongbaek.domain.model
 
 data class GroupPeople(
-    val maxPeopleCount: Int,
-    val currentPeopleCount: Int,
-    val members: List<Member>
+    val maxPeopleCount: Int = 0,
+    val currentPeopleCount: Int = 0,
+    val members: List<Member> = listOf()
 ) {
     data class Member(
-        val profileImg: Int,
-        val nickname: String,
-        val isHost: Boolean
+        val profileImg: Int = 0,
+        val nickname: String = "",
+        val isHost: Boolean = false
     )
 }

@@ -1,19 +1,19 @@
 package com.sopt.gongbaek.domain.model
 
 data class GroupComment(
-    val groupId: Int,
-    val groupStatus: String,
-    val groupCycle: String,
-    val commentCount: Int,
-    val commentList: List<Comment>
+    val groupId: Int = 0,
+    val groupStatus: String = "",
+    val groupCycle: String = "",
+    val commentCount: Int = 0,
+    val commentList: List<Comment> = listOf()
 ) {
     data class Comment(
-        val commentId: Int,
-        val commentWriter: String,
-        val commentContent: String,
-        val createdAt: String,
-        val isGroupHost: Boolean,
-        val isWriter: Boolean
+        val commentId: Int = 0,
+        val commentWriter: String = "",
+        val commentContent: String = "",
+        val createdAt: String = "",
+        val isGroupHost: Boolean = false,
+        val isWriter: Boolean = false
     ) {
         fun getCreatedMonth(): String = createdAt.split("-")[1]
 

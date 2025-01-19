@@ -81,6 +81,8 @@
     <string name="auth_univ_major_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
     <string name="auth_grade_title">학년과 입학년도를 입력해주세요.</string>
     <string name="auth_grade_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
+    <string name="auth_mbti_title">MBTI를 선택해주세요.</string>
+    <string name="auth_mbti_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
 
     <!--MyGroupScreen-->
     <string name="my_group_top_bar_title">나의 채움</string>

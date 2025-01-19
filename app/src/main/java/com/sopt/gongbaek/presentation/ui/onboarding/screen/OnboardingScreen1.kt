@@ -44,7 +44,7 @@ fun OnboardingScreen1() {
             text = buildAnnotatedString {
                 append(
                     stringResource(R.string.onboarding_1_description_1) +
-                            stringResource(R.string.onboarding_1_description_2)
+                        stringResource(R.string.onboarding_1_description_2)
                 )
 
                 addStyle(
@@ -80,7 +80,6 @@ fun OnboardingScreen1() {
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

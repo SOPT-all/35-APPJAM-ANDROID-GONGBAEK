@@ -19,7 +19,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 import com.sopt.gongbaek.ui.theme.defaultGongBaekTypography
@@ -29,70 +28,69 @@ fun OnboardingScreen2() {
     val highlightedTextStyle = defaultGongBaekTypography.body1.sb16
     val basicTextStyle = defaultGongBaekTypography.body1.m16
 
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp)
+    ) {
+        Text(
+            text = stringResource(R.string.onboarding_2_title),
+            modifier = Modifier.padding(top = (LocalConfiguration.current.screenHeightDp * 0.07).dp),
+            color = GongBaekTheme.colors.black,
+            style = GongBaekTheme.typography.head2.b24
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = buildAnnotatedString {
+                append(
+                    stringResource(R.string.onboarding_2_description_1) +
+                        stringResource(R.string.onboarding_2_description_2)
+                )
+
+                addStyle(
+                    style = SpanStyle(
+                        color = GongBaekTheme.colors.gray07,
+                        fontSize = basicTextStyle.fontSize,
+                        fontWeight = basicTextStyle.fontWeight,
+                        fontFamily = basicTextStyle.fontFamily
+                    ),
+                    start = 0,
+                    end = 21
+                )
+
+                addStyle(
+                    style = SpanStyle(
+                        color = GongBaekTheme.colors.mainOrange,
+                        fontSize = highlightedTextStyle.fontSize,
+                        fontWeight = highlightedTextStyle.fontWeight,
+                        fontFamily = highlightedTextStyle.fontFamily
+                    ),
+                    start = 21,
+                    end = 36
+                )
+
+                addStyle(
+                    style = SpanStyle(
+                        color = GongBaekTheme.colors.gray07,
+                        fontSize = basicTextStyle.fontSize,
+                        fontWeight = basicTextStyle.fontWeight,
+                        fontFamily = basicTextStyle.fontFamily
+                    ),
+                    start = 36,
+                    end = 47
+                )
+            }
+        )
+        Spacer(modifier = Modifier.height(54.dp))
+        Image(
+            painter = painterResource(id = R.drawable.img_onboard_illustration2),
+            contentDescription = null,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.onboarding_2_title),
-                modifier = Modifier.padding(top = (LocalConfiguration.current.screenHeightDp * 0.07).dp),
-                color = GongBaekTheme.colors.black,
-                style = GongBaekTheme.typography.head2.b24
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = buildAnnotatedString {
-                    append(
-                        stringResource(R.string.onboarding_2_description_1) +
-                            stringResource(R.string.onboarding_2_description_2)
-                    )
-
-                    addStyle(
-                        style = SpanStyle(
-                            color = GongBaekTheme.colors.gray07,
-                            fontSize = basicTextStyle.fontSize,
-                            fontWeight = basicTextStyle.fontWeight,
-                            fontFamily = basicTextStyle.fontFamily
-                        ),
-                        start = 0,
-                        end = 21
-                    )
-
-                    addStyle(
-                        style = SpanStyle(
-                            color = GongBaekTheme.colors.mainOrange,
-                            fontSize = highlightedTextStyle.fontSize,
-                            fontWeight = highlightedTextStyle.fontWeight,
-                            fontFamily = highlightedTextStyle.fontFamily
-                        ),
-                        start = 21,
-                        end = 36
-                    )
-
-                    addStyle(
-                        style = SpanStyle(
-                            color = GongBaekTheme.colors.gray07,
-                            fontSize = basicTextStyle.fontSize,
-                            fontWeight = basicTextStyle.fontWeight,
-                            fontFamily = basicTextStyle.fontFamily
-                        ),
-                        start = 36,
-                        end = 47
-                    )
-                }
-            )
-            Spacer(modifier = Modifier.height(54.dp))
-            Image(
-                painter = painterResource(id = R.drawable.img_onboard_illustration2),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f / 1f)
-            )
-        }
+                .fillMaxWidth()
+                .aspectRatio(1f / 1f)
+        )
     }
-
+}
 
 @Preview(showBackground = true)
 @Composable

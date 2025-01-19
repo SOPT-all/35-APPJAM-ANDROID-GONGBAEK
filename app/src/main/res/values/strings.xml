@@ -1,6 +1,21 @@
 <resources>
-    <string name="app_name">GONGBAEK</string>
+    <string name="app_name">공백</string>
 
+    <!--OnboardingScreen-->
+    <string name="splash_title">공강을 백으로 채우다</string>
+    <string name="onboarding_button_next">다음</string>
+    <string name="onboarding_button_start">시작하기</string>
+    <string name="onboarding_1_title">공강시간 원하는 모임 만들기</string>
+    <string name="onboarding_1_description_1">공강이라는 공백, 어떻게 채우고 있나요?\n</string>
+    <string name="onboarding_1_description_2">이제 같은 캠퍼스 친구들과 특별하게 채워보세요.</string>
+    <string name="onboarding_2_title">모임 신청하고 함께 활동하기</string>
+    <string name="onboarding_2_description_1">채우기 탭에서 원하는 모임을 신청하고,\n</string>
+    <string name="onboarding_2_description_2">0이었던 공백을 100으로 알차게 채워보세요!</string>
+    <string name="onboarding_3_title">스페이스에서 모임 멤버와 대화하기</string>
+    <string name="onboarding_3_description_1">공백을 함께 채울 멤버들과\n</string>
+    <string name="onboarding_3_description_2">스페이스에서 대화하며 모임을 준비해보새요!</string>
+
+    <!--MainBottomNavBar-->
     <string name="main_bottom_navbar_group_list">채우기</string>
     <string name="main_bottom_navbar_my_group">나의 채움</string>
     <string name="main_bottom_navbar_home">홈</string>
@@ -72,10 +87,26 @@
     <string name="select_day_calendar_sat">토</string>
     <string name="select_day_calendar_sun">일</string>
 
+    <!-- AuthScreen-->
+    <string name="auth_select_profile_title">프로필 사진을 선택해주세요.</string>
+    <string name="auth_select_profile_description">제공된 프로필 중 하나를 선택할 수 있어요.</string>
+    <string name="auth_nickname_title">닉네임을 설정해주세요.</string>
+    <string name="auth_nickname_description">프로필에 표시되는 이름으로, 언제든 변경할 수 있어요.</string>
+
     <!--MyGroupScreen-->
     <string name="my_group_top_bar_title">나의 채움</string>
     <string name="my_group_active_group_title">현재 활동중인 모임</string>
     <string name="my_group_closed_group_title">종료된 모임</string>
+
+    <!--GroupDetailScreen-->
+    <string name="group_detail_top_bar_title">채우기</string>
+    <string name="group_detail_group_introduction_title">소개글</string>
+    <string name="group_detail_host_profile_title">모집자 프로필</string>
+    <string name="group_detail_enter_year_grade_title">학번/학년</string>
+    <string name="group_detail_enter_year_grade">%1$s학번 %2$s학년</string>
+    <string name="group_detail_mbti_title">MBTI</string>
+    <string name="group_detail_people_counter">%1$s/%2$s명</string>
+    <string name="group_detail_button_apply">신청하기</string>
 
     <!--GroupListScreen-->
     <string name="grouplist_dayofweek_all">전체</string>

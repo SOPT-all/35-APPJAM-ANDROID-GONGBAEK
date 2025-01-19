@@ -4,17 +4,14 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.MyGroupPagerType
-import com.sopt.gongbaek.presentation.ui.component.tabpager.BasicTabPager
+import com.sopt.gongbaek.presentation.ui.component.tabpager.CustomTabPager
 import com.sopt.gongbaek.presentation.ui.component.topbar.CenterTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -46,14 +43,9 @@ fun MyGroupScreen(
             centerTitleResId = R.string.my_group_top_bar_title,
             modifier = Modifier.background(color = GongBaekTheme.colors.white)
         )
-        BasicTabPager(
+        CustomTabPager(
             tabs = myGroupTabs,
             pagerState = pagerState
-        )
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            color = GongBaekTheme.colors.gray02,
-            thickness = 1.dp
         )
         HorizontalPager(
             state = pagerState,

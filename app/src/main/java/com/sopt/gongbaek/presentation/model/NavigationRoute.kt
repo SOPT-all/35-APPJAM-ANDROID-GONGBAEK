@@ -1,9 +1,23 @@
 package com.sopt.gongbaek.presentation.model
 
 object NavigationRoute {
-    object OnboardingNavGraphRoute {
+    object OnboardingNavGraph {
         const val ONBOARDING_NAV_GRAPH = "onboarding_route"
-        const val ONBOARDING = "onboarding"
+        const val ONBOARDING_MAIN = "onboarding"
+    }
+    object AuthNavGraphRoute {
+        const val AUTH_NAV_GRAPH = "auth_route"
+        const val AUTH = "auth"
+        const val SELECT_PROFILE = "select_profile"
+        const val NICKNAME = "nickname"
+        const val UNIV_MAJOR = "univ_major"
+        const val GRADE = "grade"
+        const val MBTI = "mbti"
+        const val GENDER = "gender"
+        const val SELF_INTRODUCTION = "self_introduction"
+        const val ENTER_TIMETABLE = "enter_timetable"
+        const val GAP_TIMETABLE = "gap_timetable"
+        const val COMPLETE_AUTH = "complete_auth"
     }
 
     object MainBottomNavBarTabRoute {

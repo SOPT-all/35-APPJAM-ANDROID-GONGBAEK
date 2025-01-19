@@ -5,10 +5,10 @@ import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.domain.type.CategoryType
 import com.sopt.gongbaek.domain.type.DayOfWeekType
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GradeType
+import com.sopt.gongbaek.domain.type.GroupCategoryType
 import com.sopt.gongbaek.domain.type.GroupCycleType
 import com.sopt.gongbaek.domain.type.MbtiFirstLetterType
 import com.sopt.gongbaek.domain.type.MbtiFourthLetterType
@@ -83,12 +83,12 @@ enum class SelectableButtonType(
     ),
     CATEGORY(
         options = listOf(
-            CategoryType.STUDY.description,
-            CategoryType.DINING.description,
-            CategoryType.EXERCISE.description,
-            CategoryType.NETWORKING.description,
-            CategoryType.PLAYING.description,
-            CategoryType.OTHERS.description
+            GroupCategoryType.STUDY.description,
+            GroupCategoryType.DINING.description,
+            GroupCategoryType.EXERCISE.description,
+            GroupCategoryType.NETWORKING.description,
+            GroupCategoryType.PLAYING.description,
+            GroupCategoryType.OTHERS.description
         ),
         selectedTextColor = defaultGongBaekColors.gray08,
         unSelectedTextColor = defaultGongBaekColors.gray08,

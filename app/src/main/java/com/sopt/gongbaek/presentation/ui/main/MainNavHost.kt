@@ -1,12 +1,12 @@
 package com.sopt.gongbaek.presentation.ui.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.sopt.gongbaek.presentation.model.NavigationRoute
@@ -16,9 +16,10 @@ import com.sopt.gongbaek.presentation.ui.groupregister.navigation.groupRegisterN
 import com.sopt.gongbaek.presentation.ui.grouproom.navigation.groupRoomNavGraph
 import com.sopt.gongbaek.presentation.ui.home.navigation.homeNavGraph
 import com.sopt.gongbaek.presentation.ui.mygroup.navigation.myGroupNavGraph
+import com.sopt.gongbaek.presentation.ui.auth.navigation.authNavGraph
+import com.sopt.gongbaek.presentation.ui.auth.screen.AuthViewModel
 import com.sopt.gongbaek.presentation.ui.onboarding.navigation.onboardingNavGraph
 import com.sopt.gongbaek.presentation.ui.splash.SplashScreen
-import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun MainNavHost(
@@ -26,10 +27,11 @@ fun MainNavHost(
     paddingValues: PaddingValues,
     modifier: Modifier = Modifier
 ) {
+    val authViewModel: AuthViewModel = hiltViewModel()
+
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(GongBaekTheme.colors.white)
             .padding(paddingValues)
     ) {
         NavHost(
@@ -38,6 +40,10 @@ fun MainNavHost(
         ) {
             composable(route = NavigationRoute.SplashRoute.SPLASH) { SplashScreen(navController = navigator.navController) }
             onboardingNavGraph(navigator.navController)
+            authNavGraph(
+                navController = navigator.navController,
+                viewModel = authViewModel
+            )
             groupListNavGraph(navigator.navController)
             groupRegisterNavGraph(navigator.navController)
             groupDetailNavGraph(navigator.navController)

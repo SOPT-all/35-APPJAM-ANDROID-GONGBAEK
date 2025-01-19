@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.onboarding.screen
+package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,12 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun GradeRoute() {
-    GradeScreen()
+fun GenderRoute() {
+    GenderScreen()
 }
 
 @Composable
-fun GradeScreen() {
+fun GenderScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -25,15 +25,15 @@ fun GradeScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "학년 선택 화면"
+            text = "성별 선택 화면"
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ShowGradeScreen() {
+fun ShowGenderScreen() {
     GONGBAEKTheme {
-        GradeScreen()
+        GenderScreen()
     }
 }

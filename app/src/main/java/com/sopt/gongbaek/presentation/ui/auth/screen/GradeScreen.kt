@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.onboarding.screen
+package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,12 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun GapTimeTableRoute() {
-    GapTimeTableScreen()
+fun GradeRoute() {
+    GradeScreen()
 }
 
 @Composable
-fun GapTimeTableScreen() {
+fun GradeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -25,15 +25,15 @@ fun GapTimeTableScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "공강 시간표 화면"
+            text = "학년 선택 화면"
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ShowGapTimeTableScreen() {
+fun ShowGradeScreen() {
     GONGBAEKTheme {
-        GapTimeTableScreen()
+        GradeScreen()
     }
 }

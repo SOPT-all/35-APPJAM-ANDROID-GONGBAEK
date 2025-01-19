@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.onboarding.screen
+package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,12 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun UnivMajorRoute() {
-    UnivMajorScreen()
+fun MbtiRoute() {
+    MbtiScreen()
 }
 
 @Composable
-fun UnivMajorScreen() {
+fun MbtiScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -25,15 +25,15 @@ fun UnivMajorScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "학교/학과 입력 화면"
+            text = "MBTI 화면"
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ShowUnivMajorScreen() {
+fun ShowMbtiScreen() {
     GONGBAEKTheme {
-        UnivMajorScreen()
+        MbtiScreen()
     }
 }

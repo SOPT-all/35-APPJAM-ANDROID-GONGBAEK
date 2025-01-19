@@ -1,23 +1,21 @@
 package com.sopt.gongbaek.domain.type
 
 enum class GenderType(
-    val description: String,
-    val gender: String
+    val description: String
 ) {
     MAN(
-        description = "남자",
-        gender = "MAN"
+        description = "남자"
     ),
     WOMAN(
-        description = "여자",
-        gender = "WOMAN"
+        description = "여자"
     );
 
     companion object {
-        fun toGender(description: String) = when (description) {
-            "남자" -> "MAN"
-            "여자" -> "WOMAN"
-            else -> "UNKNOWN"
-        }
+        fun toGenderType(gender: String): GenderType =
+            when (GenderType.entries.find { it.name == gender }) {
+                MAN -> MAN
+                WOMAN -> WOMAN
+                else -> MAN
+            }
     }
 }

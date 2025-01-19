@@ -59,6 +59,7 @@ dependencies {
     // Core Libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.activity.compose)
 
     // Jetpack Compose
@@ -67,6 +68,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.accompanist.systemuicontroller)
 
     // Hilt
     implementation(libs.hilt.android)

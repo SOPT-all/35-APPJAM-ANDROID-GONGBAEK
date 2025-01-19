@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.onboarding.screen
+package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,12 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
-fun MbtiRoute() {
-    MbtiScreen()
+fun EnterTimeTableRoute() {
+    EnterTimeTableScreen()
 }
 
 @Composable
-fun MbtiScreen() {
+fun EnterTimeTableScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -25,15 +25,15 @@ fun MbtiScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "MBTI 화면"
+            text = "시간표 입력 화면"
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ShowMbtiScreen() {
+fun ShowEnterTimeTableScreen() {
     GONGBAEKTheme {
-        MbtiScreen()
+        EnterTimeTableScreen()
     }
 }

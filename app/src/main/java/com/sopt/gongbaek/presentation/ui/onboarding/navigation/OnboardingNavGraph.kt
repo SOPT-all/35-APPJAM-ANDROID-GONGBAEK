@@ -5,21 +5,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
-import com.sopt.gongbaek.presentation.ui.home.navigation.navigateHome
-import com.sopt.gongbaek.presentation.ui.onboarding.screen.OnboardingRoute
+import com.sopt.gongbaek.presentation.ui.auth.navigation.navigateAuthRoute
+import com.sopt.gongbaek.presentation.ui.onboarding.screen.OnboardingScreen
 
 fun NavGraphBuilder.onboardingNavGraph(
     navController: NavHostController
 ) {
     navigation(
-        startDestination = NavigationRoute.OnboardingNavGraphRoute.ONBOARDING,
-        route = NavigationRoute.OnboardingNavGraphRoute.ONBOARDING_NAV_GRAPH
+        startDestination = NavigationRoute.OnboardingNavGraph.ONBOARDING_MAIN,
+        route = NavigationRoute.OnboardingNavGraph.ONBOARDING_NAV_GRAPH
     ) {
         composable(
-            route = NavigationRoute.OnboardingNavGraphRoute.ONBOARDING
+            route = NavigationRoute.OnboardingNavGraph.ONBOARDING_MAIN
         ) {
-            OnboardingRoute(
-                navigateHome = { navController.navigateHome() }
+            OnboardingScreen(
+                navigateAuth = { navController.navigateAuthRoute() }
             )
         }
     }

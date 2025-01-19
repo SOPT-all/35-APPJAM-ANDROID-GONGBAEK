@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.sopt.gongbaek.presentation.type.MainBottomNavBarTabType
+import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun MainScreen(
@@ -26,6 +27,7 @@ fun MainScreen(
                 onBottomNavBarTabSelected = { navigator.navigate(it) }
             )
         },
+        containerColor = GongBaekTheme.colors.white,
         content = { paddingValues ->
             MainNavHost(
                 navigator = navigator,

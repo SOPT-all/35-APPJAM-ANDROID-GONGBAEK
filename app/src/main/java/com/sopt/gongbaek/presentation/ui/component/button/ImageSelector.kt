@@ -38,7 +38,7 @@ fun ImageSelector(
     imageButtonResIdList: List<Int> = imageSelectorType.imageButtonResIdList,
     selectedAlpha: Float = 0.65f,
     selectedIndex: Int? = null,
-    onIndexSelected: (Int) -> Unit = {},
+    onIndexSelected: (Int) -> Unit = {}
 ) {
     val chunkedImages = imageButtonResIdList.chunked(imageSelectorType.chunkedCount)
     Column(

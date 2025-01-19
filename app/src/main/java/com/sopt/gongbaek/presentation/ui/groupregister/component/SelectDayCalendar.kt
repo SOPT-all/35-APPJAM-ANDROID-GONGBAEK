@@ -39,11 +39,11 @@ import java.time.YearMonth
 
 @Composable
 fun SelectDayCalendar(
-    modifier: Modifier = Modifier
+    onDateSelected: (LocalDate) -> Unit,
+    modifier: Modifier = Modifier,
+    selectedDate: LocalDate?,
 ) {
     val currentDate = LocalDate.now()
-
-    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
     var visibleYearAndMonth by remember { mutableStateOf(currentDate) }
 
     Column(
@@ -64,7 +64,7 @@ fun SelectDayCalendar(
             visibleMonth = visibleYearAndMonth,
             onDateSelected = { date ->
                 if (!date.isBefore(currentDate)) {
-                    selectedDate = date
+                    onDateSelected(date)
                 }
             }
         )
@@ -210,18 +210,5 @@ fun CalendarGrid(
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewSelectDayCalendar() {
-    Column(
-        modifier = Modifier
-            .background(color = GongBaekTheme.colors.white)
-            .padding(20.dp)
-            .fillMaxSize()
-    ) {
-        SelectDayCalendar()
     }
 }

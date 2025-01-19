@@ -88,4 +88,19 @@
     <string name="grouplist_gongbaek_all">모든 공백</string>
     <string name="grouplist_gongbaek_duplicate">겹치는 공백</string>
 
+    <!--GroupRegisterScreen-->
+    <!--GroupCycle-->
+    <string name="groupregister_cycle_title">활동주기를 선택해주세요.</string>
+    <string name="groupregister_cycle_once">한번만 볼래요</string>
+    <string name="groupregister_cycle_weekly">매주 볼래요</string>
+    <string name="groupregister_cycle_weekly_title">매주 볼래요의 경우 모임은 한 학기동안 유효합니다.</string>
+    <string name="groupregister_cycle_weekly_description">1학기는 6월 30일 0시까지, 2학기는 12월 31일 0시까지가 기준입니다.\n모임 개설자는 원한다면 중간에 언제든 모임을 삭제할 수 있습니다.</string>
+
+    <string name="groupregister_next">다음</string>
+
+    <!--GroupSelectDay-->
+    <string name="groupregister_selectday_title">공백을 채울 날짜를 선택해주세요</string>
+    <string name="groupregister_selectdayofweek_title">공백을 채울 요일을 선택해주세요</string>
+
+
 </resources>

@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -225,6 +226,12 @@ private fun CommentSectionTextField(
                 cornerRadius = 6.dp,
                 backgroundColor = GongBaekTheme.colors.gray01
             ),
+        textStyle = TextStyle(
+            color = GongBaekTheme.colors.gray10,
+            fontSize = GongBaekTheme.typography.body1.m16.fontSize,
+            fontWeight = GongBaekTheme.typography.body1.m16.fontWeight,
+            fontFamily =GongBaekTheme.typography.body1.m16.fontFamily
+        ),
         maxLines = 3,
         cursorBrush = SolidColor(GongBaekTheme.colors.gray05)
     ) { innerTextField ->

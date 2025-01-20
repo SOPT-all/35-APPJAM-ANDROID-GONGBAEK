@@ -67,7 +67,7 @@ fun GroupRoomRoute(
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { sideEffect ->
-                when (sideEffect)   {
+                when (sideEffect) {
                     is GroupRoomContract.SideEffect.NavigateMyGroup -> navigateMyGroup()
                 }
             }

@@ -230,7 +230,7 @@ private fun CommentSectionTextField(
             color = GongBaekTheme.colors.gray10,
             fontSize = GongBaekTheme.typography.body1.m16.fontSize,
             fontWeight = GongBaekTheme.typography.body1.m16.fontWeight,
-            fontFamily =GongBaekTheme.typography.body1.m16.fontFamily
+            fontFamily = GongBaekTheme.typography.body1.m16.fontFamily
         ),
         maxLines = 3,
         cursorBrush = SolidColor(GongBaekTheme.colors.gray05)

@@ -198,7 +198,8 @@ fun GroupListScreen(
                     tint = GongBaekTheme.colors.white
                 )
             }
-        }
+        },
+        containerColor = GongBaekTheme.colors.white
     ) { innerPadding ->
         Column(
             modifier = Modifier

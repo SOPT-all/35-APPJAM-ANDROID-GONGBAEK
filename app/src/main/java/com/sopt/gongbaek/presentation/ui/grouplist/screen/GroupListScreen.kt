@@ -38,7 +38,7 @@ import com.sopt.gongbaek.presentation.ui.grouplist.component.CycleBottomSheetPre
 import com.sopt.gongbaek.presentation.ui.grouplist.component.DayOfWeekBar
 import com.sopt.gongbaek.presentation.ui.grouplist.component.GongBaekToggleButton
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
-import com.sopt.gongbaek.presentation.util.extension.createGroupTimeDescription
+import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
@@ -257,7 +257,7 @@ fun GroupListScreen(
                         groupCategory = GroupInfoChipType.getChipTypeFromCategory(groupList.category),
                         groupCycle = GroupInfoChipType.getChipTypeFromCycle(groupList.cycle),
                         groupTitle = groupList.title,
-                        groupTime = createGroupTimeDescription(groupList),
+                        groupTime = formatGroupTimeDescription(groupList),
                         groupPlace = groupList.place,
                         modifier = Modifier
                             .padding(vertical = 12.dp, horizontal = 16.dp)

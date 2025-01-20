@@ -34,7 +34,6 @@ import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSectio
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
-import timber.log.Timber
 
 @Composable
 fun GroupCycleRoute(

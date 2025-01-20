@@ -253,7 +253,8 @@ private fun CommentSectionTextField(
                     .align(Alignment.Bottom)
                     .clickableWithoutRipple(
                         enabled = value.isNotBlank(),
-                        onClick = onSendClicked)
+                        onClick = onSendClicked
+                    )
             )
         }
     }

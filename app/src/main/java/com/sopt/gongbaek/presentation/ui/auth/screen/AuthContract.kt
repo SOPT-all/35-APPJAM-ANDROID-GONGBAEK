@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.auth.screen
 
-import com.sopt.gongbaek.domain.model.TimeTable
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.presentation.util.base.UiEvent
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect

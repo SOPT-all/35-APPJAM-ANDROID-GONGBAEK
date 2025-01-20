@@ -10,7 +10,7 @@ data class GroupInfo(
     val status: String = "",
     val category: String = "",
     val cycle: String = "",
-    val title: String ="",
+    val title: String = "",
     val date: String = "",
     val dayOfWeek: String = "",
     val startTime: Double = 0.0,

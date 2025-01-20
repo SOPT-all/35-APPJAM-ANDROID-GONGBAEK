@@ -1,13 +1,13 @@
 package com.sopt.gongbaek.domain.model
 
-data class GroupComment(
+data class GroupComments(
     val groupId: Int = 0,
     val groupStatus: String = "",
     val groupCycle: String = "",
     val commentCount: Int = 0,
-    val commentList: List<Comment> = listOf()
+    val groupCommentList: List<GroupComment> = listOf()
 ) {
-    data class Comment(
+    data class GroupComment(
         val commentId: Int = 0,
         val commentWriter: String = "",
         val commentContent: String = "",

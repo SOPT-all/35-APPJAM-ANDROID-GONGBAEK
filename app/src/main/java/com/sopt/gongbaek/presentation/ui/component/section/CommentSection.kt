@@ -31,7 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.domain.model.GroupComment
+import com.sopt.gongbaek.domain.model.GroupComments
 import com.sopt.gongbaek.domain.type.GroupStatusType
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
@@ -41,7 +41,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun CommentSection(
-    groupComment: GroupComment,
+    groupComments: GroupComments,
     value: String,
     onValueChanged: (String) -> Unit,
     onRefreshClicked: () -> Unit = {},
@@ -53,7 +53,7 @@ fun CommentSection(
     ) {
         Box(
             modifier = Modifier
-                .showIf(groupComment.groupStatus == GroupStatusType.CLOSED.name)
+                .showIf(groupComments.groupStatus == GroupStatusType.CLOSED.name)
                 .fillMaxWidth()
                 .padding(top = 16.dp)
                 .padding(horizontal = 16.dp)
@@ -72,7 +72,7 @@ fun CommentSection(
         }
 
         CommentSectionHeader(
-            commentCount = groupComment.commentCount,
+            commentCount = groupComments.commentCount,
             onRefreshClicked = onRefreshClicked,
             modifier = Modifier
                 .fillMaxWidth()
@@ -80,7 +80,7 @@ fun CommentSection(
                 .padding(vertical = 16.dp)
         )
 
-        if (groupComment.commentCount == 0) {
+        if (groupComments.commentCount == 0) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -98,9 +98,9 @@ fun CommentSection(
             LazyColumn(
                 modifier = Modifier.weight(1f)
             ) {
-                items(items = groupComment.commentList) { comment ->
+                items(items = groupComments.groupCommentList) { comment ->
                     CommentSectionItem(
-                        comment = comment,
+                        groupComment = comment,
                         onDeleteClicked = onDeleteClicked
                     )
                 }
@@ -112,7 +112,7 @@ fun CommentSection(
             onValueChanged = onValueChanged,
             onSendClicked = onSendClicked,
             modifier = Modifier
-                .showIf(groupComment.groupStatus != GroupStatusType.CLOSED.name)
+                .showIf(groupComments.groupStatus != GroupStatusType.CLOSED.name)
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 10.dp)
         )
@@ -145,7 +145,7 @@ private fun CommentSectionHeader(
 
 @Composable
 private fun CommentSectionItem(
-    comment: GroupComment.Comment,
+    groupComment: GroupComments.GroupComment,
     onDeleteClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -160,13 +160,13 @@ private fun CommentSectionItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = comment.commentWriter,
+                text = groupComment.commentWriter,
                 color = GongBaekTheme.colors.gray10,
                 style = GongBaekTheme.typography.body1.sb16
             )
             Box(
                 modifier = Modifier
-                    .showIf(comment.isGroupHost)
+                    .showIf(groupComment.isGroupHost)
                     .padding(start = 6.dp)
                     .roundedBackgroundWithBorder(
                         cornerRadius = 4.dp,
@@ -181,7 +181,7 @@ private fun CommentSectionItem(
                     style = GongBaekTheme.typography.caption2.m12
                 )
             }
-            if (comment.isWriter) {
+            if (groupComment.isWriter) {
                 Spacer(modifier = Modifier.weight(1f))
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_comment_x_20),
@@ -192,13 +192,13 @@ private fun CommentSectionItem(
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = comment.commentContent,
+            text = groupComment.commentContent,
             color = GongBaekTheme.colors.gray08,
             style = GongBaekTheme.typography.body2.r14
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "${comment.getCreatedMonth()}/${comment.getCreatedDay()}/${comment.getCreatedHour()}:${comment.getCreatedMinute()}",
+            text = "${groupComment.getCreatedMonth()}/${groupComment.getCreatedDay()}/${groupComment.getCreatedHour()}:${groupComment.getCreatedMinute()}",
             color = GongBaekTheme.colors.gray05,
             style = GongBaekTheme.typography.caption2.r12
         )
@@ -274,13 +274,13 @@ private fun CommentSectionPreview() {
         var value by remember { mutableStateOf("") }
         val onValueChanged: (String) -> Unit = { newValue -> value = newValue }
         CommentSection(
-            groupComment = GroupComment(
+            groupComments = GroupComments(
                 groupId = 1,
                 groupStatus = "CLOSED",
                 groupCycle = "ONCE",
                 commentCount = 6,
-                commentList = listOf(
-                    GroupComment.Comment(
+                groupCommentList = listOf(
+                    GroupComments.GroupComment(
                         commentId = 1,
                         commentWriter = "파이리",
                         commentContent = "어디서 만나는거임?",
@@ -288,7 +288,7 @@ private fun CommentSectionPreview() {
                         isGroupHost = false,
                         isWriter = false
                     ),
-                    GroupComment.Comment(
+                    GroupComments.GroupComment(
                         commentId = 1,
                         commentWriter = "로이임탄",
                         commentContent = "음 아직 안정하긴 했는데 아마 학교 주변 1km 이내일 것 같아요!",
@@ -296,7 +296,7 @@ private fun CommentSectionPreview() {
                         isGroupHost = true,
                         isWriter = true
                     ),
-                    GroupComment.Comment(
+                    GroupComments.GroupComment(
                         commentId = 1,
                         commentWriter = "훈발놈",
                         commentContent = "저도 아싸라서 친구가 없어요...",
@@ -319,12 +319,12 @@ private fun EmptyCommentSectionPreview() {
         var value by remember { mutableStateOf("") }
         val onValueChanged: (String) -> Unit = { newValue -> value = newValue }
         CommentSection(
-            groupComment = GroupComment(
+            groupComments = GroupComments(
                 groupId = 1,
                 groupStatus = "RECRUITING",
                 groupCycle = "ONCE",
                 commentCount = 0,
-                commentList = listOf()
+                groupCommentList = listOf()
             ),
             value = value,
             onValueChanged = onValueChanged
@@ -348,7 +348,7 @@ private fun CommentSectionHeaderPreview() {
 private fun CommentSectionItemPreview() {
     GONGBAEKTheme {
         CommentSectionItem(
-            comment = GroupComment.Comment(
+            groupComment = GroupComments.GroupComment(
                 commentId = 1,
                 commentWriter = "로이임탄",
                 commentContent = "음 아직 안정하긴 했는데 아마 학교 주변 1km 이내일 것 같아요!",

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.domain.model.GroupComment
+import com.sopt.gongbaek.domain.model.GroupComments
 import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.presentation.type.GroupDetailPagerType
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
@@ -38,7 +38,7 @@ fun GroupDetailRoute(
 @Composable
 fun GroupDetailScreen(
     groupInfo: GroupInfo,
-    groupComment: GroupComment,
+    groupComments: GroupComments,
     navigateGroupRoom: () -> Unit
 ) {
     val groupDetailTabs: List<String> = GroupDetailPagerType.entries.map { it.description }
@@ -83,7 +83,7 @@ fun GroupDetailScreen(
                     )
 
                     1 -> GroupDetailCommentScreen(
-                        groupComment = groupComment,
+                        groupComments = groupComments,
                         value = "",
                         onValueChanged = {},
                         onRefreshClicked = {},
@@ -119,13 +119,13 @@ private fun GroupDetailScreenPreview() {
                 isHost = true,
                 isApply = true
             ),
-            groupComment = GroupComment(
+            groupComments = GroupComments(
                 groupId = 1,
                 groupStatus = "RECRUITED",
                 groupCycle = "ONCE",
                 commentCount = 6,
-                commentList = listOf(
-                    GroupComment.Comment(
+                groupCommentList = listOf(
+                    GroupComments.GroupComment(
                         commentId = 1,
                         commentWriter = "파이리",
                         commentContent = "어디서 만나는거임?",
@@ -133,7 +133,7 @@ private fun GroupDetailScreenPreview() {
                         isGroupHost = false,
                         isWriter = false
                     ),
-                    GroupComment.Comment(
+                    GroupComments.GroupComment(
                         commentId = 1,
                         commentWriter = "로이임탄",
                         commentContent = "음 아직 안정하긴 했는데 아마 학교 주변 1km 이내일 것 같아요!",
@@ -141,7 +141,7 @@ private fun GroupDetailScreenPreview() {
                         isGroupHost = true,
                         isWriter = true
                     ),
-                    GroupComment.Comment(
+                    GroupComments.GroupComment(
                         commentId = 1,
                         commentWriter = "훈발놈",
                         commentContent = "저도 아싸라서 친구가 없어요...",
@@ -149,7 +149,7 @@ private fun GroupDetailScreenPreview() {
                         isGroupHost = false,
                         isWriter = false
                     ),
-                    GroupComment.Comment(
+                    GroupComments.GroupComment(
                         commentId = 1,
                         commentWriter = "훈발놈",
                         commentContent = "저도 아싸라서 친구가 없어요...",

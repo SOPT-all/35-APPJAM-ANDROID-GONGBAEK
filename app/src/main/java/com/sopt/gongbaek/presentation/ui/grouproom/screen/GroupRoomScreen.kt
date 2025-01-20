@@ -52,7 +52,7 @@ import com.sopt.gongbaek.presentation.ui.component.section.GroupPlaceDescription
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
-import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
+import com.sopt.gongbaek.presentation.util.groupRegisterTimeDescriptionCreator
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
@@ -118,7 +118,7 @@ fun GroupRoomScreen(
                     groupCategory = GroupInfoChipType.getChipTypeFromCategory(uiState.groupInfo.category),
                     groupCycle = GroupInfoChipType.getChipTypeFromCycle(uiState.groupInfo.cycle),
                     groupTitle = uiState.groupInfo.title,
-                    groupTime = formatGroupTimeDescription(uiState.groupInfo),
+                    groupTime = groupRegisterTimeDescriptionCreator(uiState.groupInfo),
                     groupPlace = uiState.groupInfo.place,
                     modifier = Modifier.padding(top = 2.dp)
                 )

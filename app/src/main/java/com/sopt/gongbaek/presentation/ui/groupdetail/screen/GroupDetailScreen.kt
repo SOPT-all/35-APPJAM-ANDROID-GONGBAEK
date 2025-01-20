@@ -21,7 +21,7 @@ import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.ui.component.section.GroupInfoSection
 import com.sopt.gongbaek.presentation.ui.component.tabpager.CustomTabPager
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
-import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
+import com.sopt.gongbaek.presentation.util.groupRegisterTimeDescriptionCreator
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
@@ -57,7 +57,7 @@ fun GroupDetailScreen(
             groupCategory = GroupInfoChipType.getChipTypeFromCategory(groupInfo.category),
             groupCycle = GroupInfoChipType.getChipTypeFromCycle(groupInfo.cycle),
             groupTitle = groupInfo.title,
-            groupTime = formatGroupTimeDescription(groupInfo),
+            groupTime = groupRegisterTimeDescriptionCreator(groupInfo),
             groupPlace = groupInfo.place,
             modifier = Modifier
                 .background(color = GongBaekTheme.colors.white)

@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.type
 
 import androidx.annotation.DrawableRes
 import com.sopt.gongbaek.R
+import com.sopt.gongbaek.domain.type.GroupCategoryType
 
 enum class ImageSelectorType(
     @DrawableRes val imageButtonResIdList: List<Int>,
@@ -62,12 +63,12 @@ enum class ImageSelectorType(
 
     companion object {
         private val categoryIndexRanges = mapOf(
-            "STUDY" to 0..5,
-            "DINING" to 6..11,
-            "EXERCISE" to 12..17,
-            "PLAYING" to 18..23,
-            "NETWORKING" to 24..29,
-            "OTHERS" to 30..35
+            GroupCategoryType.STUDY.name to 0..5,
+            GroupCategoryType.DINING.name to 6..11,
+            GroupCategoryType.EXERCISE.name to 12..17,
+            GroupCategoryType.PLAYING.name to 18..23,
+            GroupCategoryType.NETWORKING.name to 24..29,
+            GroupCategoryType.OTHERS.name to 30..35
         )
 
         fun getImageListFromCategory(category: String): List<Int> {

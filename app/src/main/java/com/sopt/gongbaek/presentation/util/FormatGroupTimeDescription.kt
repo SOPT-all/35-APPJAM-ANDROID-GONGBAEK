@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-fun groupRegisterTimeDescriptionCreator(groupInfo: GroupInfo): String {
+fun formatGroupTimeDescription(groupInfo: GroupInfo): String {
     val groupCycle = groupInfo.getGroupCycleType()
 
     val startHour = groupInfo.startTime.toInt()
@@ -33,8 +33,8 @@ fun groupRegisterTimeDescriptionCreator(groupInfo: GroupInfo): String {
     }
 }
 
-fun getKoreanDayOfWeek(dayOfWeek: String): String {
-    return when (dayOfWeek.uppercase()) {
+fun getKoreanDayOfWeek(weekDay: String): String {
+    return when (weekDay.uppercase()) {
         "MON" -> "월요일"
         "TUE" -> "화요일"
         "WED" -> "수요일"

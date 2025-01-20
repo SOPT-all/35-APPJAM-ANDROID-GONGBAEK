@@ -28,6 +28,10 @@ class GroupRegisterViewModel @Inject constructor() :
                     )
                 }
             }
+
+            is GroupRegisterContract.Event.OnCategorySelected -> {
+                updateGroupRegisterInfo { copy(category = setCategory(event.category)) }
+            }
         }
     }
 

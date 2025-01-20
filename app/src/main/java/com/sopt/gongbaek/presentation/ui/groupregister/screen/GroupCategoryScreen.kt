@@ -6,21 +6,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
+import com.sopt.gongbaek.presentation.type.SelectableButtonType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.GroupCategorySelectableButtons
+import timber.log.Timber
 
 @Composable
 fun GroupCategoryRoute(
@@ -28,34 +31,58 @@ fun GroupCategoryRoute(
     navigateGroupCover: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    Timber.d("ㅋㅋㅋ ${uiState.groupRegisterInfo.category}")
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateGroupCover -> navigateGroupCover()
+                    else -> {}
+                }
+            }
+    }
+
     GroupCategoryScreen(
-        navigateGroupCover = navigateGroupCover,
-        navigateBack = navigateBack
+        selectedOption = SelectableButtonType.formatCategoryOptionToDescription(uiState.groupRegisterInfo.category),
+        onSelectedOption = { selectedOption ->
+            viewModel.setEvent(
+                GroupRegisterContract.Event.OnCategorySelected(selectedOption)
+            )
+        },
+        onNextButtonClicked = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateGroupCover)
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+        }
     )
 }
 
 @Composable
 fun GroupCategoryScreen(
-    navigateGroupCover: () -> Unit,
-    navigateBack: () -> Unit
+    selectedOption: String,
+    onSelectedOption: (String) -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onBackClick: () -> Unit
 ) {
-    var selectedOption by remember { mutableStateOf("") }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         GroupCategorySection(
             selectedOption = selectedOption,
-            onOptionSelected = {
-                selectedOption = it
-            },
-            onBackClick = navigateBack
+            onOptionSelected = onSelectedOption,
+            onBackClick = onBackClick
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = navigateGroupCover,
+            onClick = onNextButtonClicked,
             enabled = selectedOption.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -103,7 +130,9 @@ private fun GroupCategorySection(
 @Composable
 fun ShowGroupCategoryScreen() {
     GroupCategoryScreen(
-        navigateGroupCover = {},
-        navigateBack = {}
+        selectedOption = "",
+        onSelectedOption = {},
+        onNextButtonClicked = {},
+        onBackClick = {}
     )
 }

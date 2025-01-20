@@ -1,6 +1,7 @@
 package com.sopt.gongbaek.domain.model
 
 import com.sopt.gongbaek.domain.type.DayOfWeekType
+import com.sopt.gongbaek.domain.type.GroupCategoryType
 import com.sopt.gongbaek.domain.type.GroupCycleType
 
 data class GroupRegisterInfo(
@@ -24,4 +25,7 @@ data class GroupRegisterInfo(
 
     fun setWeekDay(description: String): String =
         DayOfWeekType.entries.find { it.description == description }?.name ?: ""
+
+    fun setCategory(description: String): String =
+        GroupCategoryType.entries.find { it.description == description }?.name ?: ""
 }

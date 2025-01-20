@@ -15,6 +15,7 @@ class GroupRegisterContract {
         data class OnGroupCycleSelected(val groupType: String) : Event()
         data class OnDayOfWeekSelected(val weekDay: String) : Event()
         data class OnWeekDateAndDaySelected(val weekDate: LocalDate, val weekDay: String) : Event()
+        data class OnCategorySelected(val category: String) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
@@ -24,5 +25,9 @@ class GroupRegisterContract {
         data object NavigateDayOfWeek : SideEffect
 
         data object NavigateGroupTime : SideEffect
+
+        data object NavigateGroupCategory: SideEffect
+
+        data object NavigateGroupCover: SideEffect
     }
 }

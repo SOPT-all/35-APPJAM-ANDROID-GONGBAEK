@@ -17,4 +17,7 @@ data class GroupRegisterInfo(
     val introduction: String = ""
 ) {
     fun getGroupType() = GroupCycleType.entries.find { it.name == this.groupType }
+
+    fun setGroupType(description: String): String =
+        GroupCycleType.entries.find { it.description == description }?.name ?: ""
 }

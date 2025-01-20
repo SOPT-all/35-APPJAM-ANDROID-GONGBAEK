@@ -23,7 +23,6 @@ import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSectio
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.SelectDayCalendar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
-import timber.log.Timber
 import java.time.LocalDate
 
 @Composable
@@ -33,7 +32,6 @@ fun SelectDayRoute(
     navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    Timber.d("ㅋㅋㅋ ${uiState.groupRegisterInfo.weekDate}")
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

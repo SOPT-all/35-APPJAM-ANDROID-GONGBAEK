@@ -53,6 +53,7 @@ fun GroupCycleRoute(
                     GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
                     GroupRegisterContract.SideEffect.NavigateDay -> navigateDay()
                     GroupRegisterContract.SideEffect.NavigateDayOfWeek -> navigateDayOfWeek()
+                    else -> {}
                 }
             }
     }
@@ -66,8 +67,8 @@ fun GroupCycleRoute(
         },
         onNextButtonClicked = {
             when (uiState.groupRegisterInfo.groupType) {
-                GroupCycleType.ONCE.name -> navigateDay()
-                GroupCycleType.WEEKLY.name -> navigateDayOfWeek()
+                GroupCycleType.ONCE.name -> viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateDay)
+                GroupCycleType.WEEKLY.name -> viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateDayOfWeek)
             }
         },
         onBackClick = {

@@ -12,11 +12,15 @@ class GroupRegisterContract {
 
     sealed class Event : UiEvent {
         data class OnGroupCycleSelected(val groupType: String) : Event()
+        data class OnDayOfWeekSelected(val weekDay: String) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateBack : SideEffect
+
         data object NavigateDay : SideEffect
         data object NavigateDayOfWeek : SideEffect
+
+        data object NavigateGroupTime : SideEffect
     }
 }

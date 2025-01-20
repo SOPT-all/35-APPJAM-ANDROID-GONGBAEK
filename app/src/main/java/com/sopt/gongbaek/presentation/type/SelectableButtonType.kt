@@ -109,5 +109,15 @@ enum class SelectableButtonType(
                 GroupCycleType.WEEKLY.name -> GroupCycleType.WEEKLY.description
                 else -> ""
             }
+
+        fun formatDayOfWeekOptionToDescription(selectedDayOfWeek: String): String =
+            when (selectedDayOfWeek) {
+                DayOfWeekType.MON.name -> DayOfWeekType.MON.description
+                DayOfWeekType.TUE.name -> DayOfWeekType.TUE.description
+                DayOfWeekType.WED.name -> DayOfWeekType.WED.description
+                DayOfWeekType.THU.name -> DayOfWeekType.THU.description
+                DayOfWeekType.FRI.name -> DayOfWeekType.FRI.description
+                else -> ""
+            }
     }
 }

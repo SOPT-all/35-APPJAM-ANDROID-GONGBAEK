@@ -15,6 +15,10 @@ class GroupRegisterViewModel @Inject constructor() :
             is GroupRegisterContract.Event.OnGroupCycleSelected -> {
                 updateGroupRegisterInfo { copy(groupType = setGroupType(event.groupType)) }
             }
+
+            is GroupRegisterContract.Event.OnDayOfWeekSelected -> {
+                updateGroupRegisterInfo { copy(weekDay = setWeekDay(event.weekDay)) }
+            }
         }
     }
 

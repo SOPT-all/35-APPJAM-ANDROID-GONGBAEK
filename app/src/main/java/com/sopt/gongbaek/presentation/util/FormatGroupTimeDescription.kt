@@ -23,10 +23,12 @@ fun formatGroupTimeDescription(groupInfo: GroupInfo): String {
             val formattedDate = date.format(DateTimeFormatter.ofPattern("M/d E", Locale.KOREAN))
             "$formattedDate $startTimeString - $endTimeString"
         }
+
         GroupCycleType.WEEKLY -> {
             val dayOfWeek = getKoreanDayOfWeek(groupInfo.dayOfWeek)
             "매주 $dayOfWeek $startTimeString - $endTimeString"
         }
+
         else -> "시간을 불러올 수 없습니다."
     }
 }

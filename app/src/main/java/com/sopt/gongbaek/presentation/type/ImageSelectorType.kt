@@ -10,7 +10,7 @@ enum class ImageSelectorType(
 ) {
     Profile(
         imageButtonResIdList = listOf(
-            R.drawable.img_btn_profile_2,
+            R.drawable.img_btn_profile_1,
             R.drawable.img_btn_profile_2,
             R.drawable.img_btn_profile_3,
             R.drawable.img_btn_profile_4,

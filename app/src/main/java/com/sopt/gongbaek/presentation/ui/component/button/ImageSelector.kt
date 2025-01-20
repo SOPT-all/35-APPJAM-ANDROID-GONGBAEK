@@ -52,7 +52,7 @@ fun ImageSelector(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 imageRow.forEachIndexed { columnIndex, imageResId ->
-                    val imageIndex = rowIndex * imageSelectorType.chunkedCount + columnIndex
+                    val imageIndex = (rowIndex * imageSelectorType.chunkedCount) + columnIndex + 1
                     Box(
                         modifier = modifier
                             .weight(1f)

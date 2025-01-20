@@ -35,12 +35,12 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun ImageSelector(
     imageSelectorType: ImageSelectorType,
     modifier: Modifier = Modifier,
+    imageButtonResIdList: List<Int> = imageSelectorType.imageButtonResIdList,
     selectedAlpha: Float = 0.65f,
     selectedIndex: Int? = null,
     onIndexSelected: (Int) -> Unit = {}
 ) {
-    val chunkedImages =
-        imageSelectorType.imageButtonResIdList.chunked(imageSelectorType.chunkedCount)
+    val chunkedImages = imageButtonResIdList.chunked(imageSelectorType.chunkedCount)
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {

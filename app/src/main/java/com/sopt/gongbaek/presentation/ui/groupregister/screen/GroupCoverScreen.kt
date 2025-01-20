@@ -31,7 +31,10 @@ fun GroupCoverRoute(
     navigateGroupPlacePeople: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val category = "STUDY"
+
     GroupCoverScreen(
+        category = category,
         navigateGroupPlacePeople = navigateGroupPlacePeople,
         navigateBack = navigateBack
     )
@@ -39,6 +42,7 @@ fun GroupCoverRoute(
 
 @Composable
 fun GroupCoverScreen(
+    category: String,
     navigateGroupPlacePeople: () -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -49,6 +53,7 @@ fun GroupCoverScreen(
             .fillMaxSize()
     ) {
         GroupCoverSection(
+            imageList = ImageSelectorType.getImageListFromCategory(category),
             onBackClick = navigateBack,
             onIndexSelected = {
                 selectedCoverIndex = it
@@ -63,13 +68,13 @@ fun GroupCoverScreen(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
-
         )
     }
 }
 
 @Composable
 private fun GroupCoverSection(
+    imageList: List<Int>,
     onBackClick: () -> Unit,
     onIndexSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -98,6 +103,8 @@ private fun GroupCoverSection(
                 imageSelectorType = ImageSelectorType.Cover,
                 modifier = Modifier
                     .aspectRatio(16f / 13f),
+                imageButtonResIdList = imageList,
+                selectedAlpha = 0.6f,
                 selectedIndex = selectedCoverIndex,
                 onIndexSelected = onIndexSelected
             )
@@ -108,8 +115,10 @@ private fun GroupCoverSection(
 @Preview
 @Composable
 fun ShowGroupCoverScreen() {
+    val category = "EXERCISE"
     GONGBAEKTheme {
         GroupCoverScreen(
+            category = category,
             navigateGroupPlacePeople = {},
             navigateBack = {}
         )

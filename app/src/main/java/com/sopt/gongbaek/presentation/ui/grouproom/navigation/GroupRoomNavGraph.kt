@@ -8,6 +8,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.grouproom.screen.GroupRoomRoute
+import com.sopt.gongbaek.presentation.ui.mygroup.navigation.navigateMyGroup
 
 fun NavGraphBuilder.groupRoomNavGraph(
     navController: NavHostController
@@ -22,12 +23,9 @@ fun NavGraphBuilder.groupRoomNavGraph(
                 navArgument("groupId") { type = NavType.IntType },
                 navArgument("groupCycle") { type = NavType.StringType }
             )
-        ) { backStackEntry ->
-            val groupId = backStackEntry.arguments?.getInt("groupId") ?: 0
-            val groupCycle = backStackEntry.arguments?.getString("groupCycle") ?: ""
+        ) {
             GroupRoomRoute(
-                groupId = groupId,
-                groupCycle = groupCycle
+                navigateMyGroup = { navController.navigateMyGroup() }
             )
         }
     }

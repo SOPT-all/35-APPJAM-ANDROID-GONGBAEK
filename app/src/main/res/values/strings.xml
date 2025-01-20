@@ -80,7 +80,7 @@
     <string name="grouproom_people_chip_host">모집자</string>
 
     <!--SelectDayCalendar-->
-    <string name="select_day_calendar_year_month">%d년 %d월</string>
+    <string name="select_day_calendar_year_month">%1$d년 %2$d월</string>
     <string name="select_day_calendar_mon">월</string>
     <string name="select_day_calendar_tue">화</string>
     <string name="select_day_calendar_wed">수</string>

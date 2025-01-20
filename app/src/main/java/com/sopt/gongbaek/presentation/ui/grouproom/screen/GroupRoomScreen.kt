@@ -276,7 +276,7 @@ private fun GroupRoomScreenPreview1() {
         GroupRoomScreen(
             uiState = GroupRoomContract.State(
                 groupInfo = GroupInfo(
-                    status = "RECRUITING",
+                    status = "CLOSED",
                     category = "PLAYING",
                     cycle = "WEEKLY",
                     title = "화석의 튜스데이 점심 클럽",
@@ -312,7 +312,7 @@ private fun GroupRoomScreenPreview1() {
                     )
                 ),
                 groupComments = GroupComments(
-                    groupStatus = "RECRUITING",
+                    groupStatus = "CLOSED",
                     groupCycle = "WEEKLY",
                     commentCount = 0,
                     groupCommentList = listOf(

@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.util
+package com.sopt.gongbaek.presentation.util.base
 
 enum class UiLoadState {
     Idle,

@@ -40,7 +40,9 @@
     <string name="topbar_my_group">나의 채움</string>
 
     <!--CommentSection -->
+    <string name="comment_section_group_closed_description">해당 모임이 종료되어 더 이상 댓글을 작성할 수 없습니다.</string>
     <string name="comment_section_header">댓글 %1$s개</string>
+    <string name="comment_section_empty_description">아직 댓글이 없어요!\n궁금한 것을 댓글로 작성해주세요.</string>
     <string name="comment_section_comment_writer_chip">모집자</string>
     <string name="comment_section_text_field_placeholder">댓글을 작성해주세요.</string>
 

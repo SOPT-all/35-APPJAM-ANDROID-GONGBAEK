@@ -31,8 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.GroupComment
+import com.sopt.gongbaek.domain.type.GroupStatusType
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
+import com.sopt.gongbaek.presentation.util.extension.showIf
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
@@ -48,6 +50,26 @@ fun CommentSection(
     Column(
         modifier = Modifier.background(color = GongBaekTheme.colors.white)
     ) {
+        Box(
+            modifier = Modifier
+                .showIf(groupComment.groupStatus == GroupStatusType.CLOSED.name)
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+                .padding(horizontal = 16.dp)
+                .roundedBackgroundWithBorder(
+                    cornerRadius = 6.dp,
+                    backgroundColor = GongBaekTheme.colors.subOrange
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(R.string.comment_section_group_closed_description),
+                modifier = Modifier.padding(vertical = 14.dp),
+                color = GongBaekTheme.colors.errorRed,
+                style = GongBaekTheme.typography.body2.m14
+            )
+        }
+
         CommentSectionHeader(
             commentCount = groupComment.commentCount,
             onRefreshClicked = onRefreshClicked,
@@ -89,6 +111,7 @@ fun CommentSection(
             onValueChanged = onValueChanged,
             onSendClicked = onSendClicked,
             modifier = Modifier
+                .showIf(groupComment.groupStatus != GroupStatusType.CLOSED.name)
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 10.dp)
         )
@@ -140,23 +163,22 @@ private fun CommentSectionItem(
                 color = GongBaekTheme.colors.gray10,
                 style = GongBaekTheme.typography.body1.sb16
             )
-            if (comment.isGroupHost) {
-                Box(
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .roundedBackgroundWithBorder(
-                            cornerRadius = 4.dp,
-                            backgroundColor = GongBaekTheme.colors.gray01
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(R.string.comment_section_comment_writer_chip),
-                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp),
-                        color = GongBaekTheme.colors.mainOrange,
-                        style = GongBaekTheme.typography.caption2.m12
-                    )
-                }
+            Box(
+                modifier = Modifier
+                    .showIf(comment.isGroupHost)
+                    .padding(start = 6.dp)
+                    .roundedBackgroundWithBorder(
+                        cornerRadius = 4.dp,
+                        backgroundColor = GongBaekTheme.colors.gray01
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(R.string.comment_section_comment_writer_chip),
+                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp),
+                    color = GongBaekTheme.colors.mainOrange,
+                    style = GongBaekTheme.typography.caption2.m12
+                )
             }
             if (comment.isWriter) {
                 Spacer(modifier = Modifier.weight(1f))
@@ -244,7 +266,7 @@ private fun CommentSectionPreview() {
         CommentSection(
             groupComment = GroupComment(
                 groupId = 1,
-                groupStatus = "RECRUITING",
+                groupStatus = "CLOSED",
                 groupCycle = "ONCE",
                 commentCount = 6,
                 commentList = listOf(

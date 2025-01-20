@@ -23,7 +23,6 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.GroupCategorySelectableButtons
-import timber.log.Timber
 
 @Composable
 fun GroupCategoryRoute(
@@ -32,7 +31,6 @@ fun GroupCategoryRoute(
     navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    Timber.d("ㅋㅋㅋ ${uiState.groupRegisterInfo.category}")
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

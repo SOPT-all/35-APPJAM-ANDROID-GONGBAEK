@@ -26,8 +26,8 @@ class GroupRegisterContract {
 
         data object NavigateGroupTime : SideEffect
 
-        data object NavigateGroupCategory: SideEffect
+        data object NavigateGroupCategory : SideEffect
 
-        data object NavigateGroupCover: SideEffect
+        data object NavigateGroupCover : SideEffect
     }
 }

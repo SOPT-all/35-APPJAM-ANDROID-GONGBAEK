@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.presentation.type.GroupCategoryCoverType
 import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.button.ImageSelector
@@ -49,14 +48,12 @@ fun GroupCoverScreen(
 ) {
     var selectedCoverIndex by remember { mutableStateOf<Int?>(null) }
 
-    val imageList = GroupCategoryCoverType.valueOf(category).imageIds
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         GroupCoverSection(
-            imageList = imageList,
+            imageList = ImageSelectorType.getImageListFromCategory(category),
             onBackClick = navigateBack,
             onIndexSelected = {
                 selectedCoverIndex = it
@@ -104,9 +101,9 @@ private fun GroupCoverSection(
 
             ImageSelector(
                 imageSelectorType = ImageSelectorType.Cover,
-                imageButtonResIdList = imageList,
                 modifier = Modifier
                     .aspectRatio(16f / 13f),
+                imageButtonResIdList = imageList,
                 selectedAlpha = 0.6f,
                 selectedIndex = selectedCoverIndex,
                 onIndexSelected = onIndexSelected
@@ -118,7 +115,7 @@ private fun GroupCoverSection(
 @Preview
 @Composable
 fun ShowGroupCoverScreen() {
-    val category = "OTHERS"
+    val category = "EXERCISE"
     GONGBAEKTheme {
         GroupCoverScreen(
             category = category,

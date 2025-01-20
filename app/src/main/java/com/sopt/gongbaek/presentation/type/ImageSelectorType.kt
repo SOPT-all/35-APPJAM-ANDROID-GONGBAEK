@@ -20,13 +20,59 @@ enum class ImageSelectorType(
     ),
     Cover(
         imageButtonResIdList = listOf(
-            R.drawable.img_image_button_sample,
-            R.drawable.img_image_button_sample,
-            R.drawable.img_image_button_sample,
-            R.drawable.img_image_button_sample,
-            R.drawable.img_image_button_sample,
-            R.drawable.img_image_button_sample
+            R.drawable.img_study_1,
+            R.drawable.img_study_2,
+            R.drawable.img_study_3,
+            R.drawable.img_study_4,
+            R.drawable.img_study_5,
+            R.drawable.img_study_6,
+            R.drawable.img_dining_1,
+            R.drawable.img_dining_2,
+            R.drawable.img_dining_3,
+            R.drawable.img_dining_4,
+            R.drawable.img_dining_5,
+            R.drawable.img_dining_6,
+            R.drawable.img_exercise_1,
+            R.drawable.img_exercise_2,
+            R.drawable.img_exercise_3,
+            R.drawable.img_exercise_4,
+            R.drawable.img_exercise_5,
+            R.drawable.img_exercise_6,
+            R.drawable.img_playing_1,
+            R.drawable.img_playing_2,
+            R.drawable.img_playing_3,
+            R.drawable.img_playing_4,
+            R.drawable.img_playing_5,
+            R.drawable.img_playing_6,
+            R.drawable.img_networking_1,
+            R.drawable.img_networking_2,
+            R.drawable.img_networking_3,
+            R.drawable.img_networking_4,
+            R.drawable.img_networking_5,
+            R.drawable.img_networking_6,
+            R.drawable.img_others_1,
+            R.drawable.img_others_2,
+            R.drawable.img_others_3,
+            R.drawable.img_others_4,
+            R.drawable.img_others_5,
+            R.drawable.img_others_6
         ),
         chunkedCount = 2
-    )
+    );
+
+    companion object {
+        private val categoryIndexRanges = mapOf(
+            "STUDY" to 0..5,
+            "DINING" to 6..11,
+            "EXERCISE" to 12..17,
+            "PLAYING" to 18..23,
+            "NETWORKING" to 24..29,
+            "OTHERS" to 30..35
+        )
+
+        fun getImageListFromCategory(category: String): List<Int> {
+            val range = categoryIndexRanges[category] ?: return emptyList()
+            return Cover.imageButtonResIdList.slice(range)
+        }
+    }
 }

@@ -23,6 +23,7 @@ import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSectio
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.SelectDayCalendar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
+import timber.log.Timber
 import java.time.LocalDate
 
 @Composable
@@ -52,7 +53,7 @@ fun SelectDayRoute(
         },
         onSelectedDate = { selectedDate ->
             viewModel.setEvent(
-                GroupRegisterContract.Event.OnWeekDateSelected(selectedDate)
+                GroupRegisterContract.Event.OnWeekDateAndDaySelected(selectedDate, selectedDate.dayOfWeek.toString().take(3))
             )
         },
         onNextButtonClicked = {

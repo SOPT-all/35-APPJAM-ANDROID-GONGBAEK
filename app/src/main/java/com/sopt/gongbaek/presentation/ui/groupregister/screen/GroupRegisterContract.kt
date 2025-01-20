@@ -14,7 +14,7 @@ class GroupRegisterContract {
     sealed class Event : UiEvent {
         data class OnGroupCycleSelected(val groupType: String) : Event()
         data class OnDayOfWeekSelected(val weekDay: String) : Event()
-        data class OnWeekDateSelected(val weekDate: LocalDate) : Event()
+        data class OnWeekDateAndDaySelected(val weekDate: LocalDate, val weekDay: String) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {

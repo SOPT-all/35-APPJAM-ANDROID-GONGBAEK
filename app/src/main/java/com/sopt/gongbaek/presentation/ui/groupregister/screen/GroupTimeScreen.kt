@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
@@ -29,8 +31,8 @@ fun GroupTimeRoute(
     navigateGroupCategory: () -> Unit,
     navigateBack: () -> Unit
 ) {
-    val timeSlotLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
-    val selectedDay = "금"
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     val lectureTime = mapOf(
         "월" to listOf(0, 1, 2, 3, 4, 5, 6),
@@ -43,8 +45,7 @@ fun GroupTimeRoute(
     var selectedTimeSlotsByDay by remember { mutableStateOf<Map<String, List<Int>>>(emptyMap()) }
 
     GroupTimeScreen(
-        timeSlotLabels = timeSlotLabels,
-        selectedDay = selectedDay,
+        selectedDay = uiState.groupRegisterInfo.weekDay,
         lectureTime = lectureTime,
         selectedTimeSlotsByDay = selectedTimeSlotsByDay,
         onTimeSlotSelectionChange = { day, updatedIndices ->
@@ -59,7 +60,7 @@ fun GroupTimeRoute(
 
 @Composable
 fun GroupTimeScreen(
-    timeSlotLabels: List<String>,
+    timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
     selectedDay: String,
     lectureTime: Map<String, List<Int>>,
     selectedTimeSlotsByDay: Map<String, List<Int>>,

@@ -130,7 +130,6 @@ private fun GradeSelectionSection(
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.GRADE,
-                options = SelectableButtonType.GRADE.options,
                 onOptionSelected = { option -> selectedOption1 = option },
                 selectedOption = selectedOption1
             )

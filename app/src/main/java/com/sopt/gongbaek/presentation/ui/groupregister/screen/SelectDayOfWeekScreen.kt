@@ -94,7 +94,6 @@ private fun SelectDayOfWeekSection(
 
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.DAY_OF_WEEK,
-                options = SelectableButtonType.DAY_OF_WEEK.options,
                 onOptionSelected = onOptionSelected,
                 selectedOption = selectedOption
             )

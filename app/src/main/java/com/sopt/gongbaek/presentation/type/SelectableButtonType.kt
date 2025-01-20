@@ -100,5 +100,15 @@ enum class SelectableButtonType(
             R.drawable.img_category_playing,
             R.drawable.img_category_others
         )
-    )
+    );
+
+    companion object {
+        fun formatCycleOptionToDescription(selectedCycle: String): String =
+            when(selectedCycle) {
+                GroupCycleType.ONCE.name -> GroupCycleType.ONCE.description
+                GroupCycleType.WEEKLY.name -> GroupCycleType.WEEKLY.description
+                else -> ""
+            }
+
+    }
 }

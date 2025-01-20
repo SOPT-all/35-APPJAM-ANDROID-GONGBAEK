@@ -116,7 +116,6 @@ private fun MbtiSelectionSection(
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_FIRST,
-                options = SelectableButtonType.MBTI_FIRST.options,
                 onOptionSelected = { option -> selectedOption1 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption1
@@ -129,7 +128,6 @@ private fun MbtiSelectionSection(
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_SECOND,
-                options = SelectableButtonType.MBTI_SECOND.options,
                 onOptionSelected = { option -> selectedOption2 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption2
@@ -142,7 +140,6 @@ private fun MbtiSelectionSection(
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_THIRD,
-                options = SelectableButtonType.MBTI_THIRD.options,
                 onOptionSelected = { option -> selectedOption3 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption3
@@ -155,7 +152,6 @@ private fun MbtiSelectionSection(
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_FOURTH,
-                options = SelectableButtonType.MBTI_FOURTH.options,
                 onOptionSelected = { option -> selectedOption4 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption4

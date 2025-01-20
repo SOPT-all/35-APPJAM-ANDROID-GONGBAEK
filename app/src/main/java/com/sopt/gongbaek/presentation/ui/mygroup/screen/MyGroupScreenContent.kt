@@ -75,7 +75,7 @@ fun MyGroupScreenContent(
             item {
                 MyGroupEmptySection(
                     imageRes = R.drawable.img_my_fill_active_empty,
-                    descriptionRes = R.string.my_group_active_group_empty,
+                    descriptionRes = R.string.my_group_active_group_empty
                 )
             }
         } else {
@@ -124,7 +124,7 @@ fun MyGroupScreenContent(
                 )
             }
         }
-        if(closedGroups.isEmpty()) {
+        if (closedGroups.isEmpty()) {
             item {
                 MyGroupEmptySection(
                     imageRes = R.drawable.img_my_fill_closed_empty,

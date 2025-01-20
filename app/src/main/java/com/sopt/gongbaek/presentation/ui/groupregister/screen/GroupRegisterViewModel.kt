@@ -19,6 +19,10 @@ class GroupRegisterViewModel @Inject constructor() :
             is GroupRegisterContract.Event.OnDayOfWeekSelected -> {
                 updateGroupRegisterInfo { copy(weekDay = setWeekDay(event.weekDay)) }
             }
+
+            is GroupRegisterContract.Event.OnWeekDateSelected -> {
+                updateGroupRegisterInfo { copy(weekDate = event.weekDate.toString()) }
+            }
         }
     }
 

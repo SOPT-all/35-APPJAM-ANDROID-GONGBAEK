@@ -6,15 +6,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
@@ -22,6 +23,7 @@ import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSectio
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.SelectDayCalendar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
+import timber.log.Timber
 import java.time.LocalDate
 
 @Composable
@@ -30,32 +32,60 @@ fun SelectDayRoute(
     navigateGroupTime: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    Timber.d("ㅋㅋㅋ ${uiState.groupRegisterInfo.weekDate}")
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateGroupTime -> navigateGroupTime()
+                    else -> {}
+                }
+            }
+    }
+
     SelectDayScreen(
-        navigateGroupTime = navigateGroupTime,
-        navigateBack = navigateBack
+        selectedDate = uiState.groupRegisterInfo.weekDate.takeIf { it.isNotBlank() }?.let {
+            LocalDate.parse(it)
+        },
+        onSelectedDate = { selectedDate ->
+            viewModel.setEvent(
+                GroupRegisterContract.Event.OnWeekDateSelected(selectedDate)
+            )
+        },
+        onNextButtonClicked = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateGroupTime)
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+        }
     )
 }
 
 @Composable
 fun SelectDayScreen(
-    navigateGroupTime: () -> Unit,
-    navigateBack: () -> Unit
+    selectedDate: LocalDate?,
+    onSelectedDate: (LocalDate) -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onBackClick: () -> Unit
 ) {
-    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         SelectDaySection(
             selectedDate = selectedDate,
-            onDateSelected = { date -> selectedDate = date },
-            onBackClick = navigateBack
+            onDateSelected = onSelectedDate,
+            onBackClick = onBackClick
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = navigateGroupTime,
+            onClick = onNextButtonClicked,
             enabled = selectedDate != null,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -102,9 +132,5 @@ private fun SelectDaySection(
 @Composable
 fun ShowSelectDayScreen() {
     GONGBAEKTheme {
-        SelectDayScreen(
-            navigateGroupTime = {},
-            navigateBack = {}
-        )
     }
 }

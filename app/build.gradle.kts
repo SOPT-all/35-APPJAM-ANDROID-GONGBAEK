@@ -96,6 +96,9 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
+
+    // Lottie
+    implementation(libs.lottie.compose)
 }
 
 ktlint {

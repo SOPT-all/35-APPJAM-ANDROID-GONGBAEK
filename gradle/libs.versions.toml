@@ -43,6 +43,9 @@ espressoCore = "3.6.1"
 agp = "8.7.3"
 lifecycleRuntimeComposeAndroid = "2.8.7"
 
+# Lottie
+lottie-compose = "6.6.0"
+
 [libraries]
 # Core
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -85,6 +88,9 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+# Lottie
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie-compose" } # Lottie Compose 라이브러리
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

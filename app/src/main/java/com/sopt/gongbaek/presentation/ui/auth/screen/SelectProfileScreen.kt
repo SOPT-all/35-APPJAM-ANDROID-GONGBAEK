@@ -59,8 +59,8 @@ fun SelectProfileRoute(
 
 @Composable
 private fun SelectProfileScreen(
-    selectedProfile: Int?,
-    onSelectedProfile: (Int?) -> Unit = {},
+    selectedProfile: Int,
+    onSelectedProfile: (Int) -> Unit = {},
     onNextButtonClicked: () -> Unit = {}
 ) {
     Box(
@@ -76,8 +76,12 @@ private fun SelectProfileScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = onNextButtonClicked,
-            enabled = selectedProfile != null,
+            onClick = {
+                if (selectedProfile != 0) {
+                    onNextButtonClicked()
+                }
+            },
+            enabled = selectedProfile != 0,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -87,8 +91,8 @@ private fun SelectProfileScreen(
 
 @Composable
 private fun ImageSelectorSection(
-    selectedProfileIndex: Int?,
-    onIndexSelected: (Int?) -> Unit,
+    selectedProfileIndex: Int,
+    onIndexSelected: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -123,7 +127,7 @@ private fun ImageSelectorSection(
 private fun PreviewSelectProfileScreen() {
     GONGBAEKTheme {
         SelectProfileScreen(
-            selectedProfile = null
+            selectedProfile = 0
         )
     }
 }

@@ -104,11 +104,10 @@ enum class SelectableButtonType(
 
     companion object {
         fun formatCycleOptionToDescription(selectedCycle: String): String =
-            when(selectedCycle) {
+            when (selectedCycle) {
                 GroupCycleType.ONCE.name -> GroupCycleType.ONCE.description
                 GroupCycleType.WEEKLY.name -> GroupCycleType.WEEKLY.description
                 else -> ""
             }
-
     }
 }

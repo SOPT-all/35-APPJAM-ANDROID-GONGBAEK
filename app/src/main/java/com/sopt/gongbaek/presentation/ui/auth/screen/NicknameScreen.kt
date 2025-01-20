@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -64,7 +65,9 @@ private fun NicknameScreen(
     onBackClick: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding()
     ) {
         NickNameInputSection(
             nickname = nickname,
@@ -77,7 +80,7 @@ private fun NicknameScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = navigateUnivMajor,
+            onClick = { if (nickname.isNotBlank()) navigateUnivMajor() },
             enabled = nickname.isNotBlank(),
             modifier = Modifier
                 .align(Alignment.BottomCenter)

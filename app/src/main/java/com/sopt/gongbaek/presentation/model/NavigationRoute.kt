@@ -19,6 +19,8 @@ object NavigationRoute {
         const val GAP_TIMETABLE = "gap_timetable"
         const val CHANGE_TIMETABLE = "change_timetable"
         const val COMPLETE_AUTH = "complete_auth"
+        const val UNIV_SEARCH = "univ_search"
+        const val MAJOR_SEARCH = "major_search"
     }
 
     object MainBottomNavBarTabRoute {

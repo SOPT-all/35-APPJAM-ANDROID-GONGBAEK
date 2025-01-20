@@ -23,24 +23,32 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 fun UnivMajorRoute(
     viewModel: AuthViewModel,
     navigateGrade: () -> Unit,
+    navigateUnivSearch: () -> Unit,
+    navigateMajorSearch: () -> Unit,
     navigateBack: () -> Unit
 ) {
     UnivMajorScreen(
         navigateGrade = navigateGrade,
-        navigateBack = navigateBack
+        onUnivSearchClick = navigateUnivSearch,
+        onMajorSearchClick = navigateMajorSearch,
+        onBackClick = navigateBack
     )
 }
 
 @Composable
 private fun UnivMajorScreen(
     navigateGrade: () -> Unit,
-    navigateBack: () -> Unit
+    onUnivSearchClick: () -> Unit,
+    onMajorSearchClick: () -> Unit,
+    onBackClick: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         UnivAndMajorSelectionSection(
-            onBackClick = navigateBack,
+            onBackClick = onBackClick,
+            onUnivSearchClick = onUnivSearchClick,
+            onMajorSearchClick = onMajorSearchClick,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .align(Alignment.Center)
@@ -59,6 +67,8 @@ private fun UnivMajorScreen(
 @Composable
 private fun UnivAndMajorSelectionSection(
     onBackClick: () -> Unit,
+    onUnivSearchClick: () -> Unit,
+    onMajorSearchClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -83,7 +93,7 @@ private fun UnivAndMajorSelectionSection(
             SearchButton(
                 buttonLabel = "학교",
                 searchResult = "학교 이름을 검색하세요.",
-                onSearchButtonClicked = { }
+                onSearchButtonClicked = onUnivSearchClick
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -91,7 +101,7 @@ private fun UnivAndMajorSelectionSection(
             SearchButton(
                 buttonLabel = "학과",
                 searchResult = "학과 이름을 검색하세요.",
-                onSearchButtonClicked = { }
+                onSearchButtonClicked = onMajorSearchClick
             )
         }
     }
@@ -103,7 +113,9 @@ private fun ShowUnivMajorScreen() {
     GONGBAEKTheme {
         UnivMajorScreen(
             navigateGrade = {},
-            navigateBack = {}
+            onUnivSearchClick = {},
+            onMajorSearchClick = {},
+            onBackClick = {},
         )
     }
 }

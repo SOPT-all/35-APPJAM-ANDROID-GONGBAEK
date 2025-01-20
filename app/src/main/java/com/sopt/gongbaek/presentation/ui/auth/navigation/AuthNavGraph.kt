@@ -12,11 +12,13 @@ import com.sopt.gongbaek.presentation.ui.auth.screen.EnterTimeTableRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.GapTimeTableRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.GenderRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.GradeRoute
+import com.sopt.gongbaek.presentation.ui.auth.screen.MajorSearchRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.MbtiRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.NicknameRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.SelectProfileRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.SelfIntroductionRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.UnivMajorRoute
+import com.sopt.gongbaek.presentation.ui.auth.screen.UnivSearchRoute
 import com.sopt.gongbaek.presentation.ui.home.navigation.navigateHome
 
 fun NavGraphBuilder.authNavGraph(
@@ -52,8 +54,24 @@ fun NavGraphBuilder.authNavGraph(
             UnivMajorRoute(
                 viewModel = viewModel,
                 navigateGrade = navController::navigateGrade,
+                navigateUnivSearch = navController::navigateUnivSearch,
+                navigateMajorSearch = navController::navigateMajorSearch,
                 navigateBack = navController::popBackStack
             )
+        }
+
+        composable(
+            route = NavigationRoute.AuthNavGraphRoute.UNIV_SEARCH
+        ) {
+            UnivSearchRoute(
+                navigateBack = navController::popBackStack
+            )
+        }
+
+        composable(
+            route = NavigationRoute.AuthNavGraphRoute.MAJOR_SEARCH
+        ) {
+            MajorSearchRoute()
         }
 
         composable(

@@ -9,6 +9,10 @@ fun NavController.navigateNickname() = navigate(route = NavigationRoute.AuthNavG
 
 fun NavController.navigateUnivMajor() = navigate(route = NavigationRoute.AuthNavGraphRoute.UNIV_MAJOR)
 
+fun NavController.navigateUnivSearch() = navigate(route = NavigationRoute.AuthNavGraphRoute.UNIV_SEARCH)
+
+fun NavController.navigateMajorSearch() = navigate(route = NavigationRoute.AuthNavGraphRoute.MAJOR_SEARCH)
+
 fun NavController.navigateGrade() = navigate(route = NavigationRoute.AuthNavGraphRoute.GRADE)
 
 fun NavController.navigateMbti() = navigate(route = NavigationRoute.AuthNavGraphRoute.MBTI)

@@ -9,11 +9,13 @@ import androidx.compose.ui.res.painterResource
 import com.sopt.gongbaek.R
 
 @Composable
-fun HomeBannerSection() {
+fun HomeBannerSection(
+    modifier: Modifier = Modifier
+) {
     Image(
         painter = painterResource(id = R.drawable.img_home_banner),
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     )
 }

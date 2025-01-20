@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -30,8 +31,12 @@ import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun WeekSection() {
-    Column {
+fun WeekRecommendSection(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
         Column(
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
@@ -67,25 +72,26 @@ fun WeekSection() {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(5) {
-                WeekItem()
+                WeekRecommendItem()
             }
         }
     }
 }
 
 @Composable
-private fun WeekItem() {
+private fun WeekRecommendItem() {
     Column(
         modifier = Modifier
-            .height((LocalConfiguration.current.screenHeightDp * 0.246f).dp)
-            .aspectRatio(0.6f / 1f)
     ) {
+        val screenWidth = LocalConfiguration.current.screenWidthDp
         Image(
             painter = painterResource(id = R.drawable.img_home_small),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(4.dp))
+                .width((screenWidth * 0.32f).dp)
+                .aspectRatio(116f / 108f)
         )
 
         Spacer(modifier = Modifier.height(6.dp))
@@ -95,7 +101,8 @@ private fun WeekItem() {
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = GongBaekTheme.colors.gray10,
-            style = GongBaekTheme.typography.body2.sb14
+            style = GongBaekTheme.typography.body2.sb14,
+            modifier = Modifier.width((screenWidth * 0.32f).dp)
         )
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -131,5 +138,5 @@ private fun WeekItem() {
 @Preview
 @Composable
 private fun PreviewWeekSection() {
-    WeekSection()
+    WeekRecommendSection()
 }

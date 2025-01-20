@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
@@ -38,7 +39,7 @@ fun NearestGroupSection(
 ) {
     var columnHeight by remember { mutableIntStateOf(0) }
     Box(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_home_main),
@@ -49,28 +50,30 @@ fun NearestGroupSection(
         )
 
         Column(
-            modifier.onGloballyPositioned { layoutCoordinates ->
-                columnHeight = layoutCoordinates.size.height
-            }
+            modifier = Modifier
+                .onGloballyPositioned { layoutCoordinates ->
+                    columnHeight = layoutCoordinates.size.height
+                }
+                .padding(
+                    top = 24.dp,
+                    bottom = 26.dp
+                )
         ) {
-            Spacer(modifier = Modifier.height(24.dp))
-
             UnivInfo(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            Spacer(modifier = Modifier.height(79.dp))
+            Spacer(modifier = Modifier.height((LocalConfiguration.current.screenHeightDp * 0.101f).dp))
 
             NearestGroup(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            Spacer(modifier = Modifier.height(26.dp))
         }
     }
 }
 
 @Composable
-fun UnivInfo(
+private fun UnivInfo(
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -103,14 +106,14 @@ fun UnivInfo(
 }
 
 @Composable
-fun NearestGroup(
+private fun NearestGroup(
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
-            modifier = Modifier.align(Alignment.CenterStart)
+            modifier = Modifier.align(Alignment.BottomStart)
         ) {
             Text(
                 text = "다가오는 모임",

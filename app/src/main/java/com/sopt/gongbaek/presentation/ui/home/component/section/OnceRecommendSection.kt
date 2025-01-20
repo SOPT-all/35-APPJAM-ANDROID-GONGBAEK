@@ -31,10 +31,12 @@ import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun OnceSection(
+fun OnceRecommendSection(
     modifier: Modifier = Modifier
 ) {
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -72,25 +74,26 @@ fun OnceSection(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(5) {
-                OnceItem()
+                OnceRecommendItem()
             }
         }
     }
 }
 
 @Composable
-private fun OnceItem() {
+private fun OnceRecommendItem() {
     Column(
         modifier = Modifier
-            .width((LocalConfiguration.current.screenWidthDp * 0.41f).dp)
-            .aspectRatio(0.9f / 1f)
     ) {
+        val screenWidth = LocalConfiguration.current.screenWidthDp
         Image(
             painter = painterResource(id = R.drawable.img_home_medium),
             contentDescription = "null",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(4.dp))
+                .width((screenWidth * 0.43f).dp)
+                .aspectRatio(156f / 104f)
         )
 
         Spacer(modifier = Modifier.height(6.dp))
@@ -100,7 +103,8 @@ private fun OnceItem() {
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = GongBaekTheme.colors.gray10,
-            style = GongBaekTheme.typography.body2.sb14
+            style = GongBaekTheme.typography.body2.sb14,
+            modifier = Modifier.width((screenWidth * 0.43f).dp)
         )
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -135,6 +139,6 @@ private fun OnceItem() {
 
 @Preview
 @Composable
-private fun Preview() {
-    OnceSection()
+private fun PreviewOnceRecommendSection() {
+    OnceRecommendSection()
 }

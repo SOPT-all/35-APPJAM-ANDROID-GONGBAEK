@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
+import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -10,5 +11,15 @@ class GroupRegisterViewModel @Inject constructor() :
     override fun createInitialState(): GroupRegisterContract.State = GroupRegisterContract.State()
 
     override suspend fun handleEvent(event: GroupRegisterContract.Event) {
+        when (event) {
+            is GroupRegisterContract.Event.OnGroupCycleSelected -> {
+                updateGroupRegisterInfo { copy(groupType = setGroupType(event.groupType)) }
+            }
+        }
     }
+
+    fun sendSideEffect(sideEffect: GroupRegisterContract.SideEffect) = setSideEffect(sideEffect)
+
+    private fun updateGroupRegisterInfo(update: GroupRegisterInfo.() -> GroupRegisterInfo) =
+        setState { copy(groupRegisterInfo = groupRegisterInfo.update()) }
 }

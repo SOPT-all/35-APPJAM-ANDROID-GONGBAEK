@@ -10,7 +10,13 @@ class GroupRegisterContract {
         val groupRegisterInfo: GroupRegisterInfo = GroupRegisterInfo()
     ) : UiState
 
-    sealed class Event : UiEvent
+    sealed class Event : UiEvent {
+        data class OnGroupCycleSelected(val groupType: String) : Event()
+    }
 
-    sealed interface SideEffect : UiSideEffect
+    sealed interface SideEffect : UiSideEffect {
+        data object NavigateBack : SideEffect
+        data object NavigateDay : SideEffect
+        data object NavigateDayOfWeek : SideEffect
+    }
 }

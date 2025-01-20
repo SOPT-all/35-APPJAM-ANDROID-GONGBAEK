@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
@@ -56,14 +57,30 @@ fun CommentSection(
                 .padding(vertical = 16.dp)
         )
 
-        LazyColumn(
-            modifier = Modifier.weight(1f)
-        ) {
-            items(items = groupComment.commentList) { comment ->
-                CommentSectionItem(
-                    comment = comment,
-                    onDeleteClicked = onDeleteClicked
+        if (groupComment.commentCount == 0) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(R.string.comment_section_empty_description),
+                    color = GongBaekTheme.colors.gray06,
+                    textAlign = TextAlign.Center,
+                    style = GongBaekTheme.typography.caption1.m13
                 )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.weight(1f)
+            ) {
+                items(items = groupComment.commentList) { comment ->
+                    CommentSectionItem(
+                        comment = comment,
+                        onDeleteClicked = onDeleteClicked
+                    )
+                }
             }
         }
 
@@ -256,6 +273,26 @@ private fun CommentSectionPreview() {
                         isWriter = false
                     )
                 )
+            ),
+            value = value,
+            onValueChanged = onValueChanged
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EmptyCommentSectionPreview() {
+    GONGBAEKTheme {
+        var value by remember { mutableStateOf("") }
+        val onValueChanged: (String) -> Unit = { newValue -> value = newValue }
+        CommentSection(
+            groupComment = GroupComment(
+                groupId = 1,
+                groupStatus = "RECRUITING",
+                groupCycle = "ONCE",
+                commentCount = 0,
+                commentList = listOf()
             ),
             value = value,
             onValueChanged = onValueChanged

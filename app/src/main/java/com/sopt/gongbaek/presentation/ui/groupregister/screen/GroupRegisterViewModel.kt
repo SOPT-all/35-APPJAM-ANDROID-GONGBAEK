@@ -35,6 +35,11 @@ class GroupRegisterViewModel @Inject constructor() :
                 updateGroupRegisterInfo { copy(category = setCategory(event.category)) }
                 setState { copy(selectedCategory = event.category) }
             }
+
+            is GroupRegisterContract.Event.OnCoverSelected -> {
+                updateGroupRegisterInfo { copy(coverImg = event.cover + 1) }
+                setState { copy(selectedCover = event.cover) }
+            }
         }
     }
 

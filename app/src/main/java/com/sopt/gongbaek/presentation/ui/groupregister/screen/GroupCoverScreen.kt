@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -24,6 +28,7 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
+import timber.log.Timber
 
 @Composable
 fun GroupCoverRoute(
@@ -31,40 +36,63 @@ fun GroupCoverRoute(
     navigateGroupPlacePeople: () -> Unit,
     navigateBack: () -> Unit
 ) {
-    val category = "STUDY"
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateGroupPlacePeople -> navigateGroupPlacePeople()
+                    else -> {}
+                }
+            }
+    }
 
     GroupCoverScreen(
-        category = category,
-        navigateGroupPlacePeople = navigateGroupPlacePeople,
-        navigateBack = navigateBack
+        category = uiState.groupRegisterInfo.category,
+        cover = uiState.groupRegisterInfo.coverImg,
+        selectedCover = uiState.selectedCover,
+        onCoverSelected = { cover ->
+            viewModel.setEvent(
+                GroupRegisterContract.Event.OnCoverSelected(cover = cover)
+            )
+        },
+        onNextButtonClicked = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateGroupPlacePeople)
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+        }
     )
 }
 
 @Composable
 fun GroupCoverScreen(
     category: String,
-    navigateGroupPlacePeople: () -> Unit,
-    navigateBack: () -> Unit
+    cover: Int,
+    selectedCover: Int?,
+    onCoverSelected: (Int) -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onBackClick: () -> Unit
 ) {
-    var selectedCoverIndex by remember { mutableStateOf<Int?>(null) }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         GroupCoverSection(
             imageList = ImageSelectorType.getImageListFromCategory(category),
-            onBackClick = navigateBack,
-            onIndexSelected = {
-                selectedCoverIndex = it
-            },
-            selectedCoverIndex = selectedCoverIndex
+            onBackClick = onBackClick,
+            onIndexSelected = onCoverSelected,
+            selectedCoverIndex = selectedCover
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = navigateGroupPlacePeople,
-            enabled = selectedCoverIndex != null,
+            onClick = onNextButtonClicked,
+            enabled = cover != 0,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -119,8 +147,11 @@ fun ShowGroupCoverScreen() {
     GONGBAEKTheme {
         GroupCoverScreen(
             category = category,
-            navigateGroupPlacePeople = {},
-            navigateBack = {}
+            cover = 1,
+            selectedCover = 0,
+            onCoverSelected = {},
+            onNextButtonClicked = {},
+            onBackClick = {}
         )
     }
 }

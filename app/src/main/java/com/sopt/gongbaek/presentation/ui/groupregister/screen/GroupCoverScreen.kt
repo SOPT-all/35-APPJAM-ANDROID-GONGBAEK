@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,7 +25,6 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
-import timber.log.Timber
 
 @Composable
 fun GroupCoverRoute(
@@ -45,7 +41,7 @@ fun GroupCoverRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
-                    GroupRegisterContract.SideEffect.NavigateGroupPlacePeople -> navigateGroupPlacePeople()
+                    GroupRegisterContract.SideEffect.NavigatePlacePeople -> navigateGroupPlacePeople()
                     else -> {}
                 }
             }
@@ -61,7 +57,7 @@ fun GroupCoverRoute(
             )
         },
         onNextButtonClicked = {
-            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateGroupPlacePeople)
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigatePlacePeople)
         },
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)

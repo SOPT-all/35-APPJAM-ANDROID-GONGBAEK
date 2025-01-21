@@ -21,15 +21,18 @@ class GroupRegisterContract {
         data class OnWeekDateAndDaySelected(val weekDate: LocalDate, val weekDay: String) : Event()
         data class OnCategorySelected(val category: String) : Event()
         data class OnCoverSelected(val cover: Int) : Event()
+        data class OnPlaceChanged(val place: String) : Event()
+        data class OnPeopleChanged(val peopleCount: Int) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateBack : SideEffect
         data object NavigateDay : SideEffect
         data object NavigateDayOfWeek : SideEffect
-        data object NavigateGroupTime : SideEffect
-        data object NavigateGroupCategory : SideEffect
-        data object NavigateGroupCover : SideEffect
-        data object NavigateGroupPlacePeople : SideEffect
+        data object NavigateTime : SideEffect
+        data object NavigateCategory : SideEffect
+        data object NavigateCover : SideEffect
+        data object NavigatePlacePeople : SideEffect
+        data object NavigateIntroduction : SideEffect
     }
 }

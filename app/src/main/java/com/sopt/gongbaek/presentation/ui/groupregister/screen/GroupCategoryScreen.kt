@@ -38,7 +38,7 @@ fun GroupCategoryRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
-                    GroupRegisterContract.SideEffect.NavigateGroupCover -> navigateGroupCover()
+                    GroupRegisterContract.SideEffect.NavigateCover -> navigateGroupCover()
                     else -> {}
                 }
             }
@@ -53,7 +53,7 @@ fun GroupCategoryRoute(
             )
         },
         onNextButtonClicked = {
-            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateGroupCover)
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateCover)
         },
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)

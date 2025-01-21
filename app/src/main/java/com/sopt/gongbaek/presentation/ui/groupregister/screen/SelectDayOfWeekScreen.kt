@@ -40,7 +40,7 @@ fun SelectDayOfWeekRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
-                    GroupRegisterContract.SideEffect.NavigateGroupTime -> navigateGroupTime()
+                    GroupRegisterContract.SideEffect.NavigateTime -> navigateGroupTime()
                     else -> {}
                 }
             }
@@ -55,7 +55,7 @@ fun SelectDayOfWeekRoute(
             )
         },
         onNextButtonClicked = {
-            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateGroupTime)
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateTime)
         },
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)

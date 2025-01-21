@@ -40,6 +40,14 @@ class GroupRegisterViewModel @Inject constructor() :
                 updateGroupRegisterInfo { copy(coverImg = event.cover + 1) }
                 setState { copy(selectedCover = event.cover) }
             }
+
+            is GroupRegisterContract.Event.OnPlaceChanged -> {
+                updateGroupRegisterInfo { copy(location = event.place) }
+            }
+
+            is GroupRegisterContract.Event.OnPeopleChanged -> {
+                updateGroupRegisterInfo { copy(maxPeopleCount = event.peopleCount) }
+            }
         }
     }
 

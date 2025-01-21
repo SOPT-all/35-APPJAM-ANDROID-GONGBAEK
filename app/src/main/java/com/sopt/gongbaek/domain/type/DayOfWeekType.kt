@@ -30,13 +30,19 @@ enum class DayOfWeekType(
     );
 
     companion object {
-        fun toDayOfWeek(description: String) = when (description) {
-            "월요일" -> "MON"
-            "화요일" -> "TUE"
-            "수요일" -> "WED"
-            "목요일" -> "THU"
-            "금요일" -> "FRI"
-            else -> "UNKNOWN"
-        }
+        fun toDayOfWeek(description: String) =
+            when (description) {
+                MON.description -> MON.dayOfWeek
+                TUE.description -> TUE.dayOfWeek
+                WED.description -> WED.dayOfWeek
+                THU.description -> THU.dayOfWeek
+                FRI.description -> FRI.dayOfWeek
+                else -> "UNKNOWN"
+            }
+
+        fun getWeekDaysWithoutSuffix(): List<String> =
+            entries
+                .filter { it != ALL }
+                .map { it.description.removeSuffix("요일") }
     }
 }

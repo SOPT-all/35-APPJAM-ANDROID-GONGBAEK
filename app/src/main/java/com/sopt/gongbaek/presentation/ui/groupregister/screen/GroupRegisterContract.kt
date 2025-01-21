@@ -23,6 +23,8 @@ class GroupRegisterContract {
         data class OnCoverSelected(val cover: Int) : Event()
         data class OnPlaceChanged(val place: String) : Event()
         data class OnPeopleChanged(val peopleCount: Int) : Event()
+        data class OnTitleChanged(val title: String) : Event()
+        data class OnIntroductionChanged(val introduction: String) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
@@ -34,5 +36,6 @@ class GroupRegisterContract {
         data object NavigateCover : SideEffect
         data object NavigatePlacePeople : SideEffect
         data object NavigateIntroduction : SideEffect
+        data object NavigateRegister : SideEffect
     }
 }

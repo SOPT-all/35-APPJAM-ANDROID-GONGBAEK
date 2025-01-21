@@ -48,6 +48,14 @@ class GroupRegisterViewModel @Inject constructor() :
             is GroupRegisterContract.Event.OnPeopleChanged -> {
                 updateGroupRegisterInfo { copy(maxPeopleCount = event.peopleCount) }
             }
+
+            is GroupRegisterContract.Event.OnTitleChanged -> {
+                updateGroupRegisterInfo { copy(groupTitle = event.title) }
+            }
+
+            is GroupRegisterContract.Event.OnIntroductionChanged -> {
+                updateGroupRegisterInfo { copy(introduction = event.introduction) }
+            }
         }
     }
 

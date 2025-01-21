@@ -33,7 +33,6 @@ import com.sopt.gongbaek.presentation.ui.groupregister.component.GroupPeopleCoun
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 import com.sopt.gongbaek.ui.theme.defaultGongBaekTypography
-import timber.log.Timber
 
 @Composable
 fun GroupPlacePeopleRoute(

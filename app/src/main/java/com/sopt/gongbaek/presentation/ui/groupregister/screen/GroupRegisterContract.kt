@@ -12,7 +12,8 @@ class GroupRegisterContract {
         val selectedGroupType: String = "",
         val selectedDayOfWeek: String = "",
         val selectedCategory: String = "",
-        val selectedCover: Int? = null
+        val selectedCover: Int? = null,
+        val showDialog: Boolean = false
     ) : UiState
 
     sealed class Event : UiEvent {

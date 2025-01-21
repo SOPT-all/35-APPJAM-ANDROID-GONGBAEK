@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -20,8 +22,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
+import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
 import com.sopt.gongbaek.presentation.ui.component.section.GroupPeopleDescription
@@ -39,25 +45,25 @@ fun GroupRegisterRoute(
     navigateGroupList: () -> Unit,
     navigateBack: () -> Unit
 ) {
-    val groupRegisterInfo =
-        GroupRegisterInfo(
-            coverImg = 1,
-            category = "PLAYING",
-            groupType = "ONCE",
-            groupTitle = "화석의 튜스데이 점심 클럽",
-            weekDate = "2025-04-06",
-            weekDay = "THU",
-            startTime = 13.5,
-            endTime = 15.5,
-            location = "학교 피아노 앞",
-            dueDate = "2025-06-30",
-            maxPeopleCount = 8,
-            introduction = "왕"
-        )
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    else -> {}
+                }
+            }
+    }
 
     GroupRegisterScreen(
-        groupRegisterInfo = groupRegisterInfo,
-        navigateBack = navigateBack,
+        groupRegisterInfo = uiState.groupRegisterInfo,
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+        },
         navigateGroupList = navigateGroupList
     )
 }
@@ -65,7 +71,7 @@ fun GroupRegisterRoute(
 @Composable
 fun GroupRegisterScreen(
     groupRegisterInfo: GroupRegisterInfo,
-    navigateBack: () -> Unit,
+    onBackClick: () -> Unit,
     navigateGroupList: () -> Unit
 ) {
     Box(
@@ -74,7 +80,7 @@ fun GroupRegisterScreen(
     ) {
         GroupRegisterSection(
             groupRegisterInfo = groupRegisterInfo,
-            onBackClick = navigateBack
+            onBackClick = onBackClick
         )
 
         GongBaekBasicButton(
@@ -93,6 +99,7 @@ private fun GroupRegisterSection(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val selectedImageResId = ImageSelectorType.getImageListFromCategory(groupRegisterInfo.category).get(groupRegisterInfo.coverImg - 1)
     Column(
         modifier = modifier
     ) {
@@ -112,7 +119,7 @@ private fun GroupRegisterSection(
             )
 
             Image(
-                painter = painterResource(R.drawable.img_image_button_sample),
+                painter = painterResource(selectedImageResId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -179,7 +186,7 @@ fun ShowGroupRegisterScreen() {
     GONGBAEKTheme {
         GroupRegisterScreen(
             groupRegisterInfo = groupRegisterInfo,
-            navigateBack = {},
+            onBackClick = {},
             navigateGroupList = {}
         )
     }

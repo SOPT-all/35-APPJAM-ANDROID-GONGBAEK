@@ -112,6 +112,8 @@
     <string name="my_group_top_bar_title">나의 채움</string>
     <string name="my_group_active_group_title">현재 활동중인 모임</string>
     <string name="my_group_closed_group_title">종료된 모임</string>
+    <string name="my_group_active_group_empty">현재 활동중인 모임이 없어요.</string>
+    <string name="my_group_closed_group_empty">종료된 모임 없어요.</string>
 
     <!--GroupDetailScreen-->
     <string name="group_detail_top_bar_title">채우기</string>

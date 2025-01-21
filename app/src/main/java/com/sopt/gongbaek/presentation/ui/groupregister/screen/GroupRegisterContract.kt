@@ -2,18 +2,20 @@ package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.presentation.util.base.UiEvent
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect
 import com.sopt.gongbaek.presentation.util.base.UiState
 import java.time.LocalDate
 
 class GroupRegisterContract {
     data class State(
+        val loadState: UiLoadState = UiLoadState.Idle,
         val groupRegisterInfo: GroupRegisterInfo = GroupRegisterInfo(),
         val selectedGroupType: String = "",
         val selectedDayOfWeek: String = "",
         val selectedCategory: String = "",
         val selectedCover: Int? = null,
-        val showDialog: Boolean = false
+        val registerState: UiLoadState = UiLoadState.Idle
     ) : UiState
 
     sealed class Event : UiEvent {
@@ -26,6 +28,9 @@ class GroupRegisterContract {
         data class OnPeopleChanged(val peopleCount: Int) : Event()
         data class OnTitleChanged(val title: String) : Event()
         data class OnIntroductionChanged(val introduction: String) : Event()
+        data object OnRegisterButtonClicked : Event()
+        data object OnDialogConfirmClicked : Event()
+        data object OnDialogDismissClicked : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
@@ -38,5 +43,6 @@ class GroupRegisterContract {
         data object NavigatePlacePeople : SideEffect
         data object NavigateIntroduction : SideEffect
         data object NavigateRegister : SideEffect
+        data object NavigateMyGroup : SideEffect
     }
 }

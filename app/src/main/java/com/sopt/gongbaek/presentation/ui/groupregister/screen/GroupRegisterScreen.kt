@@ -22,19 +22,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
+import com.sopt.gongbaek.presentation.type.GongBaekDialogType
 import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
+import com.sopt.gongbaek.presentation.ui.component.dialog.GongBaekDialog
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
 import com.sopt.gongbaek.presentation.ui.component.section.GroupPeopleDescription
 import com.sopt.gongbaek.presentation.ui.component.section.GroupPlaceDescription
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.createGroupRegisterTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -42,7 +46,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun GroupRegisterRoute(
     viewModel: GroupRegisterViewModel,
-    navigateGroupList: () -> Unit,
+    navigateMyGroup: () -> Unit,
     navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
@@ -54,25 +58,38 @@ fun GroupRegisterRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateMyGroup -> navigateMyGroup()
                     else -> {}
                 }
             }
     }
 
     GroupRegisterScreen(
+        uiState = uiState,
         groupRegisterInfo = uiState.groupRegisterInfo,
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
         },
-        navigateGroupList = navigateGroupList
+        onRegisterButtonClicked = {
+            viewModel.setEvent(GroupRegisterContract.Event.OnRegisterButtonClicked)
+        },
+        onDialogConfirmButtonClicked = {
+            viewModel.setEvent(GroupRegisterContract.Event.OnDialogConfirmClicked)
+        },
+        onDialogDismissClicked = {
+            viewModel.setEvent(GroupRegisterContract.Event.OnDialogDismissClicked)
+        }
     )
 }
 
 @Composable
 fun GroupRegisterScreen(
+    uiState: GroupRegisterContract.State,
     groupRegisterInfo: GroupRegisterInfo,
     onBackClick: () -> Unit,
-    navigateGroupList: () -> Unit
+    onRegisterButtonClicked: () -> Unit,
+    onDialogConfirmButtonClicked: () -> Unit,
+    onDialogDismissClicked: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -85,12 +102,34 @@ fun GroupRegisterScreen(
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_done),
-            onClick = navigateGroupList,
+            onClick = onRegisterButtonClicked,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
         )
+
+        if (uiState.registerState == UiLoadState.Success) {
+            Dialog(
+                onDismissRequest = onDialogConfirmButtonClicked
+            ) {
+                GongBaekDialog(
+                    gongBaekDialogType = GongBaekDialogType.REGISTER_SUCCESS,
+                    onConfirmButtonClick = onDialogConfirmButtonClicked
+                )
+            }
+        } else if (uiState.registerState == UiLoadState.Error) {
+            Dialog(
+                onDismissRequest = onDialogConfirmButtonClicked
+            ) {
+                GongBaekDialog(
+                    gongBaekDialogType = GongBaekDialogType.REGISTER_FAIL,
+                    onConfirmButtonClick = onDialogDismissClicked
+                )
+            }
+        }
     }
+
+
 }
 
 @Composable
@@ -184,10 +223,5 @@ fun ShowGroupRegisterScreen() {
         )
 
     GONGBAEKTheme {
-        GroupRegisterScreen(
-            groupRegisterInfo = groupRegisterInfo,
-            onBackClick = {},
-            navigateGroupList = {}
-        )
     }
 }

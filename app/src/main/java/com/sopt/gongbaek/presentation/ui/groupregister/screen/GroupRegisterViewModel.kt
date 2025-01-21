@@ -1,8 +1,11 @@
 package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
+import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -56,6 +59,24 @@ class GroupRegisterViewModel @Inject constructor() :
             is GroupRegisterContract.Event.OnIntroductionChanged -> {
                 updateGroupRegisterInfo { copy(introduction = event.introduction) }
             }
+
+            is GroupRegisterContract.Event.OnRegisterButtonClicked -> {
+                registerGroup()
+            }
+
+            is GroupRegisterContract.Event.OnDialogConfirmClicked -> {
+                setSideEffect(GroupRegisterContract.SideEffect.NavigateMyGroup)
+            }
+
+            is GroupRegisterContract.Event.OnDialogDismissClicked -> {
+                setState { copy(registerState = UiLoadState.Idle) }
+            }
+        }
+    }
+
+    private fun registerGroup() {
+        viewModelScope.launch {
+            setState { copy(loadState = UiLoadState.Loading) }
         }
     }
 

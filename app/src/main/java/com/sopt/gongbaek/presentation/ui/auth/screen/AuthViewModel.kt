@@ -3,6 +3,7 @@ package com.sopt.gongbaek.presentation.ui.auth.screen
 import com.sopt.gongbaek.domain.model.Majors
 import com.sopt.gongbaek.domain.model.Universities
 import com.sopt.gongbaek.domain.model.UserInfo
+import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -29,6 +30,11 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
                 fetchMajorSearch()
             }
 
+            is AuthContract.Event.OnGenderSelected -> {
+                val gender = GenderType.toGender(event.selectedGender)
+                updateUserInfo { copy(gender = gender) }
+                setState { copy(selectedGender = event.selectedGender) }
+            }
         }
     }
 

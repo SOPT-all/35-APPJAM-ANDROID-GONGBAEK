@@ -17,5 +17,12 @@ enum class GenderType(
                 WOMAN -> WOMAN
                 else -> MAN
             }
+
+        fun toGender(description: String): String =
+            when (description) {
+                MAN.description -> MAN.name
+                WOMAN.description -> WOMAN.name
+                else -> "UNKNOWN"
+            }
     }
 }

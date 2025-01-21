@@ -9,14 +9,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.SelectableButtonType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -33,22 +34,46 @@ fun GenderRoute(
     navigateSelfIntroduction: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateSelfIntroduction) {
+                    navigateSelfIntroduction()
+                }
+            }
+    }
+
     GenderScreen(
-        navigateSelfIntroduction = navigateSelfIntroduction,
-        navigateBack = navigateBack
+        gender = uiState.userInfo.gender,
+        selectedGender = uiState.selectedGender,
+        onGenderSelected = { gender -> viewModel.setEvent(AuthContract.Event.OnGenderSelected(gender)) },
+        navigateSelfIntroduction = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateSelfIntroduction) },
+        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 
 @Composable
 private fun GenderScreen(
+    gender: String,
+    selectedGender: String,
+    onGenderSelected: (String) -> Unit,
     navigateSelfIntroduction: () -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         GenderSelectionSection(
             onBackClick = navigateBack,
+            selectedGender = selectedGender,
+            onSelectedGender = onGenderSelected,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(horizontal = 16.dp)
@@ -56,7 +81,8 @@ private fun GenderScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = navigateSelfIntroduction,
+            enabled = gender.isNotEmpty(),
+            onClick = { if (gender.isNotEmpty()) navigateSelfIntroduction() },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -67,6 +93,8 @@ private fun GenderScreen(
 @Composable
 private fun GenderSelectionSection(
     onBackClick: () -> Unit,
+    selectedGender: String,
+    onSelectedGender: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -95,12 +123,11 @@ private fun GenderSelectionSection(
                     style = GongBaekTheme.typography.body2.sb14
                 )
 
-                var selectedOption by remember { mutableStateOf("") }
                 GongBaekSelectableButtons(
                     selectableButtonType = SelectableButtonType.GENDER,
                     options = SelectableButtonType.GENDER.options,
-                    onOptionSelected = { option -> selectedOption = option },
-                    selectedOption = selectedOption
+                    onOptionSelected = onSelectedGender,
+                    selectedOption = selectedGender
                 )
             }
         }
@@ -113,7 +140,10 @@ private fun PreviewGenderScreen() {
     GONGBAEKTheme {
         GenderScreen(
             navigateSelfIntroduction = {},
-            navigateBack = {}
+            navigateBack = {},
+            selectedGender = "",
+            onGenderSelected = { },
+            gender = ""
         )
     }
 }

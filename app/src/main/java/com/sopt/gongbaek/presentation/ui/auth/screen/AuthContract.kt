@@ -15,6 +15,7 @@ class AuthContract {
         val majors: Majors = Majors(),
         val univ: String = "",
         val enterMajor: String = "",
+        val selectedGender: String = ""
     ) : UiState
 
     sealed class Event : UiEvent {
@@ -27,6 +28,7 @@ class AuthContract {
         data class OnMajorSelected(val selectedMajor: String) : Event()
         data class OnMajorSearchChanged(val enterMajor: String) : Event()
         data object OnMajorSearchClick : Event()
+        data class OnGenderSelected(val selectedGender: String) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
@@ -35,5 +37,6 @@ class AuthContract {
         data object NavigateUnivMajor : SideEffect
         data object NavigateUnivSearch : SideEffect
         data object NavigateMajorSearch : SideEffect
+        data object NavigateSelfIntroduction : SideEffect
     }
 }

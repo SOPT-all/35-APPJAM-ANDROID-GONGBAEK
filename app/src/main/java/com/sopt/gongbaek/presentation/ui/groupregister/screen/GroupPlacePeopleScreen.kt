@@ -63,11 +63,9 @@ fun GroupPlacePeopleRoute(
         peopleCount = uiState.groupRegisterInfo.maxPeopleCount,
         onIncreasePeopleCount = {
             viewModel.setEvent(GroupRegisterContract.Event.OnPeopleChanged(uiState.groupRegisterInfo.maxPeopleCount + 1))
-
         },
         onDecreasePeopleCount = {
             viewModel.setEvent(GroupRegisterContract.Event.OnPeopleChanged(uiState.groupRegisterInfo.maxPeopleCount - 1))
-
         },
         onNextButtonClicked = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateIntroduction)

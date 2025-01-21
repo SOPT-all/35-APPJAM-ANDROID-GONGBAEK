@@ -27,7 +27,6 @@ import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSectio
 import com.sopt.gongbaek.presentation.ui.component.textfield.GongBaekBasicTextField
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
-import timber.log.Timber
 
 @Composable
 fun GroupIntroductionRoute(
@@ -36,7 +35,6 @@ fun GroupIntroductionRoute(
     navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    Timber.d("ㅋㅋㅋ ${uiState.groupRegisterInfo.groupTitle} ${uiState.groupRegisterInfo.introduction}")
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

@@ -132,3 +132,23 @@ private fun PreviewGongBaekDialog2() {
         }
     }
 }
+
+@Preview
+@Composable
+private fun PreviewGongBaekDialog3() {
+    Box(
+        modifier = Modifier
+            .background(color = GongBaekTheme.colors.white)
+            .fillMaxSize()
+    ) {
+        Dialog(
+            onDismissRequest = { }
+        ) {
+            GongBaekDialog(
+                gongBaekDialogType = GongBaekDialogType.ERROR,
+                onConfirmButtonClick = {},
+                onDismissButtonClick = {}
+            )
+        }
+    }
+}

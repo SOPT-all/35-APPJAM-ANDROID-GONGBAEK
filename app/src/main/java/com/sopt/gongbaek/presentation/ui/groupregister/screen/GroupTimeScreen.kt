@@ -21,6 +21,7 @@ import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSectio
 import com.sopt.gongbaek.presentation.ui.component.timetable.GroupRegisterTimeTable
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
+import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun GroupTimeRoute(
@@ -75,7 +76,8 @@ fun GroupTimeScreen(
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             )
-        }
+        },
+        containerColor = GongBaekTheme.colors.white
     ) { innerpadding ->
         Column(
             modifier = Modifier.padding(innerpadding)

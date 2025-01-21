@@ -7,6 +7,6 @@ fun NavController.navigateGroupRoomNavGraph() {
     navigate(route = NavigationRoute.GroupRoomNavGraphRoute.GROUP_ROOM_NAV_GRAPH)
 }
 
-fun NavController.navigateGroupRoom() {
-    navigate(route = NavigationRoute.GroupRoomNavGraphRoute.GROUP_ROOM)
+fun NavController.navigateGroupRoom(groupId: Int, groupCycle: String) {
+    navigate(route = NavigationRoute.GroupRoomNavGraphRoute.GROUP_ROOM.replace("{groupId}", groupId.toString()).replace("{groupCycle}", groupCycle))
 }

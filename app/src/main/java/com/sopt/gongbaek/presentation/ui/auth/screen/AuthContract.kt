@@ -8,7 +8,6 @@ import com.sopt.gongbaek.presentation.util.base.UiSideEffect
 import com.sopt.gongbaek.presentation.util.base.UiState
 
 class AuthContract {
-
     data class State(
         val userInfo: UserInfo = UserInfo(),
         val universities: Universities = Universities(),

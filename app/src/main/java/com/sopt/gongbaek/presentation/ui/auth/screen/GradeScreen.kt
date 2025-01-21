@@ -46,23 +46,23 @@ fun GradeRoute(
 ) {
     GradeScreen(
         navigateMbti = navigateMbti,
-        navigateBack = navigateBack
+        onBackClick = navigateBack
     )
 }
 
 @Composable
 private fun GradeScreen(
     navigateMbti: () -> Unit,
-    navigateBack: () -> Unit
+    onBackClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        GrandeScreenContent(
-            onBackClick = navigateBack,
+        GrandeSelectionSection(
+            onBackClick = onBackClick,
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp),
         )
 
         GongBaekBasicButton(
@@ -76,69 +76,49 @@ private fun GradeScreen(
 }
 
 @Composable
-private fun GrandeScreenContent(
+private fun GrandeSelectionSection(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
-        GradeTopBarSection(
-            onBackClick = onBackClick
-        )
+        StartTitleTopBar(onClick = onBackClick)
 
-        Spacer(modifier = Modifier.height(54.dp))
-
-        GradeSelectionSection(
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
-private fun GradeTopBarSection(
-    onBackClick: () -> Unit
-) {
-    StartTitleTopBar(
-        onClick = onBackClick
-    )
-
-    GongBaekProgressBar(progressPercent = 0.5f)
-}
-
-@Composable
-private fun GradeSelectionSection(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        PageDescriptionSection(
-            titleResId = R.string.auth_grade_title,
-            descriptionResId = R.string.auth_grade_description
-        )
-
-        Spacer(modifier = Modifier.height(44.dp))
-
-        var selectedOption1 by remember { mutableStateOf("") }
+        GongBaekProgressBar(progressPercent = 0.5f)
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = modifier,
         ) {
-            Text(
-                text = "학년",
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.body2.sb14
+            Spacer(modifier = Modifier.height(54.dp))
+
+            PageDescriptionSection(
+                titleResId = R.string.auth_grade_title,
+                descriptionResId = R.string.auth_grade_description
             )
-            GongBaekSelectableButtons(
-                selectableButtonType = SelectableButtonType.GRADE,
-                options = SelectableButtonType.GRADE.options,
-                onOptionSelected = { option -> selectedOption1 = option },
-                selectedOption = selectedOption1
-            )
+
+            Spacer(modifier = Modifier.height(44.dp))
+
+            var selectedOption1 by remember { mutableStateOf("") }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Text(
+                    text = "학년",
+                    color = GongBaekTheme.colors.gray08,
+                    style = GongBaekTheme.typography.body2.sb14
+                )
+                GongBaekSelectableButtons(
+                    selectableButtonType = SelectableButtonType.GRADE,
+                    options = SelectableButtonType.GRADE.options,
+                    onOptionSelected = { option -> selectedOption1 = option },
+                    selectedOption = selectedOption1
+                )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            YearPickerDropdown()
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        YearPickerDropdown()
     }
 }
 

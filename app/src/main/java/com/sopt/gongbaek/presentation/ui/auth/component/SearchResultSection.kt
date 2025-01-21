@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -18,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -65,18 +63,15 @@ private fun SearchResultItem(
                 color = if (isSelected) GongBaekTheme.colors.subOrange else GongBaekTheme.colors.white
             )
             .clickableWithoutRipple { onSelectionChange(!isSelected) }
-            .height((LocalConfiguration.current.screenHeightDp * 0.06).dp)
-            .padding(
-                vertical = 14.dp,
-                horizontal = 16.dp
-            ),
+            .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = university,
             color = if (isSelected) GongBaekTheme.colors.mainOrange else GongBaekTheme.colors.gray08,
-            style = GongBaekTheme.typography.body1.r16
+            style = GongBaekTheme.typography.body1.r16,
+            modifier = Modifier.padding(vertical = 17.dp),
         )
 
         if (isSelected) {

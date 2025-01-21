@@ -128,8 +128,6 @@ fun GroupRegisterScreen(
             }
         }
     }
-
-
 }
 
 @Composable
@@ -206,22 +204,6 @@ private fun GroupRegisterSection(
 @Preview(showBackground = true)
 @Composable
 fun ShowGroupRegisterScreen() {
-    val groupRegisterInfo =
-        GroupRegisterInfo(
-            coverImg = 1,
-            category = "PLAYING",
-            groupType = "ONCE",
-            groupTitle = "화석의 튜스데이 점심 클럽",
-            weekDate = "2025-04-06",
-            weekDay = "THU",
-            startTime = 13.5,
-            endTime = 15.5,
-            location = "학교 피아노 앞",
-            dueDate = "2025-06-30",
-            maxPeopleCount = 8,
-            introduction = "왕"
-        )
-
     GONGBAEKTheme {
     }
 }

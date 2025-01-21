@@ -14,7 +14,9 @@ class AuthContract {
         val majors: Majors = Majors(),
         val univ: String = "",
         val enterMajor: String = "",
-        val selectedGender: String = ""
+        val selectedGrade: String = "",
+        val mbti: String = "",
+        val selectedGender: String = "",
         val selectedTimeSlotsByDay: Map<String, List<Int>> = emptyMap(),
     ) : UiState
 

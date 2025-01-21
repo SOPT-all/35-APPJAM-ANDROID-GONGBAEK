@@ -30,6 +30,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
+import com.sopt.gongbaek.domain.type.DayOfWeekType
 import com.sopt.gongbaek.presentation.ui.component.timetable.item.DayHeaderItem
 import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsItem
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
@@ -47,7 +48,7 @@ fun GroupRegisterTimeTable(
     selectedDay: String = "",
     lectureTime: Map<String, List<Int>> = emptyMap(),
     timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
-    daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금")
+    daysOfWeek: List<String> = DayOfWeekType.getWeekDaysWithoutSuffix()
 ) {
     var resetState by remember { mutableStateOf(false) }
     val selectedTimeSlots = selectedTimeSlotsByDay[selectedDay] ?: emptyList()

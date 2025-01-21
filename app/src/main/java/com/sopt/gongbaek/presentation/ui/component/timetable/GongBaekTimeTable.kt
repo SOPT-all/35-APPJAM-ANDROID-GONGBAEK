@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.gongbaek.domain.type.DayOfWeekType
 import com.sopt.gongbaek.presentation.ui.component.timetable.item.DayHeaderItem
 import com.sopt.gongbaek.presentation.ui.component.timetable.item.TimeLabelsItem
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -23,7 +24,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun GongBaekTimeTable(
     lectureTime: Map<String, List<Int>>,
     timeSlotLabels: List<String> = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17"),
-    daysOfWeek: List<String> = listOf("월", "화", "수", "목", "금")
+    daysOfWeek: List<String> = DayOfWeekType.getWeekDaysWithoutSuffix()
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp

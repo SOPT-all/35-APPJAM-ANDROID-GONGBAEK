@@ -51,5 +51,6 @@ class AuthContract {
         data object NavigateEnterTimetable : SideEffect
         data object NavigateGapTimetable : SideEffect
         data object NavigateCompleteAuth : SideEffect
+        data object NavigateHome : SideEffect
     }
 }

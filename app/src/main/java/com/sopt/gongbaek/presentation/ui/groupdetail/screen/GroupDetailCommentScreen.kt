@@ -1,12 +1,12 @@
 package com.sopt.gongbaek.presentation.ui.groupdetail.screen
 
 import androidx.compose.runtime.Composable
-import com.sopt.gongbaek.domain.model.GroupComment
+import com.sopt.gongbaek.domain.model.GroupComments
 import com.sopt.gongbaek.presentation.ui.component.section.CommentSection
 
 @Composable
 fun GroupDetailCommentScreen(
-    groupComment: GroupComment,
+    groupComments: GroupComments,
     value: String,
     onValueChanged: (String) -> Unit,
     onRefreshClicked: () -> Unit = {},
@@ -14,7 +14,7 @@ fun GroupDetailCommentScreen(
     onSendClicked: () -> Unit = {}
 ) {
     CommentSection(
-        groupComment = groupComment,
+        groupComments = groupComments,
         value = value,
         onValueChanged = onValueChanged,
         onRefreshClicked = onRefreshClicked,

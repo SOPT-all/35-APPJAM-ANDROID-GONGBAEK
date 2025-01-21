@@ -32,7 +32,7 @@ import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.ui.component.section.GroupInfoSection
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
-import com.sopt.gongbaek.presentation.util.extension.createGroupTimeDescription
+import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -71,7 +71,7 @@ fun MyGroupScreenContent(
                 groupCategory = GroupInfoChipType.getChipTypeFromCategory(activeGroup.category),
                 groupCycle = GroupInfoChipType.getChipTypeFromCycle(activeGroup.cycle),
                 groupTitle = activeGroup.title,
-                groupTime = createGroupTimeDescription(activeGroup),
+                groupTime = formatGroupTimeDescription(activeGroup),
                 groupPlace = activeGroup.place,
                 modifier = Modifier
                     .padding(top = 12.dp)
@@ -114,7 +114,7 @@ fun MyGroupScreenContent(
                 groupCategory = GroupInfoChipType.getChipTypeFromCategory(closedGroup.category),
                 groupCycle = GroupInfoChipType.getChipTypeFromCycle(closedGroup.cycle),
                 groupTitle = closedGroup.title,
-                groupTime = createGroupTimeDescription(closedGroup),
+                groupTime = formatGroupTimeDescription(closedGroup),
                 groupPlace = closedGroup.place,
                 modifier = Modifier
                     .padding(top = 12.dp)

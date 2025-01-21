@@ -47,7 +47,6 @@ fun GongBaekLottieAnimation(
 
     DisposableEffect(Unit) {
         onDispose {
-
         }
     }
 }

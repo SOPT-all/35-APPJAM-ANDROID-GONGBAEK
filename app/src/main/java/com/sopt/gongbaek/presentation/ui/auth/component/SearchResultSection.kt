@@ -71,7 +71,7 @@ private fun SearchResultItem(
             text = university,
             color = if (isSelected) GongBaekTheme.colors.mainOrange else GongBaekTheme.colors.gray08,
             style = GongBaekTheme.typography.body1.r16,
-            modifier = Modifier.padding(vertical = 17.dp),
+            modifier = Modifier.padding(vertical = 17.dp)
         )
 
         if (isSelected) {

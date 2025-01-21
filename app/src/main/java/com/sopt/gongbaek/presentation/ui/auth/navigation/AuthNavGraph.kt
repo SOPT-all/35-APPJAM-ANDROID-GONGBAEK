@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.AuthViewModel
-import com.sopt.gongbaek.presentation.ui.auth.screen.ChangeTimeTableRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.CompleteAuthRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.EnterTimeTableRoute
 import com.sopt.gongbaek.presentation.ui.auth.screen.GapTimeTableRoute

@@ -25,7 +25,6 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             }
 
             is AuthContract.Event.OnUnivSelected -> updateUserInfo { copy(school = event.school) }
-
             is AuthContract.Event.OnMajorSearchChanged -> setState { copy(enterMajor = event.enterMajor) }
             is AuthContract.Event.OnMajorSelected -> updateUserInfo { copy(major = event.selectedMajor) }
             is AuthContract.Event.OnMajorSearchClick -> {
@@ -39,7 +38,6 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             }
 
             is AuthContract.Event.OnYearSelected -> updateUserInfo { copy(enterYear = event.year) }
-
             is AuthContract.Event.OnGenderSelected -> {
                 val gender = GenderType.toGender(event.selectedGender)
                 updateUserInfo { copy(gender = gender) }
@@ -47,7 +45,6 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             }
 
             is AuthContract.Event.OnSelfIntroductionChanged -> updateUserInfo { copy(introduction = event.selfIntroduction) }
-
             is AuthContract.Event.OnTimeSlotSelectionChange -> {
                 val timeSlotsByDay = currentState.selectedTimeSlotsByDay.toMutableMap()
                 timeSlotsByDay[event.day] = event.timeSlots

@@ -19,7 +19,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun TimetableConvertRoute(
     viewModel: AuthViewModel,
-    navigateGapTimeTable: () -> Unit,
+    navigateGapTimeTable: () -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -34,13 +34,13 @@ fun TimetableConvertRoute(
     }
 
     TimetableConvertScreen(
-        onComplete = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateGapTimetable)}
+        onComplete = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateGapTimetable) }
     )
 }
 
 @Composable
 private fun TimetableConvertScreen(
-    onComplete: () -> Unit,
+    onComplete: () -> Unit
 ) {
     Box(
         modifier = Modifier

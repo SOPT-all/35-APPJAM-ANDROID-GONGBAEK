@@ -20,7 +20,7 @@ data class GroupInfo(
     val maxPeopleCount: Int = 0,
     val currentPeopleCount: Int = 0,
     val isHost: Boolean = false,
-    val isApply: Boolean? = false
+    val isApply: Boolean = false
 ) {
     fun getGroupStatusType() = GroupStatusType.entries.find { it.name == this.status }
     fun getGroupCategoryType() = GroupCategoryType.entries.find { it.name == this.category }

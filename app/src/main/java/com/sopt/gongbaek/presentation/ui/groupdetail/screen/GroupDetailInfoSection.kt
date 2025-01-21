@@ -30,17 +30,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.GroupHost
+import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.domain.type.GenderType
+import com.sopt.gongbaek.domain.type.GroupStatusType
+import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.presentation.util.formatEnterYearToString
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
-fun GroupDetailInfoScreen(
-    groupIntroduction: String,
+fun GroupDetailInfoSection(
+    groupInfo: GroupInfo,
     groupMaxPeopleCount: Int,
-    groupCurrentPeopleCount: Int
+    groupCurrentPeopleCount: Int,
+    onApplyClick: () -> Unit
 ) {
     val groupHost = GroupHost(
         profileImg = 1,
@@ -82,7 +86,7 @@ fun GroupDetailInfoScreen(
                     )
                 ) {
                     Text(
-                        text = groupIntroduction,
+                        text = groupInfo.introduction,
                         modifier = Modifier.padding(16.dp),
                         color = GongBaekTheme.colors.gray08,
                         style = GongBaekTheme.typography.body2.r14
@@ -174,14 +178,21 @@ fun GroupDetailInfoScreen(
                                 ) {
                                     Text(
                                         text = stringResource(R.string.group_detail_enter_year_grade_title),
-                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp),
+                                        modifier = Modifier.padding(
+                                            horizontal = 6.dp,
+                                            vertical = 1.dp
+                                        ),
                                         color = GongBaekTheme.colors.mainOrange,
                                         style = GongBaekTheme.typography.caption2.m12
                                     )
                                 }
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = stringResource(R.string.group_detail_enter_year_grade, formatEnterYearToString(groupHost.enterYear), groupHost.grade),
+                                    text = stringResource(
+                                        R.string.group_detail_enter_year_grade,
+                                        formatEnterYearToString(groupHost.enterYear),
+                                        groupHost.grade
+                                    ),
                                     color = GongBaekTheme.colors.gray08,
                                     style = GongBaekTheme.typography.caption2.m12
                                 )
@@ -197,7 +208,10 @@ fun GroupDetailInfoScreen(
                                 ) {
                                     Text(
                                         text = stringResource(R.string.group_detail_mbti_title),
-                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp),
+                                        modifier = Modifier.padding(
+                                            horizontal = 6.dp,
+                                            vertical = 1.dp
+                                        ),
                                         color = GongBaekTheme.colors.mainOrange,
                                         style = GongBaekTheme.typography.caption2.m12
                                     )
@@ -243,14 +257,18 @@ fun GroupDetailInfoScreen(
                     .weight(1f)
                     .roundedBackgroundWithBorder(
                         cornerRadius = 6.dp,
-                        backgroundColor = GongBaekTheme.colors.gray09
+                        backgroundColor = if (groupCurrentPeopleCount == groupMaxPeopleCount) GongBaekTheme.colors.gray04 else GongBaekTheme.colors.gray09
                     ),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = stringResource(R.string.group_detail_people_counter, groupCurrentPeopleCount, groupMaxPeopleCount),
+                    text = stringResource(
+                        R.string.group_detail_people_counter,
+                        groupCurrentPeopleCount,
+                        groupMaxPeopleCount
+                    ),
                     modifier = Modifier.padding(vertical = 16.dp),
-                    color = GongBaekTheme.colors.gray01,
+                    color = if (groupCurrentPeopleCount == groupMaxPeopleCount) GongBaekTheme.colors.white else GongBaekTheme.colors.gray01,
                     style = GongBaekTheme.typography.title2.sb18
                 )
             }
@@ -259,12 +277,20 @@ fun GroupDetailInfoScreen(
                     .weight(2.3f)
                     .roundedBackgroundWithBorder(
                         cornerRadius = 6.dp,
-                        backgroundColor = GongBaekTheme.colors.mainOrange
+                        backgroundColor = if (groupInfo.status == GroupStatusType.RECRUITING.name) GongBaekTheme.colors.mainOrange else GongBaekTheme.colors.gray03
+                    )
+                    .clickableWithoutRipple(
+                        enabled = groupInfo.status == GroupStatusType.RECRUITING.name,
+                        onClick = { if (!groupInfo.isHost && !groupInfo.isApply) onApplyClick() }
                     ),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = stringResource(R.string.group_detail_button_apply),
+                    text = when {
+                        groupInfo.isHost -> stringResource(R.string.group_detail_button_delete)
+                        groupInfo.isApply -> stringResource(R.string.group_detail_button_cancel)
+                        else -> stringResource(R.string.group_detail_button_apply)
+                    },
                     modifier = Modifier.padding(vertical = 16.dp),
                     color = GongBaekTheme.colors.white,
                     style = GongBaekTheme.typography.title2.sb18
@@ -278,10 +304,15 @@ fun GroupDetailInfoScreen(
 @Composable
 fun GroupDetailInfoScreenPreview() {
     GONGBAEKTheme {
-        GroupDetailInfoScreen(
-            groupIntroduction = "복학하고 친구가 없어서 화요일마다 간단하게 점심 먹을 친구들 구해봐요~ 친구 없는 저를 살려주세요 OTL",
-            groupCurrentPeopleCount = 2,
-            groupMaxPeopleCount = 4
+        GroupDetailInfoSection(
+            groupInfo = GroupInfo(
+                status = "RECRUITING",
+                isHost = false,
+                isApply = false
+            ),
+            groupCurrentPeopleCount = 4,
+            groupMaxPeopleCount = 4,
+            onApplyClick = {}
         )
     }
 }

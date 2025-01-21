@@ -7,6 +7,6 @@ fun NavController.navigateGroupDetailNavGraph() {
     navigate(route = NavigationRoute.GroupDetailNavGraphRoute.GROUP_DETAIL_NAV_GRAPH)
 }
 
-fun NavController.navigateGroupDetail() {
-    navigate(route = NavigationRoute.GroupDetailNavGraphRoute.GROUP_DETAIL)
+fun NavController.navigateGroupDetail(groupId: Int, groupCycle: String) {
+    navigate(route = NavigationRoute.GroupDetailNavGraphRoute.GROUP_DETAIL.replace("{groupId}", groupId.toString()).replace("{groupCycle}", groupCycle))
 }

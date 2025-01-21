@@ -101,18 +101,4 @@ enum class SelectableButtonType(
             R.drawable.img_category_others
         )
     );
-
-    companion object {
-
-        fun formatCategoryOptionToDescription(category: String): String =
-            when (category) {
-                GroupCategoryType.STUDY.name -> GroupCategoryType.STUDY.description
-                GroupCategoryType.DINING.name -> GroupCategoryType.DINING.description
-                GroupCategoryType.EXERCISE.name -> GroupCategoryType.EXERCISE.description
-                GroupCategoryType.PLAYING.name -> GroupCategoryType.PLAYING.description
-                GroupCategoryType.NETWORKING.name -> GroupCategoryType.NETWORKING.description
-                GroupCategoryType.OTHERS.name -> GroupCategoryType.OTHERS.description
-                else -> ""
-            }
-    }
 }

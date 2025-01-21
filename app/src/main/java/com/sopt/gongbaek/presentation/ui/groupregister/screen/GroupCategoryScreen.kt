@@ -17,13 +17,11 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
-import com.sopt.gongbaek.presentation.type.SelectableButtonType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.GroupCategorySelectableButtons
-import timber.log.Timber
 
 @Composable
 fun GroupCategoryRoute(

@@ -47,7 +47,7 @@ private fun GenderScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        GenderScreenContent(
+        GenderSelectionSection(
             onBackClick = navigateBack,
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -65,60 +65,44 @@ private fun GenderScreen(
 }
 
 @Composable
-private fun GenderScreenContent(
+private fun GenderSelectionSection(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
-        GenderTopBarSection(onBackClick = onBackClick)
+        StartTitleTopBar(onClick = onBackClick)
 
-        Spacer(modifier = Modifier.height(54.dp))
-
-        GenderSelectionSection(
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
-private fun GenderTopBarSection(
-    onBackClick: () -> Unit
-) {
-    StartTitleTopBar(onClick = onBackClick)
-
-    GongBaekProgressBar(progressPercent = 0.75f)
-}
-
-@Composable
-private fun GenderSelectionSection(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        PageDescriptionSection(
-            titleResId = R.string.auth_gender_title,
-            descriptionResId = R.string.auth_gender_description
-        )
-
-        Spacer(modifier = Modifier.height(44.dp))
+        GongBaekProgressBar(progressPercent = 0.75f)
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = modifier,
         ) {
-            Text(
-                text = "성별",
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.body2.sb14
+            Spacer(modifier = Modifier.height(54.dp))
+
+            PageDescriptionSection(
+                titleResId = R.string.auth_gender_title,
+                descriptionResId = R.string.auth_gender_description
             )
 
-            var selectedOption by remember { mutableStateOf("") }
-            GongBaekSelectableButtons(
-                selectableButtonType = SelectableButtonType.GENDER,
-                options = SelectableButtonType.GENDER.options,
-                onOptionSelected = { option -> selectedOption = option },
-                selectedOption = selectedOption
-            )
+            Spacer(modifier = Modifier.height(44.dp))
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Text(
+                    text = "성별",
+                    color = GongBaekTheme.colors.gray08,
+                    style = GongBaekTheme.typography.body2.sb14
+                )
+
+                var selectedOption by remember { mutableStateOf("") }
+                GongBaekSelectableButtons(
+                    selectableButtonType = SelectableButtonType.GENDER,
+                    options = SelectableButtonType.GENDER.options,
+                    onOptionSelected = { option -> selectedOption = option },
+                    selectedOption = selectedOption
+                )
+            }
         }
     }
 }

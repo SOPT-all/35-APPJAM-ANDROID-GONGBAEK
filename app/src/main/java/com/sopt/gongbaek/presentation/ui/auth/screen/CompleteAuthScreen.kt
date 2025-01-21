@@ -67,7 +67,7 @@ private fun CompleteAuthScreen(
                 .fillMaxWidth()
         ) {
             Text(
-                text = "공백을 채우러 가볼까요?",
+                text = "가입이 완료되었어요!",
                 color = GongBaekTheme.colors.black,
                 style = GongBaekTheme.typography.head2.b24,
                 textAlign = TextAlign.Center,

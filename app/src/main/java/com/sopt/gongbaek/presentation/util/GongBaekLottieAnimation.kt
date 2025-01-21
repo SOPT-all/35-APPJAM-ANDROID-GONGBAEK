@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.util
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -43,6 +44,12 @@ fun GongBaekLottieAnimation(
         modifier = modifier,
         clipToCompositionBounds = false
     )
+
+    DisposableEffect(Unit) {
+        onDispose {
+
+        }
+    }
 }
 
 @Preview(showBackground = true)

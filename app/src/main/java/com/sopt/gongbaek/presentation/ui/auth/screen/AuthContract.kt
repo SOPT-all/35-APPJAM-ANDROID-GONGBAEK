@@ -49,6 +49,7 @@ class AuthContract {
         data object NavigateMajorSearch : SideEffect
         data object NavigateSelfIntroduction : SideEffect
         data object NavigateEnterTimetable : SideEffect
+        data object NavigateTimetableConvert : SideEffect
         data object NavigateGapTimetable : SideEffect
         data object NavigateCompleteAuth : SideEffect
         data object NavigateHome : SideEffect

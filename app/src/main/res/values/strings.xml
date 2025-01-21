@@ -40,7 +40,9 @@
     <string name="topbar_my_group">나의 채움</string>
 
     <!--CommentSection -->
+    <string name="comment_section_group_closed_description">해당 모임이 종료되어 더 이상 댓글을 작성할 수 없습니다.</string>
     <string name="comment_section_header">댓글 %1$s개</string>
+    <string name="comment_section_empty_description">아직 댓글이 없어요!\n궁금한 것을 댓글로 작성해주세요.</string>
     <string name="comment_section_comment_writer_chip">모집자</string>
     <string name="comment_section_text_field_placeholder">댓글을 작성해주세요.</string>
 
@@ -76,7 +78,7 @@
     <string name="grouproom_people_chip_host">모집자</string>
 
     <!--SelectDayCalendar-->
-    <string name="select_day_calendar_year_month">%d년 %d월</string>
+    <string name="select_day_calendar_year_month">%1$d년 %2$d월</string>
     <string name="select_day_calendar_mon">월</string>
     <string name="select_day_calendar_tue">화</string>
     <string name="select_day_calendar_wed">수</string>
@@ -110,6 +112,8 @@
     <string name="my_group_top_bar_title">나의 채움</string>
     <string name="my_group_active_group_title">현재 활동중인 모임</string>
     <string name="my_group_closed_group_title">종료된 모임</string>
+    <string name="my_group_active_group_empty">현재 활동중인 모임이 없어요.</string>
+    <string name="my_group_closed_group_empty">종료된 모임 없어요.</string>
 
     <!--GroupDetailScreen-->
     <string name="group_detail_top_bar_title">채우기</string>

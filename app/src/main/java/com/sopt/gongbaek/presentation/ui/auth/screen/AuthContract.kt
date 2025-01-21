@@ -28,6 +28,10 @@ class AuthContract {
         data class OnMajorSelected(val selectedMajor: String) : Event()
         data class OnMajorSearchChanged(val enterMajor: String) : Event()
         data object OnMajorSearchClick : Event()
+
+        data class OnGradeSelected(val selectedGrade: String) : Event()
+        data class OnYearSelected(val year: Int) : Event()
+
         data class OnGenderSelected(val selectedGender: String) : Event()
 
         data class OnSelfIntroductionChanged(val selfIntroduction: String) : Event()

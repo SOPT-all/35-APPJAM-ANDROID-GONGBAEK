@@ -4,6 +4,7 @@ import com.sopt.gongbaek.domain.model.Majors
 import com.sopt.gongbaek.domain.model.Universities
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.domain.type.GenderType
+import com.sopt.gongbaek.domain.type.GradeType
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,6 +31,14 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             is AuthContract.Event.OnMajorSearchClick -> {
                 fetchMajorSearch()
             }
+
+            is AuthContract.Event.OnGradeSelected -> {
+                val grade = GradeType.toGrade(event.selectedGrade)
+                updateUserInfo { copy(grade = grade) }
+                setState { copy(selectedGrade = event.selectedGrade) }
+            }
+
+            is AuthContract.Event.OnYearSelected -> updateUserInfo { copy(enterYear = event.year) }
 
             is AuthContract.Event.OnGenderSelected -> {
                 val gender = GenderType.toGender(event.selectedGender)

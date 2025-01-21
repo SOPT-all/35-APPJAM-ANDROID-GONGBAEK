@@ -42,18 +42,17 @@ fun NicknameRoute(
                 if (sideEffect is AuthContract.SideEffect.NavigateBack) {
                     navigateBack()
                 }
+                if (sideEffect is AuthContract.SideEffect.NavigateUnivMajor) {
+                    navigateUnivMajor()
+                }
             }
     }
 
     NicknameScreen(
         nickname = uiState.userInfo.nickname,
-        navigateUnivMajor = navigateUnivMajor,
-        onNicknameChanged = { nickname ->
-            viewModel.setEvent(AuthContract.Event.OnNicknameChanged(nickname))
-        },
-        onBackClick = {
-            viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack)
-        }
+        onNicknameChanged = { nickname -> viewModel.setEvent(AuthContract.Event.OnNicknameChanged(nickname)) },
+        navigateUnivMajor = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateUnivMajor) },
+        onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 

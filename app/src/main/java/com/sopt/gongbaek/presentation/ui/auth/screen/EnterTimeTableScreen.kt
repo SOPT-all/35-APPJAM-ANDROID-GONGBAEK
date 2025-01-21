@@ -53,7 +53,7 @@ private fun EnterTimeTableScreen(
         },
         containerColor = GongBaekTheme.colors.white,
         content = { paddingValues ->
-            EnterTimeTableContent(
+            EnterTimeTableSection(
                 onBackClick = navigateBack,
                 modifier = Modifier
                     .padding(paddingValues)
@@ -64,73 +64,57 @@ private fun EnterTimeTableScreen(
 }
 
 @Composable
-private fun EnterTimeTableContent(
+private fun EnterTimeTableSection(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
-        EnterTimeTableScreenTopBar(onBackClick = onBackClick)
+        StartTitleTopBar(onClick = onBackClick)
 
-        Spacer(modifier = Modifier.height(54.dp))
+        GongBaekProgressBar(progressPercent = 1f)
 
-        EnterTimeTableSection(
+        Column(
             modifier = modifier
-        )
-    }
-}
+        ) {
+            Spacer(modifier = Modifier.height(54.dp))
 
-@Composable
-private fun EnterTimeTableScreenTopBar(
-    onBackClick: () -> Unit
-) {
-    StartTitleTopBar(onClick = onBackClick)
+            PageDescriptionSection(
+                titleResId = R.string.auth_enter_timetable_title
+            )
 
-    GongBaekProgressBar(progressPercent = 1f)
-}
+            Spacer(modifier = Modifier.height(10.dp))
 
-@Composable
-private fun EnterTimeTableSection(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        PageDescriptionSection(
-            titleResId = R.string.auth_enter_timetable_title
-        )
+            Text(
+                text = buildAnnotatedString {
+                    append(stringResource(R.string.auth_enter_timetable_description))
 
-        Spacer(modifier = Modifier.height(10.dp))
+                    addStyle(
+                        style = SpanStyle(
+                            color = GongBaekTheme.colors.mainOrange
+                        ),
+                        start = 0,
+                        end = 6
+                    )
+                },
+                color = GongBaekTheme.colors.gray07,
+                style = GongBaekTheme.typography.body1.m16
+            )
 
-        Text(
-            text = buildAnnotatedString {
-                append(stringResource(R.string.auth_enter_timetable_description))
+            Spacer(modifier = Modifier.height(14.dp))
 
-                addStyle(
-                    style = SpanStyle(
-                        color = GongBaekTheme.colors.mainOrange
-                    ),
-                    start = 0,
-                    end = 6
-                )
-            },
-            color = GongBaekTheme.colors.gray07,
-            style = GongBaekTheme.typography.body1.m16
-        )
+            LazyColumn {
+                item {
+                    val timeSlotLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
+                    val selectedTimeSlotsByDay = remember { mutableStateOf(mapOf<String, List<Int>>()) }
 
-        Spacer(modifier = Modifier.height(14.dp))
-
-        LazyColumn {
-            item {
-                val timeSlotLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
-                val selectedTimeSlotsByDay = remember { mutableStateOf(mapOf<String, List<Int>>()) }
-
-                LectureTimeSelectionTable(
-                    timeSlotLabels = timeSlotLabels,
-                    selectedTimeSlotsByDay = selectedTimeSlotsByDay.value,
-                    onTimeSlotSelectionChange = { day, updatedIndices ->
-                        selectedTimeSlotsByDay.value += (day to updatedIndices)
-                    }
-                )
+                    LectureTimeSelectionTable(
+                        timeSlotLabels = timeSlotLabels,
+                        selectedTimeSlotsByDay = selectedTimeSlotsByDay.value,
+                        onTimeSlotSelectionChange = { day, updatedIndices ->
+                            selectedTimeSlotsByDay.value += (day to updatedIndices)
+                        }
+                    )
+                }
             }
         }
     }

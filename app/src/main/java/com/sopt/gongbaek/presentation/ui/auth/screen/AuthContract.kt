@@ -29,6 +29,8 @@ class AuthContract {
         data class OnMajorSearchChanged(val enterMajor: String) : Event()
         data object OnMajorSearchClick : Event()
         data class OnGenderSelected(val selectedGender: String) : Event()
+
+        data class OnSelfIntroductionChanged(val selfIntroduction: String) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {

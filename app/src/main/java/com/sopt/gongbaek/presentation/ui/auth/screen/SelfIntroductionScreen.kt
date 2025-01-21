@@ -5,9 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -18,6 +21,9 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.GongBaekBasicTextFieldType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -34,22 +40,46 @@ fun SelfIntroductionRoute(
     navigateEnterTimetable: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateEnterTimetable) {
+                    navigateEnterTimetable()
+                }
+            }
+    }
+
     SelfIntroductionScreen(
-        navigateEnterTimetable = navigateEnterTimetable,
-        navigateBack = navigateBack
+        selfIntroduction = uiState.userInfo.introduction,
+        navigateEnterTimetable = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateEnterTimetable) },
+        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
+        onSelfIntroductionChanged = { selfIntroduction -> viewModel.setEvent(AuthContract.Event.OnSelfIntroductionChanged(selfIntroduction)) }
     )
 }
 
 @Composable
 private fun SelfIntroductionScreen(
     navigateEnterTimetable: () -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    selfIntroduction: String,
+    onSelfIntroductionChanged: (String) -> Unit
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding()
     ) {
         SelfIntroductionSection(
             onBackClick = navigateBack,
+            selfIntroduction = selfIntroduction,
+            onSelfIntroductionChanged = onSelfIntroductionChanged,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(horizontal = 16.dp)
@@ -57,7 +87,8 @@ private fun SelfIntroductionScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = navigateEnterTimetable,
+            enabled = selfIntroduction.isNotEmpty(),
+            onClick = { if (selfIntroduction.isNotEmpty()) navigateEnterTimetable() },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -67,6 +98,8 @@ private fun SelfIntroductionScreen(
 
 @Composable
 private fun SelfIntroductionSection(
+    selfIntroduction: String,
+    onSelfIntroductionChanged: (String) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -104,10 +137,9 @@ private fun SelfIntroductionSection(
 
             Spacer(modifier = Modifier.height(44.dp))
 
-            val text = remember { mutableStateOf("") }
             GongBaekBasicTextField(
-                value = text.value,
-                onValueChange = { newValue -> text.value = newValue },
+                value = selfIntroduction,
+                onValueChange = onSelfIntroductionChanged,
                 gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.SELF_INTRODUCTION,
                 modifier = Modifier
                     .height((LocalConfiguration.current.screenHeightDp * 0.169f).dp)
@@ -122,7 +154,9 @@ private fun PreviewSelfIntroductionScreen() {
     GONGBAEKTheme {
         SelfIntroductionScreen(
             navigateEnterTimetable = {},
-            navigateBack = {}
+            navigateBack = {},
+            selfIntroduction = "",
+            onSelfIntroductionChanged = { }
         )
     }
 }

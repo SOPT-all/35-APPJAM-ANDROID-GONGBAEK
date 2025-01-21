@@ -35,6 +35,9 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
                 updateUserInfo { copy(gender = gender) }
                 setState { copy(selectedGender = event.selectedGender) }
             }
+
+            is AuthContract.Event.OnSelfIntroductionChanged -> updateUserInfo { copy(introduction = event.selfIntroduction) }
+
         }
     }
 
@@ -88,4 +91,5 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }
+
 }

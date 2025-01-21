@@ -8,14 +8,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
@@ -31,16 +34,38 @@ fun EnterTimeTableRoute(
     navigateGapTimetable: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateGapTimetable) {
+                    navigateGapTimetable()
+                }
+            }
+    }
+
     EnterTimeTableScreen(
-        navigateGapTimetable = navigateGapTimetable,
-        navigateBack = navigateBack
+        selectedTimeSlotsByDay = uiState.selectedTimeSlotsByDay,
+        navigateGapTimetable = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateGapTimetable) },
+        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
+        onTimeSlotSelectionChange = { day, timeSlots ->
+            viewModel.setEvent(AuthContract.Event.OnTimeSlotSelectionChange(day, timeSlots))
+        }
     )
 }
 
 @Composable
 private fun EnterTimeTableScreen(
     navigateGapTimetable: () -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    selectedTimeSlotsByDay: Map<String, List<Int>>,
+    onTimeSlotSelectionChange: (String, List<Int>) -> Unit,
 ) {
     Scaffold(
         bottomBar = {
@@ -55,6 +80,8 @@ private fun EnterTimeTableScreen(
         content = { paddingValues ->
             EnterTimeTableSection(
                 onBackClick = navigateBack,
+                selectedTimeSlotsByDay = selectedTimeSlotsByDay,
+                onTimeSlotSelectionChange = onTimeSlotSelectionChange,
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(horizontal = 16.dp)
@@ -66,6 +93,8 @@ private fun EnterTimeTableScreen(
 @Composable
 private fun EnterTimeTableSection(
     onBackClick: () -> Unit,
+    selectedTimeSlotsByDay: Map<String, List<Int>>,
+    onTimeSlotSelectionChange: (String, List<Int>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -105,14 +134,11 @@ private fun EnterTimeTableSection(
             LazyColumn {
                 item {
                     val timeSlotLabels = listOf("9", "10", "11", "12", "13", "14", "15", "16", "17")
-                    val selectedTimeSlotsByDay = remember { mutableStateOf(mapOf<String, List<Int>>()) }
 
                     LectureTimeSelectionTable(
                         timeSlotLabels = timeSlotLabels,
-                        selectedTimeSlotsByDay = selectedTimeSlotsByDay.value,
-                        onTimeSlotSelectionChange = { day, updatedIndices ->
-                            selectedTimeSlotsByDay.value += (day to updatedIndices)
-                        }
+                        selectedTimeSlotsByDay = selectedTimeSlotsByDay,
+                        onTimeSlotSelectionChange = onTimeSlotSelectionChange
                     )
                 }
             }
@@ -126,7 +152,9 @@ private fun PreviewEnterTimeTableScreen() {
     GONGBAEKTheme {
         EnterTimeTableScreen(
             navigateGapTimetable = {},
-            navigateBack = {}
+            navigateBack = {},
+            selectedTimeSlotsByDay = mapOf(),
+            onTimeSlotSelectionChange = { _, _ -> }
         )
     }
 }

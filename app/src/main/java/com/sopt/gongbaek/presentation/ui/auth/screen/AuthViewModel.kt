@@ -5,6 +5,7 @@ import com.sopt.gongbaek.domain.model.Universities
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
+import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -38,6 +39,12 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
 
             is AuthContract.Event.OnSelfIntroductionChanged -> updateUserInfo { copy(introduction = event.selfIntroduction) }
 
+            is AuthContract.Event.OnTimeSlotSelectionChange -> {
+                val timeSlotsByDay = currentState.selectedTimeSlotsByDay.toMutableMap()
+                timeSlotsByDay[event.day] = event.timeSlots
+                setState { copy(selectedTimeSlotsByDay = timeSlotsByDay) }
+                updateUserInfo { copy(timeTable = convertToTimeTable(timeSlotsByDay)) }
+            }
         }
     }
 

@@ -15,6 +15,7 @@ class AuthContract {
         val univ: String = "",
         val enterMajor: String = "",
         val selectedGender: String = ""
+        val selectedTimeSlotsByDay: Map<String, List<Int>> = emptyMap(),
     ) : UiState
 
     sealed class Event : UiEvent {
@@ -30,6 +31,8 @@ class AuthContract {
         data class OnGenderSelected(val selectedGender: String) : Event()
 
         data class OnSelfIntroductionChanged(val selfIntroduction: String) : Event()
+
+        data class OnTimeSlotSelectionChange(val day: String, val timeSlots: List<Int>) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {
@@ -39,5 +42,8 @@ class AuthContract {
         data object NavigateUnivSearch : SideEffect
         data object NavigateMajorSearch : SideEffect
         data object NavigateSelfIntroduction : SideEffect
+        data object NavigateEnterTimetable : SideEffect
+        data object NavigateGapTimetable : SideEffect
+        data object NavigateCompleteAuth : SideEffect
     }
 }

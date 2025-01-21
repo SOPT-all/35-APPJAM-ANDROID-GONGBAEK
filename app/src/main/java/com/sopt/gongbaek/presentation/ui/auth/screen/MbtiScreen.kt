@@ -39,7 +39,7 @@ fun MbtiRoute(
 }
 
 @Composable
-fun MbtiScreen(
+private fun MbtiScreen(
     navigateGender: () -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -69,97 +69,81 @@ private fun MbtiScreenContent(
     modifier: Modifier = Modifier
 ) {
     Column {
-        MbitTopBarSection(
-            onBackClick = onBackClick
-        )
+        StartTitleTopBar(onClick = onBackClick)
+
+        GongBaekProgressBar(progressPercent = 0.625f)
 
         Spacer(modifier = Modifier.height(54.dp))
 
-        MbtiSelectionSection(
+        Column(
             modifier = modifier
-        )
-    }
-}
+        ) {
+            Spacer(modifier = Modifier.height(54.dp))
 
-@Composable
-private fun MbitTopBarSection(
-    onBackClick: () -> Unit
-) {
-    StartTitleTopBar(onClick = onBackClick)
-
-    GongBaekProgressBar(progressPercent = 0.625f)
-}
-
-@Composable
-private fun MbtiSelectionSection(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        PageDescriptionSection(
-            titleResId = R.string.auth_mbti_title,
-            descriptionResId = R.string.auth_mbti_description
-        )
-
-        Spacer(modifier = Modifier.height(44.dp))
-
-        var selectedOption1 by remember { mutableStateOf("") }
-        var selectedOption2 by remember { mutableStateOf("") }
-        var selectedOption3 by remember { mutableStateOf("") }
-        var selectedOption4 by remember { mutableStateOf("") }
-        Column {
-            Text(
-                text = "외향형/내향형",
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.body2.sb14
-            )
-            GongBaekSelectableButtons(
-                selectableButtonType = SelectableButtonType.MBTI_FIRST,
-                options = SelectableButtonType.MBTI_FIRST.options,
-                onOptionSelected = { option -> selectedOption1 = option },
-                modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                selectedOption = selectedOption1
+            PageDescriptionSection(
+                titleResId = R.string.auth_mbti_title,
+                descriptionResId = R.string.auth_mbti_description
             )
 
-            Text(
-                text = "감각형/직관형",
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.body2.sb14
-            )
-            GongBaekSelectableButtons(
-                selectableButtonType = SelectableButtonType.MBTI_SECOND,
-                options = SelectableButtonType.MBTI_SECOND.options,
-                onOptionSelected = { option -> selectedOption2 = option },
-                modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                selectedOption = selectedOption2
-            )
+            Spacer(modifier = Modifier.height(44.dp))
 
-            Text(
-                text = "사고형/감정형",
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.body2.sb14
-            )
-            GongBaekSelectableButtons(
-                selectableButtonType = SelectableButtonType.MBTI_THIRD,
-                options = SelectableButtonType.MBTI_THIRD.options,
-                onOptionSelected = { option -> selectedOption3 = option },
-                modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                selectedOption = selectedOption3
-            )
+            var selectedOption1 by remember { mutableStateOf("") }
+            var selectedOption2 by remember { mutableStateOf("") }
+            var selectedOption3 by remember { mutableStateOf("") }
+            var selectedOption4 by remember { mutableStateOf("") }
+            Column {
+                Text(
+                    text = "외향형/내향형",
+                    color = GongBaekTheme.colors.gray08,
+                    style = GongBaekTheme.typography.body2.sb14
+                )
+                GongBaekSelectableButtons(
+                    selectableButtonType = SelectableButtonType.MBTI_FIRST,
+                    options = SelectableButtonType.MBTI_FIRST.options,
+                    onOptionSelected = { option -> selectedOption1 = option },
+                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                    selectedOption = selectedOption1
+                )
 
-            Text(
-                text = "판단형/인식형",
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.body2.sb14
-            )
-            GongBaekSelectableButtons(
-                selectableButtonType = SelectableButtonType.MBTI_FOURTH,
-                options = SelectableButtonType.MBTI_FOURTH.options,
-                onOptionSelected = { option -> selectedOption4 = option },
-                modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                selectedOption = selectedOption4
-            )
+                Text(
+                    text = "감각형/직관형",
+                    color = GongBaekTheme.colors.gray08,
+                    style = GongBaekTheme.typography.body2.sb14
+                )
+                GongBaekSelectableButtons(
+                    selectableButtonType = SelectableButtonType.MBTI_SECOND,
+                    options = SelectableButtonType.MBTI_SECOND.options,
+                    onOptionSelected = { option -> selectedOption2 = option },
+                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                    selectedOption = selectedOption2
+                )
+
+                Text(
+                    text = "사고형/감정형",
+                    color = GongBaekTheme.colors.gray08,
+                    style = GongBaekTheme.typography.body2.sb14
+                )
+                GongBaekSelectableButtons(
+                    selectableButtonType = SelectableButtonType.MBTI_THIRD,
+                    options = SelectableButtonType.MBTI_THIRD.options,
+                    onOptionSelected = { option -> selectedOption3 = option },
+                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                    selectedOption = selectedOption3
+                )
+
+                Text(
+                    text = "판단형/인식형",
+                    color = GongBaekTheme.colors.gray08,
+                    style = GongBaekTheme.typography.body2.sb14
+                )
+                GongBaekSelectableButtons(
+                    selectableButtonType = SelectableButtonType.MBTI_FOURTH,
+                    options = SelectableButtonType.MBTI_FOURTH.options,
+                    onOptionSelected = { option -> selectedOption4 = option },
+                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                    selectedOption = selectedOption4
+                )
+            }
         }
     }
 }

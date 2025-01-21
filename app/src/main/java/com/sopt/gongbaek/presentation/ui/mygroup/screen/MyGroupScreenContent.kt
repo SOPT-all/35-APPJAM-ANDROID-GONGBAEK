@@ -35,8 +35,8 @@ import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.ui.component.section.GroupInfoSection
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
-import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
+import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
@@ -85,7 +85,7 @@ fun MyGroupScreenContent(
                     groupCategory = GroupInfoChipType.getChipTypeFromCategory(activeGroup.category),
                     groupCycle = GroupInfoChipType.getChipTypeFromCycle(activeGroup.cycle),
                     groupTitle = activeGroup.title,
-                    groupTime = createGroupTimeDescription(activeGroup),
+                    groupTime = formatGroupTimeDescription(activeGroup),
                     groupPlace = activeGroup.place,
                     modifier = Modifier
                         .padding(top = 12.dp)
@@ -103,57 +103,59 @@ fun MyGroupScreenContent(
                 )
             }
 
-        item {
-            Row(
-                modifier = Modifier
-                    .padding(top = 28.dp, bottom = 6.dp)
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.img_lock_18),
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp)
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = stringResource(R.string.my_group_active_group_title),
-                    color = GongBaekTheme.colors.gray10,
-                    style = GongBaekTheme.typography.title2.sb18
-                )
+            item {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 28.dp, bottom = 6.dp)
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.img_lock_18),
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = stringResource(R.string.my_group_active_group_title),
+                        color = GongBaekTheme.colors.gray10,
+                        style = GongBaekTheme.typography.title2.sb18
+                    )
+                }
+            }
+            if (closedGroups.isEmpty()) {
+                item {
+                    MyGroupEmptySection(
+                        imageRes = R.drawable.img_my_fill_closed_empty,
+                        descriptionRes = R.string.my_group_closed_group_empty
+                    )
+                }
+            } else {
+                items(items = closedGroups) { closedGroup ->
+                    GroupInfoSection(
+                        groupStatus = GroupInfoChipType.getChipTypeFromStatus(closedGroup.status),
+                        groupCategory = GroupInfoChipType.getChipTypeFromCategory(closedGroup.category),
+                        groupCycle = GroupInfoChipType.getChipTypeFromCycle(closedGroup.cycle),
+                        groupTitle = closedGroup.title,
+                        groupTime = formatGroupTimeDescription(closedGroup),
+                        groupPlace = closedGroup.place,
+                        modifier = Modifier
+                            .padding(top = 12.dp)
+                            .padding(horizontal = 16.dp)
+                    )
+                    GroupInfoSectionButton(
+                        navigateGroupDetail = navigateGroupDetail,
+                        navigateGroupRoom = navigateGroupRoom,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        thickness = 1.dp,
+                        color = GongBaekTheme.colors.gray02
+                    )
+                }
             }
         }
-        if (closedGroups.isEmpty()) {
-            item {
-                MyGroupEmptySection(
-                    imageRes = R.drawable.img_my_fill_closed_empty,
-                    descriptionRes = R.string.my_group_closed_group_empty
-                )
-            }
-        } else {
-            items(items = closedGroups) { closedGroup ->
-                GroupInfoSection(
-                    groupStatus = GroupInfoChipType.getChipTypeFromStatus(closedGroup.status),
-                    groupCategory = GroupInfoChipType.getChipTypeFromCategory(closedGroup.category),
-                    groupCycle = GroupInfoChipType.getChipTypeFromCycle(closedGroup.cycle),
-                    groupTitle = closedGroup.title,
-                    groupTime = createGroupTimeDescription(closedGroup),
-                    groupPlace = closedGroup.place,
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                        .padding(horizontal = 16.dp)
-                )
-                GroupInfoSectionButton(
-                    navigateGroupDetail = navigateGroupDetail,
-                    navigateGroupRoom = navigateGroupRoom,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
-                )
-                HorizontalDivider(
-                    modifier = Modifier.fillMaxWidth(),
-                    thickness = 1.dp,
-                    color = GongBaekTheme.colors.gray02
-                )
-            }
     }
 }
 

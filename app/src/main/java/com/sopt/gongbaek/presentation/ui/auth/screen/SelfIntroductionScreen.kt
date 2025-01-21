@@ -48,7 +48,7 @@ private fun SelfIntroductionScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        SelfIntroductionScreenContent(
+        SelfIntroductionSection(
             onBackClick = navigateBack,
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -66,71 +66,53 @@ private fun SelfIntroductionScreen(
 }
 
 @Composable
-private fun SelfIntroductionScreenContent(
+private fun SelfIntroductionSection(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
-        SelfIntroductionScreenTopBar(
-            onBackClick = onBackClick
-        )
+        StartTitleTopBar(onClick = onBackClick)
 
-        Spacer(modifier = Modifier.height(54.dp))
+        GongBaekProgressBar(progressPercent = 0.875f)
 
-        SelfIntroductionSection(
+        Column(
             modifier = modifier
-        )
-    }
-}
+        ) {
+            Spacer(modifier = Modifier.height(54.dp))
 
-@Composable
-private fun SelfIntroductionScreenTopBar(
-    onBackClick: () -> Unit
-) {
-    StartTitleTopBar(onClick = onBackClick)
+            PageDescriptionSection(
+                titleResId = R.string.auth_mbti_title
+            )
 
-    GongBaekProgressBar(progressPercent = 0.875f)
-}
+            Spacer(modifier = Modifier.height(10.dp))
 
-@Composable
-private fun SelfIntroductionSection(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        PageDescriptionSection(
-            titleResId = R.string.auth_mbti_title
-        )
+            Text(
+                text = buildAnnotatedString {
+                    append(stringResource(R.string.auth_self_introduction_description))
 
-        Spacer(modifier = Modifier.height(10.dp))
+                    addStyle(
+                        style = SpanStyle(
+                            color = GongBaekTheme.colors.mainOrange
+                        ),
+                        start = 17,
+                        end = 27
+                    )
+                },
+                color = GongBaekTheme.colors.gray07,
+                style = GongBaekTheme.typography.body1.m16
+            )
 
-        Text(
-            text = buildAnnotatedString {
-                append(stringResource(R.string.auth_self_introduction_description))
+            Spacer(modifier = Modifier.height(44.dp))
 
-                addStyle(
-                    style = SpanStyle(
-                        color = GongBaekTheme.colors.mainOrange
-                    ),
-                    start = 17,
-                    end = 27
-                )
-            },
-            color = GongBaekTheme.colors.gray07,
-            style = GongBaekTheme.typography.body1.m16
-        )
-
-        Spacer(modifier = Modifier.height(44.dp))
-
-        val text = remember { mutableStateOf("") }
-        GongBaekBasicTextField(
-            value = text.value,
-            onValueChange = { newValue -> text.value = newValue },
-            gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.SELF_INTRODUCTION,
-            modifier = Modifier
-                .height((LocalConfiguration.current.screenHeightDp * 0.169f).dp)
-        )
+            val text = remember { mutableStateOf("") }
+            GongBaekBasicTextField(
+                value = text.value,
+                onValueChange = { newValue -> text.value = newValue },
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.SELF_INTRODUCTION,
+                modifier = Modifier
+                    .height((LocalConfiguration.current.screenHeightDp * 0.169f).dp)
+            )
+        }
     }
 }
 

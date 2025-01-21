@@ -22,7 +22,7 @@ fun GongBaekBasicButton(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    enabled: Boolean,
     verticalPadding: Int = 16,
     enableButtonColor: Color = GongBaekTheme.colors.mainOrange,
     disableButtonColor: Color = GongBaekTheme.colors.gray03,
@@ -36,7 +36,10 @@ fun GongBaekBasicButton(
                 shape = RoundedCornerShape(6.dp)
             )
             .padding(vertical = verticalPadding.dp)
-            .clickableWithoutRipple { onClick() },
+            .clickableWithoutRipple(
+                enabled = enabled,
+                onClick = onClick
+            ),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -52,6 +55,7 @@ fun GongBaekBasicButton(
 private fun PreviewGongBaekBasicButton() {
     GongBaekBasicButton(
         title = "확인",
+        enabled = true,
         onClick = {}
     )
 }
@@ -74,12 +78,14 @@ private fun PreviewGongBaekBasicButton3() {
     ) {
         GongBaekBasicButton(
             title = "시간표 변경",
+            enabled = true,
             onClick = {},
             modifier = Modifier.weight(1f),
             enableButtonColor = GongBaekTheme.colors.gray09
         )
         GongBaekBasicButton(
             title = "가입완료",
+            enabled = true,
             onClick = {},
             modifier = Modifier.weight(2f)
         )

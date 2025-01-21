@@ -86,12 +86,8 @@ private fun UnivMajorScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = {
-                if (univSearchResult.isNotEmpty() && majorSearchResult.isNotEmpty()) {
-                    navigateGrade()
-                }
-            },
             enabled = univSearchResult.isNotEmpty() && majorSearchResult.isNotEmpty(),
+            onClick = navigateGrade,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)

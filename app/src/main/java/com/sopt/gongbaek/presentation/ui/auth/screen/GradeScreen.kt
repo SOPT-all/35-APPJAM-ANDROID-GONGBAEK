@@ -102,7 +102,7 @@ private fun GradeScreen(
         GongBaekBasicButton(
             title = "다음",
             enabled = grade != 0 && enterYear != 0,
-            onClick = { if (grade != 0 && enterYear != 0) navigateMbti() },
+            onClick = navigateMbti,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)

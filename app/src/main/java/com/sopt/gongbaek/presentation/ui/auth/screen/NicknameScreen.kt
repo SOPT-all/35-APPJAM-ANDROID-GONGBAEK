@@ -79,8 +79,8 @@ private fun NicknameScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = { if (nickname.isNotBlank()) navigateUnivMajor() },
             enabled = nickname.isNotBlank(),
+            onClick = navigateUnivMajor,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)

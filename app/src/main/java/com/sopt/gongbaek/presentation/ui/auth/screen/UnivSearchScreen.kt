@@ -96,7 +96,7 @@ private fun UnivSearchScreen(
             GongBaekBasicButton(
                 title = "적용",
                 enabled = school.isNotEmpty(),
-                onClick = { if (school.isNotEmpty()) navigateBack() },
+                onClick = navigateBack,
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             )

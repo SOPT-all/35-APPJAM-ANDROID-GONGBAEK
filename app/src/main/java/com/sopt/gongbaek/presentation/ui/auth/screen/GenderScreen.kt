@@ -82,7 +82,7 @@ private fun GenderScreen(
         GongBaekBasicButton(
             title = "다음",
             enabled = gender.isNotEmpty(),
-            onClick = { if (gender.isNotEmpty()) navigateSelfIntroduction() },
+            onClick = navigateSelfIntroduction,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)

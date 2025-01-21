@@ -86,7 +86,7 @@ private fun SelfIntroductionScreen(
         GongBaekBasicButton(
             title = "다음",
             enabled = selfIntroduction.isNotEmpty(),
-            onClick = { if (selfIntroduction.isNotEmpty()) navigateEnterTimetable() },
+            onClick = navigateEnterTimetable,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)

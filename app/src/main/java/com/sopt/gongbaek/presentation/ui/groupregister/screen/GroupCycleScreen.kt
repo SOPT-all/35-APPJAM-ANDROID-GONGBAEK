@@ -59,10 +59,11 @@ fun GroupCycleRoute(
     }
 
     GroupCycleScreen(
-        selectedOption = SelectableButtonType.formatCycleOptionToDescription(uiState.groupRegisterInfo.groupType),
-        onSelectedOption = { selectedOption ->
+        groupCycle = uiState.groupRegisterInfo.groupType,
+        selectedGroupCycle = uiState.selectedGroupType,
+        onGroupCycleSelected = { groupCycle ->
             viewModel.setEvent(
-                GroupRegisterContract.Event.OnGroupCycleSelected(selectedOption)
+                GroupRegisterContract.Event.OnGroupCycleSelected(groupCycle)
             )
         },
         onNextButtonClicked = {
@@ -79,8 +80,9 @@ fun GroupCycleRoute(
 
 @Composable
 fun GroupCycleScreen(
-    selectedOption: String,
-    onSelectedOption: (String) -> Unit,
+    groupCycle: String,
+    selectedGroupCycle: String,
+    onGroupCycleSelected: (String) -> Unit,
     onNextButtonClicked: () -> Unit,
     onBackClick: () -> Unit
 ) {
@@ -90,14 +92,14 @@ fun GroupCycleScreen(
     ) {
         GroupCycleSection(
             onBackClick = onBackClick,
-            selectedOption = selectedOption,
-            onOptionSelected = onSelectedOption
+            selectedOption = selectedGroupCycle,
+            onOptionSelected = onGroupCycleSelected
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
             onClick = onNextButtonClicked,
-            enabled = selectedOption.isNotBlank(),
+            enabled = groupCycle.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -169,8 +171,9 @@ private fun GroupCycleSection(
 fun ShowGroupCycleScreen() {
     GONGBAEKTheme {
         GroupCycleScreen(
-            selectedOption = "",
-            onSelectedOption = {},
+            groupCycle = "",
+            selectedGroupCycle = "",
+            onGroupCycleSelected = {},
             onNextButtonClicked = {},
             onBackClick = {}
         )

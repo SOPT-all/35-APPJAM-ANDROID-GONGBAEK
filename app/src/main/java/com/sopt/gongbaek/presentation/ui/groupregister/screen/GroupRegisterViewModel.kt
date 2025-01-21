@@ -14,10 +14,12 @@ class GroupRegisterViewModel @Inject constructor() :
         when (event) {
             is GroupRegisterContract.Event.OnGroupCycleSelected -> {
                 updateGroupRegisterInfo { copy(groupType = setGroupType(event.groupType)) }
+                setState { copy(selectedGroupType = event.groupType) }
             }
 
             is GroupRegisterContract.Event.OnDayOfWeekSelected -> {
                 updateGroupRegisterInfo { copy(weekDay = setWeekDay(event.weekDay)) }
+                setState { copy(selectedDayOfWeek = event.weekDay) }
             }
 
             is GroupRegisterContract.Event.OnWeekDateAndDaySelected -> {
@@ -31,6 +33,7 @@ class GroupRegisterViewModel @Inject constructor() :
 
             is GroupRegisterContract.Event.OnCategorySelected -> {
                 updateGroupRegisterInfo { copy(category = setCategory(event.category)) }
+                setState { copy(selectedCategory = event.category) }
             }
         }
     }

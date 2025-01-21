@@ -24,6 +24,7 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
+import timber.log.Timber
 
 @Composable
 fun SelectDayOfWeekRoute(
@@ -47,10 +48,11 @@ fun SelectDayOfWeekRoute(
     }
 
     SelectDayOfWeekScreen(
-        selectedOption = SelectableButtonType.formatDayOfWeekOptionToDescription(uiState.groupRegisterInfo.weekDay),
-        onSelectedOption = { selectedOption ->
+        dayOfWeek = uiState.groupRegisterInfo.weekDay,
+        selectedDayOfWeek = uiState.selectedDayOfWeek,
+        onDayOfWeekSelected = { dayOfWeek ->
             viewModel.setEvent(
-                GroupRegisterContract.Event.OnDayOfWeekSelected(selectedOption)
+                GroupRegisterContract.Event.OnDayOfWeekSelected(dayOfWeek)
             )
         },
         onNextButtonClicked = {
@@ -64,8 +66,9 @@ fun SelectDayOfWeekRoute(
 
 @Composable
 fun SelectDayOfWeekScreen(
-    selectedOption: String,
-    onSelectedOption: (String) -> Unit,
+    dayOfWeek: String,
+    selectedDayOfWeek: String,
+    onDayOfWeekSelected: (String) -> Unit,
     onNextButtonClicked: () -> Unit,
     onBackClick: () -> Unit
 ) {
@@ -75,14 +78,14 @@ fun SelectDayOfWeekScreen(
     ) {
         SelectDayOfWeekSection(
             onBackClick = onBackClick,
-            selectedOption = selectedOption,
-            onOptionSelected = onSelectedOption
+            selectedOption = selectedDayOfWeek,
+            onOptionSelected = onDayOfWeekSelected
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
             onClick = onNextButtonClicked,
-            enabled = selectedOption.isNotBlank(),
+            enabled = dayOfWeek.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -130,8 +133,9 @@ private fun SelectDayOfWeekSection(
 fun ShowSelectDayOfWeekScreen() {
     GONGBAEKTheme {
         SelectDayOfWeekScreen(
-            selectedOption = "",
-            onSelectedOption = {},
+            dayOfWeek = "",
+            selectedDayOfWeek = "",
+            onDayOfWeekSelected = {},
             onNextButtonClicked = {},
             onBackClick = {}
         )

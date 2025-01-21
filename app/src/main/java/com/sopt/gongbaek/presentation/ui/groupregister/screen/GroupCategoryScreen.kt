@@ -23,6 +23,7 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.presentation.ui.groupregister.component.GroupCategorySelectableButtons
+import timber.log.Timber
 
 @Composable
 fun GroupCategoryRoute(
@@ -46,10 +47,11 @@ fun GroupCategoryRoute(
     }
 
     GroupCategoryScreen(
-        selectedOption = SelectableButtonType.formatCategoryOptionToDescription(uiState.groupRegisterInfo.category),
-        onSelectedOption = { selectedOption ->
+        category = uiState.groupRegisterInfo.category,
+        selectedCategory = uiState.selectedCategory,
+        onCategorySelected = { category ->
             viewModel.setEvent(
-                GroupRegisterContract.Event.OnCategorySelected(selectedOption)
+                GroupRegisterContract.Event.OnCategorySelected(category)
             )
         },
         onNextButtonClicked = {
@@ -63,8 +65,9 @@ fun GroupCategoryRoute(
 
 @Composable
 fun GroupCategoryScreen(
-    selectedOption: String,
-    onSelectedOption: (String) -> Unit,
+    category: String,
+    selectedCategory: String,
+    onCategorySelected: (String) -> Unit,
     onNextButtonClicked: () -> Unit,
     onBackClick: () -> Unit
 ) {
@@ -73,15 +76,15 @@ fun GroupCategoryScreen(
             .fillMaxSize()
     ) {
         GroupCategorySection(
-            selectedOption = selectedOption,
-            onOptionSelected = onSelectedOption,
+            selectedOption = selectedCategory,
+            onOptionSelected = onCategorySelected,
             onBackClick = onBackClick
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
             onClick = onNextButtonClicked,
-            enabled = selectedOption.isNotBlank(),
+            enabled = category.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -128,8 +131,9 @@ private fun GroupCategorySection(
 @Composable
 fun ShowGroupCategoryScreen() {
     GroupCategoryScreen(
-        selectedOption = "",
-        onSelectedOption = {},
+        category = "",
+        selectedCategory = "",
+        onCategorySelected = {},
         onNextButtonClicked = {},
         onBackClick = {}
     )

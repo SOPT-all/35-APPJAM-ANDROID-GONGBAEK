@@ -8,7 +8,10 @@ import java.time.LocalDate
 
 class GroupRegisterContract {
     data class State(
-        val groupRegisterInfo: GroupRegisterInfo = GroupRegisterInfo()
+        val groupRegisterInfo: GroupRegisterInfo = GroupRegisterInfo(),
+        val selectedGroupType: String = "",
+        val selectedDayOfWeek: String = "",
+        val selectedCategory: String = ""
     ) : UiState
 
     sealed class Event : UiEvent {

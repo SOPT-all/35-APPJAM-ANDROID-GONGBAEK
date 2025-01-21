@@ -65,7 +65,7 @@ private fun GenderScreen(
     selectedGender: String,
     onGenderSelected: (String) -> Unit,
     navigateSelfIntroduction: () -> Unit,
-    navigateBack: () -> Unit,
+    navigateBack: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -103,7 +103,7 @@ private fun GenderSelectionSection(
         GongBaekProgressBar(progressPercent = 0.75f)
 
         Column(
-            modifier = modifier,
+            modifier = modifier
         ) {
             Spacer(modifier = Modifier.height(54.dp))
 

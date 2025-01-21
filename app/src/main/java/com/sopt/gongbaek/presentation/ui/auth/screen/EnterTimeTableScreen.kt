@@ -65,7 +65,7 @@ private fun EnterTimeTableScreen(
     navigateGapTimetable: () -> Unit,
     navigateBack: () -> Unit,
     selectedTimeSlotsByDay: Map<String, List<Int>>,
-    onTimeSlotSelectionChange: (String, List<Int>) -> Unit,
+    onTimeSlotSelectionChange: (String, List<Int>) -> Unit
 ) {
     Scaffold(
         bottomBar = {

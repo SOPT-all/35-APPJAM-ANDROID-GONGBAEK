@@ -66,7 +66,7 @@ fun UnivSearchRoute(
         onSearchButtonClicked = { viewModel.setEvent(AuthContract.Event.OnUnivSearchClick) },
         univSearchResult = uiState.universities.universities,
         onItemSelected = { selectedUniv -> viewModel.setEvent(AuthContract.Event.OnUnivSelected(selectedUniv)) },
-        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
+        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 
@@ -107,7 +107,7 @@ private fun UnivSearchScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(top = 12.dp),
+                    .padding(top = 12.dp)
             ) {
                 SearchTextField(
                     value = univ,
@@ -192,7 +192,7 @@ private fun SearchTextField(
                         Text(
                             text = "학교 이름을 검색하세요.",
                             color = GongBaekTheme.colors.gray04,
-                            style = GongBaekTheme.typography.body1.m16,
+                            style = GongBaekTheme.typography.body1.m16
                         )
                     }
                     innerTextField()
@@ -228,7 +228,7 @@ private fun PreviewUnivSearchScreen() {
         "건국대학교 서울캠퍼스",
         "고려대학교",
         "건국대학교 서울캠퍼스",
-        "연세대학교",
+        "연세대학교"
     )
 
     GONGBAEKTheme {
@@ -240,7 +240,7 @@ private fun PreviewUnivSearchScreen() {
             onUnivChange = {},
             onItemSelected = {},
             school = "",
-            navigateBack = {},
+            navigateBack = {}
         )
     }
 }

@@ -77,7 +77,7 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             "건국대학교 서울캠퍼스",
             "고려대학교",
             "건국대학교 서울캠퍼스",
-            "연세대학교",
+            "연세대학교"
         )
         setState { copy(universities = Universities(universities)) }
     }
@@ -100,12 +100,11 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             "경영학과",
             "컴퓨터공학과",
             "건축학과",
-            "경영학과",
+            "경영학과"
         )
         setState { copy(majors = Majors(majors)) }
     }
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }
-
 }

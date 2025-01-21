@@ -96,7 +96,7 @@ private fun GradeScreen(
             onYearSelected = onYearSelected,
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
         )
 
         GongBaekBasicButton(
@@ -125,7 +125,7 @@ private fun GrandeSelectionSection(
         GongBaekProgressBar(progressPercent = 0.5f)
 
         Column(
-            modifier = modifier,
+            modifier = modifier
         ) {
             Spacer(modifier = Modifier.height(54.dp))
 
@@ -202,7 +202,7 @@ fun YearPickerDropdown(
                 Text(
                     text = if (selectedYear == 0) "${currentYear}년" else "${selectedYear}년",
                     color = if (selectedYear == 0) GongBaekTheme.colors.gray04 else GongBaekTheme.colors.gray10,
-                    style = GongBaekTheme.typography.body1.m16,
+                    style = GongBaekTheme.typography.body1.m16
                 )
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_bottom_gray_24),
@@ -216,7 +216,7 @@ fun YearPickerDropdown(
                     modifier = Modifier,
                     containerColor = GongBaekTheme.colors.white,
                     onDismissRequest = { showBottomSheet = false },
-                    sheetState = sheetState,
+                    sheetState = sheetState
                 ) {
                     Column(
                         Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
@@ -247,7 +247,7 @@ fun YearPickerDropdown(
                                 state = valuesPickerState,
                                 items = years.map { it.toString() },
                                 initialSelectedIndex = defaultYearIndex,
-                                textModifier = Modifier.padding(vertical = 16.dp),
+                                textModifier = Modifier.padding(vertical = 16.dp)
                             )
                         }
 
@@ -257,7 +257,7 @@ fun YearPickerDropdown(
                                 showBottomSheet = false
                                 val selectedYear = valuesPickerState.selectedItem.toIntOrNull() ?: 0
                                 if (selectedYear != 0) onYearSelected(selectedYear)
-                            },
+                            }
                         )
                     }
                 }
@@ -265,8 +265,6 @@ fun YearPickerDropdown(
         }
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

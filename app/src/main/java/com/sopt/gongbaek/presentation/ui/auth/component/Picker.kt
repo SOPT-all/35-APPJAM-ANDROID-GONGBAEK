@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,7 +22,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.selected
@@ -46,7 +44,7 @@ fun Picker(
     state: PickerState = rememberPickerState(),
     initialSelectedIndex: Int = 0, // 초기 선택 인덱스
     visibleItemsCount: Int = 3,
-    textModifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier
 ) {
     val visibleItemsMiddle = visibleItemsCount / 2
 
@@ -84,7 +82,9 @@ fun Picker(
                 val actualIndex = centerIndex - visibleItemsMiddle
                 if (actualIndex in items.indices) {
                     items[actualIndex]
-                } else null
+                } else {
+                    null
+                }
             }
             .filterNotNull()
             .distinctUntilChanged()
@@ -156,7 +156,6 @@ fun Picker(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun PreviewPickerExample() {
@@ -169,10 +168,9 @@ private fun PreviewPickerExample() {
         state = valuesPickerState,
         items = years,
         initialSelectedIndex = defaultYearIndex,
-        textModifier = Modifier.padding(vertical = 16.dp),
+        textModifier = Modifier.padding(vertical = 16.dp)
     )
 }
-
 
 @Composable
 fun rememberPickerState() = remember { PickerState() }

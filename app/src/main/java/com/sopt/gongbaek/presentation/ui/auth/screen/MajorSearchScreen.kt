@@ -70,7 +70,7 @@ fun MajorSearchRoute(
         onSearchButtonClicked = { viewModel.setEvent(AuthContract.Event.OnMajorSearchClick) },
         onCloseClick = navigateBack,
         majorSearchResult = uiState.majors.majors,
-        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
+        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 
@@ -85,7 +85,6 @@ private fun MajorSearchScreen(
     majorSearchResult: List<String> = emptyList(),
     navigateBack: () -> Unit
 ) {
-
     Scaffold(
         modifier = Modifier.imePadding(),
         topBar = {
@@ -124,7 +123,7 @@ private fun MajorSearchScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(top = 12.dp),
+                    .padding(top = 12.dp)
             ) {
                 SearchTextField(
                     value = enterMajor,
@@ -209,7 +208,7 @@ private fun SearchTextField(
                         Text(
                             text = "학교 이름을 검색하세요.",
                             color = GongBaekTheme.colors.gray04,
-                            style = GongBaekTheme.typography.body1.m16,
+                            style = GongBaekTheme.typography.body1.m16
                         )
                     }
                     innerTextField()
@@ -228,19 +227,18 @@ private fun SearchTextField(
     }
 }
 
-
 @Composable
 fun Tetsts(
     major: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .roundedBackgroundWithBorder(
                 cornerRadius = 3.dp,
-                backgroundColor = GongBaekTheme.colors.gray02,
+                backgroundColor = GongBaekTheme.colors.gray02
             )
             .clickableWithoutRipple { onClick() }
             .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -256,13 +254,13 @@ fun Tetsts(
             },
             color = GongBaekTheme.colors.gray08,
             style = GongBaekTheme.typography.caption2.m12,
-            maxLines = Int.MAX_VALUE,
+            maxLines = Int.MAX_VALUE
         )
 
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_plus_black_18),
             contentDescription = null,
-            tint = GongBaekTheme.colors.gray10,
+            tint = GongBaekTheme.colors.gray10
         )
     }
 }
@@ -272,7 +270,7 @@ fun Tetsts(
 private fun PreviewTetsts() {
     Tetsts(
         major = "컴퓨터공학과",
-        onClick = {},
+        onClick = {}
     )
 }
 
@@ -293,7 +291,7 @@ private fun PreviewMajorSearchScreen() {
         "건국대학교 서울캠퍼스",
         "고려대학교",
         "건국대학교 서울캠퍼스",
-        "연세대학교",
+        "연세대학교"
     )
 
     GONGBAEKTheme {

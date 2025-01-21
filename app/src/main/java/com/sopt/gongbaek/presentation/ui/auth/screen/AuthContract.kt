@@ -17,7 +17,7 @@ class AuthContract {
         val selectedGrade: String = "",
         val mbti: String = "",
         val selectedGender: String = "",
-        val selectedTimeSlotsByDay: Map<String, List<Int>> = emptyMap(),
+        val selectedTimeSlotsByDay: Map<String, List<Int>> = emptyMap()
     ) : UiState
 
     sealed class Event : UiEvent {

@@ -198,7 +198,7 @@ private fun CommentSectionItem(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "${groupComment.getCreatedMonth()}/${groupComment.getCreatedDay()}/${groupComment.getCreatedHour()}:${groupComment.getCreatedMinute()}",
+            text = "${groupComment.getCreatedMonth()}/${groupComment.getCreatedDay()}   ${groupComment.getCreatedHour()}:${groupComment.getCreatedMinute()}",
             color = GongBaekTheme.colors.gray05,
             style = GongBaekTheme.typography.caption2.r12
         )

@@ -7,10 +7,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.ui.auth.component.SearchButton
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -27,7 +32,28 @@ fun UnivMajorRoute(
     navigateMajorSearch: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateUnivSearch) {
+                    navigateUnivSearch()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateMajorSearch) {
+                    navigateMajorSearch()
+                }
+            }
+    }
+
     UnivMajorScreen(
+        univSearchResult = uiState.userInfo.school,
+        majorSearchResult = uiState.userInfo.major,
         navigateGrade = navigateGrade,
         onUnivSearchClick = navigateUnivSearch,
         onMajorSearchClick = navigateMajorSearch,
@@ -37,6 +63,8 @@ fun UnivMajorRoute(
 
 @Composable
 private fun UnivMajorScreen(
+    univSearchResult: String,
+    majorSearchResult: String,
     navigateGrade: () -> Unit,
     onUnivSearchClick: () -> Unit,
     onMajorSearchClick: () -> Unit,
@@ -46,6 +74,8 @@ private fun UnivMajorScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         UnivAndMajorSelectionSection(
+            univSearchResult = univSearchResult,
+            majorSearchResult = majorSearchResult,
             onBackClick = onBackClick,
             onUnivSearchClick = onUnivSearchClick,
             onMajorSearchClick = onMajorSearchClick,
@@ -56,7 +86,11 @@ private fun UnivMajorScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            onClick = navigateGrade,
+            onClick = {
+                if (univSearchResult.isNotEmpty() && majorSearchResult.isNotEmpty())
+                    navigateGrade()
+            },
+            enabled = univSearchResult.isNotEmpty() && majorSearchResult.isNotEmpty(),
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -66,6 +100,8 @@ private fun UnivMajorScreen(
 
 @Composable
 private fun UnivAndMajorSelectionSection(
+    univSearchResult: String,
+    majorSearchResult: String,
     onBackClick: () -> Unit,
     onUnivSearchClick: () -> Unit,
     onMajorSearchClick: () -> Unit,
@@ -92,7 +128,8 @@ private fun UnivAndMajorSelectionSection(
 
             SearchButton(
                 buttonLabel = "학교",
-                searchResult = "학교 이름을 검색하세요.",
+                searchResult = univSearchResult.ifEmpty { "학교 이름을 검색하세요." },
+                isSearched = univSearchResult.isNotEmpty(),
                 onSearchButtonClicked = onUnivSearchClick
             )
 
@@ -100,7 +137,8 @@ private fun UnivAndMajorSelectionSection(
 
             SearchButton(
                 buttonLabel = "학과",
-                searchResult = "학과 이름을 검색하세요.",
+                searchResult = majorSearchResult.ifEmpty { "학과 이름을 검색하세요." },
+                isSearched = majorSearchResult.isNotEmpty(),
                 onSearchButtonClicked = onMajorSearchClick
             )
         }
@@ -112,6 +150,8 @@ private fun UnivAndMajorSelectionSection(
 private fun ShowUnivMajorScreen() {
     GONGBAEKTheme {
         UnivMajorScreen(
+            univSearchResult = "서울대학교",
+            majorSearchResult = "",
             navigateGrade = {},
             onUnivSearchClick = {},
             onMajorSearchClick = {},

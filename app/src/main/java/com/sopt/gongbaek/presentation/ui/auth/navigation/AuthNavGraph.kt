@@ -64,6 +64,7 @@ fun NavGraphBuilder.authNavGraph(
             route = NavigationRoute.AuthNavGraphRoute.UNIV_SEARCH
         ) {
             UnivSearchRoute(
+                viewModel = viewModel,
                 navigateBack = navController::popBackStack
             )
         }
@@ -71,7 +72,10 @@ fun NavGraphBuilder.authNavGraph(
         composable(
             route = NavigationRoute.AuthNavGraphRoute.MAJOR_SEARCH
         ) {
-            MajorSearchRoute()
+            MajorSearchRoute(
+                viewModel = viewModel,
+                navigateBack = navController::popBackStack
+            )
         }
 
         composable(

@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,12 +23,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.ui.auth.component.SearchResultSection
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -38,21 +42,47 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun UnivSearchRoute(
+    viewModel: AuthViewModel,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
+                }
+            }
+    }
+
     UnivSearchScreen(
-        onCloseClick = navigateBack
+        onCloseClick = navigateBack,
+        univ = uiState.univ,
+        school = uiState.userInfo.school,
+        onUnivChange = { newValue -> viewModel.setEvent(AuthContract.Event.OnSearchUnivChanged(newValue)) },
+        onSearchButtonClicked = { viewModel.setEvent(AuthContract.Event.OnUnivSearchClick) },
+        univSearchResult = uiState.universities.universities,
+        onItemSelected = { selectedUniv -> viewModel.setEvent(AuthContract.Event.OnUnivSelected(selectedUniv)) },
+        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
     )
 }
 
 @Composable
 private fun UnivSearchScreen(
+    univ: String,
+    school: String,
+    onUnivChange: (String) -> Unit,
     onCloseClick: () -> Unit,
-    univSearchResult: List<String> = emptyList()
+    onSearchButtonClicked: () -> Unit,
+    univSearchResult: List<String> = emptyList(),
+    onItemSelected: (String) -> Unit,
+    navigateBack: () -> Unit
 ) {
-    val text = remember { mutableStateOf("") }
-
     Scaffold(
+        modifier = Modifier.imePadding(),
         topBar = {
             CenterTitleTopBar(
                 centerTitleResId = R.string.topbar_search,
@@ -65,7 +95,8 @@ private fun UnivSearchScreen(
         bottomBar = {
             GongBaekBasicButton(
                 title = "적용",
-                onClick = {},
+                enabled = school.isNotEmpty(),
+                onClick = { if (school.isNotEmpty()) navigateBack() },
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             )
@@ -79,18 +110,17 @@ private fun UnivSearchScreen(
                     .padding(top = 12.dp),
             ) {
                 SearchTextField(
-                    value = text.value,
-                    onValueChange = { newValue -> text.value = newValue },
+                    value = univ,
+                    onValueChange = { newValue -> onUnivChange(newValue) },
                     modifier = Modifier.padding(horizontal = 16.dp),
+                    onSearchButtonClicked = onSearchButtonClicked
                 )
 
                 Spacer(modifier = Modifier.height(14.dp))
 
                 SearchResultSection(
                     univSearchResult = univSearchResult,
-                    onItemSelected = { selectedItem ->
-                        text.value = selectedItem
-                    }
+                    onItemSelected = onItemSelected
                 )
             }
         }
@@ -98,11 +128,12 @@ private fun UnivSearchScreen(
 }
 
 @Composable
-fun SearchTextField(
+private fun SearchTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     isError: Boolean = false,
+    onSearchButtonClicked: () -> Unit = {},
     onErrorChange: (Boolean) -> Unit = {}
 ) {
     Column(
@@ -171,7 +202,9 @@ fun SearchTextField(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_search_black_48),
                     contentDescription = null,
                     tint = GongBaekTheme.colors.gray10,
-                    modifier = Modifier.clickableWithoutRipple { }
+                    modifier = Modifier.clickableWithoutRipple {
+                        onSearchButtonClicked()
+                    }
                 )
             }
         }
@@ -201,7 +234,13 @@ private fun PreviewUnivSearchScreen() {
     GONGBAEKTheme {
         UnivSearchScreen(
             onCloseClick = {},
-            univSearchResult = universities
+            univSearchResult = universities,
+            onSearchButtonClicked = {},
+            univ = "",
+            onUnivChange = {},
+            onItemSelected = {},
+            school = "",
+            navigateBack = {},
         )
     }
 }

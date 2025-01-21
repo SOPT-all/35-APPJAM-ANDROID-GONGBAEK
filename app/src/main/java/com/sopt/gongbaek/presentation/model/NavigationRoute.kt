@@ -61,7 +61,7 @@ object NavigationRoute {
 
     object GroupRoomNavGraphRoute {
         const val GROUP_ROOM_NAV_GRAPH = "group_room_route"
-        const val GROUP_ROOM = "group_room"
+        const val GROUP_ROOM = "group_room/{groupId}/{groupCycle}"
     }
 
     object SplashRoute {

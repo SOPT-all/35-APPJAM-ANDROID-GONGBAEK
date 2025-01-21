@@ -59,8 +59,8 @@ fun SelectProfileRoute(
 
 @Composable
 private fun SelectProfileScreen(
-    selectedProfile: Int?,
-    onSelectedProfile: (Int?) -> Unit = {},
+    selectedProfile: Int,
+    onSelectedProfile: (Int) -> Unit = {},
     onNextButtonClicked: () -> Unit = {}
 ) {
     Box(
@@ -87,8 +87,8 @@ private fun SelectProfileScreen(
 
 @Composable
 private fun ImageSelectorSection(
-    selectedProfileIndex: Int?,
-    onIndexSelected: (Int?) -> Unit,
+    selectedProfileIndex: Int,
+    onIndexSelected: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -123,7 +123,7 @@ private fun ImageSelectorSection(
 private fun PreviewSelectProfileScreen() {
     GONGBAEKTheme {
         SelectProfileScreen(
-            selectedProfile = null
+            selectedProfile = 0
         )
     }
 }

@@ -35,7 +35,7 @@ import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.ui.component.section.GroupInfoSection
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
-import com.sopt.gongbaek.presentation.util.extension.createGroupTimeDescription
+import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -102,7 +102,6 @@ fun MyGroupScreenContent(
                     color = GongBaekTheme.colors.gray02
                 )
             }
-        }
 
         item {
             Row(
@@ -155,7 +154,6 @@ fun MyGroupScreenContent(
                     color = GongBaekTheme.colors.gray02
                 )
             }
-        }
     }
 }
 

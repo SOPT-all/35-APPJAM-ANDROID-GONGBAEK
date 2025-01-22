@@ -10,5 +10,5 @@ data class UserInfo(
     val enterYear: Int = 0,
     val introduction: String = "",
     val gender: String = "",
-    val timeTable: TimeTable = TimeTable()
+    val timeTable: List<TimeTable> = emptyList()
 )

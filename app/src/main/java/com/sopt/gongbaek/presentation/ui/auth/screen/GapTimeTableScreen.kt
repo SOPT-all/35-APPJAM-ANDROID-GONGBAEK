@@ -9,9 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
@@ -27,16 +32,34 @@ fun GapTimeTableRoute(
     navigateCompleteAuth: () -> Unit,
     navigateEnterTimetable: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateCompleteAuth) {
+                    navigateCompleteAuth()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateEnterTimetable) {
+                    navigateEnterTimetable()
+                }
+            }
+    }
+
     GapTimeTableScreen(
-        navigateCompleteAuth = navigateCompleteAuth,
-        navigateEnterTimetable = navigateEnterTimetable
+        lectureTime = uiState.selectedTimeSlotsByDay,
+        navigateCompleteAuth = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateCompleteAuth) },
+        navigateEnterTimetable = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateEnterTimetable) }
     )
 }
 
 @Composable
 private fun GapTimeTableScreen(
     navigateCompleteAuth: () -> Unit,
-    navigateEnterTimetable: () -> Unit
+    navigateEnterTimetable: () -> Unit,
+    lectureTime: Map<String, List<Int>>
 ) {
     Scaffold(
         bottomBar = {
@@ -46,12 +69,14 @@ private fun GapTimeTableScreen(
             ) {
                 GongBaekBasicButton(
                     title = "시간표 변경",
+                    enabled = true,
                     onClick = navigateEnterTimetable,
                     modifier = Modifier.weight(1f),
                     enableButtonColor = GongBaekTheme.colors.gray09
                 )
                 GongBaekBasicButton(
                     title = "가입완료",
+                    enabled = true,
                     onClick = navigateCompleteAuth,
                     modifier = Modifier.weight(2f)
                 )
@@ -59,7 +84,8 @@ private fun GapTimeTableScreen(
         },
         containerColor = GongBaekTheme.colors.white,
         content = { paddingValues ->
-            GapTimeTableContent(
+            GapTimeTableSection(
+                lectureTime = lectureTime,
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(horizontal = 16.dp)
@@ -69,54 +95,33 @@ private fun GapTimeTableScreen(
 }
 
 @Composable
-private fun GapTimeTableContent(
+private fun GapTimeTableSection(
+    lectureTime: Map<String, List<Int>>,
     modifier: Modifier = Modifier
 ) {
     Column {
-        GapTimeTableScreenTopBar()
+        StartTitleTopBar(isLeadingIconIncluded = false)
 
-        Spacer(modifier = Modifier.height(54.dp))
+        GongBaekProgressBar(progressPercent = 1f)
 
-        GapTimeTableSection(
+        Column(
             modifier = modifier
-        )
-    }
-}
+        ) {
+            Spacer(modifier = Modifier.height(54.dp))
 
-@Composable
-private fun GapTimeTableScreenTopBar() {
-    StartTitleTopBar(isLeadingIconIncluded = false)
+            PageDescriptionSection(
+                titleResId = R.string.auth_gap_timetable_title,
+                descriptionResId = R.string.auth_gap_timetable_description
+            )
 
-    GongBaekProgressBar(progressPercent = 1f)
-}
+            Spacer(modifier = Modifier.height(14.dp))
 
-@Composable
-private fun GapTimeTableSection(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        PageDescriptionSection(
-            titleResId = R.string.auth_gap_timetable_title,
-            descriptionResId = R.string.auth_gap_timetable_description
-        )
-
-        Spacer(modifier = Modifier.height(14.dp))
-
-        LazyColumn {
-            item {
-                val lectureTime = mapOf(
-                    "월" to listOf(0, 1, 2, 3, 4, 5, 6),
-                    "화" to listOf(7, 8, 9, 10),
-                    "수" to listOf(0, 1, 2, 3, 4, 5, 6),
-                    "목" to listOf(3, 4, 5, 6, 7),
-                    "금" to listOf(0, 1, 2, 3, 9, 10, 11, 12)
-                )
-
-                GongBaekTimeTable(
-                    lectureTime = lectureTime
-                )
+            LazyColumn {
+                item {
+                    GongBaekTimeTable(
+                        lectureTime = lectureTime
+                    )
+                }
             }
         }
     }
@@ -128,7 +133,14 @@ private fun PreviewGapTimeTableScreen() {
     GONGBAEKTheme {
         GapTimeTableScreen(
             navigateCompleteAuth = {},
-            navigateEnterTimetable = {}
+            navigateEnterTimetable = {},
+            lectureTime = mapOf(
+                "월" to listOf(1, 2, 3, 4, 5),
+                "화" to listOf(1, 2, 3, 4, 5),
+                "수" to listOf(1, 2, 3, 4, 5),
+                "목" to listOf(1, 2, 3, 4, 5),
+                "금" to listOf(1, 2, 3, 4, 5)
+            )
         )
     }
 }

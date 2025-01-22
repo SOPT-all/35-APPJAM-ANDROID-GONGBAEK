@@ -42,7 +42,6 @@ import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.createGroupRegisterTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
-import timber.log.Timber
 
 @Composable
 fun GroupRegisterRoute(
@@ -51,7 +50,6 @@ fun GroupRegisterRoute(
     navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    Timber.d("ㅋㅋㅋ ${uiState.groupRegisterInfo}")
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -104,6 +102,7 @@ fun GroupRegisterScreen(
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_done),
+            enabled = true,
             onClick = onRegisterButtonClicked,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)

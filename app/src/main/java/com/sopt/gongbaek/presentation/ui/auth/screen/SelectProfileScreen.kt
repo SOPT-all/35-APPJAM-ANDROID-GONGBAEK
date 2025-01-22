@@ -76,8 +76,8 @@ private fun SelectProfileScreen(
 
         GongBaekBasicButton(
             title = "다음",
+            enabled = selectedProfile != 0,
             onClick = onNextButtonClicked,
-            enabled = selectedProfile != null,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)

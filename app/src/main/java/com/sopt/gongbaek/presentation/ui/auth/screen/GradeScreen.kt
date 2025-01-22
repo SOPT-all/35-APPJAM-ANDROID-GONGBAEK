@@ -1,42 +1,33 @@
 package com.sopt.gongbaek.presentation.ui.auth.screen
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.SelectableButtonType
+import com.sopt.gongbaek.presentation.ui.auth.component.YearSelectableButton
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekSelectableButtons
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
-import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
-import java.util.Calendar
 
 @Composable
 fun GradeRoute(
@@ -44,22 +35,52 @@ fun GradeRoute(
     navigateMbti: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateMbti) {
+                    navigateMbti()
+                }
+            }
+    }
+
     GradeScreen(
-        navigateMbti = navigateMbti,
-        navigateBack = navigateBack
+        grade = uiState.userInfo.grade,
+        enterYear = uiState.userInfo.enterYear,
+        selectedGrade = uiState.selectedGrade,
+        onGradeSelected = { grade -> viewModel.setEvent(AuthContract.Event.OnGradeSelected(grade)) },
+        onYearSelected = { year -> viewModel.setEvent(AuthContract.Event.OnYearSelected(year)) },
+        onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
+        navigateMbti = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateMbti) }
     )
 }
 
 @Composable
 private fun GradeScreen(
+    grade: Int,
+    selectedGrade: String,
+    enterYear: Int,
+    onGradeSelected: (String) -> Unit,
+    onYearSelected: (Int) -> Unit,
     navigateMbti: () -> Unit,
-    navigateBack: () -> Unit
+    onBackClick: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        GrandeScreenContent(
-            onBackClick = navigateBack,
+        GrandeSelectionSection(
+            onBackClick = onBackClick,
+            selectedGrade = selectedGrade,
+            onGradeSelected = onGradeSelected,
+            selectedYear = enterYear,
+            onYearSelected = onYearSelected,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(horizontal = 16.dp)
@@ -67,6 +88,7 @@ private fun GradeScreen(
 
         GongBaekBasicButton(
             title = "다음",
+            enabled = grade != 0 && enterYear != 0,
             onClick = navigateMbti,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -76,127 +98,68 @@ private fun GradeScreen(
 }
 
 @Composable
-private fun GrandeScreenContent(
+private fun GrandeSelectionSection(
     onBackClick: () -> Unit,
+    selectedGrade: String,
+    onGradeSelected: (String) -> Unit,
+    selectedYear: Int,
+    onYearSelected: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
-        GradeTopBarSection(
-            onBackClick = onBackClick
-        )
+        StartTitleTopBar(onClick = onBackClick)
 
-        Spacer(modifier = Modifier.height(54.dp))
-
-        GradeSelectionSection(
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
-private fun GradeTopBarSection(
-    onBackClick: () -> Unit
-) {
-    StartTitleTopBar(
-        onClick = onBackClick
-    )
-
-    GongBaekProgressBar(progressPercent = 0.5f)
-}
-
-@Composable
-private fun GradeSelectionSection(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        PageDescriptionSection(
-            titleResId = R.string.auth_grade_title,
-            descriptionResId = R.string.auth_grade_description
-        )
-
-        Spacer(modifier = Modifier.height(44.dp))
-
-        var selectedOption1 by remember { mutableStateOf("") }
+        GongBaekProgressBar(progressPercent = 0.5f)
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = modifier
         ) {
-            Text(
-                text = "학년",
-                color = GongBaekTheme.colors.gray08,
-                style = GongBaekTheme.typography.body2.sb14
+            Spacer(modifier = Modifier.height(54.dp))
+
+            PageDescriptionSection(
+                titleResId = R.string.auth_grade_title,
+                descriptionResId = R.string.auth_grade_description
             )
-            GongBaekSelectableButtons(
-                selectableButtonType = SelectableButtonType.GRADE,
-                onOptionSelected = { option -> selectedOption1 = option },
-                selectedOption = selectedOption1
-            )
-        }
 
-        Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(44.dp))
 
-        YearPickerDropdown()
-    }
-}
-
-@Composable
-fun YearPickerDropdown() {
-    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-
-    var selectedYear by remember { mutableStateOf<Int?>(null) }
-    var expanded by remember { mutableStateOf(false) }
-
-    Column(
-        verticalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        Text(
-            text = "입학년도",
-            color = GongBaekTheme.colors.gray08,
-            style = GongBaekTheme.typography.body2.sb14
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickableWithoutRipple { expanded = true }
-                .border(
-                    width = 1.dp,
-                    color = GongBaekTheme.colors.gray03,
-                    shape = RoundedCornerShape(6.dp)
-                )
-                .padding(
-                    vertical = 12.dp,
-                    horizontal = 16.dp
-                )
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text(
-                    text = selectedYear?.toString() ?: (currentYear.toString() + "년"),
-                    color = if (selectedYear == null) Color.Gray else Color.Black,
-                    fontSize = 16.sp
+                    text = "학년",
+                    color = GongBaekTheme.colors.gray08,
+                    style = GongBaekTheme.typography.body2.sb14
                 )
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_bottom_gray_24),
-                    contentDescription = null,
-                    tint = GongBaekTheme.colors.gray04
+                GongBaekSelectableButtons(
+                    selectableButtonType = SelectableButtonType.GRADE,
+                    onOptionSelected = onGradeSelected,
+                    selectedOption = selectedGrade
                 )
             }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            YearSelectableButton(
+                selectedYear = selectedYear,
+                onYearSelected = onYearSelected
+            )
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ShowGradeScreen() {
+private fun PreViewGradeScreen() {
     GONGBAEKTheme {
         GradeScreen(
             navigateMbti = {},
-            navigateBack = {}
+            onBackClick = {},
+            grade = 0,
+            enterYear = 0,
+            onGradeSelected = {},
+            selectedGrade = "",
+            onYearSelected = {}
         )
     }
 }

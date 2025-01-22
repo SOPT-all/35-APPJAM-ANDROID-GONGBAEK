@@ -116,6 +116,7 @@ fun OnboardingScreen(
                     navigateAuth()
                 }
             },
+            enabled = true,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
         )
     }

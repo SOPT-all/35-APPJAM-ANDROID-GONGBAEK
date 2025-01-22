@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -92,11 +93,11 @@ private fun GongBaekTimeSlot(
                 .fillMaxWidth()
                 .border(
                     width = 0.5.dp,
-                    color = if (isClassTime) GongBaekTheme.colors.gray02 else GongBaekTheme.colors.subOrange,
+                    color = if (isClassTime) GongBaekTheme.colors.gray02 else Color(0xFFFFC498),
                     shape = bottomCornerShape
                 )
                 .background(
-                    color = if (isClassTime) GongBaekTheme.colors.white else GongBaekTheme.colors.subOrange,
+                    color = if (isClassTime) GongBaekTheme.colors.white else Color(0xFFFFC498),
                     shape = bottomCornerShape
                 )
         )

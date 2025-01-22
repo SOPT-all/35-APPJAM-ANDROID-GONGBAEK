@@ -17,8 +17,10 @@ object NavigationRoute {
         const val SELF_INTRODUCTION = "self_introduction"
         const val ENTER_TIMETABLE = "enter_timetable"
         const val GAP_TIMETABLE = "gap_timetable"
-        const val CHANGE_TIMETABLE = "change_timetable"
+        const val TIMETABLE_CONVERT = "timetable_convert"
         const val COMPLETE_AUTH = "complete_auth"
+        const val UNIV_SEARCH = "univ_search"
+        const val MAJOR_SEARCH = "major_search"
     }
 
     object MainBottomNavBarTabRoute {

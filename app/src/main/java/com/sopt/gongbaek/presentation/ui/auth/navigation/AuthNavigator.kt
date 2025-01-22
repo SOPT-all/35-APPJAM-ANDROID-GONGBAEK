@@ -9,6 +9,10 @@ fun NavController.navigateNickname() = navigate(route = NavigationRoute.AuthNavG
 
 fun NavController.navigateUnivMajor() = navigate(route = NavigationRoute.AuthNavGraphRoute.UNIV_MAJOR)
 
+fun NavController.navigateUnivSearch() = navigate(route = NavigationRoute.AuthNavGraphRoute.UNIV_SEARCH)
+
+fun NavController.navigateMajorSearch() = navigate(route = NavigationRoute.AuthNavGraphRoute.MAJOR_SEARCH)
+
 fun NavController.navigateGrade() = navigate(route = NavigationRoute.AuthNavGraphRoute.GRADE)
 
 fun NavController.navigateMbti() = navigate(route = NavigationRoute.AuthNavGraphRoute.MBTI)
@@ -21,6 +25,6 @@ fun NavController.navigateEnterTimetable() = navigate(route = NavigationRoute.Au
 
 fun NavController.navigateGapTimetable() = navigate(route = NavigationRoute.AuthNavGraphRoute.GAP_TIMETABLE)
 
-fun NavController.navigateChangeTimetable() = navigate(route = NavigationRoute.AuthNavGraphRoute.CHANGE_TIMETABLE)
+fun NavController.navigateTimetableConvert() = navigate(route = NavigationRoute.AuthNavGraphRoute.TIMETABLE_CONVERT)
 
 fun NavController.navigateCompleteAuth() = navigate(route = NavigationRoute.AuthNavGraphRoute.COMPLETE_AUTH)

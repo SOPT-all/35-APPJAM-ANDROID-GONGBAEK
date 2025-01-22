@@ -50,7 +50,7 @@ fun SearchButton(
         ) {
             Text(
                 text = searchResult,
-                color = if (isSearched) GongBaekTheme.colors.gray04 else GongBaekTheme.colors.gray10,
+                color = if (isSearched) GongBaekTheme.colors.gray10 else GongBaekTheme.colors.gray04,
                 style = GongBaekTheme.typography.body1.m16,
                 modifier = Modifier
                     .padding(vertical = 14.dp)

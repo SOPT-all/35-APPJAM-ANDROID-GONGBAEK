@@ -7,10 +7,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.ui.auth.component.SearchButton
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -23,24 +28,60 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 fun UnivMajorRoute(
     viewModel: AuthViewModel,
     navigateGrade: () -> Unit,
+    navigateUnivSearch: () -> Unit,
+    navigateMajorSearch: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is AuthContract.SideEffect.NavigateBack) {
+                    navigateBack()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateUnivSearch) {
+                    navigateUnivSearch()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateMajorSearch) {
+                    navigateMajorSearch()
+                }
+                if (sideEffect is AuthContract.SideEffect.NavigateGrade) {
+                    navigateGrade()
+                }
+            }
+    }
+
     UnivMajorScreen(
-        navigateGrade = navigateGrade,
-        navigateBack = navigateBack
+        univSearchResult = uiState.userInfo.school,
+        majorSearchResult = uiState.userInfo.major,
+        navigateGrade = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateGrade) },
+        onUnivSearchClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateUnivSearch) },
+        onMajorSearchClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateMajorSearch) },
+        onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 
 @Composable
 private fun UnivMajorScreen(
+    univSearchResult: String,
+    majorSearchResult: String,
     navigateGrade: () -> Unit,
-    navigateBack: () -> Unit
+    onUnivSearchClick: () -> Unit,
+    onMajorSearchClick: () -> Unit,
+    onBackClick: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         UnivAndMajorSelectionSection(
-            onBackClick = navigateBack,
+            univSearchResult = univSearchResult,
+            majorSearchResult = majorSearchResult,
+            onBackClick = onBackClick,
+            onUnivSearchClick = onUnivSearchClick,
+            onMajorSearchClick = onMajorSearchClick,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .align(Alignment.Center)
@@ -48,6 +89,7 @@ private fun UnivMajorScreen(
 
         GongBaekBasicButton(
             title = "다음",
+            enabled = univSearchResult.isNotEmpty() && majorSearchResult.isNotEmpty(),
             onClick = navigateGrade,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -58,7 +100,11 @@ private fun UnivMajorScreen(
 
 @Composable
 private fun UnivAndMajorSelectionSection(
+    univSearchResult: String,
+    majorSearchResult: String,
     onBackClick: () -> Unit,
+    onUnivSearchClick: () -> Unit,
+    onMajorSearchClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -82,16 +128,18 @@ private fun UnivAndMajorSelectionSection(
 
             SearchButton(
                 buttonLabel = "학교",
-                searchResult = "학교 이름을 검색하세요.",
-                onSearchButtonClicked = { }
+                searchResult = univSearchResult.ifEmpty { "학교 이름을 검색하세요." },
+                isSearched = univSearchResult.isNotEmpty(),
+                onSearchButtonClicked = onUnivSearchClick
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
             SearchButton(
                 buttonLabel = "학과",
-                searchResult = "학과 이름을 검색하세요.",
-                onSearchButtonClicked = { }
+                searchResult = majorSearchResult.ifEmpty { "학과 이름을 검색하세요." },
+                isSearched = majorSearchResult.isNotEmpty(),
+                onSearchButtonClicked = onMajorSearchClick
             )
         }
     }
@@ -102,8 +150,12 @@ private fun UnivAndMajorSelectionSection(
 private fun ShowUnivMajorScreen() {
     GONGBAEKTheme {
         UnivMajorScreen(
+            univSearchResult = "서울대학교",
+            majorSearchResult = "",
             navigateGrade = {},
-            navigateBack = {}
+            onUnivSearchClick = {},
+            onMajorSearchClick = {},
+            onBackClick = {}
         )
     }
 }

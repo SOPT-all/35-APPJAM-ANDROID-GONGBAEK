@@ -10,12 +10,12 @@ enum class ImageSelectorType(
 ) {
     Profile(
         imageButtonResIdList = listOf(
-            R.drawable.img_profile_0_104,
-            R.drawable.img_profile_1_104,
-            R.drawable.img_profile_2_104,
-            R.drawable.img_profile_3_104,
-            R.drawable.img_profile_4_104,
-            R.drawable.img_profile_5_104
+            R.drawable.img_btn_profile_1,
+            R.drawable.img_btn_profile_2,
+            R.drawable.img_btn_profile_3,
+            R.drawable.img_btn_profile_4,
+            R.drawable.img_btn_profile_5,
+            R.drawable.img_btn_profile_6
         ),
         chunkedCount = 3
     ),

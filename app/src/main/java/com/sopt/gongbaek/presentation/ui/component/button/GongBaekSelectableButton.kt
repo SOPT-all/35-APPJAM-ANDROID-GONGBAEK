@@ -29,12 +29,11 @@ import timber.log.Timber
 @Composable
 fun GongBaekSelectableButtons(
     selectableButtonType: SelectableButtonType,
-    options: List<String>,
     onOptionSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
     selectedOption: String? = null
 ) {
-    val chunkedOptions = options.chunked(size = selectableButtonType.chunkedCount)
+    val chunkedOptions = selectableButtonType.options.chunked(size = selectableButtonType.chunkedCount)
 
     Column {
         chunkedOptions.forEach { rowOptions ->
@@ -96,7 +95,6 @@ private fun GongBaekSelectableButtonsPreview1() {
         var selectedOption1 by remember { mutableStateOf("") }
         GongBaekSelectableButtons(
             selectableButtonType = SelectableButtonType.GRADE,
-            options = SelectableButtonType.GRADE.options,
             onOptionSelected = { option -> selectedOption1 = option },
             selectedOption = selectedOption1
         )
@@ -121,7 +119,6 @@ private fun GongBaekSelectableButtonsPreview2() {
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_FIRST,
-                options = SelectableButtonType.MBTI_FIRST.options,
                 onOptionSelected = { option -> selectedOption1 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption1
@@ -134,7 +131,6 @@ private fun GongBaekSelectableButtonsPreview2() {
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_SECOND,
-                options = SelectableButtonType.MBTI_SECOND.options,
                 onOptionSelected = { option -> selectedOption2 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption2
@@ -147,7 +143,6 @@ private fun GongBaekSelectableButtonsPreview2() {
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_THIRD,
-                options = SelectableButtonType.MBTI_THIRD.options,
                 onOptionSelected = { option -> selectedOption3 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption3
@@ -160,7 +155,6 @@ private fun GongBaekSelectableButtonsPreview2() {
             )
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.MBTI_FOURTH,
-                options = SelectableButtonType.MBTI_FOURTH.options,
                 onOptionSelected = { option -> selectedOption4 = option },
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                 selectedOption = selectedOption4
@@ -178,7 +172,6 @@ private fun GongBaekSelectableButtonsPreview3() {
         var selectedOption by remember { mutableStateOf("") }
         GongBaekSelectableButtons(
             selectableButtonType = SelectableButtonType.GENDER,
-            options = SelectableButtonType.GENDER.options,
             onOptionSelected = { option -> selectedOption = option },
             selectedOption = selectedOption
         )
@@ -193,7 +186,6 @@ private fun GongBaekSelectableButtonsPreview4() {
         var selectedOption by remember { mutableStateOf("") }
         GongBaekSelectableButtons(
             selectableButtonType = SelectableButtonType.GROUP_CYCLE,
-            options = SelectableButtonType.GROUP_CYCLE.options,
             onOptionSelected = { option -> selectedOption = option },
             selectedOption = selectedOption
         )
@@ -208,7 +200,6 @@ private fun GongBaekSelectableButtonsPreview5() {
         var selectedOption by remember { mutableStateOf("") }
         GongBaekSelectableButtons(
             selectableButtonType = SelectableButtonType.DAY_OF_WEEK,
-            options = SelectableButtonType.DAY_OF_WEEK.options,
             onOptionSelected = { option -> selectedOption = option },
             selectedOption = selectedOption
         )

@@ -115,7 +115,6 @@ private fun GenderSelectionSection(
             var selectedOption by remember { mutableStateOf("") }
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.GENDER,
-                options = SelectableButtonType.GENDER.options,
                 onOptionSelected = { option -> selectedOption = option },
                 selectedOption = selectedOption
             )

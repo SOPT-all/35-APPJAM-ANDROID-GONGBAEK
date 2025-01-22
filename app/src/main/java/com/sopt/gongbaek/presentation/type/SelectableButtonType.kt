@@ -100,5 +100,5 @@ enum class SelectableButtonType(
             R.drawable.img_category_playing,
             R.drawable.img_category_others
         )
-    )
+    );
 }

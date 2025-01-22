@@ -9,11 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -22,6 +19,9 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.GongBaekBasicTextFieldType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -40,36 +40,69 @@ fun GroupPlacePeopleRoute(
     navigateGroupIntroduction: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateIntroduction -> navigateGroupIntroduction()
+                    else -> {}
+                }
+            }
+    }
+
     GroupPlacePeopleScreen(
-        navigateGroupIntroduction = navigateGroupIntroduction,
-        navigateBack = navigateBack
+        place = uiState.groupRegisterInfo.location,
+        onPlaceChange = { place ->
+            viewModel.setEvent(GroupRegisterContract.Event.OnPlaceChanged(place = place))
+        },
+        peopleCount = uiState.groupRegisterInfo.maxPeopleCount,
+        onIncreasePeopleCount = {
+            viewModel.setEvent(GroupRegisterContract.Event.OnPeopleChanged(uiState.groupRegisterInfo.maxPeopleCount + 1))
+        },
+        onDecreasePeopleCount = {
+            viewModel.setEvent(GroupRegisterContract.Event.OnPeopleChanged(uiState.groupRegisterInfo.maxPeopleCount - 1))
+        },
+        onNextButtonClicked = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateIntroduction)
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnPlacePeopleDeleted)
+        }
     )
 }
 
 @Composable
 fun GroupPlacePeopleScreen(
-    navigateGroupIntroduction: () -> Unit,
-    navigateBack: () -> Unit
+    place: String,
+    onPlaceChange: (String) -> Unit,
+    peopleCount: Int,
+    onIncreasePeopleCount: () -> Unit,
+    onDecreasePeopleCount: () -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onBackClick: () -> Unit
 ) {
-    var place by remember { mutableStateOf("") }
-    var peopleCount by remember { mutableIntStateOf(2) }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         GroupPlacePeopleSection(
             place = place,
-            onPlaceChange = { place = it },
+            onPlaceChange = onPlaceChange,
             peopleCount = peopleCount,
-            onMinusButtonClicked = { peopleCount -= 1 },
-            onPlusButtonClicked = { peopleCount += 1 },
-            onBackClick = navigateBack
+            onMinusButtonClicked = onDecreasePeopleCount,
+            onPlusButtonClicked = onIncreasePeopleCount,
+            onBackClick = onBackClick
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = navigateGroupIntroduction,
+            onClick = onNextButtonClicked,
             enabled = place.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -171,9 +204,5 @@ private fun GroupPlacePeopleSection(
 @Composable
 fun ShowGroupPlacePeopleScreen() {
     GONGBAEKTheme {
-        GroupPlacePeopleScreen(
-            navigateGroupIntroduction = {},
-            navigateBack = {}
-        )
     }
 }

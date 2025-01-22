@@ -8,16 +8,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.GongBaekBasicTextFieldType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -33,35 +34,63 @@ fun GroupIntroductionRoute(
     navigateRegister: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateRegister -> navigateRegister()
+                    else -> {}
+                }
+            }
+    }
     GroupIntroductionScreen(
-        navigateRegister = navigateRegister,
-        navigateBack = navigateBack
+        groupTitle = uiState.groupRegisterInfo.groupTitle,
+        onGroupTitleChange = { groupTitle ->
+            viewModel.setEvent(GroupRegisterContract.Event.OnTitleChanged(groupTitle))
+        },
+        introduction = uiState.groupRegisterInfo.introduction,
+        onIntroductionChange = { introduction ->
+            viewModel.setEvent(GroupRegisterContract.Event.OnIntroductionChanged(introduction))
+        },
+        onNextButtonClicked = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateRegister)
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnTitleIntroductionDeleted)
+        }
     )
 }
 
 @Composable
 fun GroupIntroductionScreen(
-    navigateRegister: () -> Unit,
-    navigateBack: () -> Unit
+    groupTitle: String,
+    onGroupTitleChange: (String) -> Unit,
+    introduction: String,
+    onIntroductionChange: (String) -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onBackClick: () -> Unit
 ) {
-    var groupTitle by remember { mutableStateOf("") }
-    var introduction by remember { mutableStateOf("") }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         GroupIntroductionSection(
             groupTitle = groupTitle,
-            onGroupTitleChange = { groupTitle = it },
+            onGroupTitleChange = onGroupTitleChange,
             introduction = introduction,
-            onIntroductionChange = { introduction = it },
-            onBackClick = navigateBack
+            onIntroductionChange = onIntroductionChange,
+            onBackClick = onBackClick
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = navigateRegister,
+            onClick = onNextButtonClicked,
             enabled = groupTitle.isNotBlank() && introduction.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -121,9 +150,5 @@ private fun GroupIntroductionSection(
 @Composable
 fun ShowGroupIntroductionScreen() {
     GONGBAEKTheme {
-        GroupIntroductionScreen(
-            navigateRegister = {},
-            navigateBack = {}
-        )
     }
 }

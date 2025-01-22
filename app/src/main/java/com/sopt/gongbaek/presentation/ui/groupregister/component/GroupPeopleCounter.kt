@@ -42,7 +42,8 @@ fun GroupPeopleCounter(
     ) {
         GroupPeopleCounterButton(
             iconResId = R.drawable.ic_minus_main_orange_18,
-            onClick = onMinusButtonClicked
+            onClick = onMinusButtonClicked,
+            clickable = peopleCount > 2
         )
         Box(
             modifier = Modifier
@@ -65,7 +66,9 @@ fun GroupPeopleCounter(
         }
         GroupPeopleCounterButton(
             iconResId = R.drawable.ic_plus_main_orange_18,
-            onClick = onPlusButtonClicked
+            onClick = onPlusButtonClicked,
+            clickable = peopleCount < 10
+
         )
     }
 }
@@ -74,6 +77,7 @@ fun GroupPeopleCounter(
 private fun GroupPeopleCounterButton(
     @DrawableRes iconResId: Int,
     onClick: () -> Unit,
+    clickable: Boolean,
     modifier: Modifier = Modifier
 ) {
     Icon(
@@ -85,7 +89,10 @@ private fun GroupPeopleCounterButton(
                 color = GongBaekTheme.colors.subOrange,
                 shape = RoundedCornerShape(6.dp)
             )
-            .clickableWithoutRipple(onClick = onClick)
+            .clickableWithoutRipple(
+                enabled = clickable,
+                onClick = onClick
+            )
             .padding(15.dp)
     )
 }

@@ -15,6 +15,8 @@ class AuthContract {
         val univ: String = "",
         val enterMajor: String = "",
         val selectedGrade: String = "",
+        val univSearchSelectedItem: String = "",
+        val majorSearchSelectedItem: String = "",
         val energyDirectionOptions: String = "",
         val informationGatheringOptions: String = "",
         val decisionMakingOptions: String = "",

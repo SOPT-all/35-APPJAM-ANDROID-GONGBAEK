@@ -32,6 +32,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
+import com.sopt.gongbaek.presentation.ui.auth.component.EmptySearchResultView
 import com.sopt.gongbaek.presentation.ui.auth.component.SearchResultSection
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.topbar.CenterTitleTopBar
@@ -59,14 +60,15 @@ fun UnivSearchRoute(
     }
 
     UnivSearchScreen(
-        onCloseClick = navigateBack,
         univ = uiState.univ,
         school = uiState.userInfo.school,
+        selectedItem = uiState.univSearchSelectedItem,
+        univSearchResult = uiState.universities.universities,
         onUnivChange = { newValue -> viewModel.setEvent(AuthContract.Event.OnSearchUnivChanged(newValue)) },
         onSearchButtonClicked = { viewModel.setEvent(AuthContract.Event.OnUnivSearchClick) },
-        univSearchResult = uiState.universities.universities,
         onItemSelected = { selectedUniv -> viewModel.setEvent(AuthContract.Event.OnUnivSelected(selectedUniv)) },
-        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
+        navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
+        onCloseClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 
@@ -74,11 +76,12 @@ fun UnivSearchRoute(
 private fun UnivSearchScreen(
     univ: String,
     school: String,
+    selectedItem: String,
     onUnivChange: (String) -> Unit,
-    onCloseClick: () -> Unit,
     onSearchButtonClicked: () -> Unit,
-    univSearchResult: List<String> = emptyList(),
+    univSearchResult: List<String>,
     onItemSelected: (String) -> Unit,
+    onCloseClick: () -> Unit,
     navigateBack: () -> Unit
 ) {
     Scaffold(
@@ -111,15 +114,20 @@ private fun UnivSearchScreen(
             ) {
                 SearchTextField(
                     value = univ,
-                    onValueChange = { newValue -> onUnivChange(newValue) },
+                    onValueChange = onUnivChange,
                     modifier = Modifier.padding(horizontal = 16.dp),
                     onSearchButtonClicked = onSearchButtonClicked
                 )
 
                 Spacer(modifier = Modifier.height(14.dp))
 
+                if (univSearchResult.isEmpty()) {
+                    EmptySearchResultView()
+                }
+
                 SearchResultSection(
                     univSearchResult = univSearchResult,
+                    selectedItem = selectedItem,
                     onItemSelected = onItemSelected
                 )
             }
@@ -132,9 +140,7 @@ private fun SearchTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isError: Boolean = false,
-    onSearchButtonClicked: () -> Unit = {},
-    onErrorChange: (Boolean) -> Unit = {}
+    onSearchButtonClicked: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -160,12 +166,7 @@ private fun SearchTextField(
 
         BasicTextField(
             value = value,
-            onValueChange = { newValue ->
-                onValueChange(newValue)
-                if (isError) {
-                    onErrorChange(false)
-                }
-            },
+            onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .roundedBackgroundWithBorder(
@@ -240,7 +241,8 @@ private fun PreviewUnivSearchScreen() {
             onUnivChange = {},
             onItemSelected = {},
             school = "",
-            navigateBack = {}
+            navigateBack = {},
+            selectedItem = ""
         )
     }
 }

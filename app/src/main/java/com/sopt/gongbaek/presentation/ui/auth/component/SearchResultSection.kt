@@ -6,13 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,21 +26,21 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun SearchResultSection(
     univSearchResult: List<String>,
     modifier: Modifier = Modifier,
+    selectedItem: String,
     onItemSelected: (String) -> Unit
 ) {
-    var selectedIndex by remember { mutableIntStateOf(-1) }
-
     LazyColumn(
         modifier = modifier.fillMaxWidth()
     ) {
-        itemsIndexed(univSearchResult) { index, university ->
+        items(univSearchResult) { university ->
             SearchResultItem(
                 university = university,
-                isSelected = selectedIndex == index,
+                isSelected = selectedItem == university,
                 onSelectionChange = { isSelected ->
-                    selectedIndex = if (isSelected) index else -1
                     if (isSelected) {
                         onItemSelected(university)
+                    } else {
+                        onItemSelected("")
                     }
                 }
             )
@@ -94,6 +92,7 @@ private fun PreviewSearchResultSection() {
     )
     SearchResultSection(
         univSearchResult = universities,
-        onItemSelected = {}
+        onItemSelected = {},
+        selectedItem = ""
     )
 }

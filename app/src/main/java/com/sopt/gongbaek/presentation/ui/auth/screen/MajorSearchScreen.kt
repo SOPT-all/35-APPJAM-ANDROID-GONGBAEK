@@ -63,13 +63,13 @@ fun MajorSearchRoute(
 
     MajorSearchScreen(
         enterMajor = uiState.enterMajor,
-        onEnterMajorValueChange = { enterMajor -> viewModel.setEvent(AuthContract.Event.OnMajorSearchChanged(enterMajor)) },
         userMajor = uiState.userInfo.major,
-        onItemSelected = { selectedMajor -> viewModel.setEvent(AuthContract.Event.OnMajorSelected(selectedMajor)) },
-
-        onSearchButtonClicked = { viewModel.setEvent(AuthContract.Event.OnMajorSearchClick) },
-        onCloseClick = navigateBack,
+        selectedItem = uiState.majorSearchSelectedItem,
         majorSearchResult = uiState.majors.majors,
+        onEnterMajorValueChange = { enterMajor -> viewModel.setEvent(AuthContract.Event.OnMajorSearchChanged(enterMajor)) },
+        onItemSelected = { selectedMajor -> viewModel.setEvent(AuthContract.Event.OnMajorSelected(selectedMajor)) },
+        onSearchButtonClicked = { viewModel.setEvent(AuthContract.Event.OnMajorSearchClick) },
+        onCloseClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
         navigateBack = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
@@ -82,8 +82,9 @@ private fun MajorSearchScreen(
     onItemSelected: (String) -> Unit,
     onSearchButtonClicked: () -> Unit,
     onCloseClick: () -> Unit,
-    majorSearchResult: List<String> = emptyList(),
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    selectedItem: String,
+    majorSearchResult: List<String>
 ) {
     Scaffold(
         modifier = Modifier.imePadding(),
@@ -99,7 +100,7 @@ private fun MajorSearchScreen(
         bottomBar = {
             Column {
                 if (enterMajor.isNotEmpty()) {
-                    Tetsts(
+                    DirectRegistrationButton(
                         major = enterMajor,
                         onClick = {
                             onItemSelected(enterMajor)
@@ -111,7 +112,7 @@ private fun MajorSearchScreen(
                 GongBaekBasicButton(
                     title = "적용",
                     enabled = userMajor.isNotEmpty(),
-                    onClick = { if (userMajor.isNotEmpty()) navigateBack() },
+                    onClick = navigateBack,
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 12.dp)
                 )
@@ -136,6 +137,7 @@ private fun MajorSearchScreen(
 
                 SearchResultSection(
                     univSearchResult = majorSearchResult,
+                    selectedItem = selectedItem,
                     onItemSelected = onItemSelected
                 )
             }
@@ -206,7 +208,7 @@ private fun SearchTextField(
                 ) {
                     if (value.isEmpty()) {
                         Text(
-                            text = "학교 이름을 검색하세요.",
+                            text = "학과 이름을 검색하세요.",
                             color = GongBaekTheme.colors.gray04,
                             style = GongBaekTheme.typography.body1.m16
                         )
@@ -228,7 +230,7 @@ private fun SearchTextField(
 }
 
 @Composable
-fun Tetsts(
+private fun DirectRegistrationButton(
     major: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -268,7 +270,7 @@ fun Tetsts(
 @Preview
 @Composable
 private fun PreviewTetsts() {
-    Tetsts(
+    DirectRegistrationButton(
         major = "컴퓨터공학과",
         onClick = {}
     )
@@ -303,7 +305,8 @@ private fun PreviewMajorSearchScreen() {
             onEnterMajorValueChange = {},
             onSearchButtonClicked = {},
             navigateBack = {},
-            onItemSelected = {}
+            onItemSelected = {},
+            selectedItem = ""
         )
     }
 }

@@ -25,9 +25,28 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
                 fetchUnivSearch()
             }
 
-            is AuthContract.Event.OnUnivSelected -> updateUserInfo { copy(school = event.school) }
+            is AuthContract.Event.OnUnivSelected -> {
+                val updatedSchool = toggleSelection(currentState.userInfo.school, event.school)
+                setState {
+                    copy(
+                        userInfo = currentState.userInfo.copy(school = updatedSchool),
+                        univSearchSelectedItem = updatedSchool
+                    )
+                }
+            }
+
             is AuthContract.Event.OnMajorSearchChanged -> setState { copy(enterMajor = event.enterMajor) }
-            is AuthContract.Event.OnMajorSelected -> updateUserInfo { copy(major = event.selectedMajor) }
+
+            is AuthContract.Event.OnMajorSelected -> {
+                val updatedMajor = toggleSelection(currentState.userInfo.major, event.selectedMajor)
+                setState {
+                    copy(
+                        userInfo = currentState.userInfo.copy(major = updatedMajor),
+                        majorSearchSelectedItem = updatedMajor
+                    )
+                }
+            }
+
             is AuthContract.Event.OnMajorSearchClick -> {
                 fetchMajorSearch()
             }
@@ -75,6 +94,12 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
         }
     }
 
+    fun sendSideEffect(sideEffect: AuthContract.SideEffect) =
+        setSideEffect(sideEffect)
+
+    private fun toggleSelection(current: String, newSelection: String): String =
+        if (current == newSelection) "" else newSelection
+
     private fun updateMbti() {
         val mbti = createMbti(
             firstLetter = currentState.energyDirectionOptions.takeIf { it.isNotBlank() } ?: return,
@@ -85,9 +110,6 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
         updateUserInfo { copy(mbti = mbti) }
     }
 
-    fun sendSideEffect(sideEffect: AuthContract.SideEffect) =
-        setSideEffect(sideEffect)
-
     private fun fetchUnivSearch() {
 //        viewModelScope.launch {
 //            currentState.univ
@@ -95,19 +117,16 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             "한양대학교",
             "건국대학교 서울캠퍼스",
             "서울대학교",
-            "건국대학교 서울캠퍼스",
             "고려대학교",
-            "건국대학교 서울캠퍼스",
-            "연세대학교",
-            "한양대학교",
-            "건국대학교 서울캠퍼스",
-            "서울대학교",
-            "건국대학교 서울캠퍼스",
-            "고려대학교",
-            "건국대학교 서울캠퍼스",
             "연세대학교"
         )
-        setState { copy(universities = Universities(universities)) }
+
+        if (currentState.univ.isNotEmpty()) {
+            val searchResult = universities.filter { it.contains(currentState.univ) }
+            setState { copy(universities = Universities(searchResult)) }
+        } else {
+            setState { copy(universities = Universities(emptyList())) }
+        }
     }
 
     private fun fetchMajorSearch() {
@@ -117,20 +136,18 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             "컴퓨터공학과",
             "건축학과",
             "경영학과",
-            "컴퓨터공학과",
-            "건축학과",
-            "경영학과",
-            "컴퓨터공학과",
-            "건축학과",
-            "경��학과",
-            "컴퓨터공학과",
-            "건축학과",
-            "경영학과",
-            "컴퓨터공학과",
-            "건축학과",
-            "경영학과"
+            "국어국문학과",
+            "영어영문학과",
+            "수학과",
+            "물리학과"
         )
-        setState { copy(majors = Majors(majors)) }
+
+        if (currentState.enterMajor.isNotEmpty()) {
+            val searchResult = majors.filter { it.contains(currentState.enterMajor) }
+            setState { copy(majors = Majors(searchResult)) }
+        } else {
+            setState { copy(majors = Majors(emptyList())) }
+        }
     }
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =

@@ -15,7 +15,7 @@ data class MyGroupsResponseDto(
         @SerialName("category") val category: String,
         @SerialName("groupType") val groupType: String,
         @SerialName("groupTitle") val groupTitle: String,
-        @SerialName("weekDate") val weekDate: String,
+        @SerialName("weekDate") val weekDate: String?,
         @SerialName("weekDay") val weekDay: String,
         @SerialName("startTime") val startTime: Double,
         @SerialName("endTime") val endTime: Double,

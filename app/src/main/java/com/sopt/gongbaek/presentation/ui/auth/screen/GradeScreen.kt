@@ -61,12 +61,15 @@ fun GradeRoute(
                 if (sideEffect is AuthContract.SideEffect.NavigateBack) {
                     navigateBack()
                 }
+                if (sideEffect is AuthContract.SideEffect.NavigateMbti) {
+                    navigateMbti()
+                }
             }
     }
 
     GradeScreen(
-        navigateMbti = navigateMbti,
-        onBackClick = navigateBack,
+        navigateMbti = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateMbti) },
+        onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) },
         grade = uiState.userInfo.grade,
         enterYear = uiState.userInfo.enterYear,
         selectedGrade = uiState.selectedGrade,

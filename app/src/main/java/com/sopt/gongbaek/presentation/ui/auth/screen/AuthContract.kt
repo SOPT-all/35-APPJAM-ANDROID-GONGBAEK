@@ -47,6 +47,9 @@ class AuthContract {
         data object NavigateUnivMajor : SideEffect
         data object NavigateUnivSearch : SideEffect
         data object NavigateMajorSearch : SideEffect
+        data object NavigateGrade : SideEffect
+        data object NavigateGender : SideEffect
+        data object NavigateMbti : SideEffect
         data object NavigateSelfIntroduction : SideEffect
         data object NavigateEnterTimetable : SideEffect
         data object NavigateTimetableConvert : SideEffect

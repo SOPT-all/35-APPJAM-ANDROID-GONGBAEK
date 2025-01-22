@@ -24,7 +24,6 @@ import com.sopt.gongbaek.presentation.ui.component.timetable.GroupRegisterTimeTa
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
-import timber.log.Timber
 
 @Composable
 fun GroupTimeRoute(

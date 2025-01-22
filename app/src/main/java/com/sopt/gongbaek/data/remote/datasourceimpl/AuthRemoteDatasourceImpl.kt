@@ -2,6 +2,7 @@ package com.sopt.gongbaek.data.remote.datasourceimpl
 
 import com.sopt.gongbaek.data.remote.datasource.AuthRemoteDataSource
 import com.sopt.gongbaek.data.remote.dto.base.ApiResponse
+import com.sopt.gongbaek.data.remote.dto.base.NullableApiResponse
 import com.sopt.gongbaek.data.remote.dto.request.RegisterUserInfoRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.RegisterUserInfoResponseDto
 import com.sopt.gongbaek.data.remote.service.AuthService
@@ -13,4 +14,7 @@ class AuthRemoteDatasourceImpl @Inject constructor(
 
     override suspend fun registerUserInfo(registerUserInfoRequestDto: RegisterUserInfoRequestDto): ApiResponse<RegisterUserInfoResponseDto> =
         authService.requestUserInfo(registerUserInfoRequestDto)
+
+    override suspend fun validateNickname(nickname: String): NullableApiResponse<Unit> =
+        authService.validateNickname(nickname)
 }

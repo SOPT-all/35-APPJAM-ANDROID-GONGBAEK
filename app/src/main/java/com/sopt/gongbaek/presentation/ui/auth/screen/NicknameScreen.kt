@@ -24,6 +24,7 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.textfield.GongBaekBasicTextField
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
+import com.sopt.gongbaek.presentation.util.extension.isKoreanChar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
@@ -50,15 +51,21 @@ fun NicknameRoute(
 
     NicknameScreen(
         nickname = uiState.userInfo.nickname,
-        onNicknameChanged = { nickname -> viewModel.setEvent(AuthContract.Event.OnNicknameChanged(nickname)) },
-        navigateUnivMajor = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateUnivMajor) },
+        errorMessage = uiState.nicknameErrorMessage,
+        onNicknameChanged = { nickname ->
+            val filteredNickname = nickname.filter { it.isKoreanChar() }
+            viewModel.setEvent(AuthContract.Event.OnNicknameChanged(filteredNickname))
+        },
+        navigateUnivMajor = { viewModel.setEvent(AuthContract.Event.ValidateNickname) },
         onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 
+
 @Composable
 private fun NicknameScreen(
     nickname: String,
+    errorMessage: String?,
     onNicknameChanged: (String) -> Unit,
     navigateUnivMajor: () -> Unit = {},
     onBackClick: () -> Unit = {}
@@ -71,6 +78,7 @@ private fun NicknameScreen(
         NickNameInputSection(
             nickname = nickname,
             onNicknameChanged = onNicknameChanged,
+            errorMessage = errorMessage,
             onBackClick = onBackClick,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
@@ -79,7 +87,7 @@ private fun NicknameScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            enabled = nickname.isNotBlank(),
+            enabled = nickname.isNotBlank() && errorMessage.isNullOrEmpty(),
             onClick = navigateUnivMajor,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -88,10 +96,12 @@ private fun NicknameScreen(
     }
 }
 
+
 @Composable
 private fun NickNameInputSection(
     nickname: String,
     onNicknameChanged: (String) -> Unit,
+    errorMessage: String?,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {}
 ) {
@@ -115,11 +125,16 @@ private fun NickNameInputSection(
             GongBaekBasicTextField(
                 value = nickname,
                 onValueChange = onNicknameChanged,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.NICKNAME
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.NICKNAME,
+                isError = !errorMessage.isNullOrEmpty(),
+                errorMessage = errorMessage.orEmpty(), // 에러 메시지 전달
+                onErrorChange = { /* 에러 변경 처리 */ }
             )
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
@@ -127,7 +142,8 @@ private fun PreviewNicknameScreen() {
     GONGBAEKTheme {
         NicknameScreen(
             nickname = "닉네임",
-            onNicknameChanged = {}
+            onNicknameChanged = {},
+            errorMessage = null,
         )
     }
 }

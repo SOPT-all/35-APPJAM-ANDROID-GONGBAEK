@@ -11,6 +11,7 @@ import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.RegisterUserInfoUseCase
 import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
+import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,4 +56,10 @@ object UseCaseModule {
     fun provideSetTokenUseCase(
         tokenRepository: TokenRepository
     ): SetTokenUseCase = SetTokenUseCase(tokenRepository)
+
+    @Provides
+    @Singleton
+    fun provideValidateNicknameUseCase(
+        authRepository: AuthRepository
+    ): ValidateNicknameUseCase = ValidateNicknameUseCase(authRepository)
 }

@@ -8,6 +8,7 @@ import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
 import com.sopt.gongbaek.domain.usecase.RegisterUserInfoUseCase
 import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
+import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.createMbti
@@ -21,7 +22,8 @@ class AuthViewModel @Inject constructor(
     private val getSearchUniversitiesResultUseCase: GetSearchUniversitiesResultUseCase,
     private val getSearchMajorsResultUseCase: GetSearchMajorsResultUseCase,
     private val registerUserInfoUseCase: RegisterUserInfoUseCase,
-    private val setTokenUseCase: SetTokenUseCase
+    private val setTokenUseCase: SetTokenUseCase,
+    private val validateNicknameUseCase: ValidateNicknameUseCase
 ) : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
 
     override fun createInitialState(): AuthContract.State = AuthContract.State()
@@ -29,7 +31,16 @@ class AuthViewModel @Inject constructor(
     override suspend fun handleEvent(event: AuthContract.Event) {
         when (event) {
             is AuthContract.Event.OnProfileImageSelected -> updateUserInfo { copy(profileImage = event.profileImage) }
-            is AuthContract.Event.OnNicknameChanged -> updateUserInfo { copy(nickname = event.nickname) }
+            is AuthContract.Event.OnNicknameChanged -> {
+                updateUserInfo { copy(nickname = event.nickname) }
+                setState {
+                    copy(
+                        nicknameValidation = true,
+                        nicknameErrorMessage = null
+                    )
+                }
+            }
+
             is AuthContract.Event.OnSearchUnivChanged -> setState { copy(univ = event.univ) }
             is AuthContract.Event.OnUnivSearchClick -> {
                 fetchUnivSearchResult()
@@ -103,6 +114,14 @@ class AuthViewModel @Inject constructor(
             }
 
             is AuthContract.Event.SubmitUserInfo -> submitUserInfo()
+
+            is AuthContract.Event.ValidateNickname -> {
+                validateNickname(currentState.userInfo.nickname) { isValid ->
+                    if (isValid) {
+                        sendSideEffect(AuthContract.SideEffect.NavigateUnivMajor)
+                    }
+                }
+            }
         }
     }
 
@@ -165,6 +184,33 @@ class AuthViewModel @Inject constructor(
                 }
             )
         }
+
+    private fun validateNickname(nickname: String, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val result = validateNicknameUseCase(nickname)
+            result.fold(
+                onSuccess = {
+                    setState {
+                        copy(
+                            nicknameValidation = true,
+                            nicknameErrorMessage = null
+                        )
+                    }
+                    onResult(true)
+                },
+                onFailure = { exception ->
+                    setState {
+                        copy(
+                            nicknameValidation = false,
+                            nicknameErrorMessage = exception.message
+                        )
+                    }
+                    onResult(false)
+                }
+            )
+        }
+    }
+
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }

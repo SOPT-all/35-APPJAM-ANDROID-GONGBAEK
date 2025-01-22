@@ -31,7 +31,7 @@ import kotlin.math.roundToInt
 @Composable
 fun GongBaekToggleButton(
     checkedState: Boolean,
-    onClick: () -> Unit,
+    onClick: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current

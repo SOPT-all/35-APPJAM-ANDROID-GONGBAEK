@@ -137,6 +137,7 @@
     <string name="grouplist_cycle_all">모든 주기</string>
     <string name="grouplist_gongbaek_all">모든 공백</string>
     <string name="grouplist_gongbaek_duplicate">겹치는 공백</string>
+    <string name="grouplist_empty">현재 신청 가능한 모임이 없어요!\n직접 모임을 만들어보세요.</string>
 
     <!--GroupRegisterScreen-->
     <!--GroupCycle-->

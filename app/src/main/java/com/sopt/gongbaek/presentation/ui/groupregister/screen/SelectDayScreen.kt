@@ -47,7 +47,7 @@ fun SelectDayRoute(
     }
 
     SelectDayScreen(
-        selectedDate = uiState.groupRegisterInfo.weekDate.takeIf { it.isNotBlank() }?.let {
+        selectedDate = uiState.groupRegisterInfo.weekDate.takeIf { it?.isNotBlank() == true }?.let {
             LocalDate.parse(it)
         },
         onSelectedDate = { selectedDate ->

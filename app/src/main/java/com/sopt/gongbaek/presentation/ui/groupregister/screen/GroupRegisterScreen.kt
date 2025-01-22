@@ -42,7 +42,6 @@ import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.createGroupRegisterTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
-import timber.log.Timber
 
 @Composable
 fun GroupRegisterRoute(

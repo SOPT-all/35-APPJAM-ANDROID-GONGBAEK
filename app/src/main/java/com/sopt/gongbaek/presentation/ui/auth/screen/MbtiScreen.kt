@@ -125,8 +125,6 @@ private fun MbtiScreenContent(
 
         GongBaekProgressBar(progressPercent = 0.625f)
 
-        Spacer(modifier = Modifier.height(54.dp))
-
         Column(
             modifier = modifier
         ) {
@@ -137,7 +135,7 @@ private fun MbtiScreenContent(
                 descriptionResId = R.string.auth_mbti_description
             )
 
-            Spacer(modifier = Modifier.height(44.dp))
+            Spacer(modifier = Modifier.height(42.dp))
 
             Column {
                 Text(

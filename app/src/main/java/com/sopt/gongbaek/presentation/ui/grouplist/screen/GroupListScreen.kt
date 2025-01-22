@@ -78,8 +78,8 @@ fun GroupListRoute(
             viewModel.setEvent(GroupListContract.Event.OnCategorySelected(index))
         },
         toggleCheckedState = uiState.toggleCheckedState,
-        onToggleSelected = { state ->
-            viewModel.setEvent(GroupListContract.Event.OnToggleSelected(state))
+        onToggleStateChanged = { state ->
+            viewModel.setEvent(GroupListContract.Event.OnToggleCheckStateChanged(state))
         },
         navigateGroupDetail = { groupId, groupCycle ->
             viewModel.sendSideEffect(GroupListContract.SideEffect.NavigateGroupDetail(groupId, groupCycle))
@@ -98,7 +98,7 @@ fun GroupListScreen(
     selectedCategoryIndex: Int,
     onCategorySelected: (Int) -> Unit,
     toggleCheckedState: Boolean,
-    onToggleSelected: (Boolean) -> Unit,
+    onToggleStateChanged: (Boolean) -> Unit,
     navigateGroupDetail: (Int, String) -> Unit,
     navigateGroupRegister: () -> Unit,
     groupList: List<GroupInfo>
@@ -160,7 +160,7 @@ fun GroupListScreen(
 
                         GongBaekToggleButton(
                             checkedState = toggleCheckedState,
-                            onClick = onToggleSelected,
+                            onClick = onToggleStateChanged,
                             modifier = Modifier.align(Alignment.Top)
                         )
                     }

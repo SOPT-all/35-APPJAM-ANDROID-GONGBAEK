@@ -28,7 +28,7 @@ class GroupListViewModel @Inject constructor() :
                 getGroups(category = mapIndexToCategory(event.index))
             }
 
-            is GroupListContract.Event.OnToggleSelected -> {
+            is GroupListContract.Event.OnToggleCheckStateChanged -> {
                 setState { copy(toggleCheckedState = event.state) }
             }
         }

@@ -19,7 +19,7 @@ class GroupListContract {
         data class GetGroups(val category: String) : Event()
         data class OnDayOfWeekSelected(val index: Int) : Event()
         data class OnCategorySelected(val index: Int) : Event()
-        data class OnToggleSelected(val state: Boolean) : Event()
+        data class OnToggleCheckStateChanged(val state: Boolean) : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {

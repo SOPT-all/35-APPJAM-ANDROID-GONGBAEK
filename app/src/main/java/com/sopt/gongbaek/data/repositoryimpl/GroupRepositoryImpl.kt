@@ -21,4 +21,12 @@ class GroupRepositoryImpl @Inject constructor(
             ).handleApiResponse().getOrThrow().toDomain()
         }
     }
+
+    override suspend fun getGroups(category: String?): Result<List<GroupInfo>> {
+        return runCatching {
+            groupDataSource.getGroups(
+                category = category
+            ).handleApiResponse().getOrThrow().toDomain()
+        }
+    }
 }

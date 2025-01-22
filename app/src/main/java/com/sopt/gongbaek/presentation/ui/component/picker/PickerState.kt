@@ -1,4 +1,4 @@
-package com.sopt.gongbaek.presentation.ui.auth.component.picker
+package com.sopt.gongbaek.presentation.ui.component.picker
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

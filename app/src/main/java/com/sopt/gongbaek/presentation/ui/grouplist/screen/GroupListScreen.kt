@@ -89,7 +89,6 @@ fun GroupListRoute(
         },
         groupList = uiState.groups
     )
-
 }
 
 @Composable
@@ -215,5 +214,4 @@ fun GroupListScreen(
 @Preview(showBackground = true)
 @Composable
 fun ShowGroupListScreen() {
-
 }

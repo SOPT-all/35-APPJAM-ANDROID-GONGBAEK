@@ -11,5 +11,5 @@ class GroupRemoteDataSourceImpl @Inject constructor(
     private val groupService: GroupService
 ) : GroupRemoteDataSource {
     override suspend fun getMyGroups(myGroupsRequestDto: MyGroupsRequestDto): ApiResponse<MyGroupsResponseDto> =
-        groupService.getMyGroups(myGroupsRequestDto = myGroupsRequestDto)
+        groupService.getMyGroups(category = myGroupsRequestDto.category, status = myGroupsRequestDto.status)
 }

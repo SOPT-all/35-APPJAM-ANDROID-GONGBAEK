@@ -2,6 +2,7 @@ package com.sopt.gongbaek.di
 
 import com.sopt.gongbaek.data.remote.service.ExampleService
 import com.sopt.gongbaek.data.remote.service.SearchService
+import com.sopt.gongbaek.data.remote.service.GroupService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,4 +24,9 @@ object ServiceModule {
         return retrofit.create(SearchService::class.java)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideGroupService(retrofit: Retrofit): GroupService =
+        retrofit.create(GroupService::class.java)
 }

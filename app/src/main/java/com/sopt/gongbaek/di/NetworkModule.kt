@@ -5,6 +5,8 @@ import android.net.ConnectivityManager
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.gongbaek.BuildConfig
 import com.sopt.gongbaek.BuildConfig.DEBUG
+import com.sopt.gongbaek.data.local.datasource.TokenLocalDataSource
+import com.sopt.gongbaek.data.remote.util.AuthInterceptor
 import com.sopt.gongbaek.data.remote.util.NetworkManager
 import dagger.Module
 import dagger.Provides
@@ -46,14 +48,25 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideAuthInterceptor(
+        tokenLocalDataSource: TokenLocalDataSource,
+        @ApplicationContext context: Context
+    ): AuthInterceptor {
+        return AuthInterceptor(tokenLocalDataSource, context)
+    }
+
+    @Provides
+    @Singleton
     fun providesOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder().apply {
             connectTimeout(10L, TimeUnit.SECONDS)
             writeTimeout(10L, TimeUnit.SECONDS)
             readTimeout(10L, TimeUnit.SECONDS)
             if (DEBUG) addInterceptor(loggingInterceptor)
+            addInterceptor(authInterceptor)
         }.build()
 
     @Provides

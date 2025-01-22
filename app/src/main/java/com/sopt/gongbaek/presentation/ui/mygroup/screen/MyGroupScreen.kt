@@ -108,7 +108,6 @@ fun MyGroupScreen(
     }
 }
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
@@ -117,7 +116,7 @@ private fun MyGroupScreenPreview() {
         MyGroupScreen(
             uiState = MyGroupContract.State(),
             myGroupTabs = MyGroupPagerType.entries.map { it.description },
-            pagerState = rememberPagerState {MyGroupPagerType.entries.map { it.description }.size },
+            pagerState = rememberPagerState { MyGroupPagerType.entries.map { it.description }.size },
             onGroupDetailButtonClick = {},
             onGroupRoomButtonClick = {}
         )

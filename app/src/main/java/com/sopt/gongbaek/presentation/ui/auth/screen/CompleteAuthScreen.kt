@@ -113,6 +113,7 @@ private fun CompleteAuthScreen(
 
         GongBaekBasicButton(
             title = "공백 채우러 가기",
+            enabled = true,
             onClick = navigateHome,
             modifier = Modifier
                 .align(Alignment.BottomCenter)

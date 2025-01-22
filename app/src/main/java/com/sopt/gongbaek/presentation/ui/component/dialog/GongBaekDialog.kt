@@ -75,12 +75,14 @@ fun GongBaekDialog(
                         onClick = onDismissButtonClick,
                         verticalPadding = 12,
                         modifier = Modifier.weight(1f),
+                        enabled = true,
                         enableButtonColor = GongBaekTheme.colors.gray09
                     )
                     GongBaekBasicButton(
                         title = stringResource(R.string.dialog_button_group_room),
                         onClick = onConfirmButtonClick,
                         verticalPadding = 12,
+                        enabled = true,
                         modifier = Modifier.weight(2f)
                     )
                 }
@@ -88,6 +90,7 @@ fun GongBaekDialog(
             else ->
                 GongBaekBasicButton(
                     title = stringResource(R.string.dialog_button_confirm),
+                    enabled = true,
                     onClick = onConfirmButtonClick
                 )
         }

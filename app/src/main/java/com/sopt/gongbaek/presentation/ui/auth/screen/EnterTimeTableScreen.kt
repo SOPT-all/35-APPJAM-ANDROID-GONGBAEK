@@ -71,6 +71,7 @@ private fun EnterTimeTableScreen(
         bottomBar = {
             GongBaekBasicButton(
                 title = "다음",
+                enabled = true,
                 onClick = navigateTimetableConvert,
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 12.dp)

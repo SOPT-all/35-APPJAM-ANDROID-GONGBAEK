@@ -253,6 +253,7 @@ fun YearPickerDropdown(
 
                         GongBaekBasicButton(
                             title = "선택",
+                            enabled = true,
                             onClick = {
                                 showBottomSheet = false
                                 val selectedYear = valuesPickerState.selectedItem.toIntOrNull() ?: 0

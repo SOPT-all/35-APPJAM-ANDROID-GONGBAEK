@@ -79,6 +79,7 @@ fun GroupRegisterScreen(
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_done),
+            enabled = true,
             onClick = navigateGroupList,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)

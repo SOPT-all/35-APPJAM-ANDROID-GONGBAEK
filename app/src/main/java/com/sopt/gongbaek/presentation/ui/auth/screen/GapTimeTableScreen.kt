@@ -69,12 +69,14 @@ private fun GapTimeTableScreen(
             ) {
                 GongBaekBasicButton(
                     title = "시간표 변경",
+                    enabled = true,
                     onClick = navigateEnterTimetable,
                     modifier = Modifier.weight(1f),
                     enableButtonColor = GongBaekTheme.colors.gray09
                 )
                 GongBaekBasicButton(
                     title = "가입완료",
+                    enabled = true,
                     onClick = navigateCompleteAuth,
                     modifier = Modifier.weight(2f)
                 )

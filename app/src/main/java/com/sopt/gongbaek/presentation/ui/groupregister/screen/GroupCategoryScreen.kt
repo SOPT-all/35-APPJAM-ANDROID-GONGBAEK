@@ -57,6 +57,7 @@ fun GroupCategoryRoute(
         },
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnCategoryDeleted)
         }
     )
 }

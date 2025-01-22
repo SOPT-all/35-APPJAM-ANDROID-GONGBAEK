@@ -61,6 +61,7 @@ fun GroupCoverRoute(
         },
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnCoverDeleted)
         }
     )
 }

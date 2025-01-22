@@ -72,6 +72,7 @@ fun GroupPlacePeopleRoute(
         },
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnPlacePeopleDeleted)
         }
     )
 }

@@ -74,6 +74,7 @@ fun GroupCycleRoute(
         },
         onBackClick = {
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnGroupCycleDeleted)
         }
     )
 }

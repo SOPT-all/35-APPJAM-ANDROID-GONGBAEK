@@ -57,8 +57,13 @@ fun GroupIntroductionRoute(
         onIntroductionChange = { introduction ->
             viewModel.setEvent(GroupRegisterContract.Event.OnIntroductionChanged(introduction))
         },
-        onNextButtonClicked = navigateRegister,
-        onBackClick = navigateBack
+        onNextButtonClicked = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateRegister)
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnTitleIntroductionDeleted)
+        }
     )
 }
 

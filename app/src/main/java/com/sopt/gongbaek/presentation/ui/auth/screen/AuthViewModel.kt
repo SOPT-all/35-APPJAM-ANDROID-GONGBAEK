@@ -1,11 +1,10 @@
 package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.lifecycle.viewModelScope
-import com.sopt.gongbaek.domain.model.Majors
-import com.sopt.gongbaek.domain.model.Universities
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GradeType
+import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
@@ -17,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val getSearchUniversitiesResultUseCase: GetSearchUniversitiesResultUseCase
+    private val getSearchUniversitiesResultUseCase: GetSearchUniversitiesResultUseCase,
+    private val getSearchMajorsResultUseCase: GetSearchMajorsResultUseCase
 ) : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
 
     override fun createInitialState(): AuthContract.State = AuthContract.State()
@@ -116,7 +116,7 @@ class AuthViewModel @Inject constructor(
         updateUserInfo { copy(mbti = mbti) }
     }
 
-    private fun fetchUnivSearchResult() {
+    private fun fetchUnivSearchResult() =
         viewModelScope.launch {
             setState { copy(loadState = UiLoadState.Loading) }
             getSearchUniversitiesResultUseCase(currentState.univ).fold(
@@ -128,28 +128,23 @@ class AuthViewModel @Inject constructor(
                 }
             )
         }
-    }
 
-    private fun fetchMajorSearch() {
-//        viewModelScope.launch {
-//            currentState.major
-        val majors = listOf(
-            "컴퓨터공학과",
-            "건축학과",
-            "경영학과",
-            "국어국문학과",
-            "영어영문학과",
-            "수학과",
-            "물리학과"
-        )
-
-        if (currentState.enterMajor.isNotEmpty()) {
-            val searchResult = majors.filter { it.contains(currentState.enterMajor) }
-            setState { copy(majors = Majors(searchResult)) }
-        } else {
-            setState { copy(majors = Majors(emptyList())) }
+    private fun fetchMajorSearch() =
+        viewModelScope.launch {
+            setState { copy(loadState = UiLoadState.Loading) }
+            getSearchMajorsResultUseCase(
+                universityName = currentState.userInfo.school,
+                majorName = currentState.enterMajor
+            ).fold(
+                onSuccess = { majors ->
+                    setState { copy(majors = majors) }
+                },
+                onFailure = {
+                    setState { copy(loadState = UiLoadState.Error) }
+                }
+            )
         }
-    }
+
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }

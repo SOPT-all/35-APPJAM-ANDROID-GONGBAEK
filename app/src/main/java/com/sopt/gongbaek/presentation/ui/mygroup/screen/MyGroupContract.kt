@@ -8,14 +8,17 @@ import com.sopt.gongbaek.presentation.util.base.UiState
 
 class MyGroupContract {
     data class State(
-        val loadState: UiLoadState = UiLoadState.Idle,
-        val activeGroups: List<GroupInfo> = listOf(),
-        val closedGroups: List<GroupInfo> = listOf()
+        val registerGroupsLoadState: UiLoadState = UiLoadState.Idle,
+        val registerActiveGroups: List<GroupInfo> = listOf(),
+        val registerClosedGroups: List<GroupInfo> = listOf(),
+        val applyGroupsLoadState: UiLoadState = UiLoadState.Idle,
+        val applyActiveGroups: List<GroupInfo> = listOf(),
+        val applyClosedGroups: List<GroupInfo> = listOf()
     ) : UiState
 
     sealed class Event : UiEvent {
-        data object GetRegisterGroups : Event()
-        data object GetApplyGroups : Event()
+        data object OnRegisterGroupsTabClick : Event()
+        data object OnApplyGroupsTabClick : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {

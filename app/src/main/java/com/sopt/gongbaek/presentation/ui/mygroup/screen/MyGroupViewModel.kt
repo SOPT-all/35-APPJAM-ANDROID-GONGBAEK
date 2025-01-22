@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.mygroup.screen
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
@@ -14,21 +13,13 @@ import javax.inject.Inject
 class MyGroupViewModel @Inject constructor(
     private val getMyGroupsUseCase: GetMyGroupsUseCase
 ) : BaseViewModel<MyGroupContract.State, MyGroupContract.Event, MyGroupContract.SideEffect>() {
-    override fun createInitialState(): MyGroupContract.State = MyGroupContract.State()
 
-    init {
-        getRegisterGroups()
-        Timber.tag("MyGroupViewModel Init").d("실행됐지롱 ㅋㅋ")
-    }
+    override fun createInitialState(): MyGroupContract.State = MyGroupContract.State()
 
     override suspend fun handleEvent(event: MyGroupContract.Event) {
         when (event) {
-            is MyGroupContract.Event.GetRegisterGroups -> {
-                getRegisterGroups()
-            }
-            is MyGroupContract.Event.GetApplyGroups -> {
-                getApplyGroups()
-            }
+            is MyGroupContract.Event.OnRegisterGroupsTabClick -> getRegisterGroups()
+            is MyGroupContract.Event.OnApplyGroupsTabClick -> getApplyGroups()
         }
     }
 
@@ -36,65 +27,49 @@ class MyGroupViewModel @Inject constructor(
 
     private fun getRegisterGroups() {
         viewModelScope.launch {
-            setState { copy(loadState = UiLoadState.Loading) }
+            setState { copy(registerGroupsLoadState = UiLoadState.Loading) }
             getMyGroupsUseCase(category = "REGISTER", status = true).fold(
                 onSuccess = { activeGroups ->
-                    setState {
-                        copy(
-                            loadState = UiLoadState.Success,
-                            activeGroups = activeGroups
-                        )
-                    }
-                    Timber.tag("activeGroups").d("${currentState.activeGroups}")
+                    setState { copy(registerActiveGroups = activeGroups) }
+                    Timber.tag("activeGroups").d("$activeGroups")
+                    Timber.tag("registerActiveGroups").d("${currentState.registerActiveGroups}")
                 },
-                onFailure = {
-                    setState { copy(loadState = UiLoadState.Error) }
+                onFailure = { errorMessage ->
+                    Timber.tag("errorMessage").d("$errorMessage")
+                    setState { copy(registerGroupsLoadState = UiLoadState.Error) }
                 }
             )
             getMyGroupsUseCase(category = "REGISTER", status = false).fold(
                 onSuccess = { closedGroups ->
                     setState {
                         copy(
-                            loadState = UiLoadState.Success,
-                            closedGroups = closedGroups
+                            registerGroupsLoadState = UiLoadState.Success,
+                            registerClosedGroups = closedGroups
                         )
                     }
                 },
-                onFailure = {
-                    setState { copy(loadState = UiLoadState.Error) }
-                }
+                onFailure = { setState { copy(registerGroupsLoadState = UiLoadState.Error) } }
             )
         }
     }
 
     private fun getApplyGroups() {
         viewModelScope.launch {
-            setState { copy(loadState = UiLoadState.Loading) }
+            setState { copy(applyGroupsLoadState = UiLoadState.Loading) }
             getMyGroupsUseCase(category = "APPLY", status = true).fold(
-                onSuccess = { activeGroups ->
-                    setState {
-                        copy(
-                            loadState = UiLoadState.Success,
-                            activeGroups = activeGroups
-                        )
-                    }
-                },
-                onFailure = {
-                    setState { copy(loadState = UiLoadState.Error) }
-                }
+                onSuccess = { activeGroups -> setState { copy(applyActiveGroups = activeGroups) } },
+                onFailure = { setState { copy(applyGroupsLoadState = UiLoadState.Error) } }
             )
             getMyGroupsUseCase(category = "APPLY", status = false).fold(
                 onSuccess = { closedGroups ->
                     setState {
                         copy(
-                            loadState = UiLoadState.Success,
-                            closedGroups = closedGroups
+                            applyGroupsLoadState = UiLoadState.Success,
+                            applyClosedGroups = closedGroups
                         )
                     }
                 },
-                onFailure = {
-                    setState { copy(loadState = UiLoadState.Error) }
-                }
+                onFailure = { setState { copy(applyGroupsLoadState = UiLoadState.Error) } }
             )
         }
     }

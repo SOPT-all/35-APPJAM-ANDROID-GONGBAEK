@@ -125,7 +125,6 @@ private fun GenderSelectionSection(
 
                 GongBaekSelectableButtons(
                     selectableButtonType = SelectableButtonType.GENDER,
-                    options = SelectableButtonType.GENDER.options,
                     onOptionSelected = onSelectedGender,
                     selectedOption = selectedGender
                 )

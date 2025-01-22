@@ -147,7 +147,6 @@ private fun MbtiScreenContent(
                 )
                 GongBaekSelectableButtons(
                     selectableButtonType = SelectableButtonType.MBTI_FIRST,
-                    options = SelectableButtonType.MBTI_FIRST.options,
                     onOptionSelected = onEnergyDirectionOptionSelected,
                     modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                     selectedOption = energyDirectionOptions
@@ -160,7 +159,6 @@ private fun MbtiScreenContent(
                 )
                 GongBaekSelectableButtons(
                     selectableButtonType = SelectableButtonType.MBTI_SECOND,
-                    options = SelectableButtonType.MBTI_SECOND.options,
                     onOptionSelected = onInformationGatheringOptionSelected,
                     modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                     selectedOption = informationGatheringOptions
@@ -173,7 +171,6 @@ private fun MbtiScreenContent(
                 )
                 GongBaekSelectableButtons(
                     selectableButtonType = SelectableButtonType.MBTI_THIRD,
-                    options = SelectableButtonType.MBTI_THIRD.options,
                     onOptionSelected = onDecisionMakingOptionSelected,
                     modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                     selectedOption = decisionMakingOptions
@@ -186,7 +183,6 @@ private fun MbtiScreenContent(
                 )
                 GongBaekSelectableButtons(
                     selectableButtonType = SelectableButtonType.MBTI_FOURTH,
-                    options = SelectableButtonType.MBTI_FOURTH.options,
                     onOptionSelected = onLifestyleOrientationOptionSelected,
                     modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
                     selectedOption = lifestyleOrientationOptions

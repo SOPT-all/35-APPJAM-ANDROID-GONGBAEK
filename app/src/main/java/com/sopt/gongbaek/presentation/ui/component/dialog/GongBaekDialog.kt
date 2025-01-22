@@ -149,8 +149,7 @@ private fun PreviewGongBaekDialog3() {
         ) {
             GongBaekDialog(
                 gongBaekDialogType = GongBaekDialogType.ERROR,
-                onConfirmButtonClick = {},
-                onDismissButtonClick = {}
+                onConfirmButtonClick = {}
             )
         }
     }

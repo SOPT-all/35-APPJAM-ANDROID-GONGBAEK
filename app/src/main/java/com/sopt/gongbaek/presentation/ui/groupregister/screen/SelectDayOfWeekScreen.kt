@@ -6,15 +6,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.SelectableButtonType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
@@ -30,35 +31,61 @@ fun SelectDayOfWeekRoute(
     navigateGroupTime: () -> Unit,
     navigateBack: () -> Unit
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateTime -> navigateGroupTime()
+                    else -> {}
+                }
+            }
+    }
+
     SelectDayOfWeekScreen(
-        navigateGroupTime = navigateGroupTime,
-        navigateBack = navigateBack
+        dayOfWeek = uiState.groupRegisterInfo.weekDay,
+        selectedDayOfWeek = uiState.selectedDayOfWeek,
+        onDayOfWeekSelected = { dayOfWeek ->
+            viewModel.setEvent(
+                GroupRegisterContract.Event.OnDayOfWeekSelected(dayOfWeek)
+            )
+        },
+        onNextButtonClicked = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateTime)
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnDayOfWeekDeleted)
+        }
     )
 }
 
 @Composable
 fun SelectDayOfWeekScreen(
-    navigateGroupTime: () -> Unit,
-    navigateBack: () -> Unit
+    dayOfWeek: String,
+    selectedDayOfWeek: String,
+    onDayOfWeekSelected: (String) -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onBackClick: () -> Unit
 ) {
-    var selectedOption by remember { mutableStateOf("") }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         SelectDayOfWeekSection(
-            onBackClick = navigateBack,
-            selectedOption = selectedOption,
-            onOptionSelected = {
-                selectedOption = it
-            }
+            onBackClick = onBackClick,
+            selectedOption = selectedDayOfWeek,
+            onOptionSelected = onDayOfWeekSelected
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = navigateGroupTime,
-            enabled = selectedOption.isNotBlank(),
+            onClick = onNextButtonClicked,
+            enabled = dayOfWeek.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -94,7 +121,6 @@ private fun SelectDayOfWeekSection(
 
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.DAY_OF_WEEK,
-                options = SelectableButtonType.DAY_OF_WEEK.options,
                 onOptionSelected = onOptionSelected,
                 selectedOption = selectedOption
             )
@@ -107,8 +133,11 @@ private fun SelectDayOfWeekSection(
 fun ShowSelectDayOfWeekScreen() {
     GONGBAEKTheme {
         SelectDayOfWeekScreen(
-            navigateGroupTime = {},
-            navigateBack = {}
+            dayOfWeek = "",
+            selectedDayOfWeek = "",
+            onDayOfWeekSelected = {},
+            onNextButtonClicked = {},
+            onBackClick = {}
         )
     }
 }

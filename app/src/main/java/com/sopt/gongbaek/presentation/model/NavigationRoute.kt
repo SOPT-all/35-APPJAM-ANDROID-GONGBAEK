@@ -33,7 +33,7 @@ object NavigationRoute {
 
     object GroupDetailNavGraphRoute {
         const val GROUP_DETAIL_NAV_GRAPH = "group_detail_route"
-        const val GROUP_DETAIL = "group_detail"
+        const val GROUP_DETAIL = "group_detail/{groupId}/{groupCycle}"
     }
 
     object GroupListNavGraphRoute {

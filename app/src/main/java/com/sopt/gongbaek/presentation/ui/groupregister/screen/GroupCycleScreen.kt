@@ -12,10 +12,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,6 +23,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.type.GroupCycleType
 import com.sopt.gongbaek.presentation.type.SelectableButtonType
@@ -46,42 +45,62 @@ fun GroupCycleRoute(
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    GroupRegisterContract.SideEffect.NavigateBack -> navigateBack()
+                    GroupRegisterContract.SideEffect.NavigateDay -> navigateDay()
+                    GroupRegisterContract.SideEffect.NavigateDayOfWeek -> navigateDayOfWeek()
+                    else -> {}
+                }
+            }
+    }
+
     GroupCycleScreen(
-        navigateDay = navigateDay,
-        navigateDayOfWeek = navigateDayOfWeek,
-        navigateBack = navigateBack
+        groupCycle = uiState.groupRegisterInfo.groupType,
+        selectedGroupCycle = uiState.selectedGroupType,
+        onGroupCycleSelected = { groupCycle ->
+            viewModel.setEvent(
+                GroupRegisterContract.Event.OnGroupCycleSelected(groupCycle)
+            )
+        },
+        onNextButtonClicked = {
+            when (uiState.groupRegisterInfo.groupType) {
+                GroupCycleType.ONCE.name -> viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateDay)
+                GroupCycleType.WEEKLY.name -> viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateDayOfWeek)
+            }
+        },
+        onBackClick = {
+            viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
+            viewModel.setEvent(GroupRegisterContract.Event.OnGroupCycleDeleted)
+        }
     )
 }
 
 @Composable
 fun GroupCycleScreen(
-    navigateDay: () -> Unit,
-    navigateDayOfWeek: () -> Unit,
-    navigateBack: () -> Unit
+    groupCycle: String,
+    selectedGroupCycle: String,
+    onGroupCycleSelected: (String) -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onBackClick: () -> Unit
 ) {
-    var selectedOption by remember { mutableStateOf("") }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
         GroupCycleSection(
-            onBackClick = navigateBack,
-            selectedOption = selectedOption,
-            onOptionSelected = {
-                selectedOption = it
-            }
+            onBackClick = onBackClick,
+            selectedOption = selectedGroupCycle,
+            onOptionSelected = onGroupCycleSelected
         )
 
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
-            onClick = {
-                when (selectedOption) {
-                    GroupCycleType.ONCE.description -> navigateDay()
-                    GroupCycleType.WEEKLY.description -> navigateDayOfWeek()
-                }
-            },
-            enabled = selectedOption.isNotBlank(),
+            onClick = onNextButtonClicked,
+            enabled = groupCycle.isNotBlank(),
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -115,7 +134,6 @@ private fun GroupCycleSection(
 
             GongBaekSelectableButtons(
                 selectableButtonType = SelectableButtonType.GROUP_CYCLE,
-                options = SelectableButtonType.GROUP_CYCLE.options,
                 onOptionSelected = onOptionSelected,
                 selectedOption = selectedOption
             )
@@ -154,9 +172,11 @@ private fun GroupCycleSection(
 fun ShowGroupCycleScreen() {
     GONGBAEKTheme {
         GroupCycleScreen(
-            navigateDay = {},
-            navigateDayOfWeek = {},
-            navigateBack = {}
+            groupCycle = "",
+            selectedGroupCycle = "",
+            onGroupCycleSelected = {},
+            onNextButtonClicked = {},
+            onBackClick = {}
         )
     }
 }

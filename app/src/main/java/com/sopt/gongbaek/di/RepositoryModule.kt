@@ -1,8 +1,10 @@
 package com.sopt.gongbaek.di
 
+import com.sopt.gongbaek.data.repositoryimpl.CommentRepositoryImpl
 import com.sopt.gongbaek.data.repositoryimpl.ExampleRepositoryImpl
 import com.sopt.gongbaek.data.repositoryimpl.GroupRepositoryImpl
 import com.sopt.gongbaek.data.repositoryimpl.TokenRepositoryImpl
+import com.sopt.gongbaek.domain.repository.CommentRepository
 import com.sopt.gongbaek.domain.repository.ExampleRepository
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import com.sopt.gongbaek.domain.repository.TokenRepository
@@ -32,4 +34,10 @@ abstract class RepositoryModule {
     abstract fun bindGroupRepository(
         groupRepositoryImpl: GroupRepositoryImpl
     ): GroupRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCommentRepository(
+        commentRepositoryImpl: CommentRepositoryImpl
+    ): CommentRepository
 }

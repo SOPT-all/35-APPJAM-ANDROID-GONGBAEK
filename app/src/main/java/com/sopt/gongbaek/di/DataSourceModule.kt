@@ -4,8 +4,10 @@ import com.sopt.gongbaek.data.local.datasource.ExampleLocalDataSource
 import com.sopt.gongbaek.data.local.datasource.TokenLocalDataSource
 import com.sopt.gongbaek.data.local.datasourceimpl.ExampleLocalDataSourceImpl
 import com.sopt.gongbaek.data.local.datasourceimpl.TokenLocalDataSourceImpl
+import com.sopt.gongbaek.data.remote.datasource.CommentRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasource.ExampleRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
+import com.sopt.gongbaek.data.remote.datasourceimpl.CommentRemoteDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasourceimpl.ExampleRemoteDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasourceimpl.GroupRemoteDataSourceImpl
 import dagger.Binds
@@ -40,4 +42,10 @@ abstract class DataSourceModule {
     abstract fun bindGroupRemoteDataSource(
         groupRemoteDataSourceImpl: GroupRemoteDataSourceImpl
     ): GroupRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindCommentRemoteDataSource(
+        commentRemoteDataSourceImpl: CommentRemoteDataSourceImpl
+    ): CommentRemoteDataSource
 }

@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.ui.grouplist.screen
 
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.type.GroupCategoryType
+import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +10,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GroupListViewModel @Inject constructor() :
+class GroupListViewModel @Inject constructor(
+    private val getGroupsUseCase: GetGroupsUseCase
+) :
     BaseViewModel<GroupListContract.State, GroupListContract.Event, GroupListContract.SideEffect>() {
     override fun createInitialState(): GroupListContract.State = GroupListContract.State()
 
@@ -49,15 +52,19 @@ class GroupListViewModel @Inject constructor() :
         }
     }
 
-    private fun getGroups(category: String) {
+    private fun getGroups(category: String?) {
         viewModelScope.launch {
             setState { copy(loadState = UiLoadState.Loading) }
-            val queryParams = if (category == GroupCategoryType.ALL.name) {
-                null
-            } else {
-                mapOf("category" to category)
+            val queryParams = if (category == GroupCategoryType.ALL.name) null else category
+
+            runCatching {
+                getGroupsUseCase(category = queryParams).fold(
+                    onSuccess = { groups ->
+                        setState { copy(groups = groups) }
+                    },
+                    onFailure = { setState { copy(loadState = UiLoadState.Error) } }
+                )
             }
-            // 서버로부터 카테고리 입력별 모임들을 불러오는 로직
         }
     }
 }

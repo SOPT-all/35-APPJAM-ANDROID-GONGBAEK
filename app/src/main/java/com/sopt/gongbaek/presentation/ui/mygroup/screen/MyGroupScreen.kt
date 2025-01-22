@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,6 +23,7 @@ import com.sopt.gongbaek.presentation.ui.component.topbar.CenterTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MyGroupRoute(
     viewModel: MyGroupViewModel = hiltViewModel(),
@@ -30,9 +32,19 @@ fun MyGroupRoute(
 ) {
     val myGroupUiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val myGroupTabs: List<String> = MyGroupPagerType.entries.map { it.description }
+    val pagerState = rememberPagerState { myGroupTabs.size }
+
+    LaunchedEffect(pagerState.currentPage) {
+        when (pagerState.currentPage) {
+            0 -> viewModel.setEvent(MyGroupContract.Event.OnRegisterGroupsTabClick)
+            1 -> viewModel.setEvent(MyGroupContract.Event.OnApplyGroupsTabClick)
+            else -> {}
+        }
+    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
-        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+        viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
                     is MyGroupContract.SideEffect.NavigateGroupDetail -> navigateGroupDetail()
@@ -43,8 +55,8 @@ fun MyGroupRoute(
 
     MyGroupScreen(
         uiState = myGroupUiState,
-        onRegisterGroupsTab = { viewModel.setEvent(MyGroupContract.Event.GetRegisterGroups) },
-        onApplyGroupsTab = { viewModel.setEvent(MyGroupContract.Event.GetApplyGroups) },
+        myGroupTabs = myGroupTabs,
+        pagerState = pagerState,
         onGroupDetailButtonClick = { viewModel.sendSideEffect(MyGroupContract.SideEffect.NavigateGroupDetail) },
         onGroupRoomButtonClick = { viewModel.sendSideEffect(MyGroupContract.SideEffect.NavigateGroupRoom) }
     )
@@ -54,14 +66,11 @@ fun MyGroupRoute(
 @Composable
 fun MyGroupScreen(
     uiState: MyGroupContract.State,
-    onRegisterGroupsTab: () -> Unit,
-    onApplyGroupsTab: () -> Unit,
+    myGroupTabs: List<String>,
+    pagerState: PagerState,
     onGroupDetailButtonClick: () -> Unit,
     onGroupRoomButtonClick: () -> Unit
 ) {
-    val myGroupTabs: List<String> = MyGroupPagerType.entries.map { it.description }
-    val pagerState = rememberPagerState { myGroupTabs.size }
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -78,19 +87,17 @@ fun MyGroupScreen(
             pageContent = { page ->
                 when (page) {
                     0 -> {
-                        onRegisterGroupsTab()
                         MyGroupScreenContent(
-                            activeGroups = uiState.activeGroups,
-                            closedGroups = uiState.closedGroups,
+                            activeGroups = uiState.registerActiveGroups,
+                            closedGroups = uiState.registerClosedGroups,
                             navigateGroupDetail = onGroupDetailButtonClick,
                             navigateGroupRoom = onGroupRoomButtonClick
                         )
                     }
                     1 -> {
-                        onApplyGroupsTab()
                         MyGroupScreenContent(
-                            activeGroups = uiState.activeGroups,
-                            closedGroups = uiState.closedGroups,
+                            activeGroups = uiState.applyActiveGroups,
+                            closedGroups = uiState.applyClosedGroups,
                             navigateGroupDetail = onGroupDetailButtonClick,
                             navigateGroupRoom = onGroupRoomButtonClick
                         )
@@ -101,14 +108,15 @@ fun MyGroupScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
 private fun MyGroupScreenPreview() {
     GONGBAEKTheme {
         MyGroupScreen(
             uiState = MyGroupContract.State(),
-            onRegisterGroupsTab = {},
-            onApplyGroupsTab = {},
+            myGroupTabs = MyGroupPagerType.entries.map { it.description },
+            pagerState = rememberPagerState { MyGroupPagerType.entries.map { it.description }.size },
             onGroupDetailButtonClick = {},
             onGroupRoomButtonClick = {}
         )

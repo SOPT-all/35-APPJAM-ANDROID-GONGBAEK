@@ -3,7 +3,9 @@ package com.sopt.gongbaek.di
 import com.sopt.gongbaek.data.local.datasource.ExampleLocalDataSource
 import com.sopt.gongbaek.data.local.datasourceimpl.ExampleLocalDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasource.ExampleRemoteDataSource
+import com.sopt.gongbaek.data.remote.datasource.SearchRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasourceimpl.ExampleRemoteDataSourceImpl
+import com.sopt.gongbaek.data.remote.datasourceimpl.SearchRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,4 +26,10 @@ abstract class DataSourceModule {
     abstract fun bindExampleRemoteDataSource(
         exampleRemoteDataSourceImpl: ExampleRemoteDataSourceImpl
     ): ExampleRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindSearchRemoteDataSource(
+        searchRemoteDataSourceImpl: SearchRemoteDataSourceImpl
+    ): SearchRemoteDataSource
 }

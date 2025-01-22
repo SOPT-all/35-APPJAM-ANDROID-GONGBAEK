@@ -1,18 +1,24 @@
 package com.sopt.gongbaek.presentation.ui.auth.screen
 
+import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.model.Majors
 import com.sopt.gongbaek.domain.model.Universities
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GradeType
+import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.createMbti
 import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
+class AuthViewModel @Inject constructor(
+    private val getSearchUniversitiesResultUseCase: GetSearchUniversitiesResultUseCase
+) : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
 
     override fun createInitialState(): AuthContract.State = AuthContract.State()
 
@@ -22,7 +28,7 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
             is AuthContract.Event.OnNicknameChanged -> updateUserInfo { copy(nickname = event.nickname) }
             is AuthContract.Event.OnSearchUnivChanged -> setState { copy(univ = event.univ) }
             is AuthContract.Event.OnUnivSearchClick -> {
-                fetchUnivSearch()
+                fetchUnivSearchResult()
             }
 
             is AuthContract.Event.OnUnivSelected -> {
@@ -110,22 +116,17 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
         updateUserInfo { copy(mbti = mbti) }
     }
 
-    private fun fetchUnivSearch() {
-//        viewModelScope.launch {
-//            currentState.univ
-        val universities = listOf(
-            "한양대학교",
-            "건국대학교 서울캠퍼스",
-            "서울대학교",
-            "고려대학교",
-            "연세대학교"
-        )
-
-        if (currentState.univ.isNotEmpty()) {
-            val searchResult = universities.filter { it.contains(currentState.univ) }
-            setState { copy(universities = Universities(searchResult)) }
-        } else {
-            setState { copy(universities = Universities(emptyList())) }
+    private fun fetchUnivSearchResult() {
+        viewModelScope.launch {
+            setState { copy(loadState = UiLoadState.Loading) }
+            getSearchUniversitiesResultUseCase(currentState.univ).fold(
+                onSuccess = { universities ->
+                    setState { copy(universities = universities) }
+                },
+                onFailure = {
+                    setState { copy(loadState = UiLoadState.Error) }
+                }
+            )
         }
     }
 

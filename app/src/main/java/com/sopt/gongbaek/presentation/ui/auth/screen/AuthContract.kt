@@ -4,11 +4,13 @@ import com.sopt.gongbaek.domain.model.Majors
 import com.sopt.gongbaek.domain.model.Universities
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.presentation.util.base.UiEvent
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect
 import com.sopt.gongbaek.presentation.util.base.UiState
 
 class AuthContract {
     data class State(
+        val loadState: UiLoadState = UiLoadState.Idle,
         val userInfo: UserInfo = UserInfo(),
         val universities: Universities = Universities(),
         val majors: Majors = Majors(),

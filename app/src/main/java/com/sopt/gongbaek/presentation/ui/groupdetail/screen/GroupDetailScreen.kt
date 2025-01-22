@@ -99,6 +99,7 @@ fun GroupDetailScreen(
             groupStatus = GroupInfoChipType.getChipTypeFromStatus(uiState.groupInfo.status),
             groupCategory = GroupInfoChipType.getChipTypeFromCategory(uiState.groupInfo.category),
             groupCycle = GroupInfoChipType.getChipTypeFromCycle(uiState.groupInfo.cycle),
+            groupCover = uiState.groupInfo.coverImg,
             groupTitle = uiState.groupInfo.title,
             groupTime = formatGroupTimeDescription(uiState.groupInfo),
             groupPlace = uiState.groupInfo.place,

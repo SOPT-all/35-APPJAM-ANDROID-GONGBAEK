@@ -3,7 +3,6 @@ package com.sopt.gongbaek.data.repositoryimpl
 import com.sopt.gongbaek.data.mapper.todata.toData
 import com.sopt.gongbaek.data.mapper.todomain.toDomain
 import com.sopt.gongbaek.data.remote.datasource.AuthRemoteDataSource
-import com.sopt.gongbaek.data.remote.dto.base.ApiResponse
 import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.domain.model.UserAuth
 import com.sopt.gongbaek.domain.model.UserInfo

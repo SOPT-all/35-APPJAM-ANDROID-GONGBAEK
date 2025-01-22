@@ -14,5 +14,4 @@ fun <T> NullableApiResponse<T>.handleApiResponse(): Result<T?> =
     when (this.success) {
         true -> Result.success(this.data)
         false -> Result.failure(Exception("Error code : ${this.code}, Error message : ${this.message}"))
-
     }

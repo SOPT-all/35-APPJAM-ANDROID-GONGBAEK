@@ -61,7 +61,6 @@ fun NicknameRoute(
     )
 }
 
-
 @Composable
 private fun NicknameScreen(
     nickname: String,
@@ -95,7 +94,6 @@ private fun NicknameScreen(
         )
     }
 }
-
 
 @Composable
 private fun NickNameInputSection(
@@ -134,8 +132,6 @@ private fun NickNameInputSection(
     }
 }
 
-
-
 @Preview(showBackground = true)
 @Composable
 private fun PreviewNicknameScreen() {
@@ -143,7 +139,7 @@ private fun PreviewNicknameScreen() {
         NicknameScreen(
             nickname = "닉네임",
             onNicknameChanged = {},
-            errorMessage = null,
+            errorMessage = null
         )
     }
 }

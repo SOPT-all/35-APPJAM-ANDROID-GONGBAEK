@@ -211,7 +211,6 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }
 }

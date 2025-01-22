@@ -6,6 +6,7 @@ import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GradeType
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
+import com.sopt.gongbaek.presentation.util.extension.createMbti
 import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -44,6 +45,26 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
                 setState { copy(selectedGender = event.selectedGender) }
             }
 
+            is AuthContract.Event.OnEnergyDirectionOptionSelected -> {
+                setState { copy(energyDirectionOptions = event.option) }
+                updateMbti()
+            }
+
+            is AuthContract.Event.OnInformationGatheringOptionSelected -> {
+                setState { copy(informationGatheringOptions = event.option) }
+                updateMbti()
+            }
+
+            is AuthContract.Event.OnDecisionMakingOptionSelected -> {
+                setState { copy(decisionMakingOptions = event.option) }
+                updateMbti()
+            }
+
+            is AuthContract.Event.OnLifestyleOrientationOptionSelected -> {
+                setState { copy(lifestyleOrientationOptions = event.option) }
+                updateMbti()
+            }
+
             is AuthContract.Event.OnSelfIntroductionChanged -> updateUserInfo { copy(introduction = event.selfIntroduction) }
             is AuthContract.Event.OnTimeSlotSelectionChange -> {
                 val timeSlotsByDay = currentState.selectedTimeSlotsByDay.toMutableMap()
@@ -52,6 +73,16 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
                 updateUserInfo { copy(timeTable = convertToTimeTable(timeSlotsByDay)) }
             }
         }
+    }
+
+    private fun updateMbti() {
+        val mbti = createMbti(
+            firstLetter = currentState.energyDirectionOptions.takeIf { it.isNotBlank() } ?: return,
+            secondLetterType = currentState.informationGatheringOptions.takeIf { it.isNotBlank() } ?: return,
+            thirdLetterType = currentState.decisionMakingOptions.takeIf { it.isNotBlank() } ?: return,
+            fourthLetterType = currentState.lifestyleOrientationOptions.takeIf { it.isNotBlank() } ?: return
+        )
+        updateUserInfo { copy(mbti = mbti) }
     }
 
     fun sendSideEffect(sideEffect: AuthContract.SideEffect) =

@@ -90,7 +90,8 @@ private fun GroupPeopleCounterButton(
                 shape = RoundedCornerShape(6.dp)
             )
             .clickableWithoutRipple(
-                onClick = { if (clickable) onClick() }
+                enabled = clickable,
+                onClick = onClick
             )
             .padding(15.dp)
     )

@@ -6,6 +6,8 @@ import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GradeType
 import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
+import com.sopt.gongbaek.domain.usecase.RegisterUserInfoUseCase
+import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.createMbti
@@ -17,7 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val getSearchUniversitiesResultUseCase: GetSearchUniversitiesResultUseCase,
-    private val getSearchMajorsResultUseCase: GetSearchMajorsResultUseCase
+    private val getSearchMajorsResultUseCase: GetSearchMajorsResultUseCase,
+    private val registerUserInfoUseCase: RegisterUserInfoUseCase,
+    private val setTokenUseCase: SetTokenUseCase
 ) : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
 
     override fun createInitialState(): AuthContract.State = AuthContract.State()
@@ -97,6 +101,8 @@ class AuthViewModel @Inject constructor(
                 setState { copy(selectedTimeSlotsByDay = timeSlotsByDay) }
                 updateUserInfo { copy(timeTable = convertToTimeTable(timeSlotsByDay)) }
             }
+
+            is AuthContract.Event.SubmitUserInfo -> submitUserInfo()
         }
     }
 
@@ -145,6 +151,20 @@ class AuthViewModel @Inject constructor(
             )
         }
 
+    private fun submitUserInfo() =
+        viewModelScope.launch {
+            setState { copy(loadState = UiLoadState.Loading) }
+            registerUserInfoUseCase(currentState.userInfo).fold(
+                onSuccess = { userAuth ->
+                    setState { copy(loadState = UiLoadState.Success) }
+                    setSideEffect(AuthContract.SideEffect.NavigateCompleteAuth)
+//                    setTokenUseCase(userAuth.accessToken, userAuth.refreshToken)
+                },
+                onFailure = {
+                    setState { copy(loadState = UiLoadState.Error) }
+                }
+            )
+        }
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }

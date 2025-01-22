@@ -45,6 +45,7 @@ class AuthContract {
         data class OnGenderSelected(val selectedGender: String) : Event()
         data class OnSelfIntroductionChanged(val selfIntroduction: String) : Event()
         data class OnTimeSlotSelectionChange(val day: String, val timeSlots: List<Int>) : Event()
+        data object SubmitUserInfo : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {

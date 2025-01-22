@@ -26,7 +26,7 @@ class GroupRepositoryImpl @Inject constructor(
         return runCatching {
             groupDataSource.getGroups(
                 category = category
-            ).handleApiResponse().getOrThrow().toDomain()
+            ).handleApiResponse().getOrThrow().map { group -> group.toDomain() }
         }
     }
 }

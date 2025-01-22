@@ -55,26 +55,15 @@ class GroupListViewModel @Inject constructor(
     private fun getGroups(category: String?) {
         viewModelScope.launch {
             setState { copy(loadState = UiLoadState.Loading) }
-            val queryParams = if (category == GroupCategoryType.ALL.name) {
-                null
-            } else {
-                category
-            }
+            val queryParams = if (category == GroupCategoryType.ALL.name) null else category
 
             runCatching {
-                getGroupsUseCase(category = queryParams)
-            }.onSuccess { result ->
-                result.onSuccess { groups ->
-                    setState {
-                        copy(loadState = UiLoadState.Success, groups = groups)
-                    }
-                }.onFailure {
-                    setState {
-                        copy(loadState = UiLoadState.Error)
-                    }
-                }
-            }.onFailure {
-                setState { copy(loadState = UiLoadState.Error) }
+                getGroupsUseCase(category = queryParams).fold(
+                    onSuccess = { groups ->
+                        setState { copy(groups = groups) }
+                    },
+                    onFailure = { setState { copy(loadState = UiLoadState.Error) } }
+                )
             }
         }
     }

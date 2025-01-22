@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GroupListResponseDto(
+data class GroupListGroupResponseDto(
     @SerialName("groupId")
     val groupId: Int,
     @SerialName("category")

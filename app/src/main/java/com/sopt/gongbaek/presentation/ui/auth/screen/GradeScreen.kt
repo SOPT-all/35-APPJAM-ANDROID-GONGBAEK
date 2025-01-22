@@ -33,8 +33,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.SelectableButtonType
-import com.sopt.gongbaek.presentation.ui.auth.component.Picker
-import com.sopt.gongbaek.presentation.ui.auth.component.PickerState
+import com.sopt.gongbaek.presentation.ui.auth.component.picker.Picker
+import com.sopt.gongbaek.presentation.ui.auth.component.picker.PickerState
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekSelectableButtons
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar

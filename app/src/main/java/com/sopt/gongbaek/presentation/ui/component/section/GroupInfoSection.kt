@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
+import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.chip.GroupInfoChip
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
@@ -32,17 +33,20 @@ fun GroupInfoSection(
     groupStatus: GroupInfoChipType,
     groupCategory: GroupInfoChipType,
     groupCycle: GroupInfoChipType,
+    groupCover: Int,
     groupTitle: String,
     groupTime: String,
     groupPlace: String,
     modifier: Modifier = Modifier
 ) {
+    val selectedImageResId = ImageSelectorType.getImageListFromCategory(groupCategory.toString()).get(groupCover - 1)
+
     Row(
         modifier = modifier.background(color = GongBaekTheme.colors.white),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.img_fill_list),
+            painter = painterResource(selectedImageResId),
             contentDescription = null,
             modifier = Modifier
                 .width((LocalConfiguration.current.screenWidthDp * 0.28).dp)
@@ -95,6 +99,7 @@ fun GroupInfoSectionPreview() {
                 groupStatus = GroupInfoChipType.RECRUITING,
                 groupCategory = GroupInfoChipType.STUDY,
                 groupCycle = GroupInfoChipType.WEEKLY,
+                groupCover = 1,
                 groupTitle = "모각작 하실분~ 여기여기 모여보쇼 싸게싸게 갈라니까",
                 groupTime = "매주 목요일 13시 - 15시 30분",
                 groupPlace = "학교 도서관 디지털 랩실에서 만나용",

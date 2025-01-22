@@ -28,6 +28,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
+import com.sopt.gongbaek.presentation.type.GongBaekDialogType
+import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.button.GongBaekBasicButton
 import com.sopt.gongbaek.presentation.ui.component.dialog.GongBaekDialog
 import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressBar
@@ -49,7 +51,6 @@ fun GroupRegisterRoute(
     navigateBack: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    Timber.d("ㅋㅋㅋ ${uiState.groupRegisterInfo}")
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

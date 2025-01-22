@@ -71,6 +71,68 @@ class GroupRegisterViewModel @Inject constructor() :
             is GroupRegisterContract.Event.OnDialogDismissClicked -> {
                 setState { copy(registerState = UiLoadState.Idle) }
             }
+
+            is GroupRegisterContract.Event.OnTimeSlotSelected -> {
+                val updatedTimeSlots = currentState.selectedTimeSlotsByDay.toMutableMap().apply {
+                    this[event.day] = event.timeSlots
+                }
+                setState { copy(selectedTimeSlotsByDay = updatedTimeSlots) }
+
+                updateGroupRegisterTime(event.day, event.timeSlots)
+            }
+
+            is GroupRegisterContract.Event.OnTimeSlotDeleted -> {
+                updateGroupRegisterInfo { copy(startTime = 0.0, endTime = 0.0) }
+                setState { copy(selectedTimeSlotsByDay = emptyMap()) }
+            }
+
+            is GroupRegisterContract.Event.OnGroupCycleDeleted -> {
+                updateGroupRegisterInfo { copy(groupType = "") }
+                setState { copy(selectedGroupType = "") }
+            }
+
+            is GroupRegisterContract.Event.OnWeekDateAndDayDeleted -> {
+                updateGroupRegisterInfo { copy(weekDay = "", weekDate = "") }
+                setState { copy(selectedDayOfWeek = "") }
+            }
+
+            is GroupRegisterContract.Event.OnDayOfWeekDeleted -> {
+                updateGroupRegisterInfo { copy(weekDay = "") }
+                setState { copy(selectedDayOfWeek = "") }
+            }
+
+            is GroupRegisterContract.Event.OnCategoryDeleted -> {
+                updateGroupRegisterInfo { copy(category = "") }
+                setState { copy(selectedCategory = "") }
+            }
+
+            is GroupRegisterContract.Event.OnCoverDeleted -> {
+                updateGroupRegisterInfo { copy(coverImg = 0) }
+                setState { copy(selectedCover = null) }
+            }
+
+            is GroupRegisterContract.Event.OnPlacePeopleDeleted -> {
+                updateGroupRegisterInfo { copy(location = "", maxPeopleCount = 2) }
+            }
+
+            is GroupRegisterContract.Event.OnTitleIntroductionDeleted -> {
+                updateGroupRegisterInfo { copy(groupTitle = "", introduction = "") }
+            }
+        }
+    }
+
+    private fun updateGroupRegisterTime(day: String, timeSlots: List<Int>) {
+        if (timeSlots.isNotEmpty()) {
+            val startTime = timeSlots.minOrNull()?.toDouble() ?: 0.0
+            val endTime = timeSlots.maxOrNull()?.toDouble() ?: 0.0
+
+            updateGroupRegisterInfo {
+                copy(startTime = startTime, endTime = endTime)
+            }
+        } else {
+            updateGroupRegisterInfo {
+                copy(startTime = 0.0, endTime = 0.0)
+            }
         }
     }
 

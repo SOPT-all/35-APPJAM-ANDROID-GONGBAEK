@@ -11,7 +11,7 @@ data class GroupInfo(
     val category: String = "",
     val cycle: String = "",
     val title: String = "",
-    val date: String = "",
+    val date: String? = "",
     val dayOfWeek: String = "",
     val startTime: Double = 0.0,
     val endTime: Double = 0.0,

@@ -48,16 +48,19 @@ fun UnivMajorRoute(
                 if (sideEffect is AuthContract.SideEffect.NavigateMajorSearch) {
                     navigateMajorSearch()
                 }
+                if (sideEffect is AuthContract.SideEffect.NavigateGrade) {
+                    navigateGrade()
+                }
             }
     }
 
     UnivMajorScreen(
         univSearchResult = uiState.userInfo.school,
         majorSearchResult = uiState.userInfo.major,
-        navigateGrade = navigateGrade,
-        onUnivSearchClick = navigateUnivSearch,
-        onMajorSearchClick = navigateMajorSearch,
-        onBackClick = navigateBack
+        navigateGrade = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateGrade) },
+        onUnivSearchClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateUnivSearch) },
+        onMajorSearchClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateMajorSearch) },
+        onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
 

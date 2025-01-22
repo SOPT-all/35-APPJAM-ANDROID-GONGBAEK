@@ -1,10 +1,12 @@
 package com.sopt.gongbaek.data.remote.service
 
 import com.sopt.gongbaek.data.remote.dto.base.ApiResponse
+import com.sopt.gongbaek.data.remote.dto.base.NullableApiResponse
 import com.sopt.gongbaek.data.remote.dto.response.GroupDetailResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupHostResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface GroupService {
@@ -25,4 +27,10 @@ interface GroupService {
         @Query("groupId") groupId: Int,
         @Query("groupType") groupType: String
     ): ApiResponse<GroupHostResponseDto>
+
+    @POST("/api/v1/group")
+    suspend fun applyGroup(
+        @Query("groupId") groupId: Int,
+        @Query("groupType") groupType: String
+    ): NullableApiResponse<Unit>
 }

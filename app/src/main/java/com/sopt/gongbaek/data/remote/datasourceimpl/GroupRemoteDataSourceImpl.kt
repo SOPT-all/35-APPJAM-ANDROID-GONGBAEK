@@ -2,6 +2,7 @@ package com.sopt.gongbaek.data.remote.datasourceimpl
 
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
 import com.sopt.gongbaek.data.remote.dto.base.ApiResponse
+import com.sopt.gongbaek.data.remote.dto.base.NullableApiResponse
 import com.sopt.gongbaek.data.remote.dto.response.GroupDetailResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupHostResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
@@ -19,4 +20,7 @@ class GroupRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getGroupHost(groupId: Int, groupType: String): ApiResponse<GroupHostResponseDto> =
         groupService.getGroupHost(groupId = groupId, groupType = groupType)
+
+    override suspend fun applyGroup(groupId: Int, groupType: String): NullableApiResponse<Unit> =
+        groupService.applyGroup(groupId = groupId, groupType = groupType)
 }

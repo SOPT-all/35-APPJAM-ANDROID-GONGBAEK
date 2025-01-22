@@ -6,7 +6,6 @@ import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,13 +30,8 @@ class MyGroupViewModel @Inject constructor(
             getMyGroupsUseCase(category = "REGISTER", status = true).fold(
                 onSuccess = { activeGroups ->
                     setState { copy(registerActiveGroups = activeGroups) }
-                    Timber.tag("activeGroups").d("$activeGroups")
-                    Timber.tag("registerActiveGroups").d("${currentState.registerActiveGroups}")
                 },
-                onFailure = { errorMessage ->
-                    Timber.tag("errorMessage").d("$errorMessage")
-                    setState { copy(registerGroupsLoadState = UiLoadState.Error) }
-                }
+                onFailure = { setState { copy(registerGroupsLoadState = UiLoadState.Error) } }
             )
             getMyGroupsUseCase(category = "REGISTER", status = false).fold(
                 onSuccess = { closedGroups ->
@@ -57,7 +51,9 @@ class MyGroupViewModel @Inject constructor(
         viewModelScope.launch {
             setState { copy(applyGroupsLoadState = UiLoadState.Loading) }
             getMyGroupsUseCase(category = "APPLY", status = true).fold(
-                onSuccess = { activeGroups -> setState { copy(applyActiveGroups = activeGroups) } },
+                onSuccess = { activeGroups ->
+                    setState { copy(applyActiveGroups = activeGroups) }
+                },
                 onFailure = { setState { copy(applyGroupsLoadState = UiLoadState.Error) } }
             )
             getMyGroupsUseCase(category = "APPLY", status = false).fold(

@@ -122,7 +122,7 @@ private fun OnceRecommendItem() {
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.img_home_profile_small_3),
+                painter = painterResource(id = R.drawable.img_home_profile_small_4),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.padding(vertical = 1.dp)

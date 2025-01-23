@@ -98,7 +98,7 @@ private fun WeekRecommendItem() {
 
         Text(
             text = "카페에서 모각작해요진짜 빡각작임!대박...",
-            maxLines = 2,
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = GongBaekTheme.colors.gray10,
             style = GongBaekTheme.typography.body2.sb14,
@@ -120,7 +120,7 @@ private fun WeekRecommendItem() {
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.img_home_profile_small_5),
+                painter = painterResource(id = R.drawable.img_home_profile_small_6),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.padding(vertical = 1.dp)

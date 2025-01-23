@@ -20,7 +20,7 @@ fun HomeRoute() {
 }
 
 @Composable
-fun HomeScreen() {
+private fun HomeScreen() {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {

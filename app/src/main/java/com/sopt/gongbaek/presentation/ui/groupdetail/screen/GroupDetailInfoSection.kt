@@ -33,6 +33,8 @@ import com.sopt.gongbaek.domain.model.GroupHost
 import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GroupStatusType
+import com.sopt.gongbaek.presentation.model.ProfileImageList
+import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.presentation.util.formatEnterYearToString
@@ -45,6 +47,13 @@ fun GroupDetailInfoSection(
     groupHost: GroupHost,
     onApplyClick: () -> Unit
 ) {
+    val imageList = ProfileImageList.profileImageList
+    val profileImageResId = if (imageList.isNotEmpty() && groupHost.profileImg in 1..imageList.size) {
+        imageList[groupHost.profileImg - 1]
+    } else {
+        R.drawable.img_detail_profile_1
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -100,7 +109,7 @@ fun GroupDetailInfoSection(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.ic_launcher_background),
+                            painter = painterResource(profileImageResId),
                             contentDescription = null,
                             modifier = Modifier
                                 .width((LocalConfiguration.current.screenWidthDp * 0.22).dp)

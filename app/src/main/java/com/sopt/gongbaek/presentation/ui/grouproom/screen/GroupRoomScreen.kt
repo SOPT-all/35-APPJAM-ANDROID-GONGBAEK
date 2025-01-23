@@ -46,6 +46,7 @@ import com.sopt.gongbaek.domain.model.GroupComments
 import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.domain.model.GroupMembers
 import com.sopt.gongbaek.domain.model.GroupRoom
+import com.sopt.gongbaek.presentation.model.ProfileImageList
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.ui.component.chip.GroupInfoChip
 import com.sopt.gongbaek.presentation.ui.component.section.CommentSection
@@ -194,6 +195,8 @@ private fun GroupRoomInfoSection(
 private fun GroupRoomPeopleSection(
     groupMembers: GroupMembers
 ) {
+    val imageList = ProfileImageList.profileImageList
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -225,10 +228,15 @@ private fun GroupRoomPeopleSection(
             contentPadding = PaddingValues(end = 16.dp)
         ) {
             items(groupMembers.members) { member ->
+                val profileImageResId = if (imageList.isNotEmpty() && member.profileImg in 1..imageList.size) {
+                    imageList[member.profileImg - 1]
+                } else {
+                    R.drawable.img_detail_profile_1
+                }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box {
                         Image(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_launcher_background),
+                            painter = painterResource(profileImageResId),
                             contentDescription = null,
                             modifier = Modifier
                                 .roundedBackgroundWithBorder(

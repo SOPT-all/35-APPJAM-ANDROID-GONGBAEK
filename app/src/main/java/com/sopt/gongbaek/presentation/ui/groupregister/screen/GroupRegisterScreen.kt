@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -95,41 +98,43 @@ fun GroupRegisterScreen(
     onDialogConfirmButtonClicked: () -> Unit,
     onDialogDismissClicked: () -> Unit
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        GroupRegisterSection(
-            groupRegisterInfo = groupRegisterInfo,
-            onBackClick = onBackClick
-        )
+    Scaffold(
+        bottomBar = {
+            GongBaekBasicButton(
+                title = stringResource(R.string.groupregister_done),
+                enabled = true,
+                onClick = onRegisterButtonClicked,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            GroupRegisterSection(
+                groupRegisterInfo = groupRegisterInfo,
+                onBackClick = onBackClick
+            )
 
-        GongBaekBasicButton(
-            title = stringResource(R.string.groupregister_done),
-            enabled = true,
-            onClick = onRegisterButtonClicked,
-            modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-                .align(Alignment.BottomCenter)
-        )
-
-        if (uiState.registerState == UiLoadState.Success) {
-            Dialog(
-                onDismissRequest = onDialogConfirmButtonClicked
-            ) {
-                GongBaekDialog(
-                    gongBaekDialogType = GongBaekDialogType.REGISTER_SUCCESS,
-                    onConfirmButtonClick = onDialogConfirmButtonClicked
-                )
-            }
-        } else if (uiState.registerState == UiLoadState.Error) {
-            Dialog(
-                onDismissRequest = onDialogConfirmButtonClicked
-            ) {
-                GongBaekDialog(
-                    gongBaekDialogType = GongBaekDialogType.REGISTER_FAIL,
-                    onConfirmButtonClick = onDialogDismissClicked
-                )
+            if (uiState.registerState == UiLoadState.Success) {
+                Dialog(
+                    onDismissRequest = onDialogConfirmButtonClicked
+                ) {
+                    GongBaekDialog(
+                        gongBaekDialogType = GongBaekDialogType.REGISTER_SUCCESS,
+                        onConfirmButtonClick = onDialogConfirmButtonClicked
+                    )
+                }
+            } else if (uiState.registerState == UiLoadState.Error) {
+                Dialog(
+                    onDismissRequest = onDialogConfirmButtonClicked
+                ) {
+                    GongBaekDialog(
+                        gongBaekDialogType = GongBaekDialogType.REGISTER_FAIL,
+                        onConfirmButtonClick = onDialogDismissClicked
+                    )
+                }
             }
         }
     }
@@ -157,57 +162,61 @@ private fun GroupRegisterSection(
         )
         GongBaekProgressBar(progressPercent = 0.125f * 8f)
 
-        Column(
+        PageDescriptionSection(
+            titleResId = R.string.groupregister_complete_title,
+            modifier = Modifier.padding(top = 40.dp, bottom = 24.dp, start = 16.dp)
+        )
+
+        LazyColumn (
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth()
         ) {
-            PageDescriptionSection(
-                titleResId = R.string.groupregister_complete_title,
-                modifier = Modifier.padding(top = 40.dp, bottom = 24.dp)
-            )
+            item {
+                Image(
+                    painter = painterResource(selectedImageResId),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .aspectRatio(328f / 273f)
+                        .fillMaxWidth()
+                )
+                Spacer(Modifier.height(26.dp))
+            }
 
-            Image(
-                painter = painterResource(selectedImageResId),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .aspectRatio(328f / 273f)
-                    .fillMaxWidth()
-            )
-            Spacer(Modifier.height(26.dp))
-
-            Text(
-                text = groupRegisterInfo.groupTitle,
-                color = GongBaekTheme.colors.gray10,
-                style = GongBaekTheme.typography.title2.b18,
-                modifier = Modifier.padding(bottom = 10.dp)
-            )
-
-            Column(
-                modifier = Modifier
-                    .background(color = GongBaekTheme.colors.gray01)
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                GroupTimeDescription(
-                    description = createGroupRegisterTimeDescription(groupRegisterInfo),
-                    textStyle = GongBaekTheme.typography.body1.m16,
-                    textColor = GongBaekTheme.colors.gray08
+            item {
+                Text(
+                    text = groupRegisterInfo.groupTitle,
+                    color = GongBaekTheme.colors.gray10,
+                    style = GongBaekTheme.typography.title2.b18,
+                    modifier = Modifier.padding(bottom = 10.dp)
                 )
 
-                GroupPlaceDescription(
-                    description = groupRegisterInfo.location,
-                    textStyle = GongBaekTheme.typography.body1.m16,
-                    textColor = GongBaekTheme.colors.gray08
-                )
+                Column(
+                    modifier = Modifier
+                        .background(color = GongBaekTheme.colors.gray01, shape = RoundedCornerShape(4.dp))
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    GroupTimeDescription(
+                        description = createGroupRegisterTimeDescription(groupRegisterInfo),
+                        textStyle = GongBaekTheme.typography.body1.m16,
+                        textColor = GongBaekTheme.colors.gray08
+                    )
 
-                GroupPeopleDescription(
-                    description = stringResource(R.string.groupregister_place_people_count, groupRegisterInfo.maxPeopleCount),
-                    textStyle = GongBaekTheme.typography.body1.m16,
-                    textColor = GongBaekTheme.colors.gray08
-                )
+                    GroupPlaceDescription(
+                        description = groupRegisterInfo.location,
+                        textStyle = GongBaekTheme.typography.body1.m16,
+                        textColor = GongBaekTheme.colors.gray08
+                    )
+
+                    GroupPeopleDescription(
+                        description = stringResource(R.string.groupregister_place_people_count, groupRegisterInfo.maxPeopleCount),
+                        textStyle = GongBaekTheme.typography.body1.m16,
+                        textColor = GongBaekTheme.colors.gray08
+                    )
+                }
             }
         }
     }

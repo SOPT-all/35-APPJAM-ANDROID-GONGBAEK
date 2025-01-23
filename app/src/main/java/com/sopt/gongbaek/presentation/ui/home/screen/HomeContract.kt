@@ -22,10 +22,7 @@ class HomeContract {
         val weekRecommendGroupList: List<RecommendGroupInfo> = emptyList()
     ) : UiState
 
-    sealed class Event : UiEvent {
+    sealed class Event : UiEvent
 
-    }
-
-    sealed interface SideEffect : UiSideEffect {}
-
+    sealed interface SideEffect : UiSideEffect
 }

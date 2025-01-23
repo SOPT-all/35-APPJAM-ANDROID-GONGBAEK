@@ -5,14 +5,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-
-) : BaseViewModel<HomeContract.State, HomeContract.Event, HomeContract.SideEffect>() {
+class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.State, HomeContract.Event, HomeContract.SideEffect>() {
 
     override fun createInitialState(): HomeContract.State = HomeContract.State()
 
     override suspend fun handleEvent(event: HomeContract.Event) {
         TODO("Not yet implemented")
     }
-
 }

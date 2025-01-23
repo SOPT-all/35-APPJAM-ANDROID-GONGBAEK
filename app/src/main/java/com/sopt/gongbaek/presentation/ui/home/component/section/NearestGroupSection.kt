@@ -155,7 +155,7 @@ private fun NearestGroup(
                     color = GongBaekTheme.colors.mainOrange,
                     shape = RoundedCornerShape(4.dp)
                 )
-                .clickableWithoutRipple {  }
+                .clickableWithoutRipple { }
                 .align(Alignment.BottomEnd)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             contentAlignment = Alignment.Center
@@ -179,6 +179,6 @@ private fun PreviewNearestGroupSection() {
             startTime = 18.0,
             endTime = 20.0,
             groupTitle = ""
-        ),
+        )
     )
 }

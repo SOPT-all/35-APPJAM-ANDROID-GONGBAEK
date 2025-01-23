@@ -18,7 +18,6 @@ import com.sopt.gongbaek.presentation.ui.home.component.section.MemberRecommendS
 import com.sopt.gongbaek.presentation.ui.home.component.section.NearestGroupSection
 import com.sopt.gongbaek.presentation.ui.home.component.section.OnceRecommendSection
 import com.sopt.gongbaek.presentation.ui.home.component.section.WeekRecommendSection
-import com.sopt.gongbaek.presentation.util.timetable.nearestGroupFormatSchedule
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable

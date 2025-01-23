@@ -24,6 +24,7 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
+import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun GroupCoverRoute(
@@ -83,7 +84,8 @@ fun GroupCoverScreen(
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             )
-        }
+        },
+        containerColor = GongBaekTheme.colors.white
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)

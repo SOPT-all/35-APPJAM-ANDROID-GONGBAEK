@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -75,26 +77,29 @@ fun GroupCoverScreen(
     onNextButtonClicked: () -> Unit,
     onBackClick: () -> Unit
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        GroupCoverSection(
-            imageList = ImageSelectorType.getImageListFromCategory(category),
-            onBackClick = onBackClick,
-            onIndexSelected = onCoverSelected,
-            selectedCoverIndex = selectedCover
-        )
-
-        GongBaekBasicButton(
-            title = stringResource(R.string.groupregister_next),
-            onClick = onNextButtonClicked,
-            enabled = cover != 0,
-            modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-                .align(Alignment.BottomCenter)
-        )
+    Scaffold(
+        bottomBar = {
+            GongBaekBasicButton(
+                title = stringResource(R.string.groupregister_next),
+                onClick = onNextButtonClicked,
+                enabled = cover != 0,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            GroupCoverSection(
+                imageList = ImageSelectorType.getImageListFromCategory(category),
+                onBackClick = onBackClick,
+                onIndexSelected = onCoverSelected,
+                selectedCoverIndex = selectedCover
+            )
+        }
     }
+
 }
 
 @Composable
@@ -124,15 +129,19 @@ private fun GroupCoverSection(
                 descriptionResId = R.string.groupregister_cover_description
             )
 
-            ImageSelector(
-                imageSelectorType = ImageSelectorType.Cover,
-                modifier = Modifier
-                    .aspectRatio(16f / 13f),
-                imageButtonResIdList = imageList,
-                selectedAlpha = 0.6f,
-                selectedIndex = selectedCoverIndex,
-                onIndexSelected = onIndexSelected
-            )
+            LazyColumn {
+                item {
+                    ImageSelector(
+                        imageSelectorType = ImageSelectorType.Cover,
+                        modifier = Modifier
+                            .aspectRatio(16f / 13f),
+                        imageButtonResIdList = imageList,
+                        selectedAlpha = 0.6f,
+                        selectedIndex = selectedCoverIndex,
+                        onIndexSelected = onIndexSelected
+                    )
+                }
+            }
         }
     }
 }

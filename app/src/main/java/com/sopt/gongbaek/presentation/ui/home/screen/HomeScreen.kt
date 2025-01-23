@@ -25,6 +25,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 @Composable
 fun HomeRoute(
     navigateGroupDetail: (Int, String) -> Unit,
+    navigateGroupList: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
@@ -36,6 +37,9 @@ fun HomeRoute(
             .collect { sideEffect ->
                 if (sideEffect is HomeContract.SideEffect.NavigateToGroupDetail) {
                     navigateGroupDetail(sideEffect.groupId, sideEffect.groupType)
+                }
+                if (sideEffect is HomeContract.SideEffect.NavigateToGroupList) {
+                    navigateGroupList()
                 }
             }
     }
@@ -62,6 +66,9 @@ fun HomeRoute(
         },
         onNearestGroupClick = { groupId, groupCycle ->
             viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupDetail(groupId, groupCycle))
+        },
+        onFillGroupClick = {
+            viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupList)
         }
     )
 }
@@ -75,7 +82,8 @@ private fun HomeScreen(
     onceRecommendGroupInfo: List<RecommendGroupInfo>,
     onClickWeekRecommendItem: (Int, String) -> Unit,
     onClickOnceRecommendItem: (Int, String) -> Unit,
-    onNearestGroupClick: (Int, String) -> Unit
+    onNearestGroupClick: (Int, String) -> Unit,
+    onFillGroupClick: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -85,6 +93,7 @@ private fun HomeScreen(
                 university = university,
                 nearestGroup = nearestGroup,
                 onNearestGroupClick = onNearestGroupClick,
+                onFillGroupClick = onFillGroupClick,
                 modifier = Modifier.padding(bottom = 30.dp)
             )
         }
@@ -158,6 +167,7 @@ private fun PreviewHomeScreen() {
             onClickWeekRecommendItem = { _, _ -> },
             onClickOnceRecommendItem = { _, _ -> },
             onNearestGroupClick = { _, _ -> },
+            onFillGroupClick = {},
             onceRecommendGroupInfo = listOf(
                 RecommendGroupInfo(
                     groupTitle = "스터디 모임",

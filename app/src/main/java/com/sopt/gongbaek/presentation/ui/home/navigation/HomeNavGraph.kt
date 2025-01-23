@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.groupdetail.navigation.navigateGroupDetail
+import com.sopt.gongbaek.presentation.ui.grouplist.navigation.navigateGroupList
 import com.sopt.gongbaek.presentation.ui.home.screen.HomeRoute
 
 fun NavGraphBuilder.homeNavGraph(
@@ -21,6 +22,9 @@ fun NavGraphBuilder.homeNavGraph(
             HomeRoute(
                 navigateGroupDetail = { groupId, groupCycle ->
                     navController.navigateGroupDetail(groupId, groupCycle)
+                },
+                navigateGroupList = {
+                    navController.navigateGroupList()
                 }
             )
         }

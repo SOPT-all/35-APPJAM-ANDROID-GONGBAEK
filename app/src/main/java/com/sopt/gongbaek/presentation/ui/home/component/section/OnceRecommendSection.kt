@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.ui.home.component.section
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -29,7 +30,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.RecommendGroupInfo
+import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.type.ImageSelectorType
+import com.sopt.gongbaek.presentation.ui.component.chip.GroupInfoChip
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
 import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
@@ -110,15 +113,24 @@ private fun OnceRecommendItem(
         } else {
             R.drawable.img_study_1
         }
-        Image(
-            painter = painterResource(selectedImageResId),
-            contentDescription = "null",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .clip(shape = RoundedCornerShape(4.dp))
-                .width((screenWidth * 0.43f).dp)
-                .aspectRatio(156f / 104f)
-        )
+
+        Box {
+            Image(
+                painter = painterResource(selectedImageResId),
+                contentDescription = "null",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(4.dp))
+                    .width((screenWidth * 0.43f).dp)
+                    .aspectRatio(156f / 104f)
+            )
+            GroupInfoChip(
+                groupInfoChipType = GroupInfoChipType.STUDY_HOME,
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(start = 8.dp, bottom = 8.dp)
+            )
+        }
 
         Spacer(modifier = Modifier.height(6.dp))
 

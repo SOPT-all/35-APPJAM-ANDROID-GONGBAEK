@@ -112,10 +112,7 @@ fun GroupRoomScreen(
             darkIcons = true
         )
         onDispose {
-//            systemUiController.setStatusBarColor(
-//                color = Color.White,
-//                darkIcons = true
-//            )
+
         }
     }
 

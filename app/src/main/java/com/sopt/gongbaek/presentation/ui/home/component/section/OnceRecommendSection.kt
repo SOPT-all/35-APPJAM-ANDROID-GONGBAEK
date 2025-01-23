@@ -103,6 +103,7 @@ private fun OnceRecommendItem(
     Column(
         modifier = Modifier
             .clickableWithoutRipple { onClickOnceRecommendItem(onceRecommendGroupInfo.groupId, onceRecommendGroupInfo.groupType) }
+            .width((LocalConfiguration.current.screenWidthDp * 0.43f).dp)
     ) {
         val screenWidth = LocalConfiguration.current.screenWidthDp
         val imageList = ImageSelectorType.getImageListFromCategory(onceRecommendGroupInfo.coverImg.toString())

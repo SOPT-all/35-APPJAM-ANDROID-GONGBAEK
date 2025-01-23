@@ -9,6 +9,8 @@ import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.data.remote.util.handleNullableApiResponse
 import com.sopt.gongbaek.domain.model.GroupHost
 import com.sopt.gongbaek.domain.model.GroupInfo
+import com.sopt.gongbaek.domain.model.NearestGroup
+import com.sopt.gongbaek.domain.model.RecommendGroupInfo
 import com.sopt.gongbaek.domain.model.GroupMembers
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.domain.repository.GroupRepository
@@ -44,6 +46,16 @@ class GroupRepositoryImpl @Inject constructor(
             ).handleApiResponse().getOrThrow().map { group -> group.toDomain() }
         }
     }
+
+    override suspend fun getNearestGroup(): Result<NearestGroup> =
+        runCatching {
+            groupDataSource.getNearestGroup().handleApiResponse().getOrThrow().toDomain()
+        }
+
+    override suspend fun getLatestGroup(groupType: String): Result<List<RecommendGroupInfo>> =
+        runCatching {
+            groupDataSource.getLatestGroup(groupType = groupType).handleApiResponse().getOrThrow().map { group -> group.toDomain() }
+        }
 
     override suspend fun postGroup(groupRegisterInfo: GroupRegisterInfo): Result<GroupRegisterResponseDto> {
         return runCatching {

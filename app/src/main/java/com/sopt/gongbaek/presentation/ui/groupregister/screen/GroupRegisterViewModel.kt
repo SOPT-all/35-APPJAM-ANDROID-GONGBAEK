@@ -7,7 +7,6 @@ import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -143,18 +142,14 @@ class GroupRegisterViewModel @Inject constructor(
     private fun registerGroup(groupRegisterInfo: GroupRegisterInfo) {
         viewModelScope.launch {
             setState { copy(registerState = UiLoadState.Loading) }
-            Timber.tag("registerState1").d("${currentState.registerState}")
 
             runCatching {
                 postGroupUseCase(groupRegisterInfo = groupRegisterInfo).fold(
                     onSuccess = {
                         setState { copy(registerState = UiLoadState.Success) }
-                        Timber.tag("registerState2").d("${currentState.registerState}")
                     },
                     onFailure = { error ->
                         setState { copy(registerState = UiLoadState.Error) }
-                        Timber.tag("error").d("$error")
-                        Timber.tag("registerState3").d("${currentState.registerState}")
                     }
                 )
             }

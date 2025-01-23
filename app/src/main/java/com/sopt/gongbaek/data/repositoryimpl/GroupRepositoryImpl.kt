@@ -1,8 +1,8 @@
 package com.sopt.gongbaek.data.repositoryimpl
 
+import com.sopt.gongbaek.data.mapper.todata.toData
 import com.sopt.gongbaek.data.mapper.todomain.toDomain
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
-import com.sopt.gongbaek.data.remote.dto.request.GroupRegisterRequestDto
 import com.sopt.gongbaek.data.remote.dto.request.MyGroupsRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.util.handleApiResponse
@@ -36,19 +36,7 @@ class GroupRepositoryImpl @Inject constructor(
     override suspend fun postGroup(groupRegisterInfo: GroupRegisterInfo): Result<GroupRegisterResponseDto> {
         return runCatching {
             groupDataSource.postGroup(
-                groupRegisterRequestDto = GroupRegisterRequestDto(
-                    groupType = groupRegisterInfo.groupType,
-                    weekDate = groupRegisterInfo.weekDate,
-                    weekDay = groupRegisterInfo.weekDay,
-                    startTime = groupRegisterInfo.startTime,
-                    endTime = groupRegisterInfo.endTime,
-                    category = groupRegisterInfo.category,
-                    coverImg = groupRegisterInfo.coverImg,
-                    location = groupRegisterInfo.location,
-                    maxPeopleCount = groupRegisterInfo.maxPeopleCount,
-                    groupTitle = groupRegisterInfo.groupTitle,
-                    introduction = groupRegisterInfo.introduction
-                )
+                groupRegisterRequestDto = groupRegisterInfo.toData()
             ).handleApiResponse().getOrThrow()
         }
     }

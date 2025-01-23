@@ -3,6 +3,7 @@ package com.sopt.gongbaek.data.repositoryimpl
 import com.sopt.gongbaek.data.mapper.todata.toData
 import com.sopt.gongbaek.data.mapper.todomain.toDomain
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
+import com.sopt.gongbaek.data.remote.dto.request.ApplyGroupRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.data.remote.util.handleNullableApiResponse
@@ -33,7 +34,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun applyGroup(groupId: Int, groupType: String): Result<Unit> =
         runCatching {
-            groupDataSource.applyGroup(groupId = groupId, groupType = groupType).handleNullableApiResponse().getOrThrow()
+            groupDataSource.applyGroup(applyGroupRequestDto = ApplyGroupRequestDto(groupId = groupId, groupType = groupType)).handleNullableApiResponse().getOrThrow()
         }
 
     override suspend fun getGroups(category: String?): Result<List<GroupInfo>> {

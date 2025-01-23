@@ -8,6 +8,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.groupdetail.screen.GroupDetailRoute
+import com.sopt.gongbaek.presentation.ui.grouproom.navigation.navigateGroupRoom
 import com.sopt.gongbaek.presentation.ui.grouproom.navigation.navigateGroupRoomNavGraph
 
 fun NavGraphBuilder.groupDetailNavGraph(
@@ -26,7 +27,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
         ) {
             GroupDetailRoute(
                 navigateBack = { navController.popBackStack() },
-                navigateGroupRoom = { navController.navigateGroupRoomNavGraph() }
+                navigateGroupRoom = { groupId, groupCycle -> navController.navigateGroupRoom(groupId, groupCycle) }
             )
         }
     }

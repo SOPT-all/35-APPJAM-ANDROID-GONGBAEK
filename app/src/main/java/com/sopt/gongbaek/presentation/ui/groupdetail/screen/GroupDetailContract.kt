@@ -1,6 +1,8 @@
 package com.sopt.gongbaek.presentation.ui.groupdetail.screen
 
 import com.sopt.gongbaek.domain.model.GroupDetail
+import com.sopt.gongbaek.presentation.ui.mygroup.screen.MyGroupContract
+import com.sopt.gongbaek.presentation.ui.mygroup.screen.MyGroupContract.SideEffect
 import com.sopt.gongbaek.presentation.util.base.UiEvent
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect
@@ -18,7 +20,6 @@ class GroupDetailContract {
     sealed class Event : UiEvent {
         data object OnGroupInfoTabClick : Event()
         data object OnApplyClick : Event()
-        data object OnDialogConfirmClick : Event()
         data object OnDialogDismissClick : Event()
         data object OnCommentTabClick : Event()
         data class UpdateInputComment(val inputComment: String) : Event()
@@ -28,6 +29,6 @@ class GroupDetailContract {
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateBack : SideEffect
-        data object NavigateGroupRoom : SideEffect
+        data class NavigateGroupRoom(val groupId: Int, val groupCycle: String) : SideEffect
     }
 }

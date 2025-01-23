@@ -46,9 +46,6 @@ class GroupDetailViewModel @Inject constructor(
             is GroupDetailContract.Event.OnApplyClick -> {
                 applyGroup()
             }
-            is GroupDetailContract.Event.OnDialogConfirmClick -> {
-                setSideEffect(GroupDetailContract.SideEffect.NavigateGroupRoom)
-            }
             is GroupDetailContract.Event.OnDialogDismissClick -> setState {
                 copy(groupApplyState = UiLoadState.Idle)
             }

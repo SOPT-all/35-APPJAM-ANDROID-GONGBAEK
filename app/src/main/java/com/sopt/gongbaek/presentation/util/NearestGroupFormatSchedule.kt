@@ -53,5 +53,8 @@ fun homeOnceGroupFormatSchedule(
 private fun formatTime(time: Double): String {
     val hours = time.toInt()
     val minutes = ((time - hours) * 60).toInt()
+    if (minutes == 0) {
+        return "%02d시".format(hours)
+    }
     return "%02d시 %02d분".format(hours, minutes)
 }

@@ -196,6 +196,8 @@ private fun PreviewOnceRecommendSection() {
                 groupTitle = "스터디 모임",
                 nickname = "김대현",
                 weekDate = "2021-09-20",
+                startTime = 18.0,
+                endTime = 20.0,
                 profileImg = 5
             ),
             RecommendGroupInfo(
@@ -208,6 +210,8 @@ private fun PreviewOnceRecommendSection() {
                 groupTitle = "스터디 모임",
                 nickname = "김대현2",
                 weekDate = "2021-09-20",
+                startTime = 18.0,
+                endTime = 20.0,
                 profileImg = 3
             ),
             RecommendGroupInfo(

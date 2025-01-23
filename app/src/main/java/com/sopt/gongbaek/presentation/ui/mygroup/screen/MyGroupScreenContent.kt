@@ -44,8 +44,8 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun MyGroupScreenContent(
     activeGroups: List<GroupInfo>,
     closedGroups: List<GroupInfo>,
-    navigateGroupDetail: () -> Unit,
-    navigateGroupRoom: () -> Unit,
+    onGroupDetailButtonClick: (Int, String) -> Unit,
+    onGroupRoomButtonClick: (Int, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -92,8 +92,8 @@ fun MyGroupScreenContent(
                         .padding(horizontal = 16.dp)
                 )
                 GroupInfoSectionButton(
-                    navigateGroupDetail = navigateGroupDetail,
-                    navigateGroupRoom = navigateGroupRoom,
+                    onGroupDetailButtonClick = { onGroupDetailButtonClick(activeGroup.groupId, activeGroup.cycle) },
+                    onGroupRoomButtonClick = { onGroupRoomButtonClick(activeGroup.groupId, activeGroup.cycle) },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
                 HorizontalDivider(
@@ -118,7 +118,7 @@ fun MyGroupScreenContent(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = stringResource(R.string.my_group_active_group_title),
+                    text = stringResource(R.string.my_group_closed_group_title),
                     color = GongBaekTheme.colors.gray10,
                     style = GongBaekTheme.typography.title2.sb18
                 )
@@ -145,8 +145,8 @@ fun MyGroupScreenContent(
                         .padding(horizontal = 16.dp)
                 )
                 GroupInfoSectionButton(
-                    navigateGroupDetail = navigateGroupDetail,
-                    navigateGroupRoom = navigateGroupRoom,
+                    onGroupDetailButtonClick = { onGroupDetailButtonClick(closedGroup.groupId, closedGroup.cycle) },
+                    onGroupRoomButtonClick = { onGroupRoomButtonClick(closedGroup.groupId, closedGroup.cycle) },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
                 HorizontalDivider(
@@ -161,8 +161,8 @@ fun MyGroupScreenContent(
 
 @Composable
 private fun GroupInfoSectionButton(
-    navigateGroupDetail: () -> Unit,
-    navigateGroupRoom: () -> Unit,
+    onGroupDetailButtonClick: () -> Unit,
+    onGroupRoomButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var textHeight by remember { mutableIntStateOf(0) }
@@ -182,7 +182,7 @@ private fun GroupInfoSectionButton(
                 text = "작성글 보기",
                 modifier = Modifier
                     .weight(1f)
-                    .clickableWithoutRipple(onClick = navigateGroupDetail)
+                    .clickableWithoutRipple(onClick = onGroupDetailButtonClick)
                     .padding(vertical = 10.dp)
                     .onGloballyPositioned { coordinates ->
                         textHeight = coordinates.size.height
@@ -200,7 +200,7 @@ private fun GroupInfoSectionButton(
                 text = "스페이스 입장하기",
                 modifier = Modifier
                     .weight(1f)
-                    .clickableWithoutRipple(onClick = navigateGroupRoom)
+                    .clickableWithoutRipple(onClick = onGroupRoomButtonClick)
                     .padding(vertical = 10.dp),
                 color = GongBaekTheme.colors.mainOrange,
                 textAlign = TextAlign.Center,
@@ -328,8 +328,8 @@ private fun MyGroupScreenContentPreview() {
                     place = "학교 피아노 앞"
                 )
             ),
-            navigateGroupDetail = {},
-            navigateGroupRoom = {}
+            onGroupDetailButtonClick = { _, _ -> },
+            onGroupRoomButtonClick = { _, _ -> }
         )
     }
 }

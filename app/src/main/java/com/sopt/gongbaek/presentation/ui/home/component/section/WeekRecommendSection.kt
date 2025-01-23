@@ -114,6 +114,7 @@ private fun WeekRecommendItem(
                     weekRecommendGroupInfo.groupType
                 )
             }
+            .width((LocalConfiguration.current.screenWidthDp * 0.32f).dp)
     ) {
         val screenWidth = LocalConfiguration.current.screenWidthDp
 

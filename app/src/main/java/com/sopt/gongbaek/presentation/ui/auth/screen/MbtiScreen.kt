@@ -87,7 +87,8 @@ private fun MbtiScreen(
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             )
-        }
+        },
+        containerColor = GongBaekTheme.colors.white
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)

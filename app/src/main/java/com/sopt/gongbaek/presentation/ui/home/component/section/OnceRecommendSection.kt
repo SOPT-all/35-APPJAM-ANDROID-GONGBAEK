@@ -103,6 +103,7 @@ private fun OnceRecommendItem(
     Column(
         modifier = Modifier
             .clickableWithoutRipple { onClickOnceRecommendItem(onceRecommendGroupInfo.groupId, onceRecommendGroupInfo.groupType) }
+            .width((LocalConfiguration.current.screenWidthDp * 0.43f).dp)
     ) {
         val screenWidth = LocalConfiguration.current.screenWidthDp
         val imageList = ImageSelectorType.getImageListFromCategory(onceRecommendGroupInfo.coverImg.toString())
@@ -195,6 +196,8 @@ private fun PreviewOnceRecommendSection() {
                 groupTitle = "스터디 모임",
                 nickname = "김대현",
                 weekDate = "2021-09-20",
+                startTime = 18.0,
+                endTime = 20.0,
                 profileImg = 5
             ),
             RecommendGroupInfo(
@@ -207,6 +210,8 @@ private fun PreviewOnceRecommendSection() {
                 groupTitle = "스터디 모임",
                 nickname = "김대현2",
                 weekDate = "2021-09-20",
+                startTime = 18.0,
+                endTime = 20.0,
                 profileImg = 3
             ),
             RecommendGroupInfo(

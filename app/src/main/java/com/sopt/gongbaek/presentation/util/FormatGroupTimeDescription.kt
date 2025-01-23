@@ -54,4 +54,3 @@ fun getKoreanDayOfWeek(weekDay: String?): String {
         else -> ""
     }
 }
-

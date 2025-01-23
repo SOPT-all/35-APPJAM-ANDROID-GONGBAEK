@@ -1,6 +1,7 @@
 package com.sopt.gongbaek.presentation.type
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.IntRange
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.type.GroupCategoryType
 
@@ -72,7 +73,7 @@ enum class ImageSelectorType(
         )
 
         fun getImageListFromCategory(category: String): List<Int> {
-            val range = categoryIndexRanges[category] ?: return emptyList()
+            val range = categoryIndexRanges[category] ?: 0..5
             return Cover.imageButtonResIdList.slice(range)
         }
     }

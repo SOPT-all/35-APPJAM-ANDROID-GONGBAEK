@@ -42,25 +42,9 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun GroupDetailInfoSection(
     groupInfo: GroupInfo,
-    groupMaxPeopleCount: Int,
-    groupCurrentPeopleCount: Int,
+    groupHost: GroupHost,
     onApplyClick: () -> Unit
 ) {
-    val groupHost = GroupHost(
-        profileImg = 1,
-        nickname = "로이임탄",
-        gender = "MAN",
-        major = "글로벌문화산/MICE 전공",
-        enterYear = 2019,
-        grade = 4,
-        mbti = "ENFJ",
-        introduction = "안녕하세요. 저는 19학번이고 컴퓨터예술학부 재학중입니다. 공강시간이 많아서 공강시간에 함께 카공하고 밥먹을 친구를 만나고 싶습니다. 사교성 매우 좋아서 금방 친해저요! 우리 공강친구해요~" +
-            "안녕하세요. 저는 19학번이고 컴퓨터예술학부 재학중입니다. 공강시간이 많아서 공강시간에 함께 카공하고 밥먹을 친구를 만나고 싶습니다. 사교성 매우 좋아서 금방 친해저요! 우리 공강친구해요~" +
-            "안녕하세요. 저는 19학번이고 컴퓨터예술학부 재학중입니다. 공강시간이 많아서 공강시간에 함께 카공하고 밥먹을 친구를 만나고 싶습니다. 사교성 매우 좋아서 금방 친해저요! 우리 공강친구해요~" +
-            "안녕하세요. 저는 19학번이고 컴퓨터예술학부 재학중입니다. 공강시간이 많아서 공강시간에 함께 카공하고 밥먹을 친구를 만나고 싶습니다. 사교성 매우 좋아서 금방 친해저요! 우리 공강친구해요~" +
-            "안녕하세요. 저는 19학번이고 컴퓨터예술학부 재학중입니다. 공강시간이 많아서 공강시간에 함께 카공하고 밥먹을 친구를 만나고 싶습니다. 사교성 매우 좋아서 금방 친해저요! 우리 공강친구해요~"
-    )
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,10 +64,12 @@ fun GroupDetailInfoSection(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Box(
-                    modifier = Modifier.roundedBackgroundWithBorder(
-                        cornerRadius = 4.dp,
-                        backgroundColor = GongBaekTheme.colors.gray01
-                    )
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .roundedBackgroundWithBorder(
+                            cornerRadius = 4.dp,
+                            backgroundColor = GongBaekTheme.colors.gray01
+                        )
                 ) {
                     Text(
                         text = groupInfo.introduction,
@@ -257,18 +243,18 @@ fun GroupDetailInfoSection(
                     .weight(1f)
                     .roundedBackgroundWithBorder(
                         cornerRadius = 6.dp,
-                        backgroundColor = if (groupCurrentPeopleCount == groupMaxPeopleCount) GongBaekTheme.colors.gray04 else GongBaekTheme.colors.gray09
+                        backgroundColor = if (groupInfo.currentPeopleCount == groupInfo.maxPeopleCount) GongBaekTheme.colors.gray04 else GongBaekTheme.colors.gray09
                     ),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = stringResource(
                         R.string.group_detail_people_counter,
-                        groupCurrentPeopleCount,
-                        groupMaxPeopleCount
+                        groupInfo.currentPeopleCount,
+                        groupInfo.maxPeopleCount
                     ),
                     modifier = Modifier.padding(vertical = 16.dp),
-                    color = if (groupCurrentPeopleCount == groupMaxPeopleCount) GongBaekTheme.colors.white else GongBaekTheme.colors.gray01,
+                    color = if (groupInfo.currentPeopleCount == groupInfo.maxPeopleCount) GongBaekTheme.colors.white else GongBaekTheme.colors.gray01,
                     style = GongBaekTheme.typography.title2.sb18
                 )
             }
@@ -287,6 +273,7 @@ fun GroupDetailInfoSection(
             ) {
                 Text(
                     text = when {
+                        groupInfo.status == GroupStatusType.CLOSED.name -> stringResource(R.string.group_detail_button_closed)
                         groupInfo.isHost -> stringResource(R.string.group_detail_button_delete)
                         groupInfo.isApply -> stringResource(R.string.group_detail_button_cancel)
                         else -> stringResource(R.string.group_detail_button_apply)
@@ -310,8 +297,7 @@ fun GroupDetailInfoScreenPreview() {
                 isHost = false,
                 isApply = false
             ),
-            groupCurrentPeopleCount = 4,
-            groupMaxPeopleCount = 4,
+            groupHost = GroupHost(),
             onApplyClick = {}
         )
     }

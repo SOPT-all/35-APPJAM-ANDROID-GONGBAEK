@@ -26,8 +26,8 @@ private fun processDaySlots(englishDay: String, slots: List<Int>): List<TimeTabl
             timeTableList.add(
                 TimeTable(
                     weekDay = englishDay,
-                    startTime = start.toFloat() / 2 + 9,
-                    endTime = end.toFloat() / 2 + 9.5F
+                    startTime = start.toDouble() / 2 + 9,
+                    endTime = end.toDouble() / 2 + 9.5F
                 )
             )
             start = sortedSlots[i]
@@ -38,8 +38,8 @@ private fun processDaySlots(englishDay: String, slots: List<Int>): List<TimeTabl
     timeTableList.add(
         TimeTable(
             weekDay = englishDay,
-            startTime = start.toFloat() / 2 + 9,
-            endTime = end.toFloat() / 2 + 9.5F
+            startTime = start.toDouble() / 2 + 9,
+            endTime = end.toDouble() / 2 + 9.5F
         )
     )
 

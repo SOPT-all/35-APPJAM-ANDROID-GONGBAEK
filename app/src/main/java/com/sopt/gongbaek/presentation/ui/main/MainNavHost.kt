@@ -2,13 +2,19 @@ package com.sopt.gongbaek.presentation.ui.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sopt.gongbaek.presentation.model.NavigationRoute
 import com.sopt.gongbaek.presentation.ui.auth.navigation.authNavGraph
 import com.sopt.gongbaek.presentation.ui.auth.screen.AuthViewModel
@@ -28,13 +34,23 @@ fun MainNavHost(
     paddingValues: PaddingValues,
     modifier: Modifier = Modifier
 ) {
+    val currentBackStackEntry by navigator.navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
     val authViewModel: AuthViewModel = hiltViewModel()
     val groupRegisterViewModel: GroupRegisterViewModel = hiltViewModel()
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(paddingValues)
+            .padding(
+                if (currentRoute == NavigationRoute.HomeNavGraphNavGraphRoute.HOME ||
+                    currentRoute == NavigationRoute.GroupRoomNavGraphRoute.GROUP_ROOM
+                ) {
+                    PaddingValues(0.dp)
+                } else {
+                    PaddingValues(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding())
+                }
+            )
     ) {
         NavHost(
             navController = navigator.navController,

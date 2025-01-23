@@ -6,7 +6,7 @@ import com.sopt.gongbaek.domain.model.GroupComments
 fun GroupCommentsResponseDto.toDomain() = GroupComments(
     groupId = groupId,
     groupStatus = groupStatus,
-    groupCycle = groupCycle,
+    groupCycle = groupType,
     commentCount = commentCount,
     groupCommentList = comments.map { comment ->
         GroupComments.GroupComment(

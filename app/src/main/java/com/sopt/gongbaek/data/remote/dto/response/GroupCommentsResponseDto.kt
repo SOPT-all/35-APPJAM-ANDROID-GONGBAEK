@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class GroupCommentsResponseDto(
     @SerialName("groupId") val groupId: Int,
     @SerialName("groupStatus") val groupStatus: String,
-    @SerialName("groupCycle") val groupCycle: String,
+    @SerialName("groupType") val groupType: String,
     @SerialName("commentCount") val commentCount: Int,
     @SerialName("comments") val comments: List<GroupCommentResponseDto>
 ) {

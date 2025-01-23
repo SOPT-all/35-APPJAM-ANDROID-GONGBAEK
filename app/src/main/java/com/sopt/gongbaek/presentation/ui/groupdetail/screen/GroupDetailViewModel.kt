@@ -2,6 +2,12 @@ package com.sopt.gongbaek.presentation.ui.groupdetail.screen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.sopt.gongbaek.domain.model.Comment
+import com.sopt.gongbaek.domain.model.GroupDetail
+import com.sopt.gongbaek.domain.usecase.ApplyGroupUseCase
+import com.sopt.gongbaek.domain.usecase.GetGroupCommentsUseCase
+import com.sopt.gongbaek.domain.usecase.LoadGroupDetailScreenUseCase
+import com.sopt.gongbaek.domain.usecase.PostCommentUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,13 +16,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupDetailViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val loadGroupDetailScreenUseCase: LoadGroupDetailScreenUseCase,
+    private val applyGroupUseCase: ApplyGroupUseCase,
+    private val getGroupCommentsUseCase: GetGroupCommentsUseCase,
+    private val postCommentUseCase: PostCommentUseCase
 ) : BaseViewModel<GroupDetailContract.State, GroupDetailContract.Event, GroupDetailContract.SideEffect>() {
 
     init {
         val groupId: Int = savedStateHandle["groupId"] ?: 0
         val groupCycle: String = savedStateHandle["groupCycle"] ?: ""
-        getGroupDetailInfo(groupId, groupCycle)
+        updateGroupDetail {
+            copy(
+                groupInfo = groupInfo.copy(
+                    groupId = groupId,
+                    cycle = groupCycle
+                )
+            )
+        }
     }
 
     override fun createInitialState(): GroupDetailContract.State = GroupDetailContract.State()
@@ -24,19 +41,16 @@ class GroupDetailViewModel @Inject constructor(
     override suspend fun handleEvent(event: GroupDetailContract.Event) {
         when (event) {
             is GroupDetailContract.Event.OnGroupInfoTabClick -> {
-                getGroupDetailInfo(currentState.groupInfo.groupId, currentState.groupInfo.cycle)
+                getGroupDetailInfo()
             }
             is GroupDetailContract.Event.OnApplyClick -> {
                 applyGroup()
-            }
-            is GroupDetailContract.Event.OnDialogConfirmClick -> {
-                setSideEffect(GroupDetailContract.SideEffect.NavigateGroupRoom)
             }
             is GroupDetailContract.Event.OnDialogDismissClick -> setState {
                 copy(groupApplyState = UiLoadState.Idle)
             }
             is GroupDetailContract.Event.OnCommentTabClick -> {
-                getGroupDetailInfo(currentState.groupInfo.groupId, currentState.groupInfo.cycle)
+                getGroupDetailInfo()
             }
             is GroupDetailContract.Event.UpdateInputComment -> setState {
                 copy(inputComment = event.inputComment)
@@ -52,31 +66,77 @@ class GroupDetailViewModel @Inject constructor(
 
     fun sendSideEffect(sideEffect: GroupDetailContract.SideEffect) = setSideEffect(sideEffect)
 
-    private fun getGroupDetailInfo(groupId: Int, groupCycle: String) {
+    private fun updateGroupDetail(update: GroupDetail.() -> GroupDetail) =
+        setState { copy(groupDetail = groupDetail.update()) }
+
+    private fun getGroupDetailInfo() {
         viewModelScope.launch {
-            setState { copy(loadState = UiLoadState.Loading) }
-            // 모임 정보, 모임 호소트, 댓글 정보를 조회
+            setState { copy(groupDetailLoadState = UiLoadState.Loading) }
+            loadGroupDetailScreenUseCase(
+                groupId = currentState.groupDetail.groupInfo.groupId,
+                groupType = currentState.groupDetail.groupInfo.cycle
+            ).fold(
+                onSuccess = { groupDetail ->
+                    setState { copy(groupDetailLoadState = UiLoadState.Success, groupDetail = groupDetail) }
+                },
+                onFailure = {
+                    setState { copy(groupDetailLoadState = UiLoadState.Error) }
+                }
+            )
         }
     }
 
     private fun applyGroup() {
         viewModelScope.launch {
-            setState { copy(loadState = UiLoadState.Loading) }
-            // 모임 신청
+            setState { copy(groupApplyState = UiLoadState.Loading) }
+            applyGroupUseCase(
+                groupId = currentState.groupDetail.groupInfo.groupId,
+                groupType = currentState.groupDetail.groupInfo.cycle
+            ).fold(
+                onSuccess = { setState { copy(groupApplyState = UiLoadState.Success) } },
+                onFailure = { setState { copy(groupApplyState = UiLoadState.Error) } }
+            )
         }
     }
 
     private fun getGroupComment() {
         viewModelScope.launch {
             setState { copy(commentState = UiLoadState.Loading) }
-            // 서버로부터 모임의 댓글 정보를 조회
+            getGroupCommentsUseCase(
+                isPublic = true,
+                groupId = currentState.groupDetail.groupInfo.groupId,
+                groupType = currentState.groupDetail.groupInfo.cycle
+            ).fold(
+                onSuccess = { groupComments ->
+                    setState { copy(commentState = UiLoadState.Success) }
+                    updateGroupDetail { copy(groupComments = groupComments) }
+                },
+                onFailure = {
+                    setState { copy(commentState = UiLoadState.Error) }
+                }
+            )
         }
     }
 
     private fun postInputComment() {
         viewModelScope.launch {
             setState { copy(commentState = UiLoadState.Loading) }
-            // 댓글 작성 요청
+            postCommentUseCase(
+                comment = Comment(
+                    groupId = currentState.groupDetail.groupInfo.groupId,
+                    cycle = currentState.groupDetail.groupInfo.cycle,
+                    isPublic = true,
+                    content = currentState.inputComment
+                )
+            ).fold(
+                onSuccess = { groupComments ->
+                    setState { copy(commentState = UiLoadState.Success, inputComment = "") }
+                    updateGroupDetail { copy(groupComments = groupComments) }
+                },
+                onFailure = {
+                    setState { copy(commentState = UiLoadState.Error) }
+                }
+            )
         }
     }
 }

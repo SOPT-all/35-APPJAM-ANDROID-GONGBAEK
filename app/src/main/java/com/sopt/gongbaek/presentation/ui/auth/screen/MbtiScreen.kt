@@ -1,17 +1,17 @@
 package com.sopt.gongbaek.presentation.ui.auth.screen
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -78,32 +78,34 @@ private fun MbtiScreen(
     navigateGender: () -> Unit,
     navigateBack: () -> Unit
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        MbtiScreenContent(
-            onBackClick = navigateBack,
-            energyDirectionOptions = energyDirectionOptions,
-            onEnergyDirectionOptionSelected = onEnergyDirectionOptionSelected,
-            informationGatheringOptions = informationGatheringOptions,
-            onInformationGatheringOptionSelected = onInformationGatheringOptionSelected,
-            decisionMakingOptions = decisionMakingOptions,
-            onDecisionMakingOptionSelected = onDecisionMakingOptionSelected,
-            lifestyleOrientationOptions = lifestyleOrientationOptions,
-            onLifestyleOrientationOptionSelected = onLifestyleOrientationOptionSelected,
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(horizontal = 16.dp)
-        )
-
-        GongBaekBasicButton(
-            title = "다음",
-            enabled = mbti.length == 4,
-            onClick = navigateGender,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-        )
+    Scaffold(
+        bottomBar = {
+            GongBaekBasicButton(
+                title = "다음",
+                enabled = mbti.length == 4,
+                onClick = navigateGender,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            MbtiScreenContent(
+                onBackClick = navigateBack,
+                energyDirectionOptions = energyDirectionOptions,
+                onEnergyDirectionOptionSelected = onEnergyDirectionOptionSelected,
+                informationGatheringOptions = informationGatheringOptions,
+                onInformationGatheringOptionSelected = onInformationGatheringOptionSelected,
+                decisionMakingOptions = decisionMakingOptions,
+                onDecisionMakingOptionSelected = onDecisionMakingOptionSelected,
+                lifestyleOrientationOptions = lifestyleOrientationOptions,
+                onLifestyleOrientationOptionSelected = onLifestyleOrientationOptionSelected,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+            )
+        }
     }
 }
 
@@ -137,54 +139,62 @@ private fun MbtiScreenContent(
 
             Spacer(modifier = Modifier.height(42.dp))
 
-            Column {
-                Text(
-                    text = "외향형/내향형",
-                    color = GongBaekTheme.colors.gray08,
-                    style = GongBaekTheme.typography.body2.sb14
-                )
-                GongBaekSelectableButtons(
-                    selectableButtonType = SelectableButtonType.MBTI_FIRST,
-                    onOptionSelected = onEnergyDirectionOptionSelected,
-                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                    selectedOption = energyDirectionOptions
-                )
+            LazyColumn {
+                item {
+                    Text(
+                        text = stringResource(R.string.auth_mbti_i_e),
+                        color = GongBaekTheme.colors.gray08,
+                        style = GongBaekTheme.typography.body2.sb14
+                    )
+                    GongBaekSelectableButtons(
+                        selectableButtonType = SelectableButtonType.MBTI_FIRST,
+                        onOptionSelected = onEnergyDirectionOptionSelected,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                        selectedOption = energyDirectionOptions
+                    )
+                }
 
-                Text(
-                    text = "감각형/직관형",
-                    color = GongBaekTheme.colors.gray08,
-                    style = GongBaekTheme.typography.body2.sb14
-                )
-                GongBaekSelectableButtons(
-                    selectableButtonType = SelectableButtonType.MBTI_SECOND,
-                    onOptionSelected = onInformationGatheringOptionSelected,
-                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                    selectedOption = informationGatheringOptions
-                )
+                item {
+                    Text(
+                        text = stringResource(R.string.auth_mbti_n_s),
+                        color = GongBaekTheme.colors.gray08,
+                        style = GongBaekTheme.typography.body2.sb14
+                    )
+                    GongBaekSelectableButtons(
+                        selectableButtonType = SelectableButtonType.MBTI_SECOND,
+                        onOptionSelected = onInformationGatheringOptionSelected,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                        selectedOption = informationGatheringOptions
+                    )
+                }
 
-                Text(
-                    text = "사고형/감정형",
-                    color = GongBaekTheme.colors.gray08,
-                    style = GongBaekTheme.typography.body2.sb14
-                )
-                GongBaekSelectableButtons(
-                    selectableButtonType = SelectableButtonType.MBTI_THIRD,
-                    onOptionSelected = onDecisionMakingOptionSelected,
-                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                    selectedOption = decisionMakingOptions
-                )
+                item {
+                    Text(
+                        text = stringResource(R.string.auth_mbti_t_f),
+                        color = GongBaekTheme.colors.gray08,
+                        style = GongBaekTheme.typography.body2.sb14
+                    )
+                    GongBaekSelectableButtons(
+                        selectableButtonType = SelectableButtonType.MBTI_THIRD,
+                        onOptionSelected = onDecisionMakingOptionSelected,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                        selectedOption = decisionMakingOptions
+                    )
+                }
 
-                Text(
-                    text = "판단형/인식형",
-                    color = GongBaekTheme.colors.gray08,
-                    style = GongBaekTheme.typography.body2.sb14
-                )
-                GongBaekSelectableButtons(
-                    selectableButtonType = SelectableButtonType.MBTI_FOURTH,
-                    onOptionSelected = onLifestyleOrientationOptionSelected,
-                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-                    selectedOption = lifestyleOrientationOptions
-                )
+                item {
+                    Text(
+                        text = stringResource(R.string.auth_mbti_p_j),
+                        color = GongBaekTheme.colors.gray08,
+                        style = GongBaekTheme.typography.body2.sb14
+                    )
+                    GongBaekSelectableButtons(
+                        selectableButtonType = SelectableButtonType.MBTI_FOURTH,
+                        onOptionSelected = onLifestyleOrientationOptionSelected,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                        selectedOption = lifestyleOrientationOptions
+                    )
+                }
             }
         }
     }

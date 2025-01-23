@@ -2,6 +2,11 @@ package com.sopt.gongbaek.presentation.ui.grouproom.screen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.sopt.gongbaek.domain.model.Comment
+import com.sopt.gongbaek.domain.model.GroupRoom
+import com.sopt.gongbaek.domain.usecase.GetGroupCommentsUseCase
+import com.sopt.gongbaek.domain.usecase.LoadGroupRoomScreenUseCase
+import com.sopt.gongbaek.domain.usecase.PostCommentUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,13 +15,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupRoomViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val loadGroupRoomScreenUseCase: LoadGroupRoomScreenUseCase,
+    private val getGroupCommentsUseCase: GetGroupCommentsUseCase,
+    private val postCommentUseCase: PostCommentUseCase
 ) : BaseViewModel<GroupRoomContract.State, GroupRoomContract.Event, GroupRoomContract.SideEffect>() {
 
     init {
         val groupId: Int = savedStateHandle["groupId"] ?: 0
         val groupCycle: String = savedStateHandle["groupCycle"] ?: ""
-        getGroupRoomInfo(groupId = groupId, groupCycle = groupCycle)
+        updateGroupRoom {
+            copy(
+                groupInfo = groupInfo.copy(
+                    groupId = groupId,
+                    cycle = groupCycle
+                )
+            )
+        }
     }
 
     override fun createInitialState(): GroupRoomContract.State = GroupRoomContract.State()
@@ -37,24 +52,64 @@ class GroupRoomViewModel @Inject constructor(
 
     fun sendSideEffect(sideEffect: GroupRoomContract.SideEffect) = setSideEffect(sideEffect)
 
-    private fun getGroupRoomInfo(groupId: Int, groupCycle: String) {
+    private fun updateGroupRoom(update: GroupRoom.() -> GroupRoom) =
+        setState { copy(groupRoom = groupRoom.update()) }
+
+    fun getGroupRoomInfo() {
         viewModelScope.launch {
-            setState { copy(loadState = UiLoadState.Loading) }
-            // 모임 정보, 모임 참여자 정보, 댓글 정보 서버 통신 로직
+            setState { copy(groupRoomLoadState = UiLoadState.Loading) }
+            loadGroupRoomScreenUseCase(
+                groupId = currentState.groupRoom.groupInfo.groupId,
+                groupType = currentState.groupRoom.groupInfo.cycle
+            ).fold(
+                onSuccess = { groupRoom ->
+                    setState { copy(groupRoomLoadState = UiLoadState.Success, groupRoom = groupRoom) }
+                },
+                onFailure = {
+                    setState { copy(groupRoomLoadState = UiLoadState.Error) }
+                }
+            )
         }
     }
 
     private fun getGroupComment() {
         viewModelScope.launch {
             setState { copy(commentState = UiLoadState.Loading) }
-            // 서버로부터 모임의 댓글 정보를 조회
+            getGroupCommentsUseCase(
+                isPublic = false,
+                groupId = currentState.groupRoom.groupInfo.groupId,
+                groupType = currentState.groupRoom.groupInfo.cycle
+            ).fold(
+                onSuccess = { groupComments ->
+                    setState { copy(commentState = UiLoadState.Success) }
+                    updateGroupRoom { copy(groupComments = groupComments) }
+                },
+                onFailure = {
+                    setState { copy(commentState = UiLoadState.Error) }
+                }
+            )
         }
     }
 
     private fun postInputComment() {
         viewModelScope.launch {
             setState { copy(commentState = UiLoadState.Loading) }
-            // 댓글 작성 요청
+            postCommentUseCase(
+                comment = Comment(
+                    groupId = currentState.groupRoom.groupInfo.groupId,
+                    cycle = currentState.groupRoom.groupInfo.cycle,
+                    isPublic = false,
+                    content = currentState.inputComment
+                )
+            ).fold(
+                onSuccess = { groupComments ->
+                    setState { copy(commentState = UiLoadState.Success, inputComment = "") }
+                    updateGroupRoom { copy(groupComments = groupComments) }
+                },
+                onFailure = {
+                    setState { copy(commentState = UiLoadState.Error) }
+                }
+            )
         }
     }
 }

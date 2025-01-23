@@ -13,7 +13,7 @@
     <string name="onboarding_2_description_2">0이었던 공백을 100으로 알차게 채워보세요!</string>
     <string name="onboarding_3_title">스페이스에서 모임 멤버와 대화하기</string>
     <string name="onboarding_3_description_1">공백을 함께 채울 멤버들과\n</string>
-    <string name="onboarding_3_description_2">스페이스에서 대화하며 모임을 준비해보새요!</string>
+    <string name="onboarding_3_description_2">스페이스에서 대화하며 모임을 준비해보세요!</string>
 
     <!--MainBottomNavBar-->
     <string name="main_bottom_navbar_group_list">채우기</string>
@@ -97,6 +97,10 @@
     <string name="auth_grade_title">학년과 입학년도를 입력해주세요.</string>
     <string name="auth_grade_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
     <string name="auth_mbti_title">MBTI를 선택해주세요.</string>
+    <string name="auth_mbti_i_e">외향형/내향형</string>
+    <string name="auth_mbti_n_s">감각형/직관형</string>
+    <string name="auth_mbti_t_f">사고형/감정형</string>
+    <string name="auth_mbti_p_j">판단형/인식형</string>
     <string name="auth_mbti_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
     <string name="auth_gender_title">성별을 선택해주세요.</string>
     <string name="auth_gender_description">프로필에 표시되는 정보로, 언제든 변경할 수 있어요.</string>
@@ -126,6 +130,7 @@
     <string name="group_detail_button_apply">신청하기</string>
     <string name="group_detail_button_cancel">신청 취소하기</string>
     <string name="group_detail_button_delete">삭제하기</string>
+    <string name="group_detail_button_closed">종료된 모임입니다.</string>
 
     <!--GroupListScreen-->
     <string name="grouplist_dayofweek_all">전체</string>
@@ -178,5 +183,4 @@
 
     <!--GroupRegister-->
     <string name="groupregister_complete_title">입력한 정보가 맞는지 확인해주세요!</string>
-
 </resources>

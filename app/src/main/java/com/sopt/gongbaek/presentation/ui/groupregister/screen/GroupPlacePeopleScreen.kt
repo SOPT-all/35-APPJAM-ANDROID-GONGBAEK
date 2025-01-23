@@ -13,7 +13,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -144,9 +143,7 @@ private fun GroupPlacePeopleSection(
             GongBaekBasicTextField(
                 value = place,
                 onValueChange = onPlaceChange,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_PLACE,
-                modifier = Modifier
-                    .height(LocalConfiguration.current.screenHeightDp.dp * 0.06f)
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_PLACE
             )
 
             PageDescriptionSection(

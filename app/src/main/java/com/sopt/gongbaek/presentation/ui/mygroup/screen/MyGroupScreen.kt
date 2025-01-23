@@ -27,8 +27,8 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun MyGroupRoute(
     viewModel: MyGroupViewModel = hiltViewModel(),
-    navigateGroupDetail: () -> Unit,
-    navigateGroupRoom: () -> Unit
+    navigateGroupDetail: (Int, String) -> Unit,
+    navigateGroupRoom: (Int, String) -> Unit
 ) {
     val myGroupUiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -39,7 +39,6 @@ fun MyGroupRoute(
         when (pagerState.currentPage) {
             0 -> viewModel.setEvent(MyGroupContract.Event.OnRegisterGroupsTabClick)
             1 -> viewModel.setEvent(MyGroupContract.Event.OnApplyGroupsTabClick)
-            else -> {}
         }
     }
 
@@ -47,8 +46,8 @@ fun MyGroupRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is MyGroupContract.SideEffect.NavigateGroupDetail -> navigateGroupDetail()
-                    is MyGroupContract.SideEffect.NavigateGroupRoom -> navigateGroupRoom()
+                    is MyGroupContract.SideEffect.NavigateGroupDetail -> { navigateGroupDetail(sideEffect.groupId, sideEffect.groupCycle) }
+                    is MyGroupContract.SideEffect.NavigateGroupRoom -> { navigateGroupRoom(sideEffect.groupId, sideEffect.groupCycle) }
                 }
             }
     }
@@ -57,8 +56,8 @@ fun MyGroupRoute(
         uiState = myGroupUiState,
         myGroupTabs = myGroupTabs,
         pagerState = pagerState,
-        onGroupDetailButtonClick = { viewModel.sendSideEffect(MyGroupContract.SideEffect.NavigateGroupDetail) },
-        onGroupRoomButtonClick = { viewModel.sendSideEffect(MyGroupContract.SideEffect.NavigateGroupRoom) }
+        onGroupDetailButtonClick = { groupId, groupCycle -> viewModel.sendSideEffect(MyGroupContract.SideEffect.NavigateGroupDetail(groupId, groupCycle)) },
+        onGroupRoomButtonClick = { groupId, groupCycle -> viewModel.sendSideEffect(MyGroupContract.SideEffect.NavigateGroupRoom(groupId, groupCycle)) }
     )
 }
 
@@ -68,8 +67,8 @@ fun MyGroupScreen(
     uiState: MyGroupContract.State,
     myGroupTabs: List<String>,
     pagerState: PagerState,
-    onGroupDetailButtonClick: () -> Unit,
-    onGroupRoomButtonClick: () -> Unit
+    onGroupDetailButtonClick: (Int, String) -> Unit,
+    onGroupRoomButtonClick: (Int, String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -90,16 +89,16 @@ fun MyGroupScreen(
                         MyGroupScreenContent(
                             activeGroups = uiState.registerActiveGroups,
                             closedGroups = uiState.registerClosedGroups,
-                            navigateGroupDetail = onGroupDetailButtonClick,
-                            navigateGroupRoom = onGroupRoomButtonClick
+                            onGroupDetailButtonClick = onGroupDetailButtonClick,
+                            onGroupRoomButtonClick = onGroupRoomButtonClick
                         )
                     }
                     1 -> {
                         MyGroupScreenContent(
                             activeGroups = uiState.applyActiveGroups,
                             closedGroups = uiState.applyClosedGroups,
-                            navigateGroupDetail = onGroupDetailButtonClick,
-                            navigateGroupRoom = onGroupRoomButtonClick
+                            onGroupDetailButtonClick = onGroupDetailButtonClick,
+                            onGroupRoomButtonClick = onGroupRoomButtonClick
                         )
                     }
                 }
@@ -117,8 +116,8 @@ private fun MyGroupScreenPreview() {
             uiState = MyGroupContract.State(),
             myGroupTabs = MyGroupPagerType.entries.map { it.description },
             pagerState = rememberPagerState { MyGroupPagerType.entries.map { it.description }.size },
-            onGroupDetailButtonClick = {},
-            onGroupRoomButtonClick = {}
+            onGroupDetailButtonClick = { _, _ -> },
+            onGroupRoomButtonClick = { _, _ -> }
         )
     }
 }

@@ -2,8 +2,14 @@ package com.sopt.gongbaek.data.remote.datasourceimpl
 
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
 import com.sopt.gongbaek.data.remote.dto.base.ApiResponse
-import com.sopt.gongbaek.data.remote.dto.request.MyGroupsRequestDto
+import com.sopt.gongbaek.data.remote.dto.base.NullableApiResponse
+import com.sopt.gongbaek.data.remote.dto.request.ApplyGroupRequestDto
+import com.sopt.gongbaek.data.remote.dto.request.GroupRegisterRequestDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupDetailResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupHostResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupListGroupResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupMembersResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.NearestGroupResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.RecommendGroupInfoResponseDto
@@ -13,8 +19,17 @@ import javax.inject.Inject
 class GroupRemoteDataSourceImpl @Inject constructor(
     private val groupService: GroupService
 ) : GroupRemoteDataSource {
-    override suspend fun getMyGroups(myGroupsRequestDto: MyGroupsRequestDto): ApiResponse<MyGroupsResponseDto> =
-        groupService.getMyGroups(category = myGroupsRequestDto.category, status = myGroupsRequestDto.status)
+    override suspend fun getMyGroups(category: String, status: Boolean): ApiResponse<MyGroupsResponseDto> =
+        groupService.getMyGroups(category = category, status = status)
+
+    override suspend fun getGroupDetail(groupId: Int, groupType: String): ApiResponse<GroupDetailResponseDto> =
+        groupService.getGroupDetail(groupId = groupId, groupType = groupType)
+
+    override suspend fun getGroupHost(groupId: Int, groupType: String): ApiResponse<GroupHostResponseDto> =
+        groupService.getGroupHost(groupId = groupId, groupType = groupType)
+
+    override suspend fun applyGroup(applyGroupRequestDto: ApplyGroupRequestDto): NullableApiResponse<Unit> =
+        groupService.applyGroup(applyGroupRequestDto = applyGroupRequestDto)
 
     override suspend fun getGroups(category: String?): ApiResponse<List<GroupListGroupResponseDto>> =
         groupService.getGroups(category = category)
@@ -24,4 +39,10 @@ class GroupRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getLatestGroup(groupType: String): ApiResponse<List<RecommendGroupInfoResponseDto>> =
         groupService.getLatestGroup(groupType = groupType)
+
+    override suspend fun postGroup(groupRegisterRequestDto: GroupRegisterRequestDto): ApiResponse<GroupRegisterResponseDto> =
+        groupService.postGroup(groupRegisterRequestDto = groupRegisterRequestDto)
+
+    override suspend fun getGroupMembers(groupId: Int, groupType: String): ApiResponse<GroupMembersResponseDto> =
+        groupService.getGroupMembers(groupId = groupId, groupType = groupType)
 }

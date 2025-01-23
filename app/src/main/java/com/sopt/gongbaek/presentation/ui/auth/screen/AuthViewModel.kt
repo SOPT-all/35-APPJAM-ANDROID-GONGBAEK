@@ -1,28 +1,51 @@
 package com.sopt.gongbaek.presentation.ui.auth.screen
 
-import com.sopt.gongbaek.domain.model.Majors
-import com.sopt.gongbaek.domain.model.Universities
+import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.domain.type.GenderType
 import com.sopt.gongbaek.domain.type.GradeType
+import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
+import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
+import com.sopt.gongbaek.domain.usecase.RegisterUserInfoUseCase
+import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
+import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.createMbti
+import com.sopt.gongbaek.presentation.util.extension.isKoreanChar
 import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
+class AuthViewModel @Inject constructor(
+    private val getSearchUniversitiesResultUseCase: GetSearchUniversitiesResultUseCase,
+    private val getSearchMajorsResultUseCase: GetSearchMajorsResultUseCase,
+    private val registerUserInfoUseCase: RegisterUserInfoUseCase,
+    private val setTokenUseCase: SetTokenUseCase,
+    private val validateNicknameUseCase: ValidateNicknameUseCase
+) : BaseViewModel<AuthContract.State, AuthContract.Event, AuthContract.SideEffect>() {
 
     override fun createInitialState(): AuthContract.State = AuthContract.State()
 
     override suspend fun handleEvent(event: AuthContract.Event) {
         when (event) {
             is AuthContract.Event.OnProfileImageSelected -> updateUserInfo { copy(profileImage = event.profileImage) }
-            is AuthContract.Event.OnNicknameChanged -> updateUserInfo { copy(nickname = event.nickname) }
+            is AuthContract.Event.OnNicknameChanged -> {
+                val filteredNickname = event.nickname.filter { it.isKoreanChar() }
+                updateUserInfo { copy(nickname = filteredNickname) }
+                setState {
+                    copy(
+                        nicknameValidation = true,
+                        nicknameErrorMessage = null
+                    )
+                }
+            }
+
             is AuthContract.Event.OnSearchUnivChanged -> setState { copy(univ = event.univ) }
             is AuthContract.Event.OnUnivSearchClick -> {
-                fetchUnivSearch()
+                fetchUnivSearchResult()
             }
 
             is AuthContract.Event.OnUnivSelected -> {
@@ -91,6 +114,16 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
                 setState { copy(selectedTimeSlotsByDay = timeSlotsByDay) }
                 updateUserInfo { copy(timeTable = convertToTimeTable(timeSlotsByDay)) }
             }
+
+            is AuthContract.Event.SubmitUserInfo -> submitUserInfo()
+
+            is AuthContract.Event.ValidateNickname -> {
+                validateNickname(currentState.userInfo.nickname) { isValid ->
+                    if (isValid) {
+                        sendSideEffect(AuthContract.SideEffect.NavigateUnivMajor)
+                    }
+                }
+            }
         }
     }
 
@@ -110,46 +143,83 @@ class AuthViewModel @Inject constructor() : BaseViewModel<AuthContract.State, Au
         updateUserInfo { copy(mbti = mbti) }
     }
 
-    private fun fetchUnivSearch() {
-//        viewModelScope.launch {
-//            currentState.univ
-        val universities = listOf(
-            "한양대학교",
-            "건국대학교 서울캠퍼스",
-            "서울대학교",
-            "고려대학교",
-            "연세대학교"
-        )
-
-        if (currentState.univ.isNotEmpty()) {
-            val searchResult = universities.filter { it.contains(currentState.univ) }
-            setState { copy(universities = Universities(searchResult)) }
-        } else {
-            setState { copy(universities = Universities(emptyList())) }
+    private fun fetchUnivSearchResult() =
+        viewModelScope.launch {
+            setState { copy(loadState = UiLoadState.Loading) }
+            getSearchUniversitiesResultUseCase(currentState.univ).fold(
+                onSuccess = { universities ->
+                    setState { copy(universities = universities) }
+                },
+                onFailure = {
+                    setState { copy(loadState = UiLoadState.Error) }
+                }
+            )
         }
-    }
 
-    private fun fetchMajorSearch() {
-//        viewModelScope.launch {
-//            currentState.major
-        val majors = listOf(
-            "컴퓨터공학과",
-            "건축학과",
-            "경영학과",
-            "국어국문학과",
-            "영어영문학과",
-            "수학과",
-            "물리학과"
-        )
+    private fun fetchMajorSearch() =
+        viewModelScope.launch {
+            setState { copy(loadState = UiLoadState.Loading) }
+            getSearchMajorsResultUseCase(
+                universityName = currentState.userInfo.school,
+                majorName = currentState.enterMajor
+            ).fold(
+                onSuccess = { majors ->
+                    setState { copy(majors = majors) }
+                },
+                onFailure = {
+                    setState { copy(loadState = UiLoadState.Error) }
+                }
+            )
+        }
 
-        if (currentState.enterMajor.isNotEmpty()) {
-            val searchResult = majors.filter { it.contains(currentState.enterMajor) }
-            setState { copy(majors = Majors(searchResult)) }
-        } else {
-            setState { copy(majors = Majors(emptyList())) }
+    private fun submitUserInfo() =
+        viewModelScope.launch {
+            setState { copy(loadState = UiLoadState.Loading) }
+            registerUserInfoUseCase(currentState.userInfo).fold(
+                onSuccess = { userAuth ->
+                    setState { copy(loadState = UiLoadState.Success) }
+                    setSideEffect(AuthContract.SideEffect.NavigateCompleteAuth)
+//                    setTokenUseCase(userAuth.accessToken, userAuth.refreshToken)
+                },
+                onFailure = {
+                    setState { copy(loadState = UiLoadState.Error) }
+                }
+            )
+        }
+
+    private fun validateNickname(nickname: String, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val result = validateNicknameUseCase(nickname)
+            result.fold(
+                onSuccess = {
+                    setState {
+                        copy(
+                            nicknameValidation = true,
+                            nicknameErrorMessage = null
+                        )
+                    }
+                    onResult(true)
+                },
+                onFailure = { exception ->
+                    if (exception.message == ERROR_CODE_DUPLICATE_NICKNAME) {
+                        setState {
+                            copy(
+                                nicknameValidation = false,
+                                nicknameErrorMessage = NICKNAME_VALIDATION_ERROR_MESSAGE
+                            )
+                        }
+                    }
+                    onResult(false)
+                }
+            )
         }
     }
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }
+
+    companion object {
+        private const val NICKNAME_VALIDATION_ERROR_MESSAGE = "중복된 닉네임입니다. 다시 입력해주세요."
+        private const val ERROR_CODE_DUPLICATE_NICKNAME = "HTTP 409 "
+    }
 }

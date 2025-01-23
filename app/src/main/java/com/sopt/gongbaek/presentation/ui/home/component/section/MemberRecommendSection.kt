@@ -46,15 +46,27 @@ fun MemberRecommendSection() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Column {
-            RecommendOtherMemberItem()
-            RecommendOtherMemberItem()
-            RecommendOtherMemberItem()
+            RecommendOtherMemberItem(
+                userNickname = "로이임탄",
+                profileImage = R.drawable.img_home_recommend_2
+            )
+            RecommendOtherMemberItem(
+                userNickname = "누구게",
+                profileImage = R.drawable.img_home_recommend_6
+            )
+            RecommendOtherMemberItem(
+                userNickname = "누굴까",
+                profileImage = R.drawable.img_home_recommend_4
+            )
         }
     }
 }
 
 @Composable
-fun RecommendOtherMemberItem() {
+private fun RecommendOtherMemberItem(
+    userNickname: String,
+    profileImage: Int
+) {
     Box(
         modifier = Modifier
             .padding(vertical = 10.dp)
@@ -67,7 +79,7 @@ fun RecommendOtherMemberItem() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.img_home_recommend_3),
+                painter = painterResource(profileImage),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -78,7 +90,7 @@ fun RecommendOtherMemberItem() {
                 verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Text(
-                    text = "로이임탄",
+                    text = userNickname,
                     color = GongBaekTheme.colors.gray10,
                     style = GongBaekTheme.typography.body2.sb14
                 )
@@ -132,6 +144,9 @@ private fun PreviewMemberRecommendSection() {
 @Composable
 private fun PreviewOtherMemberItem() {
     GONGBAEKTheme {
-        RecommendOtherMemberItem()
+        RecommendOtherMemberItem(
+            userNickname = "로이임탄",
+            profileImage = R.drawable.img_home_recommend_2
+        )
     }
 }

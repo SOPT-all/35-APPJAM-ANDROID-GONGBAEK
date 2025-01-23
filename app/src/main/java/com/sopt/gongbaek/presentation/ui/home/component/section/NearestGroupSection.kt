@@ -7,19 +7,24 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -29,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.NearestGroup
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
@@ -43,26 +49,41 @@ fun NearestGroupSection(
     modifier: Modifier = Modifier
 ) {
     var columnHeight by remember { mutableIntStateOf(0) }
+    val systemUiController = rememberSystemUiController()
+
+    DisposableEffect(Unit) {
+        systemUiController.setStatusBarColor(
+            color = Color.Transparent,
+            darkIcons = true
+        )
+        onDispose {
+            systemUiController.setStatusBarColor(
+                color = Color.White,
+                darkIcons = true
+            )
+        }
+    }
+
     Box(
         modifier = modifier.fillMaxWidth()
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_home_main),
             contentDescription = null,
-            contentScale = ContentScale.None,
             modifier = Modifier
-                .height(with(LocalDensity.current) { columnHeight.toDp() })
+                .fillMaxWidth()
+                .height(with(LocalDensity.current) { columnHeight.toDp() }),
+            contentScale = ContentScale.None,
         )
 
         Column(
             modifier = Modifier
+                .fillMaxWidth()
                 .onGloballyPositioned { layoutCoordinates ->
                     columnHeight = layoutCoordinates.size.height
                 }
-                .padding(
-                    top = 24.dp,
-                    bottom = 26.dp
-                )
+                .padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding())
+                .padding(top = 23.dp, bottom = 26.dp)
         ) {
             UnivInfo(
                 university = university,

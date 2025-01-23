@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
@@ -22,8 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import com.sopt.gongbaek.R
-import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.presentation.type.GongBaekDialogType
 import com.sopt.gongbaek.presentation.type.GroupDetailPagerType
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
@@ -37,6 +36,7 @@ import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GroupDetailRoute(
     viewModel: GroupDetailViewModel = hiltViewModel(),
@@ -45,6 +45,15 @@ fun GroupDetailRoute(
 ) {
     val groupDetailUiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val groupDetailTabs: List<String> = GroupDetailPagerType.entries.map { it.description }
+    val pagerState = rememberPagerState { groupDetailTabs.size }
+
+    LaunchedEffect(pagerState.currentPage) {
+        when (pagerState.currentPage) {
+            0 -> viewModel.setEvent(GroupDetailContract.Event.OnGroupInfoTabClick)
+            1 -> viewModel.setEvent(GroupDetailContract.Event.OnCommentTabClick)
+        }
+    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
@@ -58,12 +67,12 @@ fun GroupDetailRoute(
 
     GroupDetailScreen(
         uiState = groupDetailUiState,
+        groupDetailTabs = groupDetailTabs,
+        pagerState = pagerState,
         onBackClick = { viewModel.sendSideEffect(GroupDetailContract.SideEffect.NavigateBack) },
-        onGroupInfoTabClick = { viewModel.setEvent(GroupDetailContract.Event.OnGroupInfoTabClick) },
         onApplyClick = { viewModel.setEvent(GroupDetailContract.Event.OnApplyClick) },
         onDialogConfirmClick = { viewModel.setEvent(GroupDetailContract.Event.OnDialogConfirmClick) },
         onDialogDismissClick = { viewModel.setEvent(GroupDetailContract.Event.OnDialogDismissClick) },
-        onCommentTabClick = { viewModel.setEvent(GroupDetailContract.Event.OnCommentTabClick) },
         updateInputComment = { inputComment -> viewModel.setEvent(GroupDetailContract.Event.UpdateInputComment(inputComment)) },
         onCommentRefreshClick = { viewModel.setEvent(GroupDetailContract.Event.OnCommentRefreshClick) },
         onCommentPostClick = { viewModel.setEvent(GroupDetailContract.Event.OnCommentPostClick) }
@@ -74,35 +83,31 @@ fun GroupDetailRoute(
 @Composable
 fun GroupDetailScreen(
     uiState: GroupDetailContract.State,
+    groupDetailTabs: List<String>,
+    pagerState: PagerState,
     onBackClick: () -> Unit,
-    onGroupInfoTabClick: () -> Unit,
     onApplyClick: () -> Unit,
     onDialogConfirmClick: () -> Unit,
     onDialogDismissClick: () -> Unit,
-    onCommentTabClick: () -> Unit,
     updateInputComment: (String) -> Unit,
     onCommentRefreshClick: () -> Unit,
     onCommentPostClick: () -> Unit
 ) {
-    val groupDetailTabs: List<String> = GroupDetailPagerType.entries.map { it.description }
-    val pagerState = rememberPagerState { groupDetailTabs.size }
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         StartTitleTopBar(
             modifier = Modifier.background(color = GongBaekTheme.colors.white),
-            startTitleResId = R.string.group_detail_top_bar_title,
             onClick = onBackClick
         )
         GroupInfoSection(
-            groupStatus = GroupInfoChipType.getChipTypeFromStatus(uiState.groupInfo.status),
-            groupCategory = GroupInfoChipType.getChipTypeFromCategory(uiState.groupInfo.category),
-            groupCycle = GroupInfoChipType.getChipTypeFromCycle(uiState.groupInfo.cycle),
-            groupCover = uiState.groupInfo.coverImg,
-            groupTitle = uiState.groupInfo.title,
-            groupTime = formatGroupTimeDescription(uiState.groupInfo),
-            groupPlace = uiState.groupInfo.place,
+            groupStatus = GroupInfoChipType.getChipTypeFromStatus(uiState.groupDetail.groupInfo.status),
+            groupCategory = GroupInfoChipType.getChipTypeFromCategory(uiState.groupDetail.groupInfo.category),
+            groupCycle = GroupInfoChipType.getChipTypeFromCycle(uiState.groupDetail.groupInfo.cycle),
+            groupTitle = uiState.groupDetail.groupInfo.title,
+            groupTime = formatGroupTimeDescription(uiState.groupDetail.groupInfo),
+            groupPlace = uiState.groupDetail.groupInfo.place,
+            groupCover = uiState.groupDetail.groupInfo.coverImg,
             modifier = Modifier
                 .background(color = GongBaekTheme.colors.white)
                 .padding(16.dp)
@@ -121,14 +126,13 @@ fun GroupDetailScreen(
             pageContent = { page ->
                 when (page) {
                     0 -> GroupDetailInfoSection(
-                        groupInfo = uiState.groupInfo,
-                        groupMaxPeopleCount = 4,
-                        groupCurrentPeopleCount = 2,
+                        groupInfo = uiState.groupDetail.groupInfo,
+                        groupHost = uiState.groupDetail.groupHost,
                         onApplyClick = onApplyClick
                     )
 
                     1 -> CommentSection(
-                        groupComments = uiState.groupComments,
+                        groupComments = uiState.groupDetail.groupComments,
                         value = uiState.inputComment,
                         onValueChanged = updateInputComment,
                         onRefreshClicked = onCommentRefreshClick,
@@ -176,25 +180,19 @@ fun GroupDetailScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
 private fun GroupDetailScreenPreview() {
     GONGBAEKTheme {
         GroupDetailScreen(
-            uiState = GroupDetailContract.State(
-                groupInfo = GroupInfo(
-                    status = "RECRUITING",
-                    isHost = false,
-                    isApply = false
-                ),
-                groupApplyState = UiLoadState.Error
-            ),
+            uiState = GroupDetailContract.State(),
+            groupDetailTabs = GroupDetailPagerType.entries.map { it.description },
+            pagerState = rememberPagerState { GroupDetailPagerType.entries.map { it.description }.size },
             onBackClick = {},
-            onGroupInfoTabClick = {},
             onApplyClick = {},
             onDialogConfirmClick = {},
             onDialogDismissClick = {},
-            onCommentTabClick = {},
             updateInputComment = {},
             onCommentRefreshClick = {},
             onCommentPostClick = {}

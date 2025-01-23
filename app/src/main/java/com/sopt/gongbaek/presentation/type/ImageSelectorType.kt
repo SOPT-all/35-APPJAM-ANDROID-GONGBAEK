@@ -72,7 +72,7 @@ enum class ImageSelectorType(
         )
 
         fun getImageListFromCategory(category: String): List<Int> {
-            val range = categoryIndexRanges[category] ?: return emptyList()
+            val range = categoryIndexRanges[category] ?: 0..5
             return Cover.imageButtonResIdList.slice(range)
         }
     }

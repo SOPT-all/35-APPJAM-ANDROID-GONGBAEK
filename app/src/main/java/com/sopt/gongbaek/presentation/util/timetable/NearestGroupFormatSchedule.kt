@@ -9,10 +9,14 @@ fun nearestGroupFormatSchedule(
     startTime: Double,
     endTime: Double
 ): String {
-    val date = LocalDate.parse(weekDate)
-    val formattedDate = date.format(DateTimeFormatter.ofPattern("M/d E요일", Locale.KOREAN))
-
-    return "$formattedDate ${formatTime(startTime)}-${formatTime(endTime)}"
+    return try {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.KOREAN)
+        val date = LocalDate.parse(weekDate, formatter)
+        val formattedDate = date.format(DateTimeFormatter.ofPattern("M/d E요일", Locale.KOREAN))
+        "$formattedDate ${formatTime(startTime)}-${formatTime(endTime)}"
+    } catch (e: Exception) {
+        "Invalid date input"
+    }
 }
 
 private fun formatTime(time: Double): String {

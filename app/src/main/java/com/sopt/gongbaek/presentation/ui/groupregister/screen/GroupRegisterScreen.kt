@@ -141,7 +141,14 @@ private fun GroupRegisterSection(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val selectedImageResId = ImageSelectorType.getImageListFromCategory(groupRegisterInfo.category).get(groupRegisterInfo.coverImg - 1)
+    val imageList = ImageSelectorType.getImageListFromCategory(groupRegisterInfo.category)
+
+    val selectedImageResId = if (imageList.isNotEmpty() && groupRegisterInfo.coverImg in 1..imageList.size) {
+        imageList[groupRegisterInfo.coverImg - 1]
+    } else {
+        R.drawable.img_study_1
+    }
+
     Column(
         modifier = modifier
     ) {

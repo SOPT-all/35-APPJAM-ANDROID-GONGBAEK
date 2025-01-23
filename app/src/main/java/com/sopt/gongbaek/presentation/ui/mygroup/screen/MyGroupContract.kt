@@ -22,7 +22,7 @@ class MyGroupContract {
     }
 
     sealed interface SideEffect : UiSideEffect {
-        data object NavigateGroupDetail : SideEffect
-        data object NavigateGroupRoom : SideEffect
+        data class NavigateGroupDetail(val groupId: Int, val groupCycle: String) : SideEffect
+        data class NavigateGroupRoom(val groupId: Int, val groupCycle: String) : SideEffect
     }
 }

@@ -60,7 +60,7 @@ class GroupListViewModel @Inject constructor(
             runCatching {
                 getGroupsUseCase(category = queryParams).fold(
                     onSuccess = { groups ->
-                        setState { copy(groups = groups) }
+                        setState { copy(groups = groups, loadState = UiLoadState.Success) }
                     },
                     onFailure = { setState { copy(loadState = UiLoadState.Error) } }
                 )

@@ -1,15 +1,20 @@
 package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
+import com.sopt.gongbaek.domain.usecase.PostGroupUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class GroupRegisterViewModel @Inject constructor() :
+class GroupRegisterViewModel @Inject constructor(
+    private val postGroupUseCase: PostGroupUseCase
+) :
     BaseViewModel<GroupRegisterContract.State, GroupRegisterContract.Event, GroupRegisterContract.SideEffect>() {
     override fun createInitialState(): GroupRegisterContract.State = GroupRegisterContract.State()
 
@@ -40,7 +45,7 @@ class GroupRegisterViewModel @Inject constructor() :
             }
 
             is GroupRegisterContract.Event.OnCoverSelected -> {
-                updateGroupRegisterInfo { copy(coverImg = event.cover + 1) }
+                updateGroupRegisterInfo { copy(coverImg = event.cover) }
                 setState { copy(selectedCover = event.cover) }
             }
 
@@ -61,7 +66,7 @@ class GroupRegisterViewModel @Inject constructor() :
             }
 
             is GroupRegisterContract.Event.OnRegisterButtonClicked -> {
-                registerGroup()
+                registerGroup(groupRegisterInfo = currentState.groupRegisterInfo)
             }
 
             is GroupRegisterContract.Event.OnDialogConfirmClicked -> {
@@ -136,9 +141,24 @@ class GroupRegisterViewModel @Inject constructor() :
         }
     }
 
-    private fun registerGroup() {
+    private fun registerGroup(groupRegisterInfo: GroupRegisterInfo) {
         viewModelScope.launch {
-            setState { copy(loadState = UiLoadState.Loading) }
+            setState { copy(registerState = UiLoadState.Loading) }
+            Timber.tag("registerState1").d("${currentState.registerState}")
+
+            runCatching {
+                postGroupUseCase(groupRegisterInfo = groupRegisterInfo).fold(
+                    onSuccess = {
+                        setState { copy(registerState = UiLoadState.Success) }
+                        Timber.tag("registerState2").d("${currentState.registerState}")
+                    },
+                    onFailure = { error ->
+                        setState { copy(registerState = UiLoadState.Error) }
+                        Timber.tag("error").d("$error")
+                        Timber.tag("registerState3").d("${currentState.registerState}")
+                    }
+                )
+            }
         }
     }
 

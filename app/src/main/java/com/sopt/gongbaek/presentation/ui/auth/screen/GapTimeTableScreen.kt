@@ -50,16 +50,16 @@ fun GapTimeTableRoute(
 
     GapTimeTableScreen(
         lectureTime = uiState.selectedTimeSlotsByDay,
-        navigateCompleteAuth = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateCompleteAuth) },
-        navigateEnterTimetable = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateEnterTimetable) }
+        navigateEnterTimetable = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateEnterTimetable) },
+        submitUserInfo = { viewModel.setEvent(AuthContract.Event.SubmitUserInfo) }
     )
 }
 
 @Composable
 private fun GapTimeTableScreen(
-    navigateCompleteAuth: () -> Unit,
     navigateEnterTimetable: () -> Unit,
-    lectureTime: Map<String, List<Int>>
+    lectureTime: Map<String, List<Int>>,
+    submitUserInfo: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -77,7 +77,7 @@ private fun GapTimeTableScreen(
                 GongBaekBasicButton(
                     title = "가입완료",
                     enabled = true,
-                    onClick = navigateCompleteAuth,
+                    onClick = submitUserInfo,
                     modifier = Modifier.weight(2f)
                 )
             }
@@ -132,7 +132,6 @@ private fun GapTimeTableSection(
 private fun PreviewGapTimeTableScreen() {
     GONGBAEKTheme {
         GapTimeTableScreen(
-            navigateCompleteAuth = {},
             navigateEnterTimetable = {},
             lectureTime = mapOf(
                 "월" to listOf(1, 2, 3, 4, 5),
@@ -140,7 +139,8 @@ private fun PreviewGapTimeTableScreen() {
                 "수" to listOf(1, 2, 3, 4, 5),
                 "목" to listOf(1, 2, 3, 4, 5),
                 "금" to listOf(1, 2, 3, 4, 5)
-            )
+            ),
+            submitUserInfo = {}
         )
     }
 }

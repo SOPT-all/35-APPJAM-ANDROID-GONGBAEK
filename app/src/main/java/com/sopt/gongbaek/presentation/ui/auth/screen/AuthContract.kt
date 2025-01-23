@@ -4,11 +4,13 @@ import com.sopt.gongbaek.domain.model.Majors
 import com.sopt.gongbaek.domain.model.Universities
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.presentation.util.base.UiEvent
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect
 import com.sopt.gongbaek.presentation.util.base.UiState
 
 class AuthContract {
     data class State(
+        val loadState: UiLoadState = UiLoadState.Idle,
         val userInfo: UserInfo = UserInfo(),
         val universities: Universities = Universities(),
         val majors: Majors = Majors(),
@@ -22,6 +24,8 @@ class AuthContract {
         val decisionMakingOptions: String = "",
         val lifestyleOrientationOptions: String = "",
         val selectedGender: String = "",
+        val nicknameValidation: Boolean = false,
+        val nicknameErrorMessage: String? = null,
         val selectedTimeSlotsByDay: Map<String, List<Int>> = emptyMap()
     ) : UiState
 
@@ -43,6 +47,8 @@ class AuthContract {
         data class OnGenderSelected(val selectedGender: String) : Event()
         data class OnSelfIntroductionChanged(val selfIntroduction: String) : Event()
         data class OnTimeSlotSelectionChange(val day: String, val timeSlots: List<Int>) : Event()
+        data object SubmitUserInfo : Event()
+        data object ValidateNickname : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {

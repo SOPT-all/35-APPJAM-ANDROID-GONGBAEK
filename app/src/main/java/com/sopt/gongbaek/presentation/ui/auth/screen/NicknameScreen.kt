@@ -50,8 +50,9 @@ fun NicknameRoute(
 
     NicknameScreen(
         nickname = uiState.userInfo.nickname,
-        onNicknameChanged = { nickname -> viewModel.setEvent(AuthContract.Event.OnNicknameChanged(nickname)) },
-        navigateUnivMajor = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateUnivMajor) },
+        errorMessage = uiState.nicknameErrorMessage,
+        onNicknameChanged = { viewModel.setEvent(AuthContract.Event.OnNicknameChanged(it)) },
+        navigateUnivMajor = { viewModel.setEvent(AuthContract.Event.ValidateNickname) },
         onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )
 }
@@ -59,6 +60,7 @@ fun NicknameRoute(
 @Composable
 private fun NicknameScreen(
     nickname: String,
+    errorMessage: String?,
     onNicknameChanged: (String) -> Unit,
     navigateUnivMajor: () -> Unit = {},
     onBackClick: () -> Unit = {}
@@ -71,6 +73,7 @@ private fun NicknameScreen(
         NickNameInputSection(
             nickname = nickname,
             onNicknameChanged = onNicknameChanged,
+            errorMessage = errorMessage,
             onBackClick = onBackClick,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
@@ -79,7 +82,7 @@ private fun NicknameScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            enabled = nickname.isNotBlank(),
+            enabled = nickname.isNotBlank() && errorMessage.isNullOrEmpty(),
             onClick = navigateUnivMajor,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -92,6 +95,7 @@ private fun NicknameScreen(
 private fun NickNameInputSection(
     nickname: String,
     onNicknameChanged: (String) -> Unit,
+    errorMessage: String?,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {}
 ) {
@@ -115,7 +119,10 @@ private fun NickNameInputSection(
             GongBaekBasicTextField(
                 value = nickname,
                 onValueChange = onNicknameChanged,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.NICKNAME
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.NICKNAME,
+                isError = !errorMessage.isNullOrEmpty(),
+                errorMessage = errorMessage.orEmpty(), // 에러 메시지 전달
+                onErrorChange = { /* 에러 변경 처리 */ }
             )
         }
     }
@@ -127,7 +134,8 @@ private fun PreviewNicknameScreen() {
     GONGBAEKTheme {
         NicknameScreen(
             nickname = "닉네임",
-            onNicknameChanged = {}
+            onNicknameChanged = {},
+            errorMessage = null
         )
     }
 }

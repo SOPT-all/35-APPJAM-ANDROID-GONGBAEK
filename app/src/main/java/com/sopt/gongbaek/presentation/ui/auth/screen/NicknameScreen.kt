@@ -24,7 +24,6 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.textfield.GongBaekBasicTextField
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
-import com.sopt.gongbaek.presentation.util.extension.isKoreanChar
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable

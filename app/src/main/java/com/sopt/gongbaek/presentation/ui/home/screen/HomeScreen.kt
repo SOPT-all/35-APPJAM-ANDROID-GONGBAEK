@@ -31,6 +31,7 @@ fun HomeRoute(
         viewModel.setEvent(HomeContract.Event.OnFetchLatestOnceGroup)
         viewModel.setEvent(HomeContract.Event.OnFetchLatestWeekGroup)
         viewModel.setEvent(HomeContract.Event.OnFetchUserProfile)
+        viewModel.setEvent(HomeContract.Event.OnFetchUserLectureTimetable)
     }
 
     HomeScreen(

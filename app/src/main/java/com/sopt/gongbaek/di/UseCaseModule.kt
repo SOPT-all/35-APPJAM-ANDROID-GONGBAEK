@@ -8,6 +8,7 @@ import com.sopt.gongbaek.domain.repository.TokenRepository
 import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
 import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
 import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
+import com.sopt.gongbaek.domain.usecase.FetchUserLectureTimetableUseCase
 import com.sopt.gongbaek.domain.usecase.FetchUserProfileUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
@@ -90,4 +91,10 @@ object UseCaseModule {
     fun provideFetchUserProfileUseCase(
         authRepository: AuthRepository
     ): FetchUserProfileUseCase = FetchUserProfileUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideFetchUserLectureTimetableUseCase(
+        authRepository: AuthRepository
+    ): FetchUserLectureTimetableUseCase = FetchUserLectureTimetableUseCase(authRepository)
 }

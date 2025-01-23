@@ -126,6 +126,7 @@
     <string name="group_detail_button_apply">신청하기</string>
     <string name="group_detail_button_cancel">신청 취소하기</string>
     <string name="group_detail_button_delete">삭제하기</string>
+    <string name="group_detail_button_closed">종료된 모임입니다.</string>
 
     <!--GroupListScreen-->
     <string name="grouplist_dayofweek_all">전체</string>
@@ -177,5 +178,4 @@
 
     <!--GroupRegister-->
     <string name="groupregister_complete_title">입력한 정보가 맞는지 확인해주세요!</string>
-
 </resources>

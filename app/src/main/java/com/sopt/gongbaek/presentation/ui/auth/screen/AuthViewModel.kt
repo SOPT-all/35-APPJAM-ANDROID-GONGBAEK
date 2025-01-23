@@ -12,6 +12,7 @@ import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.createMbti
+import com.sopt.gongbaek.presentation.util.extension.isKoreanChar
 import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,7 +33,8 @@ class AuthViewModel @Inject constructor(
         when (event) {
             is AuthContract.Event.OnProfileImageSelected -> updateUserInfo { copy(profileImage = event.profileImage) }
             is AuthContract.Event.OnNicknameChanged -> {
-                updateUserInfo { copy(nickname = event.nickname) }
+                val filteredNickname = event.nickname.filter { it.isKoreanChar() }
+                updateUserInfo { copy(nickname = filteredNickname) }
                 setState {
                     copy(
                         nicknameValidation = true,

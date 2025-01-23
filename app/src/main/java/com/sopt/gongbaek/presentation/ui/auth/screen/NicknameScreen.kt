@@ -52,10 +52,7 @@ fun NicknameRoute(
     NicknameScreen(
         nickname = uiState.userInfo.nickname,
         errorMessage = uiState.nicknameErrorMessage,
-        onNicknameChanged = { nickname ->
-            val filteredNickname = nickname.filter { it.isKoreanChar() }
-            viewModel.setEvent(AuthContract.Event.OnNicknameChanged(filteredNickname))
-        },
+        onNicknameChanged = { viewModel.setEvent(AuthContract.Event.OnNicknameChanged(it)) },
         navigateUnivMajor = { viewModel.setEvent(AuthContract.Event.ValidateNickname) },
         onBackClick = { viewModel.sendSideEffect(AuthContract.SideEffect.NavigateBack) }
     )

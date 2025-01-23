@@ -23,6 +23,6 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun validateNickname(nickname: String): Result<Unit> =
         runCatching {
-            authRemoteDatasource.validateNickname(nickname = nickname).handleNullableApiResponse().getOrThrow()
+            authRemoteDatasource.validateNickname(nickname = nickname).handleNullableApiResponse().exceptionOrNull()
         }
 }

@@ -2,7 +2,6 @@ package com.sopt.gongbaek.data.repositoryimpl
 
 import com.sopt.gongbaek.data.mapper.todomain.toDomain
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
-import com.sopt.gongbaek.data.remote.dto.response.GroupDetailResponseDto
 import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.data.remote.util.handleNullableApiResponse
 import com.sopt.gongbaek.domain.model.GroupHost
@@ -33,4 +32,3 @@ class GroupRepositoryImpl @Inject constructor(
             groupDataSource.applyGroup(groupId = groupId, groupType = groupType).handleNullableApiResponse().getOrThrow()
         }
 }
-

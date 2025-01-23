@@ -20,5 +20,5 @@ data class GroupDetailResponseDto(
     @SerialName("maxPeopleCount") val maxPeopleCount: Int,
     @SerialName("currentPeopleCount") val currentPeopleCount: Int,
     @SerialName("isHost") val isHost: Boolean,
-    @SerialName("isApply") val isApply: Boolean,
+    @SerialName("isApply") val isApply: Boolean
 )

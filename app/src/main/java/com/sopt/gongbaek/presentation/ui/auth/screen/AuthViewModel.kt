@@ -199,11 +199,13 @@ class AuthViewModel @Inject constructor(
                     onResult(true)
                 },
                 onFailure = { exception ->
-                    setState {
-                        copy(
-                            nicknameValidation = false,
-                            nicknameErrorMessage = exception.message
-                        )
+                    if (exception.message == ERROR_CODE_DUPLICATE_NICKNAME) {
+                        setState {
+                            copy(
+                                nicknameValidation = false,
+                                nicknameErrorMessage = NICKNAME_VALIDATION_ERROR_MESSAGE
+                            )
+                        }
                     }
                     onResult(false)
                 }
@@ -213,4 +215,9 @@ class AuthViewModel @Inject constructor(
 
     private fun updateUserInfo(update: UserInfo.() -> UserInfo) =
         setState { copy(userInfo = userInfo.update()) }
+
+    companion object {
+        private const val NICKNAME_VALIDATION_ERROR_MESSAGE = "중복된 닉네임입니다. 다시 입력해주세요."
+        private const val ERROR_CODE_DUPLICATE_NICKNAME = "HTTP 409 "
+    }
 }

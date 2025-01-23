@@ -9,6 +9,7 @@ import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
+import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
 import com.sopt.gongbaek.domain.usecase.RegisterUserInfoUseCase
 import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
 import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase

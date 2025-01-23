@@ -1,8 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.groupdetail.screen
 
-import com.sopt.gongbaek.domain.model.GroupComments
-import com.sopt.gongbaek.domain.model.GroupHost
-import com.sopt.gongbaek.domain.model.GroupInfo
+import com.sopt.gongbaek.domain.model.GroupDetail
 import com.sopt.gongbaek.presentation.util.base.UiEvent
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect
@@ -10,10 +8,8 @@ import com.sopt.gongbaek.presentation.util.base.UiState
 
 class GroupDetailContract {
     data class State(
-        val loadState: UiLoadState = UiLoadState.Idle,
-        val groupInfo: GroupInfo = GroupInfo(),
-        val groupHost: GroupHost = GroupHost(),
-        val groupComments: GroupComments = GroupComments(),
+        val groupDetailLoadState: UiLoadState = UiLoadState.Idle,
+        val groupDetail: GroupDetail = GroupDetail(),
         val inputComment: String = "",
         val groupApplyState: UiLoadState = UiLoadState.Idle,
         val commentState: UiLoadState = UiLoadState.Idle

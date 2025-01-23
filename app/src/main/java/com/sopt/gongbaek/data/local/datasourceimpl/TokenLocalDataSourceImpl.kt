@@ -9,7 +9,7 @@ class TokenLocalDataSourceImpl @Inject constructor(
     @TokenPrefs private val sharedPreferences: SharedPreferences
 ) : TokenLocalDataSource {
     override var accessToken: String
-        get() = sharedPreferences.getString(ACCESS_TOKEN, "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxODIzNDQyODE0LCJ1c2VySWQiOjF9.piiJ8o2pXY-_A6ZjvxQ7MOyfnYOsnM-FQwMmC3m4qWIzK0wlxBb6tEfT3HzLuIU1SoZTveGeCEq7g6JABYmx2A") ?: ""
+        get() = sharedPreferences.getString(ACCESS_TOKEN, "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImV4cCI6MTczNzc1NzYyNCwidXNlcklkIjoyNn0.bwgS0uLVQWFAzi2OatSkVYD5VqjM_wKOnJ8HzR736sArko3RdzRsabSqLCN9-UEP5YdKyBgjz9hAo1-Fe2-xBA") ?: ""
         set(value) = sharedPreferences.edit().putString(ACCESS_TOKEN, value).apply()
 
     override var refreshToken: String

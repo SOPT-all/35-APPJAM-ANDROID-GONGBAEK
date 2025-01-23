@@ -1,8 +1,10 @@
 package com.sopt.gongbaek.di
 
 import com.sopt.gongbaek.data.local.datasource.ExampleLocalDataSource
+import com.sopt.gongbaek.data.local.datasource.LectureTimetableLocalDataSource
 import com.sopt.gongbaek.data.local.datasource.TokenLocalDataSource
 import com.sopt.gongbaek.data.local.datasourceimpl.ExampleLocalDataSourceImpl
+import com.sopt.gongbaek.data.local.datasourceimpl.LectureTimetableLocalDataSourceImpl
 import com.sopt.gongbaek.data.local.datasourceimpl.TokenLocalDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasource.AuthRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasource.ExampleRemoteDataSource
@@ -56,4 +58,10 @@ abstract class DataSourceModule {
     abstract fun bindAuthRemoteDataSource(
         authRemoteDataSourceImpl: AuthRemoteDatasourceImpl
     ): AuthRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindLectureTimetableLocalDataSource(
+        lectureTimetableDataSourceImpl: LectureTimetableLocalDataSourceImpl
+    ): LectureTimetableLocalDataSource
 }

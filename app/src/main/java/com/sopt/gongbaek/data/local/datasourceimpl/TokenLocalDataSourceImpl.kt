@@ -2,10 +2,11 @@ package com.sopt.gongbaek.data.local.datasourceimpl
 
 import android.content.SharedPreferences
 import com.sopt.gongbaek.data.local.datasource.TokenLocalDataSource
+import com.sopt.gongbaek.di.qualifier.TokenPrefs
 import javax.inject.Inject
 
 class TokenLocalDataSourceImpl @Inject constructor(
-    private val sharedPreferences: SharedPreferences
+    @TokenPrefs private val sharedPreferences: SharedPreferences
 ) : TokenLocalDataSource {
     override var accessToken: String
         get() = sharedPreferences.getString(ACCESS_TOKEN, "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxODIzNDQyODE0LCJ1c2VySWQiOjF9.piiJ8o2pXY-_A6ZjvxQ7MOyfnYOsnM-FQwMmC3m4qWIzK0wlxBb6tEfT3HzLuIU1SoZTveGeCEq7g6JABYmx2A") ?: ""

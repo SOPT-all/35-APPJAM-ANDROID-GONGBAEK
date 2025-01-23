@@ -4,6 +4,7 @@ import com.sopt.gongbaek.domain.repository.AuthRepository
 import com.sopt.gongbaek.domain.repository.ExampleRepository
 import com.sopt.gongbaek.domain.repository.SearchRepository
 import com.sopt.gongbaek.domain.repository.GroupRepository
+import com.sopt.gongbaek.domain.repository.LectureTimetableRepository
 import com.sopt.gongbaek.domain.repository.TokenRepository
 import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
 import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
@@ -12,9 +13,11 @@ import com.sopt.gongbaek.domain.usecase.FetchUserLectureTimetableUseCase
 import com.sopt.gongbaek.domain.usecase.FetchUserProfileUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
+import com.sopt.gongbaek.domain.usecase.GetLectureTimetableUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
 import com.sopt.gongbaek.domain.usecase.RegisterUserInfoUseCase
+import com.sopt.gongbaek.domain.usecase.SetLectureTimetableUseCase
 import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
 import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase
 import dagger.Module
@@ -97,4 +100,16 @@ object UseCaseModule {
     fun provideFetchUserLectureTimetableUseCase(
         authRepository: AuthRepository
     ): FetchUserLectureTimetableUseCase = FetchUserLectureTimetableUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetLectureTimetableUseCase(
+        lectureTimetableRepository: LectureTimetableRepository
+    ): GetLectureTimetableUseCase = GetLectureTimetableUseCase(lectureTimetableRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetLectureTimetableUseCase(
+        lectureTimetableRepository: LectureTimetableRepository
+    ): SetLectureTimetableUseCase = SetLectureTimetableUseCase(lectureTimetableRepository)
 }

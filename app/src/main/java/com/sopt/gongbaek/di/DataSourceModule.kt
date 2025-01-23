@@ -5,11 +5,15 @@ import com.sopt.gongbaek.data.local.datasource.TokenLocalDataSource
 import com.sopt.gongbaek.data.local.datasourceimpl.ExampleLocalDataSourceImpl
 import com.sopt.gongbaek.data.local.datasourceimpl.TokenLocalDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasource.CommentRemoteDataSource
+import com.sopt.gongbaek.data.remote.datasource.AuthRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasource.ExampleRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasourceimpl.CommentRemoteDataSourceImpl
+import com.sopt.gongbaek.data.remote.datasource.SearchRemoteDataSource
+import com.sopt.gongbaek.data.remote.datasourceimpl.AuthRemoteDatasourceImpl
 import com.sopt.gongbaek.data.remote.datasourceimpl.ExampleRemoteDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasourceimpl.GroupRemoteDataSourceImpl
+import com.sopt.gongbaek.data.remote.datasourceimpl.SearchRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -48,4 +52,16 @@ abstract class DataSourceModule {
     abstract fun bindCommentRemoteDataSource(
         commentRemoteDataSourceImpl: CommentRemoteDataSourceImpl
     ): CommentRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindSearchRemoteDataSource(
+        searchRemoteDataSourceImpl: SearchRemoteDataSourceImpl
+    ): SearchRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthRemoteDataSource(
+        authRemoteDataSourceImpl: AuthRemoteDatasourceImpl
+    ): AuthRemoteDataSource
 }

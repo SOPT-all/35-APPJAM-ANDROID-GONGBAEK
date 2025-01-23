@@ -107,6 +107,7 @@ fun GroupDetailScreen(
             groupTitle = uiState.groupDetail.groupInfo.title,
             groupTime = formatGroupTimeDescription(uiState.groupDetail.groupInfo),
             groupPlace = uiState.groupDetail.groupInfo.place,
+            groupCover = uiState.groupDetail.groupInfo.coverImg,
             modifier = Modifier
                 .background(color = GongBaekTheme.colors.white)
                 .padding(16.dp)

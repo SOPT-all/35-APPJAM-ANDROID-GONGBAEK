@@ -44,13 +44,15 @@ import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.GroupComments
 import com.sopt.gongbaek.domain.model.GroupInfo
-import com.sopt.gongbaek.domain.model.GroupPeople
+import com.sopt.gongbaek.domain.model.GroupMembers
+import com.sopt.gongbaek.domain.model.GroupRoom
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
 import com.sopt.gongbaek.presentation.ui.component.chip.GroupInfoChip
 import com.sopt.gongbaek.presentation.ui.component.section.CommentSection
 import com.sopt.gongbaek.presentation.ui.component.section.GroupPlaceDescription
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
+import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.roundedBackgroundWithBorder
 import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
@@ -59,16 +61,20 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun GroupRoomRoute(
     viewModel: GroupRoomViewModel = hiltViewModel(),
-    navigateMyGroup: () -> Unit
+    navigateBack: () -> Unit
 ) {
     val groupRoomUiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(Unit) {
+        viewModel.getGroupRoomInfo()
+    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is GroupRoomContract.SideEffect.NavigateMyGroup -> navigateMyGroup()
+                    is GroupRoomContract.SideEffect.NavigateBack -> navigateBack()
                 }
             }
     }
@@ -76,7 +82,7 @@ fun GroupRoomRoute(
     GroupRoomScreen(
         uiState = groupRoomUiState,
         updateInputComment = { inputComment -> viewModel.setEvent(GroupRoomContract.Event.UpdateInputComment(inputComment)) },
-        onBackClick = { viewModel.sendSideEffect(GroupRoomContract.SideEffect.NavigateMyGroup) },
+        onBackClick = { viewModel.sendSideEffect(GroupRoomContract.SideEffect.NavigateBack) },
         onCommentRefreshClick = { viewModel.setEvent(GroupRoomContract.Event.OnCommentRefreshClick) },
         onCommentPostClick = { viewModel.setEvent(GroupRoomContract.Event.OnCommentPostClick) }
     )
@@ -114,25 +120,25 @@ fun GroupRoomScreen(
             ) {
                 StartTitleTopBar(onClick = onBackClick)
                 GroupRoomInfoSection(
-                    groupStatus = GroupInfoChipType.getChipTypeFromStatus(uiState.groupInfo.status),
-                    groupCategory = GroupInfoChipType.getChipTypeFromCategory(uiState.groupInfo.category),
-                    groupCycle = GroupInfoChipType.getChipTypeFromCycle(uiState.groupInfo.cycle),
-                    groupTitle = uiState.groupInfo.title,
-                    groupTime = formatGroupTimeDescription(uiState.groupInfo),
-                    groupPlace = uiState.groupInfo.place,
+                    groupStatus = GroupInfoChipType.getChipTypeFromStatus(uiState.groupRoom.groupInfo.status),
+                    groupCategory = GroupInfoChipType.getChipTypeFromCategory(uiState.groupRoom.groupInfo.category),
+                    groupCycle = GroupInfoChipType.getChipTypeFromCycle(uiState.groupRoom.groupInfo.cycle),
+                    groupTitle = uiState.groupRoom.groupInfo.title,
+                    groupTime = formatGroupTimeDescription(uiState.groupRoom.groupInfo),
+                    groupPlace = uiState.groupRoom.groupInfo.place,
                     modifier = Modifier.padding(top = 2.dp)
                 )
             }
         }
         GroupRoomPeopleSection(
-            groupPeople = uiState.groupPeople
+            groupMembers = uiState.groupRoom.groupMembers
         )
         HorizontalDivider(
             thickness = 8.dp,
             color = GongBaekTheme.colors.gray02
         )
         CommentSection(
-            groupComments = uiState.groupComments,
+            groupComments = uiState.groupRoom.groupComments,
             value = uiState.inputComment,
             onValueChanged = updateInputComment,
             onRefreshClicked = onCommentRefreshClick,
@@ -186,7 +192,7 @@ private fun GroupRoomInfoSection(
 
 @Composable
 private fun GroupRoomPeopleSection(
-    groupPeople: GroupPeople
+    groupMembers: GroupMembers
 ) {
     Column(
         modifier = Modifier
@@ -205,8 +211,8 @@ private fun GroupRoomPeopleSection(
             Text(
                 text = stringResource(
                     R.string.grouproom_people_count,
-                    groupPeople.currentPeopleCount,
-                    groupPeople.maxPeopleCount
+                    groupMembers.currentPeopleCount,
+                    groupMembers.maxPeopleCount
                 ),
                 color = GongBaekTheme.colors.gray10,
                 style = GongBaekTheme.typography.title2.sb18
@@ -218,7 +224,7 @@ private fun GroupRoomPeopleSection(
             verticalAlignment = Alignment.CenterVertically,
             contentPadding = PaddingValues(end = 16.dp)
         ) {
-            items(groupPeople.members) { member ->
+            items(groupMembers.members) { member ->
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box {
                         Image(
@@ -275,51 +281,54 @@ private fun GroupRoomScreenPreview1() {
     GONGBAEKTheme {
         GroupRoomScreen(
             uiState = GroupRoomContract.State(
-                groupInfo = GroupInfo(
-                    status = "CLOSED",
-                    category = "PLAYING",
-                    cycle = "WEEKLY",
-                    title = "화석의 튜스데이 점심 클럽",
-                    dayOfWeek = "THU",
-                    startTime = 13.5,
-                    endTime = 15.5,
-                    place = "학교 피아노 앞"
-                ),
-                groupPeople = GroupPeople(
-                    maxPeopleCount = 6,
-                    currentPeopleCount = 5,
-                    members = listOf(
-                        GroupPeople.Member(
-                            nickname = "로이임탄",
-                            isHost = true
-                        ),
-                        GroupPeople.Member(
-                            nickname = "아싸 대학생",
-                            isHost = false
-                        ),
-                        GroupPeople.Member(
-                            nickname = "파이리",
-                            isHost = false
-                        ),
-                        GroupPeople.Member(
-                            nickname = "노는게 제일좋아",
-                            isHost = false
-                        ),
-                        GroupPeople.Member(
-                            nickname = "소니",
-                            isHost = false
+                groupRoomLoadState = UiLoadState.Idle,
+                groupRoom = GroupRoom(
+                    groupInfo = GroupInfo(
+                        status = "CLOSED",
+                        category = "PLAYING",
+                        cycle = "WEEKLY",
+                        title = "화석의 튜스데이 점심 클럽",
+                        dayOfWeek = "THU",
+                        startTime = 13.5,
+                        endTime = 15.5,
+                        place = "학교 피아노 앞"
+                    ),
+                    groupMembers = GroupMembers(
+                        maxPeopleCount = 6,
+                        currentPeopleCount = 5,
+                        members = listOf(
+                            GroupMembers.Member(
+                                nickname = "로이임탄",
+                                isHost = true
+                            ),
+                            GroupMembers.Member(
+                                nickname = "아싸 대학생",
+                                isHost = false
+                            ),
+                            GroupMembers.Member(
+                                nickname = "파이리",
+                                isHost = false
+                            ),
+                            GroupMembers.Member(
+                                nickname = "노는게 제일좋아",
+                                isHost = false
+                            ),
+                            GroupMembers.Member(
+                                nickname = "소니",
+                                isHost = false
+                            )
                         )
-                    )
-                ),
-                groupComments = GroupComments(
-                    groupStatus = "CLOSED",
-                    groupCycle = "WEEKLY",
-                    commentCount = 0,
-                    groupCommentList = listOf(
-                        GroupComments.GroupComment(
-                            commentWriter = "로이임탄",
-                            commentContent = "왜 화장실에서 밥을 먹어요?",
-                            createdAt = "2025-12-27-02-18"
+                    ),
+                    groupComments = GroupComments(
+                        groupStatus = "CLOSED",
+                        groupCycle = "WEEKLY",
+                        commentCount = 0,
+                        groupCommentList = listOf(
+                            GroupComments.GroupComment(
+                                commentWriter = "로이임탄",
+                                commentContent = "왜 화장실에서 밥을 먹어요?",
+                                createdAt = "2025-12-27-02-18"
+                            )
                         )
                     )
                 )

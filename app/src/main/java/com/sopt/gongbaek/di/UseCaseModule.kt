@@ -5,6 +5,7 @@ import com.sopt.gongbaek.domain.repository.GroupRepository
 import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
 import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
+import com.sopt.gongbaek.domain.usecase.PostGroupUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,4 +32,10 @@ object UseCaseModule {
     fun provideGetGroupsUseCase(
         groupRepository: GroupRepository
     ): GetGroupsUseCase = GetGroupsUseCase(groupRepository)
+
+    @Provides
+    @Singleton
+    fun providePostGroupUseCase(
+        groupRepository: GroupRepository
+    ): PostGroupUseCase = PostGroupUseCase(groupRepository)
 }

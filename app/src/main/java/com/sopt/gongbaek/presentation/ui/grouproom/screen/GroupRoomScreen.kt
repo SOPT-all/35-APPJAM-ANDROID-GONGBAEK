@@ -112,7 +112,6 @@ fun GroupRoomScreen(
             darkIcons = true
         )
         onDispose {
-
         }
     }
 

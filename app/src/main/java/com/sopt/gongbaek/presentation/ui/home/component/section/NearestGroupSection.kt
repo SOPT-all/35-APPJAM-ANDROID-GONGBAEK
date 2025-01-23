@@ -57,10 +57,6 @@ fun NearestGroupSection(
             darkIcons = true
         )
         onDispose {
-            systemUiController.setStatusBarColor(
-                color = Color.White,
-                darkIcons = true
-            )
         }
     }
 

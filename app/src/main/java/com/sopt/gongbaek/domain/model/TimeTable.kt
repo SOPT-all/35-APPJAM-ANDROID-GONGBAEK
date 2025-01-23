@@ -2,6 +2,6 @@ package com.sopt.gongbaek.domain.model
 
 data class TimeTable(
     val weekDay: String = "",
-    val startTime: Float = 0.0F,
-    val endTime: Float = 0.0F
+    val startTime: Double = 0.0,
+    val endTime: Double = 0.0
 )

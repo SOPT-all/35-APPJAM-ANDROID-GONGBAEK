@@ -34,6 +34,6 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun getUserLectureTimeTable() =
         runCatching {
-            authRemoteDatasource.getUserLectureTimeTable().handleApiResponse().getOrThrow().map { it.toDomain() }
+            authRemoteDatasource.getUserLectureTimeTable().handleApiResponse().getOrThrow().toDomain()
         }
 }

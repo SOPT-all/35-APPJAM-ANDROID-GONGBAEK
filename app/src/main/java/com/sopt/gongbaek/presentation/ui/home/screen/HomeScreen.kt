@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.home.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,6 +34,9 @@ fun HomeRoute(
         viewModel.setEvent(HomeContract.Event.OnFetchUserProfile)
         viewModel.setEvent(HomeContract.Event.OnFetchUserLectureTimetable)
     }
+
+    Log.d("HomeRoute", "uiState: ${uiState.convertedUserLectureTimeTable}")
+    Log.d("HomeRoute", "uiState: ${uiState.userLectureTimeTable}")
 
     HomeScreen(
         university = uiState.userProfile.schoolName,

@@ -8,7 +8,7 @@ data class RegisterTimeTableRequestDto(
     @SerialName("weekDay")
     val weekDay: String,
     @SerialName("startTime")
-    val startTime: Float,
+    val startTime: Double,
     @SerialName("endTime")
-    val endTime: Float
+    val endTime: Double
 )

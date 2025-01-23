@@ -4,7 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserLectureTimeTableResponseDto(
+data class UserTimeTableResponseDto(
+    @SerialName("timeTable")
+    val timeTable: List<LectureTimeTable>
+)
+
+@Serializable
+data class LectureTimeTable(
     @SerialName("idx")
     val idx: Int,
     @SerialName("weekDay")

@@ -23,7 +23,8 @@ class HomeContract {
         ),
         val onceRecommendGroupList: List<RecommendGroupInfo> = emptyList(),
         val weekRecommendGroupList: List<RecommendGroupInfo> = emptyList(),
-        val userLectureTimeTable: List<UserLectureTimeTable> = emptyList()
+        val userLectureTimeTable: List<UserLectureTimeTable> = emptyList(),
+        val convertedUserLectureTimeTable: Map<String, List<Int>> = emptyMap()
     ) : UiState
 
     sealed class Event : UiEvent {

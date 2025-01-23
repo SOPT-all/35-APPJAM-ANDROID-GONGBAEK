@@ -5,8 +5,10 @@ import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
 import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
 import com.sopt.gongbaek.domain.usecase.FetchUserLectureTimetableUseCase
 import com.sopt.gongbaek.domain.usecase.FetchUserProfileUseCase
+import com.sopt.gongbaek.domain.usecase.SetLectureTimetableUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
+import com.sopt.gongbaek.presentation.util.timetable.convertToSlotsByDay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +18,8 @@ class HomeViewModel @Inject constructor(
     private val fetchHomeScreenUseCase: FetchHomeScreenUseCase,
     private val fetchLatestGroupUseCase: FetchLatestGroupUseCase,
     private val fetchUserProfileUseCase: FetchUserProfileUseCase,
-    private val fetchUserLectureTimetableUseCase: FetchUserLectureTimetableUseCase
+    private val fetchUserLectureTimetableUseCase: FetchUserLectureTimetableUseCase,
+    private val setLectureTimetableUseCase: SetLectureTimetableUseCase
 ) : BaseViewModel<HomeContract.State, HomeContract.Event, HomeContract.SideEffect>() {
 
     override fun createInitialState(): HomeContract.State = HomeContract.State()
@@ -97,14 +100,21 @@ class HomeViewModel @Inject constructor(
                 )
         }
 
-    fun fetchUserLectureTimetable() =
+    private fun fetchUserLectureTimetable() =
         viewModelScope.launch {
             fetchUserLectureTimetableUseCase()
                 .fold(
                     onSuccess = { userLectureTimeTable ->
                         setState { copy(userLectureTimeTable = userLectureTimeTable) }
+                        setState { copy(convertedUserLectureTimeTable = convertToSlotsByDay(userLectureTimeTable)) }
+                        setUserLectureTimetable(convertToSlotsByDay(userLectureTimeTable))
                     },
                     onFailure = { setState { copy(homeLoadState = UiLoadState.Error) } }
                 )
+        }
+
+    private fun setUserLectureTimetable(lectureTimetable: Map<String, List<Int>>) =
+        viewModelScope.launch {
+            setLectureTimetableUseCase(lectureTimetable)
         }
 }

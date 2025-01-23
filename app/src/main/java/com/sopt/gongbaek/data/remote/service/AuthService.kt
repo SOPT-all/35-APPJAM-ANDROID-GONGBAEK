@@ -4,8 +4,8 @@ import com.sopt.gongbaek.data.remote.dto.base.ApiResponse
 import com.sopt.gongbaek.data.remote.dto.base.NullableApiResponse
 import com.sopt.gongbaek.data.remote.dto.request.RegisterUserInfoRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.RegisterUserInfoResponseDto
-import com.sopt.gongbaek.data.remote.dto.response.UserLectureTimeTableResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.UserProfileResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.UserTimeTableResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -27,5 +27,5 @@ interface AuthService {
     suspend fun getUserProfile(): ApiResponse<UserProfileResponseDto>
 
     @GET("/api/v1/my/timeTable")
-    suspend fun getUserLectureTimeTable(): ApiResponse<List<UserLectureTimeTableResponseDto>>
+    suspend fun getUserLectureTimeTable(): ApiResponse<UserTimeTableResponseDto>
 }

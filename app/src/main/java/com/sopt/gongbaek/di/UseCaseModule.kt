@@ -7,7 +7,7 @@ import com.sopt.gongbaek.domain.repository.GroupRepository
 import com.sopt.gongbaek.domain.repository.TokenRepository
 import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
-import com.sopt.gongbaek.domain.usecase.GetSearchUniversitiesResultUseCase
+import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.RegisterUserInfoUseCase
 import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
@@ -62,4 +62,10 @@ object UseCaseModule {
     fun provideValidateNicknameUseCase(
         authRepository: AuthRepository
     ): ValidateNicknameUseCase = ValidateNicknameUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetGroupsUseCase(
+        groupRepository: GroupRepository
+    ): GetGroupsUseCase = GetGroupsUseCase(groupRepository)
 }

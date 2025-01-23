@@ -4,6 +4,7 @@ import com.sopt.gongbaek.domain.model.GroupInfo
 import com.sopt.gongbaek.domain.type.GroupCycleType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Locale
 
 fun formatGroupTimeDescription(groupInfo: GroupInfo): String {
@@ -19,22 +20,30 @@ fun formatGroupTimeDescription(groupInfo: GroupInfo): String {
 
     return when (groupCycle) {
         GroupCycleType.ONCE -> {
-            val date = LocalDate.parse(groupInfo.date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            val formattedDate = date.format(DateTimeFormatter.ofPattern("M/d", Locale.KOREAN))
-            "$formattedDate $startTimeString-$endTimeString"
+            if (groupInfo.date.isNullOrBlank()) {
+                return "날짜 정보가 없습니다."
+            }
+            return try {
+                val date = LocalDate.parse(groupInfo.date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val formattedDate = date.format(DateTimeFormatter.ofPattern("M/d", Locale.KOREAN))
+                "$formattedDate $startTimeString-$endTimeString"
+            } catch (e: DateTimeParseException) {
+                "날짜 형식이 잘못되었습니다."
+            }
         }
-
         GroupCycleType.WEEKLY -> {
             val dayOfWeek = getKoreanDayOfWeek(groupInfo.dayOfWeek)
+            if (dayOfWeek.isEmpty()) {
+                return "요일 정보가 잘못되었습니다."
+            }
             "매주 $dayOfWeek $startTimeString-$endTimeString"
         }
-
         else -> "시간을 불러올 수 없습니다."
     }
 }
 
-fun getKoreanDayOfWeek(weekDay: String): String {
-    return when (weekDay.uppercase()) {
+fun getKoreanDayOfWeek(weekDay: String?): String {
+    return when (weekDay?.uppercase()) {
         "MON" -> "월요일"
         "TUE" -> "화요일"
         "WED" -> "수요일"
@@ -45,3 +54,4 @@ fun getKoreanDayOfWeek(weekDay: String): String {
         else -> ""
     }
 }
+

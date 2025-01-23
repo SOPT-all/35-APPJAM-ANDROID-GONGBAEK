@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.domain.usecase.PostGroupUseCase

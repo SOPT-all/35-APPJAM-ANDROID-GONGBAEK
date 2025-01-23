@@ -73,7 +73,7 @@ fun NearestGroupSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(with(LocalDensity.current) { columnHeight.toDp() }),
-            contentScale = ContentScale.None,
+            contentScale = ContentScale.None
         )
 
         Column(

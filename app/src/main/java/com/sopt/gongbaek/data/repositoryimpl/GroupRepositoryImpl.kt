@@ -2,9 +2,12 @@ package com.sopt.gongbaek.data.repositoryimpl
 
 import com.sopt.gongbaek.data.mapper.todomain.toDomain
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
+import com.sopt.gongbaek.data.remote.dto.request.GroupRegisterRequestDto
 import com.sopt.gongbaek.data.remote.dto.request.MyGroupsRequestDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.domain.model.GroupInfo
+import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import javax.inject.Inject
 
@@ -27,6 +30,26 @@ class GroupRepositoryImpl @Inject constructor(
             groupDataSource.getGroups(
                 category = category
             ).handleApiResponse().getOrThrow().map { group -> group.toDomain() }
+        }
+    }
+
+    override suspend fun postGroup(groupRegisterInfo: GroupRegisterInfo): Result<GroupRegisterResponseDto> {
+        return runCatching {
+            groupDataSource.postGroup(
+                groupRegisterRequestDto = GroupRegisterRequestDto(
+                    groupType = groupRegisterInfo.groupType,
+                    weekDate = groupRegisterInfo.weekDate,
+                    weekDay = groupRegisterInfo.weekDay,
+                    startTime = groupRegisterInfo.startTime,
+                    endTime = groupRegisterInfo.endTime,
+                    category = groupRegisterInfo.category,
+                    coverImg = groupRegisterInfo.coverImg,
+                    location = groupRegisterInfo.location,
+                    maxPeopleCount = groupRegisterInfo.maxPeopleCount,
+                    groupTitle = groupRegisterInfo.groupTitle,
+                    introduction = groupRegisterInfo.introduction
+                )
+            ).handleApiResponse().getOrThrow()
         }
     }
 }

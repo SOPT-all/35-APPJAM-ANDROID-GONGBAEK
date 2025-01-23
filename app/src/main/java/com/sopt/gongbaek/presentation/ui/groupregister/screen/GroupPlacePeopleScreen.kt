@@ -144,9 +144,7 @@ private fun GroupPlacePeopleSection(
             GongBaekBasicTextField(
                 value = place,
                 onValueChange = onPlaceChange,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_PLACE,
-                modifier = Modifier
-                    .height(LocalConfiguration.current.screenHeightDp.dp * 0.06f)
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_PLACE
             )
 
             PageDescriptionSection(

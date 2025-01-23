@@ -11,9 +11,9 @@ import javax.inject.Inject
 
 class CommentRemoteDataSourceImpl @Inject constructor(
     private val commentService: CommentService
-): CommentRemoteDataSource {
-    override suspend fun getGroupComments(groupId: Int, groupType: String): ApiResponse<GroupCommentsResponseDto> =
-        commentService.getGroupComments(groupId = groupId, groupType = groupType)
+) : CommentRemoteDataSource {
+    override suspend fun getGroupComments(isPublic: Boolean, groupId: Int, groupType: String): ApiResponse<GroupCommentsResponseDto> =
+        commentService.getGroupComments(isPublic = isPublic, groupId = groupId, groupType = groupType)
 
     override suspend fun postComment(postCommentRequestDto: PostCommentRequestDto): NullableApiResponse<PostCommentResponseDto> =
         commentService.postComment(postCommentRequestDto = postCommentRequestDto)

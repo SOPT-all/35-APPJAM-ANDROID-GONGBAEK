@@ -1,7 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.groupdetail.screen
 
 import com.sopt.gongbaek.domain.model.GroupDetail
-import com.sopt.gongbaek.presentation.ui.mygroup.screen.MyGroupContract
 import com.sopt.gongbaek.presentation.ui.mygroup.screen.MyGroupContract.SideEffect
 import com.sopt.gongbaek.presentation.util.base.UiEvent
 import com.sopt.gongbaek.presentation.util.base.UiLoadState

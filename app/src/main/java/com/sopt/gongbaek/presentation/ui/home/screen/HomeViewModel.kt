@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.ui.home.screen
 
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
+import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,14 +11,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val fetchHomeScreenUseCase: FetchHomeScreenUseCase
+    private val fetchHomeScreenUseCase: FetchHomeScreenUseCase,
+    private val fetchLatestGroupUseCase: FetchLatestGroupUseCase
 ) : BaseViewModel<HomeContract.State, HomeContract.Event, HomeContract.SideEffect>() {
 
     override fun createInitialState(): HomeContract.State = HomeContract.State()
 
     override suspend fun handleEvent(event: HomeContract.Event) {
         when (event) {
-            HomeContract.Event.OnFetchHomeInfo -> fetchHomeInfo()
+            is HomeContract.Event.OnFetchHomeInfo -> fetchHomeInfo()
+            is HomeContract.Event.OnFetchLatestOnceGroup -> fetchLatestOnceGroup()
+            is HomeContract.Event.OnFetchLatestWeekGroup -> fetchLatestWeekGroup()
         }
     }
 
@@ -27,9 +31,52 @@ class HomeViewModel @Inject constructor(
             fetchHomeScreenUseCase()
                 .fold(
                     onSuccess = { nearestGroup ->
-                        setState { copy(homeLoadState = UiLoadState.Success, nearestGroup = nearestGroup) }
+                        setState {
+                            copy(
+                                homeLoadState = UiLoadState.Success,
+                                nearestGroup = nearestGroup
+                            )
+                        }
                     },
                     onFailure = { setState { copy(homeLoadState = UiLoadState.Error) } }
+                )
+        }
+
+    private fun fetchLatestOnceGroup() =
+        viewModelScope.launch {
+            setState { copy(homeLoadState = UiLoadState.Loading) }
+            fetchLatestGroupUseCase(groupType = "ONCE")
+                .fold(
+                    onSuccess = { latestOnceGroups ->
+                        setState {
+                            copy(
+                                homeLoadState = UiLoadState.Success,
+                                onceRecommendGroupList = latestOnceGroups
+                            )
+                        }
+                    },
+                    onFailure = {
+                        setState { copy(homeLoadState = UiLoadState.Error) }
+                    }
+                )
+        }
+
+    private fun fetchLatestWeekGroup() =
+        viewModelScope.launch {
+            setState { copy(homeLoadState = UiLoadState.Loading) }
+            fetchLatestGroupUseCase(groupType = "WEEKLY")
+                .fold(
+                    onSuccess = { latestWeekGroups ->
+                        setState {
+                            copy(
+                                homeLoadState = UiLoadState.Success,
+                                weekRecommendGroupList = latestWeekGroups
+                            )
+                        }
+                    },
+                    onFailure = {
+                        setState { copy(homeLoadState = UiLoadState.Error) }
+                    }
                 )
         }
 }

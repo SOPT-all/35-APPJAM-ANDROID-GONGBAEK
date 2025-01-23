@@ -4,6 +4,7 @@ import com.sopt.gongbaek.domain.repository.ExampleRepository
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
 import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
+import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
 import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
 import dagger.Module
@@ -38,4 +39,10 @@ object UseCaseModule {
     fun provideFetchHomeScreenUseCase(
         groupRepository: GroupRepository
     ): FetchHomeScreenUseCase = FetchHomeScreenUseCase(groupRepository)
+
+    @Provides
+    @Singleton
+    fun provideFetchLatestGroupUseCase(
+        groupRepository: GroupRepository
+    ): FetchLatestGroupUseCase = FetchLatestGroupUseCase(groupRepository)
 }

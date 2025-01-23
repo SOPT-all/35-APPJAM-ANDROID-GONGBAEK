@@ -5,6 +5,7 @@ import com.sopt.gongbaek.data.remote.dto.request.MyGroupsRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupListGroupResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.NearestGroupResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.RecommendGroupInfoResponseDto
 
 interface GroupRemoteDataSource {
     suspend fun getMyGroups(myGroupsRequestDto: MyGroupsRequestDto): ApiResponse<MyGroupsResponseDto>
@@ -12,4 +13,6 @@ interface GroupRemoteDataSource {
     suspend fun getGroups(category: String?): ApiResponse<List<GroupListGroupResponseDto>>
 
     suspend fun getNearestGroup(): ApiResponse<NearestGroupResponseDto>
+
+    suspend fun getLatestGroup(groupType: String): ApiResponse<List<RecommendGroupInfoResponseDto>>
 }

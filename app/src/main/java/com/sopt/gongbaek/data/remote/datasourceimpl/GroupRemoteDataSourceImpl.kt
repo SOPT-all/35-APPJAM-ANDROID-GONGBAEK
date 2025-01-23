@@ -6,6 +6,7 @@ import com.sopt.gongbaek.data.remote.dto.request.MyGroupsRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupListGroupResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.NearestGroupResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.RecommendGroupInfoResponseDto
 import com.sopt.gongbaek.data.remote.service.GroupService
 import javax.inject.Inject
 
@@ -20,4 +21,7 @@ class GroupRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getNearestGroup(): ApiResponse<NearestGroupResponseDto> =
         groupService.getNearestGroup()
+
+    override suspend fun getLatestGroup(groupType: String): ApiResponse<List<RecommendGroupInfoResponseDto>> =
+        groupService.getLatestGroup(groupType = groupType)
 }

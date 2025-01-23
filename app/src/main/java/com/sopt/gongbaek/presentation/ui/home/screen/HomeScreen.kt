@@ -28,16 +28,18 @@ fun HomeRoute(
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(lifecycleOwner) {
+    LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.Event.OnFetchHomeInfo)
+        viewModel.setEvent(HomeContract.Event.OnFetchLatestOnceGroup)
+        viewModel.setEvent(HomeContract.Event.OnFetchLatestWeekGroup)
     }
 
     HomeScreen(
         university = uiState.userInfo.school,
         userNickname = uiState.userInfo.nickname,
         nearestGroup = uiState.nearestGroup,
-        weekRecommendGroupInfo = uiState.weekRecommendGroupList,
-        onceRecommendGroupInfo = uiState.onceRecommendGroupList
+        onceRecommendGroupInfo = uiState.onceRecommendGroupList,
+        weekRecommendGroupInfo = uiState.weekRecommendGroupList
     )
 }
 

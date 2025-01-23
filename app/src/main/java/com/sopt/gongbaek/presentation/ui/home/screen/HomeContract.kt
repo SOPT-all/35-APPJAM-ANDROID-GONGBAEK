@@ -26,6 +26,8 @@ class HomeContract {
 
     sealed class Event : UiEvent {
         data object OnFetchHomeInfo : Event()
+        data object OnFetchLatestOnceGroup : Event()
+        data object OnFetchLatestWeekGroup : Event()
     }
 
     sealed interface SideEffect : UiSideEffect

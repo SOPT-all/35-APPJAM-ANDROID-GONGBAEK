@@ -1,7 +1,6 @@
 package com.sopt.gongbaek.presentation.type
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.IntRange
 import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.type.GroupCategoryType
 

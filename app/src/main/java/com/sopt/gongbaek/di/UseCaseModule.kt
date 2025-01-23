@@ -18,6 +18,7 @@ import com.sopt.gongbaek.domain.usecase.SetTokenUseCase
 import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase
 import com.sopt.gongbaek.domain.usecase.PostGroupUseCase
 import com.sopt.gongbaek.domain.usecase.LoadGroupDetailScreenUseCase
+import com.sopt.gongbaek.domain.usecase.LoadGroupRoomScreenUseCase
 import com.sopt.gongbaek.domain.usecase.PostCommentUseCase
 import dagger.Module
 import dagger.Provides
@@ -106,4 +107,11 @@ object UseCaseModule {
     fun providePostGroupUseCase(
         groupRepository: GroupRepository
     ): PostGroupUseCase = PostGroupUseCase(groupRepository)
+
+    @Provides
+    @Singleton
+    fun provideLoadGroupRoomScreenUseCase(
+        groupRepository: GroupRepository,
+        commentRepository: CommentRepository
+    ): LoadGroupRoomScreenUseCase = LoadGroupRoomScreenUseCase(groupRepository, commentRepository)
 }

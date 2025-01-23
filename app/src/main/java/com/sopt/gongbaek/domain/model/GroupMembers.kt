@@ -1,6 +1,6 @@
 package com.sopt.gongbaek.domain.model
 
-data class GroupPeople(
+data class GroupMembers(
     val maxPeopleCount: Int = 0,
     val currentPeopleCount: Int = 0,
     val members: List<Member> = listOf()

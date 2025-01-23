@@ -41,7 +41,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun GroupDetailRoute(
     viewModel: GroupDetailViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
-    navigateGroupRoom: () -> Unit
+    navigateGroupRoom: (Int, String) -> Unit
 ) {
     val groupDetailUiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -60,7 +60,7 @@ fun GroupDetailRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is GroupDetailContract.SideEffect.NavigateBack -> navigateBack()
-                    is GroupDetailContract.SideEffect.NavigateGroupRoom -> navigateGroupRoom()
+                    is GroupDetailContract.SideEffect.NavigateGroupRoom -> { navigateGroupRoom(sideEffect.groupId, sideEffect.groupCycle) }
                 }
             }
     }
@@ -71,7 +71,7 @@ fun GroupDetailRoute(
         pagerState = pagerState,
         onBackClick = { viewModel.sendSideEffect(GroupDetailContract.SideEffect.NavigateBack) },
         onApplyClick = { viewModel.setEvent(GroupDetailContract.Event.OnApplyClick) },
-        onDialogConfirmClick = { viewModel.setEvent(GroupDetailContract.Event.OnDialogConfirmClick) },
+        onDialogConfirmClick = { groupId, groupCycle -> viewModel.sendSideEffect(GroupDetailContract.SideEffect.NavigateGroupRoom(groupId, groupCycle)) },
         onDialogDismissClick = { viewModel.setEvent(GroupDetailContract.Event.OnDialogDismissClick) },
         updateInputComment = { inputComment -> viewModel.setEvent(GroupDetailContract.Event.UpdateInputComment(inputComment)) },
         onCommentRefreshClick = { viewModel.setEvent(GroupDetailContract.Event.OnCommentRefreshClick) },
@@ -87,7 +87,7 @@ fun GroupDetailScreen(
     pagerState: PagerState,
     onBackClick: () -> Unit,
     onApplyClick: () -> Unit,
-    onDialogConfirmClick: () -> Unit,
+    onDialogConfirmClick: (Int, String) -> Unit,
     onDialogDismissClick: () -> Unit,
     updateInputComment: (String) -> Unit,
     onCommentRefreshClick: () -> Unit,
@@ -154,7 +154,7 @@ fun GroupDetailScreen(
             ) {
                 GongBaekDialog(
                     gongBaekDialogType = GongBaekDialogType.ENTER_SUCCESS,
-                    onConfirmButtonClick = onDialogConfirmClick,
+                    onConfirmButtonClick = { onDialogConfirmClick(uiState.groupDetail.groupInfo.groupId, uiState.groupDetail.groupInfo.cycle) },
                     onDismissButtonClick = onDialogDismissClick
                 )
             }
@@ -172,8 +172,7 @@ fun GroupDetailScreen(
             ) {
                 GongBaekDialog(
                     gongBaekDialogType = GongBaekDialogType.ENTER_FAIL,
-                    onConfirmButtonClick = onDialogConfirmClick,
-                    onDismissButtonClick = onDialogDismissClick
+                    onConfirmButtonClick = onDialogDismissClick
                 )
             }
         }
@@ -191,7 +190,7 @@ private fun GroupDetailScreenPreview() {
             pagerState = rememberPagerState { GroupDetailPagerType.entries.map { it.description }.size },
             onBackClick = {},
             onApplyClick = {},
-            onDialogConfirmClick = {},
+            onDialogConfirmClick = { _, _ -> },
             onDialogDismissClick = {},
             updateInputComment = {},
             onCommentRefreshClick = {},

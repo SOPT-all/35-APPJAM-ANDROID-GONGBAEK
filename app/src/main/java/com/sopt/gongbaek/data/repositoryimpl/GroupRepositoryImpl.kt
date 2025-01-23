@@ -3,11 +3,13 @@ package com.sopt.gongbaek.data.repositoryimpl
 import com.sopt.gongbaek.data.mapper.todata.toData
 import com.sopt.gongbaek.data.mapper.todomain.toDomain
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
+import com.sopt.gongbaek.data.remote.dto.request.ApplyGroupRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.data.remote.util.handleNullableApiResponse
 import com.sopt.gongbaek.domain.model.GroupHost
 import com.sopt.gongbaek.domain.model.GroupInfo
+import com.sopt.gongbaek.domain.model.GroupMembers
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import javax.inject.Inject
@@ -32,7 +34,7 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun applyGroup(groupId: Int, groupType: String): Result<Unit> =
         runCatching {
-            groupDataSource.applyGroup(groupId = groupId, groupType = groupType).handleNullableApiResponse().getOrThrow()
+            groupDataSource.applyGroup(applyGroupRequestDto = ApplyGroupRequestDto(groupId = groupId, groupType = groupType)).handleNullableApiResponse().getOrThrow()
         }
 
     override suspend fun getGroups(category: String?): Result<List<GroupInfo>> {
@@ -50,4 +52,9 @@ class GroupRepositoryImpl @Inject constructor(
             ).handleApiResponse().getOrThrow()
         }
     }
+
+    override suspend fun getGroupMembers(groupId: Int, groupType: String): Result<GroupMembers> =
+        runCatching {
+            groupDataSource.getGroupMembers(groupId = groupId, groupType = groupType).handleApiResponse().getOrThrow().toDomain()
+        }
 }

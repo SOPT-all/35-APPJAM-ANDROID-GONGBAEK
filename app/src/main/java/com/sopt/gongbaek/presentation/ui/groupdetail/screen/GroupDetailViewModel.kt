@@ -12,7 +12,6 @@ import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,9 +46,6 @@ class GroupDetailViewModel @Inject constructor(
             is GroupDetailContract.Event.OnApplyClick -> {
                 applyGroup()
             }
-            is GroupDetailContract.Event.OnDialogConfirmClick -> {
-                setSideEffect(GroupDetailContract.SideEffect.NavigateGroupRoom)
-            }
             is GroupDetailContract.Event.OnDialogDismissClick -> setState {
                 copy(groupApplyState = UiLoadState.Idle)
             }
@@ -82,12 +78,9 @@ class GroupDetailViewModel @Inject constructor(
             ).fold(
                 onSuccess = { groupDetail ->
                     setState { copy(groupDetailLoadState = UiLoadState.Success, groupDetail = groupDetail) }
-                    Timber.tag("groupDetailLoadState1").d("${currentState.groupDetailLoadState}")
-                    Timber.tag("groupDetail").d("${currentState.groupDetail}")
                 },
                 onFailure = {
                     setState { copy(groupDetailLoadState = UiLoadState.Error) }
-                    Timber.tag("groupDetailLoadState2").d("${currentState.groupDetailLoadState}")
                 }
             )
         }

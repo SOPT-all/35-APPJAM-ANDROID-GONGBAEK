@@ -25,7 +25,7 @@ fun formatGroupTimeDescription(groupInfo: GroupInfo): String {
             }
             return try {
                 val date = LocalDate.parse(groupInfo.date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                val formattedDate = date.format(DateTimeFormatter.ofPattern("M/d", Locale.KOREAN))
+                val formattedDate = date.format(DateTimeFormatter.ofPattern("M/d E요일", Locale.KOREAN))
                 "$formattedDate $startTimeString-$endTimeString"
             } catch (e: DateTimeParseException) {
                 "날짜 형식이 잘못되었습니다."

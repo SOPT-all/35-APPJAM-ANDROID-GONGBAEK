@@ -8,5 +8,5 @@ data class PostCommentRequestDto(
     @SerialName("groupId") val groupId: Int,
     @SerialName("groupType") val groupType: String,
     @SerialName("isPublic") val isPublic: Boolean,
-    @SerialName("body") val body: String,
+    @SerialName("body") val body: String
 )

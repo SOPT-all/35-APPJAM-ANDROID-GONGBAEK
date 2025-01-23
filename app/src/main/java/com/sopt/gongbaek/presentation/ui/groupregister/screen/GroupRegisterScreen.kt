@@ -71,7 +71,11 @@ fun GroupRegisterRoute(
             viewModel.sendSideEffect(GroupRegisterContract.SideEffect.NavigateBack)
         },
         onRegisterButtonClicked = {
-            viewModel.setEvent(GroupRegisterContract.Event.OnRegisterButtonClicked)
+            viewModel.setEvent(
+                GroupRegisterContract.Event.OnRegisterButtonClicked(
+                    groupRegisterInfo = uiState.groupRegisterInfo
+                )
+            )
         },
         onDialogConfirmButtonClicked = {
             viewModel.setEvent(GroupRegisterContract.Event.OnDialogConfirmClicked)

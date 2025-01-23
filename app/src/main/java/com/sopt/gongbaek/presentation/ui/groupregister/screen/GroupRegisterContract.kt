@@ -36,7 +36,7 @@ class GroupRegisterContract {
         data class OnPeopleChanged(val peopleCount: Int) : Event()
         data class OnTitleChanged(val title: String) : Event()
         data class OnIntroductionChanged(val introduction: String) : Event()
-        data object OnRegisterButtonClicked : Event()
+        data class OnRegisterButtonClicked(val groupRegisterInfo: GroupRegisterInfo) : Event()
         data object OnDialogConfirmClicked : Event()
         data object OnDialogDismissClicked : Event()
         data class OnTimeSlotSelected(val day: String, val timeSlots: List<Int>) : Event()

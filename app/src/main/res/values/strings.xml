@@ -13,7 +13,7 @@
     <string name="onboarding_2_description_2">0이었던 공백을 100으로 알차게 채워보세요!</string>
     <string name="onboarding_3_title">스페이스에서 모임 멤버와 대화하기</string>
     <string name="onboarding_3_description_1">공백을 함께 채울 멤버들과\n</string>
-    <string name="onboarding_3_description_2">스페이스에서 대화하며 모임을 준비해보새요!</string>
+    <string name="onboarding_3_description_2">스페이스에서 대화하며 모임을 준비해보세요!</string>
 
     <!--MainBottomNavBar-->
     <string name="main_bottom_navbar_group_list">채우기</string>

@@ -1,6 +1,7 @@
 package com.sopt.gongbaek.presentation.ui.home.screen
 
 import com.sopt.gongbaek.domain.model.NearestGroup
+import com.sopt.gongbaek.domain.model.RecommendGroupInfo
 import com.sopt.gongbaek.domain.model.UserInfo
 import com.sopt.gongbaek.presentation.util.base.UiEvent
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect
@@ -17,9 +18,13 @@ class HomeContract {
             nearestGroup.startTime,
             nearestGroup.endTime
         ),
+        val onceRecommendGroupList: List<RecommendGroupInfo> = emptyList(),
+        val weekRecommendGroupList: List<RecommendGroupInfo> = emptyList()
     ) : UiState
 
-    sealed class Event : UiEvent {}
+    sealed class Event : UiEvent {
+
+    }
 
     sealed interface SideEffect : UiSideEffect {}
 

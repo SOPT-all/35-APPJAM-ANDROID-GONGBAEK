@@ -27,11 +27,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.gongbaek.R
+import com.sopt.gongbaek.domain.model.RecommendGroupInfo
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun OnceRecommendSection(
+    onceRecommendGroupInfo: List<RecommendGroupInfo>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -73,15 +75,19 @@ fun OnceRecommendSection(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(5) {
-                OnceRecommendItem()
+            items(onceRecommendGroupInfo.size) { index ->
+                OnceRecommendItem(
+                    onceRecommendGroupInfo = onceRecommendGroupInfo[index]
+                )
             }
         }
     }
 }
 
 @Composable
-private fun OnceRecommendItem() {
+private fun OnceRecommendItem(
+    onceRecommendGroupInfo: RecommendGroupInfo
+) {
     Column(
         modifier = Modifier
     ) {
@@ -99,7 +105,7 @@ private fun OnceRecommendItem() {
         Spacer(modifier = Modifier.height(6.dp))
 
         Text(
-            text = "시험 전 하루 벼락치기 해요...",
+            text = onceRecommendGroupInfo.groupTitle,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = GongBaekTheme.colors.gray10,
@@ -110,7 +116,7 @@ private fun OnceRecommendItem() {
         Spacer(modifier = Modifier.height(4.dp))
 
         GroupTimeDescription(
-            description = "4/12일 수요일 14시 반 -15시",
+            description = onceRecommendGroupInfo.weekDate,
             textColor = GongBaekTheme.colors.gray06,
             textStyle = GongBaekTheme.typography.caption2.m12
         )
@@ -122,13 +128,23 @@ private fun OnceRecommendItem() {
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.img_home_profile_small_4),
+                painter = painterResource(
+                    when (onceRecommendGroupInfo.profileImg) {
+                        1 -> R.drawable.img_home_profile_small_1
+                        2 -> R.drawable.img_home_profile_small_2
+                        3 -> R.drawable.img_home_profile_small_3
+                        4 -> R.drawable.img_home_profile_small_4
+                        5 -> R.drawable.img_home_profile_small_5
+                        6 -> R.drawable.img_home_profile_small_6
+                        else -> R.drawable.img_home_profile_small_4
+                    }
+                ),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.padding(vertical = 1.dp)
             )
             Text(
-                text = "로이임탄",
+                text = onceRecommendGroupInfo.nickname,
                 color = GongBaekTheme.colors.gray09,
                 maxLines = 1,
                 style = GongBaekTheme.typography.caption2.m12
@@ -140,5 +156,32 @@ private fun OnceRecommendItem() {
 @Preview
 @Composable
 private fun PreviewOnceRecommendSection() {
-    OnceRecommendSection()
+    OnceRecommendSection(
+        onceRecommendGroupInfo = listOf(
+            RecommendGroupInfo(
+                groupTitle = "스터디 모임",
+                nickname = "김대현",
+                weekDate = "2021-09-20",
+                profileImg = 5
+            ),
+            RecommendGroupInfo(
+                groupTitle = "운동 모임",
+                nickname = "김대현1",
+                weekDate = "2021-09-20",
+                profileImg = 1
+            ),
+            RecommendGroupInfo(
+                groupTitle = "스터디 모임",
+                nickname = "김대현2",
+                weekDate = "2021-09-20",
+                profileImg = 3
+            ),
+            RecommendGroupInfo(
+                groupTitle = "운동 모임",
+                nickname = "김대현3",
+                weekDate = "2021-09-20",
+                profileImg = 4
+            )
+        )
+    )
 }

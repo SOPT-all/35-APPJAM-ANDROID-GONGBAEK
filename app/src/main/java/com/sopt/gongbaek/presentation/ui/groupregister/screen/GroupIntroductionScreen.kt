@@ -129,9 +129,7 @@ private fun GroupIntroductionSection(
             GongBaekBasicTextField(
                 value = groupTitle,
                 onValueChange = onGroupTitleChange,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_TITLE,
-                modifier = Modifier
-                    .height(LocalConfiguration.current.screenHeightDp.dp * 0.06f)
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_TITLE
             )
             Spacer(Modifier.height(28.dp))
 

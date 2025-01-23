@@ -40,6 +40,7 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 fun NearestGroupSection(
     university: String,
     nearestGroup: NearestGroup,
+    onNearestGroupClick: (Int, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var columnHeight by remember { mutableIntStateOf(0) }
@@ -73,6 +74,7 @@ fun NearestGroupSection(
 
             NearestGroup(
                 nearestGroup = nearestGroup,
+                onNearestGroupClick = onNearestGroupClick,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
@@ -116,6 +118,7 @@ private fun UnivInfo(
 @Composable
 private fun NearestGroup(
     nearestGroup: NearestGroup,
+    onNearestGroupClick: (Int, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -155,7 +158,7 @@ private fun NearestGroup(
                     color = GongBaekTheme.colors.mainOrange,
                     shape = RoundedCornerShape(4.dp)
                 )
-                .clickableWithoutRipple { }
+                .clickableWithoutRipple { onNearestGroupClick(nearestGroup.groupId, nearestGroup.groupType) }
                 .align(Alignment.BottomEnd)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             contentAlignment = Alignment.Center
@@ -174,6 +177,7 @@ private fun NearestGroup(
 private fun PreviewNearestGroupSection() {
     NearestGroupSection(
         university = "건국대학교 서울캠퍼스",
+        onNearestGroupClick = { _, _ -> },
         nearestGroup = NearestGroup(
             weekDate = "2021-09-20",
             startTime = 18.0,

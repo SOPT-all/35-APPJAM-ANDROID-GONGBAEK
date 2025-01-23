@@ -34,6 +34,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun sendSideEffect(sideEffect: HomeContract.SideEffect) =
+        setSideEffect(sideEffect)
+
     private fun fetchHomeInfo() =
         viewModelScope.launch {
             setState { copy(homeLoadState = UiLoadState.Loading) }

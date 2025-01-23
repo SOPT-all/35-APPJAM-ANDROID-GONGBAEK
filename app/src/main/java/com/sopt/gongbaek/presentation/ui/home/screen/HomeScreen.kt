@@ -1,6 +1,5 @@
 package com.sopt.gongbaek.presentation.ui.home.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.sopt.gongbaek.domain.model.NearestGroup
 import com.sopt.gongbaek.domain.model.RecommendGroupInfo
 import com.sopt.gongbaek.presentation.ui.home.component.section.HomeBannerSection
@@ -23,9 +24,21 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
 fun HomeRoute(
+    navigateGroupDetail: (Int, String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                if (sideEffect is HomeContract.SideEffect.NavigateToGroupDetail) {
+                    navigateGroupDetail(sideEffect.groupId, sideEffect.groupType)
+                }
+            }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.Event.OnFetchHomeInfo)
@@ -35,15 +48,21 @@ fun HomeRoute(
         viewModel.setEvent(HomeContract.Event.OnFetchUserLectureTimetable)
     }
 
-    Log.d("HomeRoute", "uiState: ${uiState.convertedUserLectureTimeTable}")
-    Log.d("HomeRoute", "uiState: ${uiState.userLectureTimeTable}")
-
     HomeScreen(
         university = uiState.userProfile.schoolName,
         userNickname = uiState.userProfile.nickname,
         nearestGroup = uiState.nearestGroup,
         onceRecommendGroupInfo = uiState.onceRecommendGroupList,
-        weekRecommendGroupInfo = uiState.weekRecommendGroupList
+        weekRecommendGroupInfo = uiState.weekRecommendGroupList,
+        onClickWeekRecommendItem = { groupId, groupCycle ->
+            viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupDetail(groupId, groupCycle))
+        },
+        onClickOnceRecommendItem = { groupId, groupCycle ->
+            viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupDetail(groupId, groupCycle))
+        },
+        onNearestGroupClick = { groupId, groupCycle ->
+            viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupDetail(groupId, groupCycle))
+        }
     )
 }
 
@@ -53,7 +72,10 @@ private fun HomeScreen(
     userNickname: String,
     nearestGroup: NearestGroup,
     weekRecommendGroupInfo: List<RecommendGroupInfo>,
-    onceRecommendGroupInfo: List<RecommendGroupInfo>
+    onceRecommendGroupInfo: List<RecommendGroupInfo>,
+    onClickWeekRecommendItem: (Int, String) -> Unit,
+    onClickOnceRecommendItem: (Int, String) -> Unit,
+    onNearestGroupClick: (Int, String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -62,6 +84,7 @@ private fun HomeScreen(
             NearestGroupSection(
                 university = university,
                 nearestGroup = nearestGroup,
+                onNearestGroupClick = onNearestGroupClick,
                 modifier = Modifier.padding(bottom = 30.dp)
             )
         }
@@ -70,6 +93,7 @@ private fun HomeScreen(
             WeekRecommendSection(
                 userNickname = userNickname,
                 weekRecommendGroupInfo = weekRecommendGroupInfo,
+                onClickWeekRecommendItem = onClickWeekRecommendItem,
                 modifier = Modifier.padding(bottom = 30.dp)
             )
         }
@@ -77,6 +101,7 @@ private fun HomeScreen(
         item {
             OnceRecommendSection(
                 onceRecommendGroupInfo = onceRecommendGroupInfo,
+                onClickOnceRecommendItem = onClickOnceRecommendItem,
                 modifier = Modifier.padding(bottom = 30.dp)
             )
         }
@@ -130,6 +155,9 @@ private fun PreviewHomeScreen() {
                     weekDate = "2021-09-20"
                 )
             ),
+            onClickWeekRecommendItem = { _, _ -> },
+            onClickOnceRecommendItem = { _, _ -> },
+            onNearestGroupClick = { _, _ -> },
             onceRecommendGroupInfo = listOf(
                 RecommendGroupInfo(
                     groupTitle = "스터디 모임",

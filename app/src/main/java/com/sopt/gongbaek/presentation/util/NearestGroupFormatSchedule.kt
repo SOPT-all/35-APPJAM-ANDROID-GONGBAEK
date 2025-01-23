@@ -3,6 +3,7 @@ package com.sopt.gongbaek.presentation.util
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.time.format.TextStyle
 import java.util.Locale
 
 fun nearestGroupFormatSchedule(
@@ -23,6 +24,32 @@ fun nearestGroupFormatSchedule(
 
     return "$formattedDate ${formatTime(startTime)}-${formatTime(endTime)}"
 }
+
+fun homeOnceGroupFormatSchedule(
+    weekDate: String?,
+    startTime: Double,
+    endTime: Double
+): String {
+    val dayOfWeek = if (!weekDate.isNullOrBlank()) {
+        try {
+            val date = LocalDate.parse(weekDate)
+            date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN)
+        } catch (e: DateTimeParseException) {
+            null
+        }
+    } else {
+        null
+    }
+
+    return buildString {
+        if (dayOfWeek != null) {
+            append(dayOfWeek)
+            append(" ")
+        }
+        append("${formatTime(startTime)}-${formatTime(endTime)}")
+    }
+}
+
 
 private fun formatTime(time: Double): String {
     val hours = time.toInt()

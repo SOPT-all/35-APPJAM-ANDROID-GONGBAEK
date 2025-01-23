@@ -4,6 +4,7 @@ import com.sopt.gongbaek.domain.model.NearestGroup
 import com.sopt.gongbaek.domain.model.RecommendGroupInfo
 import com.sopt.gongbaek.domain.model.UserLectureTimeTable
 import com.sopt.gongbaek.domain.model.UserProfile
+import com.sopt.gongbaek.presentation.ui.grouplist.screen.GroupListContract.SideEffect
 import com.sopt.gongbaek.presentation.util.base.UiEvent
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.base.UiSideEffect
@@ -35,5 +36,7 @@ class HomeContract {
         data object OnFetchUserLectureTimetable : Event()
     }
 
-    sealed interface SideEffect : UiSideEffect
+    sealed interface SideEffect : UiSideEffect {
+        data class NavigateToGroupDetail(val groupId: Int, val groupType: String) : SideEffect
+    }
 }

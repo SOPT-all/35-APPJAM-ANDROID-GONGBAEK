@@ -10,6 +10,8 @@ import com.sopt.gongbaek.data.remote.dto.response.GroupListGroupResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupMembersResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.NearestGroupResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.RecommendGroupInfoResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -43,6 +45,14 @@ interface GroupService {
     suspend fun getGroups(
         @Query("category") category: String? = null
     ): ApiResponse<List<GroupListGroupResponseDto>>
+
+    @GET("/api/v1/group/my/participation")
+    suspend fun getNearestGroup(): ApiResponse<NearestGroupResponseDto>
+
+    @GET("/api/v1/group/latest")
+    suspend fun getLatestGroup(
+        @Query("groupType") groupType: String
+    ): ApiResponse<List<RecommendGroupInfoResponseDto>>
 
     @POST("/api/v1/gongbaek")
     suspend fun postGroup(

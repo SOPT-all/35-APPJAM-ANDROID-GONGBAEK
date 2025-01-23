@@ -39,13 +39,15 @@ import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.NearestGroup
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
-import com.sopt.gongbaek.presentation.util.timetable.nearestGroupFormatSchedule
+import com.sopt.gongbaek.presentation.util.nearestGroupFormatSchedule
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable
 fun NearestGroupSection(
     university: String,
     nearestGroup: NearestGroup,
+    onNearestGroupClick: (Int, String) -> Unit,
+    onFillGroupClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var columnHeight by remember { mutableIntStateOf(0) }
@@ -90,6 +92,8 @@ fun NearestGroupSection(
 
             NearestGroup(
                 nearestGroup = nearestGroup,
+                onNearestGroupClick = onNearestGroupClick,
+                onFillGroupClick = onFillGroupClick,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
@@ -133,8 +137,11 @@ private fun UnivInfo(
 @Composable
 private fun NearestGroup(
     nearestGroup: NearestGroup,
+    onNearestGroupClick: (Int, String) -> Unit,
+    onFillGroupClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val isGroupExist = nearestGroup.groupTitle.isEmpty()
     Box(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -156,11 +163,15 @@ private fun NearestGroup(
             )
 
             GroupTimeDescription(
-                description = nearestGroupFormatSchedule(
-                    nearestGroup.weekDate,
-                    nearestGroup.startTime,
-                    nearestGroup.endTime
-                ),
+                description = if (isGroupExist) {
+                    "다가오는 모임이 없어요!"
+                } else {
+                    nearestGroupFormatSchedule(
+                        nearestGroup.weekDate,
+                        nearestGroup.startTime,
+                        nearestGroup.endTime
+                    )
+                },
                 textColor = GongBaekTheme.colors.gray06,
                 textStyle = GongBaekTheme.typography.caption2.m12
             )
@@ -172,13 +183,19 @@ private fun NearestGroup(
                     color = GongBaekTheme.colors.mainOrange,
                     shape = RoundedCornerShape(4.dp)
                 )
-                .clickableWithoutRipple { }
+                .clickableWithoutRipple {
+                    if (isGroupExist) {
+                        onFillGroupClick()
+                    } else {
+                        onNearestGroupClick(nearestGroup.groupId, nearestGroup.groupType)
+                    }
+                }
                 .align(Alignment.BottomEnd)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "스페이스 입장",
+                text = if (isGroupExist) "채우기 입장" else "스페이스 입장",
                 color = GongBaekTheme.colors.white,
                 style = GongBaekTheme.typography.caption2.b12
             )
@@ -191,6 +208,8 @@ private fun NearestGroup(
 private fun PreviewNearestGroupSection() {
     NearestGroupSection(
         university = "건국대학교 서울캠퍼스",
+        onNearestGroupClick = { _, _ -> },
+        onFillGroupClick = { },
         nearestGroup = NearestGroup(
             weekDate = "2021-09-20",
             startTime = 18.0,

@@ -146,11 +146,15 @@ private fun NearestGroup(
             )
 
             GroupTimeDescription(
-                description = if (isGroupExist) "다가오는 모임이 없어요!" else nearestGroupFormatSchedule(
-                    nearestGroup.weekDate,
-                    nearestGroup.startTime,
-                    nearestGroup.endTime
-                ),
+                description = if (isGroupExist) {
+                    "다가오는 모임이 없어요!"
+                } else {
+                    nearestGroupFormatSchedule(
+                        nearestGroup.weekDate,
+                        nearestGroup.startTime,
+                        nearestGroup.endTime
+                    )
+                },
                 textColor = GongBaekTheme.colors.gray06,
                 textStyle = GongBaekTheme.typography.caption2.m12
             )
@@ -163,8 +167,11 @@ private fun NearestGroup(
                     shape = RoundedCornerShape(4.dp)
                 )
                 .clickableWithoutRipple {
-                    if (isGroupExist) onFillGroupClick()
-                    else onNearestGroupClick(nearestGroup.groupId, nearestGroup.groupType)
+                    if (isGroupExist) {
+                        onFillGroupClick()
+                    } else {
+                        onNearestGroupClick(nearestGroup.groupId, nearestGroup.groupType)
+                    }
                 }
                 .align(Alignment.BottomEnd)
                 .padding(horizontal = 10.dp, vertical = 6.dp),

@@ -35,7 +35,6 @@ import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.chip.GroupInfoChip
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
-import com.sopt.gongbaek.presentation.util.formatGroupTimeDescription
 import com.sopt.gongbaek.presentation.util.nearestGroupFormatSchedule
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 

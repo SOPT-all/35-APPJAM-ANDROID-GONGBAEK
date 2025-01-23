@@ -5,6 +5,7 @@ import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
 import com.sopt.gongbaek.data.remote.dto.request.MyGroupsRequestDto
 import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.domain.model.GroupInfo
+import com.sopt.gongbaek.domain.model.NearestGroup
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import javax.inject.Inject
 
@@ -29,4 +30,9 @@ class GroupRepositoryImpl @Inject constructor(
             ).handleApiResponse().getOrThrow().map { group -> group.toDomain() }
         }
     }
+
+    override suspend fun getNearestGroup(): Result<NearestGroup> =
+        runCatching {
+            groupDataSource.getNearestGroup().handleApiResponse().getOrThrow().toDomain()
+        }
 }

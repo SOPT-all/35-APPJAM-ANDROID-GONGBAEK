@@ -33,7 +33,7 @@ import com.sopt.gongbaek.R
 import com.sopt.gongbaek.domain.model.NearestGroup
 import com.sopt.gongbaek.presentation.ui.component.section.GroupTimeDescription
 import com.sopt.gongbaek.presentation.util.extension.clickableWithoutRipple
-import com.sopt.gongbaek.presentation.util.timetable.nearestGroupFormatSchedule
+import com.sopt.gongbaek.presentation.util.nearestGroupFormatSchedule
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
 @Composable

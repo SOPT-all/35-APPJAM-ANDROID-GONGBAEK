@@ -3,6 +3,7 @@ package com.sopt.gongbaek.di
 import com.sopt.gongbaek.domain.repository.ExampleRepository
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
+import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
 import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
 import dagger.Module
@@ -31,4 +32,10 @@ object UseCaseModule {
     fun provideGetGroupsUseCase(
         groupRepository: GroupRepository
     ): GetGroupsUseCase = GetGroupsUseCase(groupRepository)
+
+    @Provides
+    @Singleton
+    fun provideFetchHomeScreenUseCase(
+        groupRepository: GroupRepository
+    ): FetchHomeScreenUseCase = FetchHomeScreenUseCase(groupRepository)
 }

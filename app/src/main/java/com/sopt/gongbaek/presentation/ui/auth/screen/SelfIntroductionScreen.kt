@@ -112,7 +112,7 @@ private fun SelfIntroductionSection(
             Spacer(modifier = Modifier.height(54.dp))
 
             PageDescriptionSection(
-                titleResId = R.string.auth_mbti_title
+                titleResId = R.string.auth_self_introduction_title
             )
 
             Spacer(modifier = Modifier.height(10.dp))

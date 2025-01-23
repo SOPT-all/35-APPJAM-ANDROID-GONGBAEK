@@ -91,7 +91,7 @@ fun GroupIntroductionScreen(
         GongBaekBasicButton(
             title = stringResource(R.string.groupregister_next),
             onClick = onNextButtonClicked,
-            enabled = groupTitle.isNotBlank() && introduction.isNotBlank(),
+            enabled = groupTitle.isNotBlank() && introduction.length >= 20,
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .align(Alignment.BottomCenter)
@@ -129,9 +129,7 @@ private fun GroupIntroductionSection(
             GongBaekBasicTextField(
                 value = groupTitle,
                 onValueChange = onGroupTitleChange,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_TITLE,
-                modifier = Modifier
-                    .height(LocalConfiguration.current.screenHeightDp.dp * 0.06f)
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_TITLE
             )
             Spacer(Modifier.height(28.dp))
 

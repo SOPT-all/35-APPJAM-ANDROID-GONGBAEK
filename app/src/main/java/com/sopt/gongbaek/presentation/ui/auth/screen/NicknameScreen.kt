@@ -111,7 +111,7 @@ private fun NickNameInputSection(
 
             PageDescriptionSection(
                 titleResId = R.string.auth_nickname_title,
-                descriptionResId = R.string.auth_select_profile_description
+                descriptionResId = R.string.auth_nickname_description
             )
 
             Spacer(modifier = Modifier.height(44.dp))

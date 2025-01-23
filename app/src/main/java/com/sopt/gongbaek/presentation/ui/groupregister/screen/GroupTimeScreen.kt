@@ -85,9 +85,9 @@ fun GroupTimeScreen(
             )
         },
         containerColor = GongBaekTheme.colors.white
-    ) { innerpadding ->
+    ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerpadding)
+            modifier = Modifier.padding(innerPadding)
         ) {
             StartTitleTopBar(
                 onClick = onBackClick

@@ -6,6 +6,7 @@ import com.sopt.gongbaek.data.remote.dto.response.GroupDetailResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupHostResponseDto
 import com.sopt.gongbaek.data.remote.dto.request.GroupRegisterRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupListGroupResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupMembersResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
 import retrofit2.http.Body
@@ -47,4 +48,10 @@ interface GroupService {
     suspend fun postGroup(
         @Body groupRegisterRequestDto: GroupRegisterRequestDto
     ): ApiResponse<GroupRegisterResponseDto>
+
+    @GET("/api/v1/fill/members")
+    suspend fun getGroupMembers(
+        @Query("groupId") groupId: Int,
+        @Query("groupType") groupType: String
+    ): ApiResponse<GroupMembersResponseDto>
 }

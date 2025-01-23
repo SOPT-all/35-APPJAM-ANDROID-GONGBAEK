@@ -7,6 +7,7 @@ import com.sopt.gongbaek.data.remote.dto.request.GroupRegisterRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupDetailResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupHostResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupListGroupResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupMembersResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
 import com.sopt.gongbaek.data.remote.service.GroupService
@@ -32,4 +33,7 @@ class GroupRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postGroup(groupRegisterRequestDto: GroupRegisterRequestDto): ApiResponse<GroupRegisterResponseDto> =
         groupService.postGroup(groupRegisterRequestDto = groupRegisterRequestDto)
+
+    override suspend fun getGroupMembers(groupId: Int, groupType: String): ApiResponse<GroupMembersResponseDto> =
+        groupService.getGroupMembers(groupId = groupId, groupType = groupType)
 }

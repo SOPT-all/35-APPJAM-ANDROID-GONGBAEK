@@ -8,6 +8,7 @@ import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.data.remote.util.handleNullableApiResponse
 import com.sopt.gongbaek.domain.model.GroupHost
 import com.sopt.gongbaek.domain.model.GroupInfo
+import com.sopt.gongbaek.domain.model.GroupMembers
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import javax.inject.Inject
@@ -50,4 +51,9 @@ class GroupRepositoryImpl @Inject constructor(
             ).handleApiResponse().getOrThrow()
         }
     }
+
+    override suspend fun getGroupMembers(groupId: Int, groupType: String): Result<GroupMembers> =
+        runCatching {
+            groupDataSource.getGroupMembers(groupId = groupId, groupType = groupType).handleApiResponse().getOrThrow().toDomain()
+        }
 }

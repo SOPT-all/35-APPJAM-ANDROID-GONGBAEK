@@ -6,6 +6,7 @@ import com.sopt.gongbaek.data.remote.dto.request.GroupRegisterRequestDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupDetailResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupHostResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupListGroupResponseDto
+import com.sopt.gongbaek.data.remote.dto.response.GroupMembersResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.GroupRegisterResponseDto
 import com.sopt.gongbaek.data.remote.dto.response.MyGroupsResponseDto
 
@@ -16,4 +17,5 @@ interface GroupRemoteDataSource {
     suspend fun applyGroup(groupId: Int, groupType: String): NullableApiResponse<Unit>
     suspend fun getGroups(category: String?): ApiResponse<List<GroupListGroupResponseDto>>
     suspend fun postGroup(groupRegisterRequestDto: GroupRegisterRequestDto): ApiResponse<GroupRegisterResponseDto>
+    suspend fun getGroupMembers(groupId: Int, groupType: String): ApiResponse<GroupMembersResponseDto>
 }

@@ -7,6 +7,7 @@ import com.sopt.gongbaek.data.remote.util.handleApiResponse
 import com.sopt.gongbaek.data.remote.util.handleNullableApiResponse
 import com.sopt.gongbaek.domain.model.UserAuth
 import com.sopt.gongbaek.domain.model.UserInfo
+import com.sopt.gongbaek.domain.model.UserProfile
 import com.sopt.gongbaek.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -24,5 +25,10 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun validateNickname(nickname: String): Result<Unit> =
         runCatching {
             authRemoteDatasource.validateNickname(nickname = nickname).handleNullableApiResponse().exceptionOrNull()
+        }
+
+    override suspend fun getUserProfile(): Result<UserProfile> =
+        runCatching {
+            authRemoteDatasource.getUserProfile().handleApiResponse().getOrThrow().toDomain()
         }
 }

@@ -3,6 +3,7 @@ package com.sopt.gongbaek.presentation.ui.home.screen
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
 import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
+import com.sopt.gongbaek.domain.usecase.FetchUserProfileUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val fetchHomeScreenUseCase: FetchHomeScreenUseCase,
-    private val fetchLatestGroupUseCase: FetchLatestGroupUseCase
+    private val fetchLatestGroupUseCase: FetchLatestGroupUseCase,
+    private val fetchUserProfileUseCase: FetchUserProfileUseCase
 ) : BaseViewModel<HomeContract.State, HomeContract.Event, HomeContract.SideEffect>() {
 
     override fun createInitialState(): HomeContract.State = HomeContract.State()
@@ -22,6 +24,7 @@ class HomeViewModel @Inject constructor(
             is HomeContract.Event.OnFetchHomeInfo -> fetchHomeInfo()
             is HomeContract.Event.OnFetchLatestOnceGroup -> fetchLatestOnceGroup()
             is HomeContract.Event.OnFetchLatestWeekGroup -> fetchLatestWeekGroup()
+            is HomeContract.Event.OnFetchUserProfile -> fetchUserProfile()
         }
     }
 
@@ -77,6 +80,17 @@ class HomeViewModel @Inject constructor(
                     onFailure = {
                         setState { copy(homeLoadState = UiLoadState.Error) }
                     }
+                )
+        }
+
+    private fun fetchUserProfile() =
+        viewModelScope.launch {
+            fetchUserProfileUseCase()
+                .fold(
+                    onSuccess = { userProfile ->
+                        setState { copy(userProfile = userProfile) }
+                    },
+                    onFailure = { setState { copy(homeLoadState = UiLoadState.Error) } }
                 )
         }
 }

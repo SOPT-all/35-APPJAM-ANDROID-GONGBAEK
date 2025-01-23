@@ -6,6 +6,9 @@ import com.sopt.gongbaek.domain.repository.SearchRepository
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import com.sopt.gongbaek.domain.repository.TokenRepository
 import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
+import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
+import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
+import com.sopt.gongbaek.domain.usecase.FetchUserProfileUseCase
 import com.sopt.gongbaek.domain.usecase.GetSearchMajorsResultUseCase
 import com.sopt.gongbaek.domain.usecase.GetGroupsUseCase
 import com.sopt.gongbaek.domain.usecase.GetMyGroupsUseCase
@@ -81,4 +84,10 @@ object UseCaseModule {
     fun provideFetchLatestGroupUseCase(
         groupRepository: GroupRepository
     ): FetchLatestGroupUseCase = FetchLatestGroupUseCase(groupRepository)
+
+    @Provides
+    @Singleton
+    fun provideFetchUserProfileUseCase(
+        authRepository: AuthRepository
+    ): FetchUserProfileUseCase = FetchUserProfileUseCase(authRepository)
 }

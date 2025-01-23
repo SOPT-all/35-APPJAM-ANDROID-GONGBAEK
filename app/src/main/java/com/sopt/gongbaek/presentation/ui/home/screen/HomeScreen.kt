@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.gongbaek.domain.model.NearestGroup
 import com.sopt.gongbaek.domain.model.RecommendGroupInfo
@@ -26,17 +25,17 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.Event.OnFetchHomeInfo)
         viewModel.setEvent(HomeContract.Event.OnFetchLatestOnceGroup)
         viewModel.setEvent(HomeContract.Event.OnFetchLatestWeekGroup)
+        viewModel.setEvent(HomeContract.Event.OnFetchUserProfile)
     }
 
     HomeScreen(
-        university = uiState.userInfo.school,
-        userNickname = uiState.userInfo.nickname,
+        university = uiState.userProfile.schoolName,
+        userNickname = uiState.userProfile.nickname,
         nearestGroup = uiState.nearestGroup,
         onceRecommendGroupInfo = uiState.onceRecommendGroupList,
         weekRecommendGroupInfo = uiState.weekRecommendGroupList

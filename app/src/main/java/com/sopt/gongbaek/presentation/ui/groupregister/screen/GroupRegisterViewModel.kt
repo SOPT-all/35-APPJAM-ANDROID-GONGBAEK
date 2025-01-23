@@ -2,6 +2,8 @@ package com.sopt.gongbaek.presentation.ui.groupregister.screen
 
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
+import com.sopt.gongbaek.domain.type.DayOfWeekType
+import com.sopt.gongbaek.domain.usecase.GetLectureTimetableUseCase
 import com.sopt.gongbaek.domain.usecase.PostGroupUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
@@ -11,10 +13,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupRegisterViewModel @Inject constructor(
-    private val postGroupUseCase: PostGroupUseCase
+    private val postGroupUseCase: PostGroupUseCase,
+    private val getLectureTimetableUseCase: GetLectureTimetableUseCase
 ) :
     BaseViewModel<GroupRegisterContract.State, GroupRegisterContract.Event, GroupRegisterContract.SideEffect>() {
     override fun createInitialState(): GroupRegisterContract.State = GroupRegisterContract.State()
+
+    init {
+        getLectureTime()
+    }
 
     override suspend fun handleEvent(event: GroupRegisterContract.Event) {
         when (event) {
@@ -152,6 +159,29 @@ class GroupRegisterViewModel @Inject constructor(
                         setState { copy(registerState = UiLoadState.Error) }
                     }
                 )
+            }
+        }
+    }
+
+    private fun getLectureTime() {
+        viewModelScope.launch {
+            setState { copy(registerState = UiLoadState.Loading) }
+
+            runCatching {
+                getLectureTimetableUseCase()
+            }.onSuccess { timeTable ->
+                val transformedTimeTable = timeTable.mapKeys { dayofweek ->
+                    DayOfWeekType.toDayOfWeek(dayofweek.key)
+                }
+
+                setState {
+                    copy(
+                        lectureTime = transformedTimeTable,
+                        registerState = UiLoadState.Success
+                    )
+                }
+            }.onFailure {
+                setState { copy(registerState = UiLoadState.Error) }
             }
         }
     }

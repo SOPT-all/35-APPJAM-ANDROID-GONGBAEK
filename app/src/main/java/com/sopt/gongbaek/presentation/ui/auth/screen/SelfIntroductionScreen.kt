@@ -70,9 +70,7 @@ private fun SelfIntroductionScreen(
     onSelfIntroductionChanged: (String) -> Unit
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .imePadding()
+        modifier = Modifier.fillMaxSize()
     ) {
         SelfIntroductionSection(
             onBackClick = navigateBack,
@@ -85,7 +83,7 @@ private fun SelfIntroductionScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            enabled = selfIntroduction.isNotEmpty(),
+            enabled = selfIntroduction.length >= 20,
             onClick = navigateEnterTimetable,
             modifier = Modifier
                 .align(Alignment.BottomCenter)

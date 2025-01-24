@@ -71,7 +71,7 @@
     <string name="dialog_description_error">다시 시도해주세요.</string>
     <string name="dialog_button_confirm">확인</string>
     <string name="dialog_button_close">닫기</string>
-    <string name="dialog_button_group_room">모임방 바로가기</string>
+    <string name="dialog_button_space">스페이스 바로가기</string>
 
     <!-- GroupRoomScreen-->
     <string name="grouproom_people_count">멤버 (%1$s/%2$s명)</string>

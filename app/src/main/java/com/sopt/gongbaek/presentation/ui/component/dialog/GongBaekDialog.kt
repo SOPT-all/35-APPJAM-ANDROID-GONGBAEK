@@ -35,6 +35,7 @@ fun GongBaekDialog(
 ) {
     Column(
         modifier = modifier
+            .padding(horizontal = 15.dp)
             .background(color = GongBaekTheme.colors.white, shape = RoundedCornerShape(20.dp))
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -43,7 +44,7 @@ fun GongBaekDialog(
             painter = painterResource(gongBaekDialogType.imageResId),
             contentDescription = null,
             modifier = Modifier
-                .padding(top = 14.dp, bottom = 20.dp)
+                .padding(bottom = 20.dp)
                 .padding(horizontal = 36.dp)
                 .aspectRatio(1f / 1f)
         )
@@ -59,10 +60,10 @@ fun GongBaekDialog(
                 text = stringResource(gongBaekDialogType.descriptionResId),
                 color = GongBaekTheme.colors.gray07,
                 style = GongBaekTheme.typography.body2.m14,
-                modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
+                modifier = Modifier.padding(top = 4.dp, bottom = 20.dp)
             )
         } else {
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(15.dp))
         }
 
         when (gongBaekDialogType) {
@@ -79,7 +80,7 @@ fun GongBaekDialog(
                         enableButtonColor = GongBaekTheme.colors.gray09
                     )
                     GongBaekBasicButton(
-                        title = stringResource(R.string.dialog_button_group_room),
+                        title = stringResource(R.string.dialog_button_space),
                         onClick = onConfirmButtonClick,
                         verticalPadding = 12,
                         enabled = true,

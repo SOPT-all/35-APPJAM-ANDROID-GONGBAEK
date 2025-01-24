@@ -46,6 +46,7 @@ class GroupRegisterContract {
         data object OnCoverDeleted : Event()
         data object OnPlacePeopleDeleted : Event()
         data object OnTitleIntroductionDeleted : Event()
+        data object GetLectureTime : Event()
     }
 
     sealed interface SideEffect : UiSideEffect {

@@ -10,6 +10,7 @@ import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.hasCompleteKoreanCharacters
 import com.sopt.gongbaek.presentation.util.extension.isCompleteKorean
 import com.sopt.gongbaek.presentation.util.extension.isKoreanChar
+import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,14 +21,14 @@ class GroupRegisterViewModel @Inject constructor(
     private val getLectureTimetableUseCase: GetLectureTimetableUseCase
 ) :
     BaseViewModel<GroupRegisterContract.State, GroupRegisterContract.Event, GroupRegisterContract.SideEffect>() {
-    override fun createInitialState(): GroupRegisterContract.State = GroupRegisterContract.State()
-
-    init {
-        getLectureTime()
-    }
+    override fun createInitialState(): GroupRegisterContract.State = GroupRegisterContract.State(
+        registerState = UiLoadState.Idle
+    )
 
     override suspend fun handleEvent(event: GroupRegisterContract.Event) {
         when (event) {
+            is GroupRegisterContract.Event.GetLectureTime -> getLectureTime()
+
             is GroupRegisterContract.Event.OnGroupCycleSelected -> {
                 updateGroupRegisterInfo { copy(groupType = setGroupType(event.groupType)) }
                 setState { copy(selectedGroupType = event.groupType) }
@@ -96,7 +97,7 @@ class GroupRegisterViewModel @Inject constructor(
             }
 
             is GroupRegisterContract.Event.OnRegisterButtonClicked -> {
-                registerGroup(groupRegisterInfo = currentState.groupRegisterInfo)
+                registerGroup(groupRegisterInfo = event.groupRegisterInfo)
             }
 
             is GroupRegisterContract.Event.OnDialogConfirmClicked -> {
@@ -112,8 +113,7 @@ class GroupRegisterViewModel @Inject constructor(
                     this[event.day] = event.timeSlots
                 }
                 setState { copy(selectedTimeSlotsByDay = updatedTimeSlots) }
-
-                updateGroupRegisterTime(event.day, event.timeSlots)
+                updateGroupRegisterTime(updatedTimeSlots)
             }
 
             is GroupRegisterContract.Event.OnTimeSlotDeleted -> {
@@ -156,10 +156,11 @@ class GroupRegisterViewModel @Inject constructor(
         }
     }
 
-    private fun updateGroupRegisterTime(day: String, timeSlots: List<Int>) {
+    private fun updateGroupRegisterTime(timeSlots: Map<String, List<Int>>) {
         if (timeSlots.isNotEmpty()) {
-            val startTime = timeSlots.minOrNull()?.toDouble() ?: 0.0
-            val endTime = timeSlots.maxOrNull()?.toDouble() ?: 0.0
+            val lectureTimeTable = convertToTimeTable(timeSlots)
+            val startTime = lectureTimeTable.first().startTime
+            val endTime = lectureTimeTable.first().endTime
 
             updateGroupRegisterInfo {
                 copy(startTime = startTime, endTime = endTime)
@@ -190,7 +191,7 @@ class GroupRegisterViewModel @Inject constructor(
 
     private fun getLectureTime() {
         viewModelScope.launch {
-            setState { copy(registerState = UiLoadState.Loading) }
+            setState { copy(loadState = UiLoadState.Loading) }
 
             runCatching {
                 getLectureTimetableUseCase()
@@ -202,11 +203,11 @@ class GroupRegisterViewModel @Inject constructor(
                 setState {
                     copy(
                         lectureTime = transformedTimeTable,
-                        registerState = UiLoadState.Success
+                        loadState = UiLoadState.Success
                     )
                 }
             }.onFailure {
-                setState { copy(registerState = UiLoadState.Error) }
+                setState { copy(loadState = UiLoadState.Error) }
             }
         }
     }

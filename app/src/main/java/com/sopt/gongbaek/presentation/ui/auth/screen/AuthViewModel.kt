@@ -188,7 +188,7 @@ class AuthViewModel @Inject constructor(
                 onSuccess = { userAuth ->
                     setState { copy(loadState = UiLoadState.Success) }
                     setSideEffect(AuthContract.SideEffect.NavigateCompleteAuth)
-//                    setTokenUseCase(userAuth.accessToken, userAuth.refreshToken)
+                    setTokenUseCase(userAuth.accessToken, userAuth.refreshToken)
                 },
                 onFailure = {
                     setState { copy(loadState = UiLoadState.Error) }

@@ -18,7 +18,6 @@ class MainNavigator(
     val navController: NavHostController
 ) {
     val startDestination = NavigationRoute.SplashRoute.SPLASH
-
     private val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 

@@ -54,6 +54,7 @@ import com.sopt.gongbaek.domain.model.GroupMembers
 import com.sopt.gongbaek.domain.model.GroupRoom
 import com.sopt.gongbaek.presentation.model.ProfileImageList
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
+import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.chip.GroupInfoChip
 import com.sopt.gongbaek.presentation.ui.component.section.CommentSection
 import com.sopt.gongbaek.presentation.ui.component.section.GroupPlaceDescription
@@ -105,6 +106,13 @@ fun GroupRoomScreen(
 ) {
     var columnHeight by remember { mutableIntStateOf(0) }
     val systemUiController = rememberSystemUiController()
+    val imageList = ImageSelectorType.getImageListFromCategory(uiState.groupRoom.groupInfo.category)
+
+    val groupCoverImageResId = if (imageList.isNotEmpty() && uiState.groupRoom.groupInfo.coverImg in 1..imageList.size) {
+        imageList[uiState.groupRoom.groupInfo.coverImg - 1]
+    } else {
+        R.drawable.img_study_1
+    }
 
     DisposableEffect(Unit) {
         systemUiController.setStatusBarColor(
@@ -120,7 +128,7 @@ fun GroupRoomScreen(
     ) {
         Box {
             Image(
-                painter = painterResource(id = R.drawable.img_meetingroom),
+                painter = painterResource(id = groupCoverImageResId),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()

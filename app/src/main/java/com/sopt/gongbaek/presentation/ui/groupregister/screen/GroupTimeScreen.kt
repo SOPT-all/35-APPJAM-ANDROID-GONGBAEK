@@ -45,7 +45,7 @@ fun GroupTimeRoute(
                 }
             }
     }
-    val selectedDay = DayOfWeekType.toDayOfWeek(uiState.groupRegisterInfo.weekDay)
+    val selectedDay = DayOfWeekType.toDayOfWeekRemoveSuffix(uiState.groupRegisterInfo.weekDay)
 
     GroupTimeScreen(
         selectedDay = selectedDay,

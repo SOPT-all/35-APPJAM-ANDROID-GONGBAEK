@@ -30,15 +30,18 @@ enum class DayOfWeekType(
     );
 
     companion object {
-        fun toDayOfWeek(dayOfWeek: String) =
-            when (dayOfWeek) {
-                MON.dayOfWeek -> MON.description.removeSuffix("요일")
-                TUE.dayOfWeek -> TUE.description.removeSuffix("요일")
-                WED.dayOfWeek -> WED.description.removeSuffix("요일")
-                THU.dayOfWeek -> THU.description.removeSuffix("요일")
-                FRI.dayOfWeek -> FRI.description.removeSuffix("요일")
-                else -> "UNKNOWN"
-            }
+
+        fun toDayOfWeekRemoveSuffix(
+            dayOfWeek: String?,
+            suffix: String = "요일"
+        ) = when (dayOfWeek) {
+            MON.dayOfWeek -> MON.description.removeSuffix(suffix)
+            TUE.dayOfWeek -> TUE.description.removeSuffix(suffix)
+            WED.dayOfWeek -> WED.description.removeSuffix(suffix)
+            THU.dayOfWeek -> THU.description.removeSuffix(suffix)
+            FRI.dayOfWeek -> FRI.description.removeSuffix(suffix)
+            else -> "UNKNOWN"
+        }
 
         fun getWeekDaysWithoutSuffix(): List<String> =
             entries

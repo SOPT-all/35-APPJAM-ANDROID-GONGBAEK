@@ -28,6 +28,7 @@ import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 @Composable
 fun HomeRoute(
     navigateGroupDetail: (Int, String) -> Unit,
+    navigateGroupRoom: (Int, String) -> Unit,
     navigateGroupList: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -40,6 +41,9 @@ fun HomeRoute(
             .collect { sideEffect ->
                 if (sideEffect is HomeContract.SideEffect.NavigateToGroupDetail) {
                     navigateGroupDetail(sideEffect.groupId, sideEffect.groupType)
+                }
+                if (sideEffect is HomeContract.SideEffect.NavigateToGroupRoom) {
+                    navigateGroupRoom(sideEffect.groupId, sideEffect.groupType)
                 }
                 if (sideEffect is HomeContract.SideEffect.NavigateToGroupList) {
                     navigateGroupList()
@@ -67,11 +71,11 @@ fun HomeRoute(
         onClickOnceRecommendItem = { groupId, groupCycle ->
             viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupDetail(groupId, groupCycle))
         },
-        onNearestGroupClick = { groupId, groupCycle ->
-            viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupDetail(groupId, groupCycle))
-        },
         onFillGroupClick = {
             viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupList)
+        },
+        navigateGroupRoom = { groupId, groupType ->
+            viewModel.sendSideEffect(HomeContract.SideEffect.NavigateToGroupRoom(groupId, groupType))
         }
     )
 }
@@ -85,8 +89,8 @@ private fun HomeScreen(
     onceRecommendGroupInfo: List<RecommendGroupInfo>,
     onClickWeekRecommendItem: (Int, String) -> Unit,
     onClickOnceRecommendItem: (Int, String) -> Unit,
-    onNearestGroupClick: (Int, String) -> Unit,
-    onFillGroupClick: () -> Unit
+    onFillGroupClick: () -> Unit,
+    navigateGroupRoom: (Int, String) -> Unit
 ) {
     val systemUiController = rememberSystemUiController()
 
@@ -110,7 +114,7 @@ private fun HomeScreen(
             NearestGroupSection(
                 university = university,
                 nearestGroup = nearestGroup,
-                onNearestGroupClick = onNearestGroupClick,
+                onNearestGroupClick = navigateGroupRoom,
                 onFillGroupClick = onFillGroupClick,
                 modifier = Modifier.padding(bottom = 30.dp)
             )
@@ -184,7 +188,7 @@ private fun PreviewHomeScreen() {
             ),
             onClickWeekRecommendItem = { _, _ -> },
             onClickOnceRecommendItem = { _, _ -> },
-            onNearestGroupClick = { _, _ -> },
+            navigateGroupRoom = { _, _ -> },
             onFillGroupClick = {},
             onceRecommendGroupInfo = listOf(
                 RecommendGroupInfo(

@@ -79,7 +79,7 @@ private fun EnterTimeTableScreen(
             )
         },
         containerColor = GongBaekTheme.colors.white,
-        contentWindowInsets = WindowInsets(0.dp,0.dp,0.dp,0.dp),
+        contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
         content = { paddingValues ->
             EnterTimeTableSection(
                 onBackClick = navigateBack,

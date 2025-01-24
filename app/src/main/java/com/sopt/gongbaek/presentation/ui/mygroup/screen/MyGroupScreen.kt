@@ -3,7 +3,11 @@ package com.sopt.gongbaek.presentation.ui.mygroup.screen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -12,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -46,8 +51,13 @@ fun MyGroupRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is MyGroupContract.SideEffect.NavigateGroupDetail -> { navigateGroupDetail(sideEffect.groupId, sideEffect.groupCycle) }
-                    is MyGroupContract.SideEffect.NavigateGroupRoom -> { navigateGroupRoom(sideEffect.groupId, sideEffect.groupCycle) }
+                    is MyGroupContract.SideEffect.NavigateGroupDetail -> {
+                        navigateGroupDetail(sideEffect.groupId, sideEffect.groupCycle)
+                    }
+
+                    is MyGroupContract.SideEffect.NavigateGroupRoom -> {
+                        navigateGroupRoom(sideEffect.groupId, sideEffect.groupCycle)
+                    }
                 }
             }
     }
@@ -71,7 +81,11 @@ fun MyGroupScreen(
     onGroupRoomButtonClick: (Int, String) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 10.dp)
+            .padding(WindowInsets.navigationBars.asPaddingValues())
+            .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
         CenterTitleTopBar(
             centerTitleResId = R.string.my_group_top_bar_title,
@@ -93,6 +107,7 @@ fun MyGroupScreen(
                             onGroupRoomButtonClick = onGroupRoomButtonClick
                         )
                     }
+
                     1 -> {
                         MyGroupScreenContent(
                             activeGroups = uiState.applyActiveGroups,

@@ -76,7 +76,6 @@ fun GroupRoomRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     BackHandler {
-
     }
 
     LaunchedEffect(Unit) {

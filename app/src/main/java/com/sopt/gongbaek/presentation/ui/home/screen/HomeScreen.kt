@@ -1,6 +1,9 @@
 package com.sopt.gongbaek.presentation.ui.home.screen
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -100,12 +103,14 @@ private fun HomeScreen(
             darkIcons = true
         )
         onDispose {
-
         }
     }
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(WindowInsets.navigationBars.asPaddingValues())
+            .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
         item {
             NearestGroupSection(

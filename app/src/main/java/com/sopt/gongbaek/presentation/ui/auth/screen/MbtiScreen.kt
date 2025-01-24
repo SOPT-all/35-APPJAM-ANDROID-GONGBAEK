@@ -90,7 +90,7 @@ private fun MbtiScreen(
             )
         },
         containerColor = GongBaekTheme.colors.white,
-        contentWindowInsets = WindowInsets(0.dp,0.dp,0.dp,0.dp)
+        contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)

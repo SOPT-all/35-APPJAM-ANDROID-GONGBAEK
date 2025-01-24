@@ -84,7 +84,7 @@ private fun GapTimeTableScreen(
             }
         },
         containerColor = GongBaekTheme.colors.white,
-        contentWindowInsets = WindowInsets(0.dp,0.dp,0.dp,0.dp),
+        contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
         content = { paddingValues ->
             GapTimeTableSection(
                 lectureTime = lectureTime,

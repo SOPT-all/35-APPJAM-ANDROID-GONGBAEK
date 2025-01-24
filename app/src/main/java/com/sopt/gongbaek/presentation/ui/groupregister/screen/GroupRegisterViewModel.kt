@@ -171,7 +171,7 @@ class GroupRegisterViewModel @Inject constructor(
                 getLectureTimetableUseCase()
             }.onSuccess { timeTable ->
                 val transformedTimeTable = timeTable.mapKeys { dayofweek ->
-                    DayOfWeekType.toDayOfWeek(dayofweek.key)
+                    DayOfWeekType.toDayOfWeekRemoveSuffix(dayofweek.key)
                 }
 
                 setState {

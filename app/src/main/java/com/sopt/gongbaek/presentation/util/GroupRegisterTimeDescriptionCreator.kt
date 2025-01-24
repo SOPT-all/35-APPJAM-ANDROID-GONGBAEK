@@ -1,6 +1,7 @@
 package com.sopt.gongbaek.presentation.util
 
 import com.sopt.gongbaek.domain.model.GroupRegisterInfo
+import com.sopt.gongbaek.domain.type.DayOfWeekType.Companion.toDayOfWeekRemoveSuffix
 import com.sopt.gongbaek.domain.type.GroupCycleType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -25,7 +26,7 @@ fun createGroupRegisterTimeDescription(groupRegisterInfo: GroupRegisterInfo): St
         }
 
         GroupCycleType.WEEKLY -> {
-            val dayOfWeek = getKoreanDayOfWeek(groupRegisterInfo.weekDay)
+            val dayOfWeek = toDayOfWeekRemoveSuffix(groupRegisterInfo.weekDay, "")
             "매주 $dayOfWeek $startTimeString - $endTimeString"
         }
 

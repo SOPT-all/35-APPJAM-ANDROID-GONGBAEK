@@ -12,6 +12,8 @@ import com.sopt.gongbaek.domain.usecase.ValidateNicknameUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
 import com.sopt.gongbaek.presentation.util.extension.createMbti
+import com.sopt.gongbaek.presentation.util.extension.hasCompleteKoreanCharacters
+import com.sopt.gongbaek.presentation.util.extension.isCompleteKorean
 import com.sopt.gongbaek.presentation.util.extension.isKoreanChar
 import com.sopt.gongbaek.presentation.util.timetable.convertToTimeTable
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,13 +34,20 @@ class AuthViewModel @Inject constructor(
     override suspend fun handleEvent(event: AuthContract.Event) {
         when (event) {
             is AuthContract.Event.OnProfileImageSelected -> updateUserInfo { copy(profileImage = event.profileImage) }
+
             is AuthContract.Event.OnNicknameChanged -> {
                 val filteredNickname = event.nickname.filter { it.isKoreanChar() }
+                val isValidNickname = filteredNickname.hasCompleteKoreanCharacters(2)
+                val containsIncompleteKorean = filteredNickname.any { it.isKoreanChar() && !it.isCompleteKorean() }
                 updateUserInfo { copy(nickname = filteredNickname) }
                 setState {
                     copy(
-                        nicknameValidation = true,
-                        nicknameErrorMessage = null
+                        nicknameValidation = isValidNickname && !containsIncompleteKorean,
+                        nicknameErrorMessage = when {
+                            containsIncompleteKorean -> "완성되지 않은 글자가 포함되어 있습니다."
+                            !isValidNickname -> "닉네임은 최소 2글자 이상의 완성된 한글이어야 합니다."
+                            else -> null
+                        }
                     )
                 }
             }

@@ -24,6 +24,7 @@ import com.sopt.gongbaek.presentation.ui.component.progressBar.GongBaekProgressB
 import com.sopt.gongbaek.presentation.ui.component.section.PageDescriptionSection
 import com.sopt.gongbaek.presentation.ui.component.textfield.GongBaekBasicTextField
 import com.sopt.gongbaek.presentation.ui.component.topbar.StartTitleTopBar
+import com.sopt.gongbaek.presentation.util.extension.hasCompleteKoreanCharacters
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 
 @Composable
@@ -82,7 +83,7 @@ private fun NicknameScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            enabled = nickname.isNotBlank() && errorMessage.isNullOrEmpty(),
+            enabled = nickname.hasCompleteKoreanCharacters(2) && errorMessage.isNullOrEmpty(),
             onClick = navigateUnivMajor,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -121,8 +122,7 @@ private fun NickNameInputSection(
                 onValueChange = onNicknameChanged,
                 gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.NICKNAME,
                 isError = !errorMessage.isNullOrEmpty(),
-                errorMessage = errorMessage.orEmpty(), // 에러 메시지 전달
-                onErrorChange = { /* 에러 변경 처리 */ }
+                errorMessage = errorMessage.orEmpty(),
             )
         }
     }

@@ -36,7 +36,7 @@ fun GongBaekToggleButton(
 ) {
     val density = LocalDensity.current
     val minBound = with(density) { 0.dp.toPx() }
-    val maxBound = with(density) { (LocalConfiguration.current.screenWidthDp * 0.06f).dp.toPx() }
+    val maxBound = with(density) { (LocalConfiguration.current.screenWidthDp * 0.045f).dp.toPx() }
     val state by animateFloatAsState(
         targetValue = if (checkedState) maxBound else minBound,
         animationSpec = tween(durationMillis = 300)
@@ -54,13 +54,13 @@ fun GongBaekToggleButton(
 
         Box(
             modifier = modifier
-                .aspectRatio(42f / 24f)
                 .height((LocalConfiguration.current.screenHeightDp * 0.03f).dp)
+                .aspectRatio(42f / 24f)
                 .background(
                     color = if (checkedState) GongBaekTheme.colors.mainOrange else GongBaekTheme.colors.gray06,
                     shape = RoundedCornerShape(20.dp)
                 )
-                .padding(3.5.dp)
+                .padding(3.dp)
                 .clickableWithoutRipple {
 //                    onClick()
                 }
@@ -68,8 +68,8 @@ fun GongBaekToggleButton(
             Box(
                 modifier = Modifier
                     .offset { IntOffset(state.roundToInt(), 0) }
+                    .height((LocalConfiguration.current.screenHeightDp * 0.03f).dp)
                     .aspectRatio(1f / 1f)
-                    .height((LocalConfiguration.current.screenHeightDp * 0.02f).dp)
                     .background(
                         color = GongBaekTheme.colors.white,
                         shape = CircleShape

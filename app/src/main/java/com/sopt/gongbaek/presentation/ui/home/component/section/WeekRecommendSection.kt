@@ -159,7 +159,7 @@ private fun WeekRecommendItem(
 
         GroupTimeDescription(
             description = homeOnceGroupFormatSchedule(
-                weekRecommendGroupInfo.weekDate,
+                weekRecommendGroupInfo.weekDay,
                 weekRecommendGroupInfo.startTime,
                 weekRecommendGroupInfo.endTime
             ),

@@ -79,8 +79,7 @@ private fun CompleteAuthScreen(
             .padding(horizontal = 16.dp)
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = "가입이 완료되었어요!",
@@ -89,7 +88,7 @@ private fun CompleteAuthScreen(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 109.dp, bottom = 8.dp)
+                    .padding(top = 99.dp, bottom = 8.dp)
             )
 
             Text(
@@ -125,7 +124,7 @@ private fun CompleteAuthScreen(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .align(Alignment.Center)
-                .padding(top = 24.dp)
+                .padding(top = 38.dp)
                 .width((LocalConfiguration.current.screenWidthDp * 0.9).dp)
                 .aspectRatio(328f / 343f)
         )

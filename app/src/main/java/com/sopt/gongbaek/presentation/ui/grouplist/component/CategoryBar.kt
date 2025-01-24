@@ -60,10 +60,6 @@ fun CategoryBar(
                         color = if (selectedIndex == index) GongBaekTheme.colors.gray09 else GongBaekTheme.colors.white,
                         shape = RoundedCornerShape(4.dp)
                     )
-                    .padding(
-                        horizontal = 12.dp,
-                        vertical = 6.dp
-                    )
                     .clickableWithoutRipple {
                         onIndexSelected(index)
                     },
@@ -72,7 +68,12 @@ fun CategoryBar(
                 Text(
                     text = contentLists[index],
                     style = GongBaekTheme.typography.caption1.m13,
-                    color = if (selectedIndex == index) GongBaekTheme.colors.white else GongBaekTheme.colors.gray06
+                    color = if (selectedIndex == index) GongBaekTheme.colors.white else GongBaekTheme.colors.gray06,
+                    modifier = Modifier
+                        .padding(
+                            horizontal = 12.dp,
+                            vertical = 8.dp
+                        )
                 )
             }
 

@@ -4,7 +4,6 @@ import com.sopt.gongbaek.domain.type.DayOfWeekType.Companion.toDayOfWeekRemoveSu
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-import java.time.format.TextStyle
 import java.util.Locale
 
 fun nearestGroupFormatSchedule(

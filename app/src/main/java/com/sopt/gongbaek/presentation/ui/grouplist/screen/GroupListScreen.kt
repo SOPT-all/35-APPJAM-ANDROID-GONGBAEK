@@ -144,14 +144,16 @@ fun GroupListScreen(
             )
             Spacer(Modifier.height(8.dp))
 
-            HorizontalDivider(
-                thickness = 8.dp,
-                color = GongBaekTheme.colors.gray02
-            )
-
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
+                item {
+                    HorizontalDivider(
+                        thickness = 8.dp,
+                        color = GongBaekTheme.colors.gray02
+                    )
+                }
+
                 item {
                     Row(
                         modifier = Modifier

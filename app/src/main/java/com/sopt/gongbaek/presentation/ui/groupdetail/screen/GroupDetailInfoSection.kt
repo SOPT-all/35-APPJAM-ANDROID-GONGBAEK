@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -40,6 +42,7 @@ import com.sopt.gongbaek.presentation.util.formatEnterYearToString
 import com.sopt.gongbaek.ui.theme.GONGBAEKTheme
 import com.sopt.gongbaek.ui.theme.GongBaekTheme
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun GroupDetailInfoSection(
     groupInfo: GroupInfo,
@@ -160,62 +163,69 @@ fun GroupDetailInfoSection(
                                 )
                             }
                             Spacer(modifier = Modifier.height(6.dp))
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
+                            FlowRow(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier.roundedBackgroundWithBorder(
-                                        cornerRadius = 4.dp,
-                                        backgroundColor = GongBaekTheme.colors.white
-                                    )
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
+                                    Box(
+                                        contentAlignment = Alignment.Center,
+                                        modifier = Modifier.roundedBackgroundWithBorder(
+                                            cornerRadius = 4.dp,
+                                            backgroundColor = GongBaekTheme.colors.white
+                                        )
+                                    ) {
+                                        Text(
+                                            text = stringResource(R.string.group_detail_enter_year_grade_title),
+                                            modifier = Modifier.padding(
+                                                horizontal = 6.dp,
+                                                vertical = 1.dp
+                                            ),
+                                            color = GongBaekTheme.colors.mainOrange,
+                                            style = GongBaekTheme.typography.caption2.m12
+                                        )
+                                    }
                                     Text(
-                                        text = stringResource(R.string.group_detail_enter_year_grade_title),
-                                        modifier = Modifier.padding(
-                                            horizontal = 6.dp,
-                                            vertical = 1.dp
+                                        text = stringResource(
+                                            R.string.group_detail_enter_year_grade,
+                                            formatEnterYearToString(groupHost.enterYear),
+                                            groupHost.grade
                                         ),
-                                        color = GongBaekTheme.colors.mainOrange,
+                                        color = GongBaekTheme.colors.gray08,
                                         style = GongBaekTheme.typography.caption2.m12
                                     )
                                 }
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = stringResource(
-                                        R.string.group_detail_enter_year_grade,
-                                        formatEnterYearToString(groupHost.enterYear),
-                                        groupHost.grade
-                                    ),
-                                    color = GongBaekTheme.colors.gray08,
-                                    style = GongBaekTheme.typography.caption2.m12
-                                )
-
-                                Spacer(modifier = Modifier.width(12.dp))
-
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier.roundedBackgroundWithBorder(
-                                        cornerRadius = 4.dp,
-                                        backgroundColor = GongBaekTheme.colors.white
-                                    )
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
+                                    Box(
+                                        contentAlignment = Alignment.Center,
+                                        modifier = Modifier.roundedBackgroundWithBorder(
+                                            cornerRadius = 4.dp,
+                                            backgroundColor = GongBaekTheme.colors.white
+                                        )
+                                    ) {
+                                        Text(
+                                            text = stringResource(R.string.group_detail_mbti_title),
+                                            modifier = Modifier.padding(
+                                                horizontal = 6.dp,
+                                                vertical = 1.dp
+                                            ),
+                                            color = GongBaekTheme.colors.mainOrange,
+                                            style = GongBaekTheme.typography.caption2.m12
+                                        )
+                                    }
                                     Text(
-                                        text = stringResource(R.string.group_detail_mbti_title),
-                                        modifier = Modifier.padding(
-                                            horizontal = 6.dp,
-                                            vertical = 1.dp
-                                        ),
-                                        color = GongBaekTheme.colors.mainOrange,
+                                        text = groupHost.mbti,
+                                        color = GongBaekTheme.colors.gray08,
                                         style = GongBaekTheme.typography.caption2.m12
                                     )
                                 }
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = groupHost.mbti,
-                                    color = GongBaekTheme.colors.gray08,
-                                    style = GongBaekTheme.typography.caption2.m12
-                                )
                             }
                         }
                     }
@@ -311,7 +321,11 @@ fun GroupDetailInfoScreenPreview() {
                 isHost = false,
                 isApply = false
             ),
-            groupHost = GroupHost(),
+            groupHost = GroupHost(
+                grade = 4,
+                enterYear = 2020,
+                mbti = "ESFP"
+            ),
             onApplyClick = {}
         )
     }

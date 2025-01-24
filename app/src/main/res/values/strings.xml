@@ -26,7 +26,7 @@
     <string name="gongbaek_basic_textfield_nickname_title">닉네임</string>
     <string name="gongbaek_basic_textfield_nickname_placeholder">한글을 활용해 최대 8자 이내로 입력해주세요.</string>
     <string name="gongbaek_basic_textfield_self_introduction_title">소개글</string>
-    <string name="gongbaek_basic_textfield_self_introduction_palceholder">간단한 소개글을 20자 이상 작성해보세요.\nex) 화석된 사람들끼리 소소한 점심 모임 어때요?</string>
+    <string name="gongbaek_basic_textfield_self_introduction_palceholder">간단한 소개글을 20자 이상 작성해보세요.\nex) 안녕하세요! 이번에 복학한 학생입니다. 함께 좋은 모임 만들어봐요~!</string>
     <string name="gongbaek_basic_textfield_group_place_title">장소</string>
     <string name="gongbaek_basic_textfield_group_place_placeholder">모임 장소를 입력해주세요. ex) M동 1층 로비</string>
     <string name="gongbaek_basic_textfield_group_title_title">제목</string>
@@ -71,7 +71,7 @@
     <string name="dialog_description_error">다시 시도해주세요.</string>
     <string name="dialog_button_confirm">확인</string>
     <string name="dialog_button_close">닫기</string>
-    <string name="dialog_button_group_room">모임방 바로가기</string>
+    <string name="dialog_button_space">스페이스 바로가기</string>
 
     <!-- GroupRoomScreen-->
     <string name="grouproom_people_count">멤버 (%1$s/%2$s명)</string>

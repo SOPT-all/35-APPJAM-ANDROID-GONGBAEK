@@ -16,14 +16,12 @@ class GroupRegisterContract {
         val selectedCategory: String = "",
         val selectedCover: Int? = null,
         val registerState: UiLoadState = UiLoadState.Idle,
-        val lectureTime: Map<String, List<Int>> = mapOf(
-            "월" to listOf(0, 1, 2, 3, 4, 5, 6),
-            "화" to listOf(7, 8, 9, 10),
-            "수" to listOf(0, 1, 2, 3, 4, 5, 6),
-            "목" to listOf(3, 4, 5, 6, 7),
-            "금" to listOf(0, 1, 2, 3, 9, 10, 11, 12)
-        ),
-        val selectedTimeSlotsByDay: Map<String, List<Int>> = emptyMap()
+        val lectureTime: Map<String, List<Int>> = mapOf(),
+        val selectedTimeSlotsByDay: Map<String, List<Int>> = emptyMap(),
+        val placeValidation: Boolean = false,
+        val placeErrorMessage: String? = null,
+        val titleValidation: Boolean = false,
+        val titleErrorMessage: String? = null
     ) : UiState
 
     sealed class Event : UiEvent {

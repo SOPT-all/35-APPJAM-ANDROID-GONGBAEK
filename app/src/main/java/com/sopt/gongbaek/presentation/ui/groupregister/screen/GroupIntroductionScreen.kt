@@ -50,6 +50,7 @@ fun GroupIntroductionRoute(
     }
     GroupIntroductionScreen(
         groupTitle = uiState.groupRegisterInfo.groupTitle,
+        titleErrorMessage = uiState.titleErrorMessage,
         onGroupTitleChange = { groupTitle ->
             viewModel.setEvent(GroupRegisterContract.Event.OnTitleChanged(groupTitle))
         },
@@ -70,6 +71,7 @@ fun GroupIntroductionRoute(
 @Composable
 fun GroupIntroductionScreen(
     groupTitle: String,
+    titleErrorMessage: String?,
     onGroupTitleChange: (String) -> Unit,
     introduction: String,
     onIntroductionChange: (String) -> Unit,
@@ -82,6 +84,7 @@ fun GroupIntroductionScreen(
     ) {
         GroupIntroductionSection(
             groupTitle = groupTitle,
+            titleErrorMessage = titleErrorMessage,
             onGroupTitleChange = onGroupTitleChange,
             introduction = introduction,
             onIntroductionChange = onIntroductionChange,
@@ -102,6 +105,7 @@ fun GroupIntroductionScreen(
 @Composable
 private fun GroupIntroductionSection(
     groupTitle: String,
+    titleErrorMessage: String?,
     onGroupTitleChange: (String) -> Unit,
     introduction: String,
     onIntroductionChange: (String) -> Unit,
@@ -129,7 +133,9 @@ private fun GroupIntroductionSection(
             GongBaekBasicTextField(
                 value = groupTitle,
                 onValueChange = onGroupTitleChange,
-                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_TITLE
+                gongBaekBasicTextFieldType = GongBaekBasicTextFieldType.GROUP_TITLE,
+                isError = !titleErrorMessage.isNullOrEmpty(),
+                errorMessage = titleErrorMessage.orEmpty()
             )
             Spacer(Modifier.height(28.dp))
 

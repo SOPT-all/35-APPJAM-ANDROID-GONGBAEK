@@ -7,6 +7,9 @@ import com.sopt.gongbaek.domain.usecase.GetLectureTimetableUseCase
 import com.sopt.gongbaek.domain.usecase.PostGroupUseCase
 import com.sopt.gongbaek.presentation.util.base.BaseViewModel
 import com.sopt.gongbaek.presentation.util.base.UiLoadState
+import com.sopt.gongbaek.presentation.util.extension.hasCompleteKoreanCharacters
+import com.sopt.gongbaek.presentation.util.extension.isCompleteKorean
+import com.sopt.gongbaek.presentation.util.extension.isKoreanChar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,7 +58,18 @@ class GroupRegisterViewModel @Inject constructor(
             }
 
             is GroupRegisterContract.Event.OnPlaceChanged -> {
+                val isValidPlace = event.place.hasCompleteKoreanCharacters(2)
+                val containsIncompleteKorean = event.place.any { it.isKoreanChar() && !it.isCompleteKorean() }
                 updateGroupRegisterInfo { copy(location = event.place) }
+                setState {
+                    copy(
+                        placeValidation = isValidPlace && !containsIncompleteKorean,
+                        placeErrorMessage = when {
+                            containsIncompleteKorean -> "완성되지 않은 글자가 포함되어 있습니다."
+                            else -> null
+                        }
+                    )
+                }
             }
 
             is GroupRegisterContract.Event.OnPeopleChanged -> {
@@ -63,7 +77,18 @@ class GroupRegisterViewModel @Inject constructor(
             }
 
             is GroupRegisterContract.Event.OnTitleChanged -> {
+                val isValidPlace = event.title.hasCompleteKoreanCharacters(2)
+                val containsIncompleteKorean = event.title.any { it.isKoreanChar() && !it.isCompleteKorean() }
                 updateGroupRegisterInfo { copy(groupTitle = event.title) }
+                setState {
+                    copy(
+                        titleValidation = isValidPlace && !containsIncompleteKorean,
+                        titleErrorMessage = when {
+                            containsIncompleteKorean -> "완성되지 않은 글자가 포함되어 있습니다."
+                            else -> null
+                        }
+                    )
+                }
             }
 
             is GroupRegisterContract.Event.OnIntroductionChanged -> {

@@ -232,7 +232,9 @@ fun GroupDetailInfoSection(
                 ) {
                     Text(
                         text = groupHost.introduction,
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                         color = GongBaekTheme.colors.gray08,
                         style = GongBaekTheme.typography.body2.r14
                     )
@@ -271,11 +273,15 @@ fun GroupDetailInfoSection(
                     .weight(2.3f)
                     .roundedBackgroundWithBorder(
                         cornerRadius = 6.dp,
-                        backgroundColor = if (groupInfo.status == GroupStatusType.RECRUITING.name) GongBaekTheme.colors.mainOrange else GongBaekTheme.colors.gray03
+                        backgroundColor = when {
+                            groupInfo.status == GroupStatusType.CLOSED.name -> GongBaekTheme.colors.gray03
+                            groupInfo.status == GroupStatusType.RECRUITED.name && !groupInfo.isApply -> GongBaekTheme.colors.gray03
+                            else -> GongBaekTheme.colors.mainOrange
+                        }
                     )
                     .clickableWithoutRipple(
-                        enabled = groupInfo.status == GroupStatusType.RECRUITING.name,
-                        onClick = { if (!groupInfo.isHost && !groupInfo.isApply) onApplyClick() }
+                        enabled = groupInfo.status == GroupStatusType.RECRUITING.name && !groupInfo.isApply && !groupInfo.isHost,
+                        onClick = onApplyClick
                     ),
                 contentAlignment = Alignment.Center
             ) {

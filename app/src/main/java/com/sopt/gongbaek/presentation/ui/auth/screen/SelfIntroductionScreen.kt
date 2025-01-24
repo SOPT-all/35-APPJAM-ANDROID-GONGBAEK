@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -70,9 +69,7 @@ private fun SelfIntroductionScreen(
     onSelfIntroductionChanged: (String) -> Unit
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .imePadding()
+        modifier = Modifier.fillMaxSize()
     ) {
         SelfIntroductionSection(
             onBackClick = navigateBack,
@@ -85,7 +82,7 @@ private fun SelfIntroductionScreen(
 
         GongBaekBasicButton(
             title = "다음",
-            enabled = selfIntroduction.isNotEmpty(),
+            enabled = selfIntroduction.length >= 20,
             onClick = navigateEnterTimetable,
             modifier = Modifier
                 .align(Alignment.BottomCenter)

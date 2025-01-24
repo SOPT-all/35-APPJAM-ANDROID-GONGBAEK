@@ -67,9 +67,7 @@ private fun NicknameScreen(
     onBackClick: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .imePadding()
+        modifier = Modifier.fillMaxSize()
     ) {
         NickNameInputSection(
             nickname = nickname,

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -222,7 +223,7 @@ private fun MyGroupEmptySection(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .background(color = GongBaekTheme.colors.gray01)
+            .background(shape = RoundedCornerShape(4.dp), color = GongBaekTheme.colors.gray01)
             .padding(vertical = 35.dp),
         contentAlignment = Alignment.Center
     ) {

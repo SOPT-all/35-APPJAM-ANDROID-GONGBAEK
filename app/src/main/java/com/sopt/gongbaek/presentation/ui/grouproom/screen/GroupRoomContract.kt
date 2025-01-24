@@ -21,6 +21,6 @@ class GroupRoomContract {
     }
 
     sealed interface SideEffect : UiSideEffect {
-        data object NavigateBack : SideEffect
+        data object NavigateMyGroup : SideEffect
     }
 }

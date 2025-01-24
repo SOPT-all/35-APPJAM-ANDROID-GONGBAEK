@@ -1,9 +1,10 @@
 package com.sopt.gongbaek.presentation.ui.main
 
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +19,7 @@ fun MainScreen(
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.navigationBars),
+            .padding(WindowInsets.navigationBars.asPaddingValues()),
         bottomBar = {
             MainBottomNavBar(
                 isVisible = navigator.showBottomBar(),

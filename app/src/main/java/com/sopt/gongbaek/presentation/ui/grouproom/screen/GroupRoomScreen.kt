@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.grouproom.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,6 +55,7 @@ import com.sopt.gongbaek.domain.model.GroupMembers
 import com.sopt.gongbaek.domain.model.GroupRoom
 import com.sopt.gongbaek.presentation.model.ProfileImageList
 import com.sopt.gongbaek.presentation.type.GroupInfoChipType
+import com.sopt.gongbaek.presentation.type.ImageSelectorType
 import com.sopt.gongbaek.presentation.ui.component.chip.GroupInfoChip
 import com.sopt.gongbaek.presentation.ui.component.section.CommentSection
 import com.sopt.gongbaek.presentation.ui.component.section.GroupPlaceDescription
@@ -68,10 +70,13 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun GroupRoomRoute(
     viewModel: GroupRoomViewModel = hiltViewModel(),
-    navigateBack: () -> Unit
+    navigateMyGroup: () -> Unit
 ) {
     val groupRoomUiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    BackHandler {
+    }
 
     LaunchedEffect(Unit) {
         viewModel.getGroupRoomInfo()
@@ -81,7 +86,7 @@ fun GroupRoomRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is GroupRoomContract.SideEffect.NavigateBack -> navigateBack()
+                    is GroupRoomContract.SideEffect.NavigateMyGroup -> navigateMyGroup()
                 }
             }
     }
@@ -89,7 +94,7 @@ fun GroupRoomRoute(
     GroupRoomScreen(
         uiState = groupRoomUiState,
         updateInputComment = { inputComment -> viewModel.setEvent(GroupRoomContract.Event.UpdateInputComment(inputComment)) },
-        onBackClick = { viewModel.sendSideEffect(GroupRoomContract.SideEffect.NavigateBack) },
+        onBackClick = { viewModel.sendSideEffect(GroupRoomContract.SideEffect.NavigateMyGroup) },
         onCommentRefreshClick = { viewModel.setEvent(GroupRoomContract.Event.OnCommentRefreshClick) },
         onCommentPostClick = { viewModel.setEvent(GroupRoomContract.Event.OnCommentPostClick) }
     )
@@ -105,6 +110,13 @@ fun GroupRoomScreen(
 ) {
     var columnHeight by remember { mutableIntStateOf(0) }
     val systemUiController = rememberSystemUiController()
+    val imageList = ImageSelectorType.getImageListFromCategory(uiState.groupRoom.groupInfo.category)
+
+    val groupCoverImageResId = if (imageList.isNotEmpty() && uiState.groupRoom.groupInfo.coverImg in 1..imageList.size) {
+        imageList[uiState.groupRoom.groupInfo.coverImg - 1]
+    } else {
+        R.drawable.img_study_1
+    }
 
     DisposableEffect(Unit) {
         systemUiController.setStatusBarColor(
@@ -120,7 +132,7 @@ fun GroupRoomScreen(
     ) {
         Box {
             Image(
-                painter = painterResource(id = R.drawable.img_meetingroom),
+                painter = painterResource(id = groupCoverImageResId),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -178,6 +190,7 @@ private fun GroupRoomInfoSection(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .padding(WindowInsets.statusBars.asPaddingValues())
             .padding(16.dp)
     ) {
         Row(

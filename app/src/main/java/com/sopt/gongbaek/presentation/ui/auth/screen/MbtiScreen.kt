@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -88,7 +89,8 @@ private fun MbtiScreen(
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             )
         },
-        containerColor = GongBaekTheme.colors.white
+        containerColor = GongBaekTheme.colors.white,
+        contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)

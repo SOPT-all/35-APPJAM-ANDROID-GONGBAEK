@@ -46,8 +46,9 @@ class GroupDetailViewModel @Inject constructor(
             is GroupDetailContract.Event.OnApplyClick -> {
                 applyGroup()
             }
-            is GroupDetailContract.Event.OnDialogDismissClick -> setState {
-                copy(groupApplyState = UiLoadState.Idle)
+            is GroupDetailContract.Event.OnDialogDismissClick -> {
+                setState { copy(groupApplyState = UiLoadState.Idle) }
+                getGroupDetailInfo()
             }
             is GroupDetailContract.Event.OnCommentTabClick -> {
                 getGroupDetailInfo()

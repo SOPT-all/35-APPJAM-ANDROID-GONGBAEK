@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.grouproom.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -69,10 +70,14 @@ import com.sopt.gongbaek.ui.theme.GongBaekTheme
 @Composable
 fun GroupRoomRoute(
     viewModel: GroupRoomViewModel = hiltViewModel(),
-    navigateBack: () -> Unit
+    navigateMyGroup: () -> Unit
 ) {
     val groupRoomUiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    BackHandler {
+
+    }
 
     LaunchedEffect(Unit) {
         viewModel.getGroupRoomInfo()
@@ -82,7 +87,7 @@ fun GroupRoomRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is GroupRoomContract.SideEffect.NavigateBack -> navigateBack()
+                    is GroupRoomContract.SideEffect.NavigateMyGroup -> navigateMyGroup()
                 }
             }
     }
@@ -90,7 +95,7 @@ fun GroupRoomRoute(
     GroupRoomScreen(
         uiState = groupRoomUiState,
         updateInputComment = { inputComment -> viewModel.setEvent(GroupRoomContract.Event.UpdateInputComment(inputComment)) },
-        onBackClick = { viewModel.sendSideEffect(GroupRoomContract.SideEffect.NavigateBack) },
+        onBackClick = { viewModel.sendSideEffect(GroupRoomContract.SideEffect.NavigateMyGroup) },
         onCommentRefreshClick = { viewModel.setEvent(GroupRoomContract.Event.OnCommentRefreshClick) },
         onCommentPostClick = { viewModel.setEvent(GroupRoomContract.Event.OnCommentPostClick) }
     )

@@ -115,15 +115,20 @@
 ┃ ┣ 📂 type
 ┃ ┣ 📂 usecase
 ┣ 📂 presentation
+┃ ┣ 📂 model
+┃ ┣ 📂 type
 ┃ ┣ 📂 ui
-┃ ┃ ┣ 📂 splash // 스플래쉬
-┃ ┃ ┣ 📂 home // 홈
-┃ ┃ ┣ 📂 groupregister // 모임등록
-┃ ┃ ┣ 📂 mygroup // 나의채움
-┃ ┃ ┣ 📂 grouplist // 채우기
-┃ ┃ ┣ 📂 onboarding // 온보딩
-┃ ┃ ┣ 📂 groupdetail // 모임상세
-┃ ┃ ┣ 📂 grouproom // 모임방
+┃ ┃ ┣ 📂 auth
+┃ ┃ ┣ 📂 component
+┃ ┃ ┣ 📂 groupdetail
+┃ ┃ ┣ 📂 grouplist
+┃ ┃ ┣ 📂 groupregister
+┃ ┃ ┣ 📂 grouproom
+┃ ┃ ┣ 📂 home
+┃ ┃ ┣ 📂 main
+┃ ┃ ┣ 📂 mygroup
+┃ ┃ ┣ 📂 onboarding 
+┃ ┃ ┣ 📂 splash 
 ┃ ┣ 📂 util
 ┣ 📂 ui.theme
 ```

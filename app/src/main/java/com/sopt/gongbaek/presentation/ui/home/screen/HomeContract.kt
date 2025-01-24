@@ -38,6 +38,7 @@ class HomeContract {
 
     sealed interface SideEffect : UiSideEffect {
         data class NavigateToGroupDetail(val groupId: Int, val groupType: String) : SideEffect
+        data class NavigateToGroupRoom(val groupId: Int, val groupType: String) : SideEffect
         data object NavigateToGroupList : SideEffect
     }
 }

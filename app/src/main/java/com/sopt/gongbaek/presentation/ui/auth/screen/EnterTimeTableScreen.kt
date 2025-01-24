@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.ui.auth.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -78,6 +79,7 @@ private fun EnterTimeTableScreen(
             )
         },
         containerColor = GongBaekTheme.colors.white,
+        contentWindowInsets = WindowInsets(0.dp,0.dp,0.dp,0.dp),
         content = { paddingValues ->
             EnterTimeTableSection(
                 onBackClick = navigateBack,

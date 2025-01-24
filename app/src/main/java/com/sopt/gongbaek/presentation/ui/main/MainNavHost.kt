@@ -48,7 +48,7 @@ fun MainNavHost(
                 ) {
                     PaddingValues(0.dp)
                 } else {
-                    PaddingValues(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding())
+                    WindowInsets.statusBars.asPaddingValues()
                 }
             )
     ) {

@@ -178,6 +178,7 @@ private fun GroupRoomInfoSection(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .padding(WindowInsets.statusBars.asPaddingValues())
             .padding(16.dp)
     ) {
         Row(

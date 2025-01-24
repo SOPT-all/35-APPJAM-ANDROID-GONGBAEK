@@ -100,10 +100,7 @@ private fun HomeScreen(
             darkIcons = true
         )
         onDispose {
-            systemUiController.setStatusBarColor(
-                color = Color.White,
-                darkIcons = true
-            )
+
         }
     }
 

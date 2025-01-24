@@ -20,7 +20,9 @@ class GroupRegisterViewModel @Inject constructor(
     private val getLectureTimetableUseCase: GetLectureTimetableUseCase
 ) :
     BaseViewModel<GroupRegisterContract.State, GroupRegisterContract.Event, GroupRegisterContract.SideEffect>() {
-    override fun createInitialState(): GroupRegisterContract.State = GroupRegisterContract.State()
+    override fun createInitialState(): GroupRegisterContract.State = GroupRegisterContract.State(
+        registerState = UiLoadState.Idle
+    )
 
     init {
         getLectureTime()
@@ -96,7 +98,7 @@ class GroupRegisterViewModel @Inject constructor(
             }
 
             is GroupRegisterContract.Event.OnRegisterButtonClicked -> {
-                registerGroup(groupRegisterInfo = currentState.groupRegisterInfo)
+                registerGroup(groupRegisterInfo = event.groupRegisterInfo)
             }
 
             is GroupRegisterContract.Event.OnDialogConfirmClicked -> {
@@ -190,7 +192,7 @@ class GroupRegisterViewModel @Inject constructor(
 
     private fun getLectureTime() {
         viewModelScope.launch {
-            setState { copy(registerState = UiLoadState.Loading) }
+            setState { copy(loadState = UiLoadState.Loading) }
 
             runCatching {
                 getLectureTimetableUseCase()
@@ -202,11 +204,11 @@ class GroupRegisterViewModel @Inject constructor(
                 setState {
                     copy(
                         lectureTime = transformedTimeTable,
-                        registerState = UiLoadState.Success
+                        loadState = UiLoadState.Success
                     )
                 }
             }.onFailure {
-                setState { copy(registerState = UiLoadState.Error) }
+                setState { copy(loadState = UiLoadState.Error) }
             }
         }
     }

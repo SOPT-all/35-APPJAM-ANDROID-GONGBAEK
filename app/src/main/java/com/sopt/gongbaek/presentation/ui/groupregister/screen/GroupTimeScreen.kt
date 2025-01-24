@@ -34,6 +34,10 @@ fun GroupTimeRoute(
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
+    LaunchedEffect(Unit) {
+        viewModel.setEvent(GroupRegisterContract.Event.GetLectureTime)
+    }
+
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect
             .flowWithLifecycle(lifecycleOwner.lifecycle)

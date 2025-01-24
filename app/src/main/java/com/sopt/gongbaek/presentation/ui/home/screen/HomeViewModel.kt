@@ -1,5 +1,6 @@
 package com.sopt.gongbaek.presentation.ui.home.screen
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
 import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
@@ -118,6 +119,7 @@ class HomeViewModel @Inject constructor(
 
     private fun setUserLectureTimetable(lectureTimetable: Map<String, List<Int>>) =
         viewModelScope.launch {
+            Log.d("asd", "$lectureTimetable")
             setLectureTimetableUseCase(lectureTimetable)
         }
 }

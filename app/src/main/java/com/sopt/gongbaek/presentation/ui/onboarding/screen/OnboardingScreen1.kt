@@ -44,7 +44,7 @@ fun OnboardingScreen1() {
             text = buildAnnotatedString {
                 append(
                     stringResource(R.string.onboarding_1_description_1) +
-                        stringResource(R.string.onboarding_1_description_2)
+                            stringResource(R.string.onboarding_1_description_2)
                 )
 
                 addStyle(
@@ -52,7 +52,8 @@ fun OnboardingScreen1() {
                         color = GongBaekTheme.colors.mainOrange,
                         fontSize = highlightedTextStyle.fontSize,
                         fontWeight = highlightedTextStyle.fontWeight,
-                        fontFamily = highlightedTextStyle.fontFamily
+                        fontFamily = highlightedTextStyle.fontFamily,
+                        letterSpacing = highlightedTextStyle.letterSpacing
                     ),
                     start = 0,
                     end = 9
@@ -63,12 +64,13 @@ fun OnboardingScreen1() {
                         color = GongBaekTheme.colors.gray07,
                         fontSize = basicTextStyle.fontSize,
                         fontWeight = basicTextStyle.fontWeight,
-                        fontFamily = basicTextStyle.fontFamily
+                        fontFamily = basicTextStyle.fontFamily,
+                        letterSpacing = basicTextStyle.letterSpacing
                     ),
                     start = 9,
                     end = 49
                 )
-            }
+            },
         )
         Spacer(modifier = Modifier.height(54.dp))
         Image(

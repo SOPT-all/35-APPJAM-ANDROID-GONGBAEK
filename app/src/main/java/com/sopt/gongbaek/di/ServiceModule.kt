@@ -2,7 +2,6 @@ package com.sopt.gongbaek.di
 
 import com.sopt.gongbaek.data.remote.service.CommentService
 import com.sopt.gongbaek.data.remote.service.AuthService
-import com.sopt.gongbaek.data.remote.service.ExampleService
 import com.sopt.gongbaek.data.remote.service.SearchService
 import com.sopt.gongbaek.data.remote.service.GroupService
 import dagger.Module
@@ -15,10 +14,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
-    @Provides
-    @Singleton
-    fun provideExampleService(retrofit: Retrofit): ExampleService =
-        retrofit.create(ExampleService::class.java)
 
     @Provides
     @Singleton

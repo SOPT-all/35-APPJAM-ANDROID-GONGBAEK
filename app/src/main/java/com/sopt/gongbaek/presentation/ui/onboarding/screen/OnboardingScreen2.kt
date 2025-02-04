@@ -44,7 +44,7 @@ fun OnboardingScreen2() {
             text = buildAnnotatedString {
                 append(
                     stringResource(R.string.onboarding_2_description_1) +
-                            stringResource(R.string.onboarding_2_description_2)
+                        stringResource(R.string.onboarding_2_description_2)
                 )
 
                 addStyle(

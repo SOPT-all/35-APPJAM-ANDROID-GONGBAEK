@@ -44,7 +44,7 @@ fun OnboardingScreen1() {
             text = buildAnnotatedString {
                 append(
                     stringResource(R.string.onboarding_1_description_1) +
-                            stringResource(R.string.onboarding_1_description_2)
+                        stringResource(R.string.onboarding_1_description_2)
                 )
 
                 addStyle(
@@ -70,7 +70,7 @@ fun OnboardingScreen1() {
                     start = 9,
                     end = 49
                 )
-            },
+            }
         )
         Spacer(modifier = Modifier.height(54.dp))
         Image(

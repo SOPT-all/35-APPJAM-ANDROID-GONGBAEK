@@ -52,7 +52,8 @@ fun OnboardingScreen2() {
                         color = GongBaekTheme.colors.gray07,
                         fontSize = basicTextStyle.fontSize,
                         fontWeight = basicTextStyle.fontWeight,
-                        fontFamily = basicTextStyle.fontFamily
+                        fontFamily = basicTextStyle.fontFamily,
+                        letterSpacing = basicTextStyle.letterSpacing
                     ),
                     start = 0,
                     end = 21
@@ -63,7 +64,8 @@ fun OnboardingScreen2() {
                         color = GongBaekTheme.colors.mainOrange,
                         fontSize = highlightedTextStyle.fontSize,
                         fontWeight = highlightedTextStyle.fontWeight,
-                        fontFamily = highlightedTextStyle.fontFamily
+                        fontFamily = highlightedTextStyle.fontFamily,
+                        letterSpacing = highlightedTextStyle.letterSpacing
                     ),
                     start = 21,
                     end = 36

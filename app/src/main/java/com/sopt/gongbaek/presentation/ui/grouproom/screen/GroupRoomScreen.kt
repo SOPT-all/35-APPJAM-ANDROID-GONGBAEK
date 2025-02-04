@@ -2,6 +2,7 @@ package com.sopt.gongbaek.presentation.ui.grouproom.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -139,6 +140,12 @@ fun GroupRoomScreen(
                     .fillMaxWidth()
                     .height(with(LocalDensity.current) { columnHeight.toDp() }),
                 contentScale = ContentScale.FillWidth
+            )
+
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(GongBaekTheme.colors.black.copy(alpha = 0.5f))
             )
 
             Column(

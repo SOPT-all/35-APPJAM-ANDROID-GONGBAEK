@@ -2,13 +2,11 @@ package com.sopt.gongbaek.di
 
 import com.sopt.gongbaek.domain.repository.AuthRepository
 import com.sopt.gongbaek.domain.repository.CommentRepository
-import com.sopt.gongbaek.domain.repository.ExampleRepository
 import com.sopt.gongbaek.domain.repository.SearchRepository
 import com.sopt.gongbaek.domain.repository.GroupRepository
 import com.sopt.gongbaek.domain.repository.LectureTimetableRepository
 import com.sopt.gongbaek.domain.repository.TokenRepository
 import com.sopt.gongbaek.domain.usecase.ApplyGroupUseCase
-import com.sopt.gongbaek.domain.usecase.ExamplePostUseCase
 import com.sopt.gongbaek.domain.usecase.FetchHomeScreenUseCase
 import com.sopt.gongbaek.domain.usecase.FetchLatestGroupUseCase
 import com.sopt.gongbaek.domain.usecase.FetchUserLectureTimetableUseCase
@@ -36,11 +34,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
-    @Provides
-    @Singleton
-    fun provideExamplePostUseCase(
-        exampleRepository: ExampleRepository
-    ): ExamplePostUseCase = ExamplePostUseCase(exampleRepository)
 
     @Provides
     @Singleton

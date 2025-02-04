@@ -166,7 +166,8 @@ private fun GroupPlacePeopleSection(
                             color = GongBaekTheme.colors.gray07,
                             fontSize = textStyle.fontSize,
                             fontWeight = textStyle.fontWeight,
-                            fontFamily = textStyle.fontFamily
+                            fontFamily = textStyle.fontFamily,
+                            letterSpacing = textStyle.letterSpacing
                         ),
                         start = 0,
                         end = 5
@@ -176,7 +177,8 @@ private fun GroupPlacePeopleSection(
                             color = GongBaekTheme.colors.mainOrange,
                             fontSize = textStyle.fontSize,
                             fontWeight = textStyle.fontWeight,
-                            fontFamily = textStyle.fontFamily
+                            fontFamily = textStyle.fontFamily,
+                            letterSpacing = textStyle.letterSpacing
                         ),
                         start = 6,
                         end = 19
@@ -186,7 +188,8 @@ private fun GroupPlacePeopleSection(
                             color = GongBaekTheme.colors.gray07,
                             fontSize = textStyle.fontSize,
                             fontWeight = textStyle.fontWeight,
-                            fontFamily = textStyle.fontFamily
+                            fontFamily = textStyle.fontFamily,
+                            letterSpacing = textStyle.letterSpacing
                         ),
                         start = 19,
                         end = 30

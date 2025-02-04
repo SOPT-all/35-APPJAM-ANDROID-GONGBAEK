@@ -8,12 +8,10 @@ import com.sopt.gongbaek.data.local.datasourceimpl.LectureTimetableLocalDataSour
 import com.sopt.gongbaek.data.local.datasourceimpl.TokenLocalDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasource.CommentRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasource.AuthRemoteDataSource
-import com.sopt.gongbaek.data.remote.datasource.ExampleRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasource.GroupRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasourceimpl.CommentRemoteDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasource.SearchRemoteDataSource
 import com.sopt.gongbaek.data.remote.datasourceimpl.AuthRemoteDatasourceImpl
-import com.sopt.gongbaek.data.remote.datasourceimpl.ExampleRemoteDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasourceimpl.GroupRemoteDataSourceImpl
 import com.sopt.gongbaek.data.remote.datasourceimpl.SearchRemoteDataSourceImpl
 import dagger.Binds
@@ -30,12 +28,6 @@ abstract class DataSourceModule {
     abstract fun bindExampleLocalDataSource(
         exampleLocalDataSourceImpl: ExampleLocalDataSourceImpl
     ): ExampleLocalDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindExampleRemoteDataSource(
-        exampleRemoteDataSourceImpl: ExampleRemoteDataSourceImpl
-    ): ExampleRemoteDataSource
 
     @Binds
     @Singleton
